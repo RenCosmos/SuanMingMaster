@@ -4,7 +4,7 @@
 
 ## 下载与安装
 
-1. 下载 [完整安装包](bazi-ziwei-rikkahub-v1.1.5.zip?raw=1)，在 RikkaHub「技能 / Skills」中从文件导入，启用 `bazi-ziwei`。
+1. 下载 [完整安装包](https://github.com/RenCosmos/SuanMingMaster/raw/refs/heads/main/bazi-ziwei-rikkahub-v1.1.5.zip)，在 RikkaHub「技能 / Skills」中从文件导入，启用 `bazi-ziwei`。也可打开仓库内的 ZIP 文件页，点击 **Download raw file**。
 2. 将助手系统提示词替换为 [RikkaHub系统提示词.txt](RikkaHub系统提示词.txt)。
 3. 绑定 Linux Workspace，准备 Node.js 20+，执行自检；具体步骤见 [INSTALL.md](INSTALL.md)。
 
