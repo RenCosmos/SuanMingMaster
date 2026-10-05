@@ -53,7 +53,7 @@ def main():
 原V1.2.1安装包的手机测试确认记录保留在清单中，后续版本沿用该工作区方式。系统提示词仍为可选，报告只按需生成。
 ''')
     files=sorted(f for f in ROOT.rglob('*') if f.is_file() and f.relative_to(ROOT).parts[0] not in ['.git','work','dist'] and '__pycache__' not in f.relative_to(ROOT).parts and not (f.parent==ROOT and (f.suffix=='.zip' or f.name in ['SHA256SUMS.txt','release-validation.json','INSTALL.md','TESTING.md'])))
-    runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','README.md','DEVELOPMENT.md']]
+    runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md']]
     source=[f for f in files if f.relative_to(ROOT).parts[0]!='node_modules']
     for f in runtime:
         rel=f.relative_to(ROOT);assert not f.is_symlink()

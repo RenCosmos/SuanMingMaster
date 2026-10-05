@@ -1,0 +1,2 @@
+# Preserve knowledge baselines and shipped bytes across Windows/Linux checkouts.
+* -text
