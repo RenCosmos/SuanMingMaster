@@ -1,24 +1,24 @@
-# RikkaHub 安装说明 · V1.1.5
+# RikkaHub 手机安装 · V1.2.2
 
-1. 将完整安装 ZIP 保存到手机，在 RikkaHub 2.5.6「技能 / Skills」中从文件导入并启用 `bazi-ziwei`。
-2. 将助手系统提示词替换为仓库中的 `RikkaHub系统提示词.txt`。
-3. 创建 Linux Workspace（Ubuntu / Debian），让助手或会话绑定该工作区，并启用工具调用。技能挂载路径为 `/skills/bazi-ziwei`。
-4. 运行自检：
+目标客户端 RikkaHub 2.5.6，技能通过 Skills 导入 ZIP，需要 Linux Workspace 与 workspace_shell。原V1.2.1安装包已由用户完成手机端测试；V1.2.2沿用该工作流和计算依赖。计算依赖已随包携带，无需 npm 安装。
+
+1. 导入 bazi-ziwei-rikkahub-v1.2.2.zip；包根为 bazi-ziwei/SKILL.md。
+2. 给助手启用 bazi-ziwei，并绑定 Workspace；允许 use_skill 和 workspace_shell。写文件或打印报告时再用工作区文件工具。
+3. 系统提示词可留空或自行设置，Skill 内含执行与命理解读规则。想采用民间算命先生口吻时，可复制 [可选系统提示词](RikkaHub可选系统提示词.txt) 到助手设置；不使用也能正常运行，已有自定义提示词无需替换。
+4. 首次安装或升级验收运行一次：
 
 ```sh
 sh /skills/bazi-ziwei/scripts/mobile.sh --check --self-test
 ```
 
-缺少 Node.js 20+ 时，在 Ubuntu / Debian 工作区运行：
+若提示缺少 Node.js 20+，使用默认 Ubuntu / Debian（glibc）Workspace，按客户端审批运行：
 
 ```sh
-apt-get update && apt-get install -y ca-certificates curl xz-utils
 sh /skills/bazi-ziwei/scripts/install-node.sh
-sh /skills/bazi-ziwei/scripts/mobile.sh --check --self-test
 ```
 
-安装器选择 ARM64 / x64 的固定官方 Node.js，验证 SHA-256。首次环境准备需要联网；完整 ZIP 已包含计算与知识检索依赖。自检退出码为 0、未超时且 JSON 中 `ok: true` 表示通过。
+安装器把固定 Node22 放进 /workspace/.bazi-ziwei-runtime/node22，不改系统目录。安装可设 timeout=600 秒；正常运行通常 timeout=120 秒，全天时辰或初次完整校验必要时增加。手机环境或网络造成安装失败，以具体错误排查。
 
-可以直接请求排盘、比较不确定时辰、根据六次真实摇卦排六爻，或“帮我写一份祭祖表文”。疏文不需要出生时辰，给出落款姓名、对象称呼、日期与心意即可；默认在聊天中出稿，需要保存时才导出。
+自检成功须 exitCode=0、timedOut=false、stdout.ok=true，且 critical.passed 与 critical.total 均为12。失败会列出用例编号并以退出码2结束；参照 [关键测试说明](TESTING.md) 定位。--check 不带 --self-test 时仅检查环境与依赖。日常计算不再运行自检，直接 --stdin --out TASK --focus；一次返回 validation 和 context。追问用 --reuse，不单独 --verify，不 cat chart.json 或 tool_outputs 的大文件。Node 已安装但 shell 默认找不到时，mobile 会自动使用工作区私有运行时。
 
-完整源码与知识库在安装 ZIP 的 `bazi-ziwei/` 中。解压后可阅读 `SKILL.md`、`手机安装说明.md`、`使用说明.md` 和 `references/` 方法文档。完整包为 599 个文件，程序与知识资料不含用户历史个人输入。
+升级前保留旧包、旧任务及运行时，不删除计算结果。V1.1.6 冻结包可重新导入恢复；V1.2.0 的缓存不承诺给旧版本读取，但原输入与完整命盘 JSON 仍可核对。现有计算算法和依赖版本未改变；手机端测试已由用户确认，桌面 ZIP 解包、Git sh 入口和 Node 验收记录见 [验证记录](验证记录.md)。
