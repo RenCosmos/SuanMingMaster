@@ -23,6 +23,13 @@ def main():
     assert a.node,'Node.js is required';out=Path(a.out).resolve();assert not out.is_relative_to(ROOT),'Build output must be outside the source checkout';out.mkdir(parents=True,exist_ok=True)
     package=json.loads((ROOT/'package.json').read_text(encoding='utf-8'));version=package['version'];assert re.fullmatch(r'\d+\.\d+\.\d+',version)
     assert package['packageManager']=='pnpm@11.19.0','Use the reviewed package-manager version'
+    for name in package['dependencies']:
+        dep=ROOT/'node_modules'/name
+        assert dep.is_dir() and not dep.is_symlink(),'Install portable dependencies using pnpm-workspace.yaml: '+name
+    dependencies=json.loads((ROOT/'tools/runtime-dependency-baseline.json').read_text(encoding='utf-8'))
+    for name,digest in dependencies.items():
+        path=ROOT/name
+        assert name.startswith('node_modules/') and path.is_file() and sha(path.read_bytes())==digest,'Runtime dependency changed or missing: '+name
     knowledge=json.loads((ROOT/'tools/knowledge-baseline.json').read_text(encoding='utf-8'))
     for name,digest in knowledge.items():assert sha((ROOT/name).read_bytes())==digest,'Knowledge changed: '+name
     manifest=json.loads((ROOT/'rikkahub-manifest.json').read_text(encoding='utf-8'));manifest['package_version']=version;manifest['adapter_version']='rikkahub-workspace/v'+version;manifest['workflow']['version']=version
@@ -53,7 +60,7 @@ def main():
 原V1.2.1安装包的手机测试确认记录保留在清单中，后续版本沿用该工作区方式。系统提示词仍为可选，报告只按需生成。
 ''')
     files=sorted(f for f in ROOT.rglob('*') if f.is_file() and f.relative_to(ROOT).parts[0] not in ['.git','work','dist'] and '__pycache__' not in f.relative_to(ROOT).parts and not (f.parent==ROOT and (f.suffix=='.zip' or f.name in ['SHA256SUMS.txt','release-validation.json','INSTALL.md','TESTING.md'])))
-    runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md']]
+    runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md','pnpm-workspace.yaml'] and (f.relative_to(ROOT).parts[0]!='node_modules' or f.relative_to(ROOT).as_posix() in dependencies)]
     source=[f for f in files if f.relative_to(ROOT).parts[0]!='node_modules']
     for f in runtime:
         rel=f.relative_to(ROOT);assert not f.is_symlink()

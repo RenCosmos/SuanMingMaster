@@ -1,0 +1,4 @@
+# pnpm 11 reads package layout settings from this file.
+nodeLinker: hoisted
+packageImportMethod: copy
+ignoreScripts: true
