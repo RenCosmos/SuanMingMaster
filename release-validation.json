@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "version": "1.2.3",
+  "tests": {
+    "tests": 240,
+    "pass": 240,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "runtime_critical_cases": 12,
+  "knowledge_topics": 85,
+  "knowledge_files_byte_identical": 103,
+  "runtime_files": 628,
+  "source_files": 222,
+  "local_links": 192,
+  "extracted_self_test": true,
+  "extracted_temp_cleanup": true,
+  "extracted_cache_reuse": true,
+  "archives": {
+    "bazi-ziwei-rikkahub-v1.2.3.zip": "f56c90a9156e04a21f9826b405e1c9c74ab931e68e0aea6b3e0884a9452ab377",
+    "SuanMingMaster-source-v1.2.3.zip": "c08dc8a4411cf32d925cb9c0a5c7b4b6a342605cdeed4d2454e9a57351272702"
+  }
+}
