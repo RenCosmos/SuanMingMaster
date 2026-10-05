@@ -1,0 +1,7 @@
+{
+  "mode": "time_compare", "label": "太阳时范围对照（合成）", "chart_mode": "both",
+  "birth": {"calendar":"solar","date":"2000-01-15","gender":"male","timezone":"Asia/Shanghai","longitude":87.617,"longitude_source":"合成测试坐标"},
+  "birth_options": {"time_basis":"true_solar"},
+  "time_uncertainty": {"type":"range","start":"07:00","end":"10:00"},
+  "context": {"stage":"single","topics":["romance","age_relation","partner_image"]}
+}

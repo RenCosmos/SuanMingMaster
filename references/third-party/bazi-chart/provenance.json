@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/1liye/bazi-chart",
+  "commit": "df008acfa31a79af0ff31612f4dfe20e38e0f715",
+  "source_file": "bazi.html",
+  "source_file_sha256": "5401b872b64f0ff8002bb89256ded904158922b3157bc9767fc3bddbfbcb3c73",
+  "license_sha256": "cb80b2d09ba86e6ecdf47e5b36ddf0cbd418f8cf8cea712eba99bd9bbcbf5ddc",
+  "copied_symbol": "SHEN_TAOHUA",
+  "destination": "references/relationship-rules.json",
+  "modification": "移入 JSON 并新增版本和来源；表值未改"
+}

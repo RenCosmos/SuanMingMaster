@@ -1,0 +1,31 @@
+{
+  "mode": "relationship",
+  "label": "单人对象画像合成样例",
+  "question": "我的情感对象大概是什么形象，偏年上还是年下？",
+  "chart_mode": "both",
+  "people": [
+    {
+      "id": "a",
+      "label": "A（合成）",
+      "birth": {
+        "calendar": "solar",
+        "date": "1995-01-15",
+        "time": "09:30",
+        "gender": "female",
+        "timezone": "Asia/Shanghai"
+      }
+    }
+  ],
+  "target_date": "2026-10-02",
+  "context": {
+    "stage": "single",
+    "topics": [
+      "partner_image",
+      "age_relation",
+      "zodiac"
+    ]
+  },
+  "options": {
+    "partner_star_model": "auto"
+  }
+}

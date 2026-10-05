@@ -1,0 +1,1217 @@
+{
+  "version": "practice-knowledge/v1",
+  "revision": "1.1.6-knowledge.1",
+  "topics": [
+    {
+      "id": "PR-01",
+      "slug": "practice-fangzhong-bibliography",
+      "name": "房中秘术的文献入口：《医心方》与辑佚题名",
+      "tags": [
+        "房中术",
+        "房中秘术",
+        "房中秘術",
+        "素女经",
+        "玉房秘诀",
+        "洞玄子",
+        "医心方",
+        "雙修",
+        "双修"
+      ],
+      "aliases": [
+        "房中秘术有什么资料",
+        "房中术的古籍",
+        "素女经是什么"
+      ],
+      "subtitle": "先核版本和卷次，再解释古代房中观念。",
+      "kind": "historical_bibliography",
+      "publisher": "国家图书馆藏本／Wikimedia Commons 文件目录",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC892-411999017226-82344_%E9%86%AB%E5%BF%83%E6%96%B9_%E7%AC%AC28%E5%86%8A.pdf",
+      "source_ids": [
+        "ishin",
+        "lin-sexual-arts"
+      ],
+      "additional_sources": [
+        {
+          "id": "lin-sexual-arts",
+          "title": "林富士《略论早期道教与房中术的关系》",
+          "url": "https://www1.ihp.sinica.edu.tw/Publications/Bulletin/91/Article/331",
+          "publisher": "中央研究院历史语言研究所",
+          "locator": "史语所集刊72.2（2001/06），233–300；摘要",
+          "access_method": "search_indexed_text",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+        }
+      ],
+      "path": "references/knowledge/practice/cards/practice-fangzhong-bibliography.md",
+      "sha256": "9b8cda9c1aa4a87ca883212daa8313add413be5be4c27480aa4d5b65d260fa34",
+      "program_supported": false,
+      "chapter": "Summary：第28册，丹波康赖撰，日本安政元年至万延元年[1854–1860]刻本；55页",
+      "locator": "Summary：第28册，丹波康赖撰，日本安政元年至万延元年[1854–1860]刻本；55页",
+      "access_method": "catalog_metadata",
+      "copyright_note": "文件页将扫描标为公有领域；本包只保存书目信息和外链，未导入影像或逐页转录。"
+    },
+    {
+      "id": "PR-02",
+      "slug": "practice-fangzhong-scholarship",
+      "name": "房中术与早期道教：支持、拒绝与取舍",
+      "tags": [
+        "房中术",
+        "房中秘术",
+        "道教",
+        "采补",
+        "還精補腦",
+        "还精补脑",
+        "男女合修",
+        "双修历史"
+      ],
+      "aliases": [
+        "道教双修是不是房中术",
+        "道教和房中术的关系"
+      ],
+      "subtitle": "同一历史传统内部也存在不同立场。",
+      "kind": "scholarly_research_summary",
+      "publisher": "中央研究院历史语言研究所",
+      "url": "https://www1.ihp.sinica.edu.tw/Publications/Bulletin/91/Article/331",
+      "source_ids": [
+        "lin-sexual-arts"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-fangzhong-scholarship.md",
+      "sha256": "380d6e608371f0841ae5014214f51de456e2ec2f493af762c0120a8f6590554a",
+      "program_supported": false,
+      "chapter": "史语所集刊72.2（2001/06），233–300；摘要",
+      "locator": "史语所集刊72.2（2001/06），233–300；摘要",
+      "access_method": "search_indexed_text",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "PR-03",
+      "slug": "practice-dao-zuowang",
+      "name": "道教入门：坐忘、收心与简事",
+      "tags": [
+        "修仙",
+        "修道",
+        "道教修行",
+        "坐忘",
+        "坐忘论",
+        "坐忘論",
+        "收心",
+        "静坐",
+        "靜坐"
+      ],
+      "aliases": [
+        "修仙怎么入门",
+        "修道怎么开始",
+        "怎样静坐"
+      ],
+      "subtitle": "用《坐忘论》的语境理解日常收心。",
+      "kind": "classical_primary_text",
+      "publisher": "维基文库古籍转录",
+      "url": "https://zh.wikisource.org/wiki/坐忘論",
+      "source_ids": [
+        "zuowang"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-dao-zuowang.md",
+      "sha256": "078a843ea746693751f1c12d8195b14e2c73fad89124a073db006d63be887405",
+      "program_supported": false,
+      "chapter": "《坐忘论》收心、简事",
+      "locator": "收心；简事；全书七条次第",
+      "access_method": "page_text",
+      "copyright_note": "只引用古代中文短句并原创解释；网站编排与其他贡献者内容不以本项目MIT许可替代。",
+      "original_excerpt": "息亂而不滅照，守靜而不著空。"
+    },
+    {
+      "id": "PR-04",
+      "slug": "practice-dao-neidan-guide",
+      "name": "修仙与内丹阅读：术语、注家和身体隐喻",
+      "tags": [
+        "修仙",
+        "内丹",
+        "內丹",
+        "丹道",
+        "小周天",
+        "大周天",
+        "精气神",
+        "炼精化气",
+        "性命双修",
+        "龙虎"
+      ],
+      "aliases": [
+        "修仙有古籍依据吗",
+        "内丹怎么读",
+        "小周天是什么"
+      ],
+      "subtitle": "建立阅读顺序，区分古代修养与小说境界。",
+      "kind": "original_reading_guide",
+      "publisher": "项目维护者",
+      "url": "https://github.com/LingTian/tao-kb",
+      "source_ids": [
+        "tao-kb"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-dao-neidan-guide.md",
+      "sha256": "8ce9bb5e81f4af6cf065c4c890d9bc82c88205e59d934f5ade36cb3d1eeed03d",
+      "program_supported": false,
+      "chapter": "README：原文、章节、sources.json、审计与待核目录",
+      "locator": "README：原文、章节、sources.json、审计与待核目录",
+      "access_method": "project_documentation",
+      "copyright_note": "仓库代码MIT；单部文本许可须逐项核对。本包没有复制仓库文本、代码或图谱。"
+    },
+    {
+      "id": "PR-05",
+      "slug": "practice-dao-good-deeds",
+      "name": "道教积善与功过观：把善行落实到日常",
+      "tags": [
+        "积善",
+        "積善",
+        "阴德",
+        "陰德",
+        "功过格",
+        "功過格",
+        "太上感应篇",
+        "转运",
+        "轉運",
+        "修道"
+      ],
+      "aliases": [
+        "积阴德怎么做",
+        "怎么积善",
+        "功过格怎么用"
+      ],
+      "subtitle": "古代劝善观念与当代省过实践。",
+      "kind": "classical_primary_text",
+      "publisher": "维基文库古籍转录",
+      "url": "https://zh.wikisource.org/w/index.php?title=太上感應篇&oldid=2569348",
+      "source_ids": [
+        "ganying"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-dao-good-deeds.md",
+      "sha256": "62ded3702af5ce89919e73a405bbd8c25d860b1ca38245b61edd913f1959f824",
+      "program_supported": false,
+      "chapter": "《太上感应篇》积德累功段",
+      "locator": "是道则进段；积德累功段",
+      "access_method": "page_text",
+      "copyright_note": "采用古代短引与原创摘要，不复制现代译注。",
+      "original_excerpt": "積德累功，慈心於物。"
+    },
+    {
+      "id": "PR-06",
+      "slug": "practice-buddhist-zhiguan",
+      "name": "汉传佛教止观：调身、调息与调心",
+      "tags": [
+        "佛教修行",
+        "佛教",
+        "禅修",
+        "禪修",
+        "止观",
+        "止觀",
+        "小止观",
+        "静坐",
+        "调息"
+      ],
+      "aliases": [
+        "佛教静坐怎么开始",
+        "小止观入门",
+        "如何调息"
+      ],
+      "subtitle": "按《小止观》理解入门及调和。",
+      "kind": "classical_primary_text",
+      "publisher": "CBETA电子佛典基金会",
+      "url": "https://raw.githubusercontent.com/cbeta-org/xml-p5/master/T/T46/T46n1915.xml",
+      "source_ids": [
+        "zhiguan"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-buddhist-zhiguan.md",
+      "sha256": "f54b4b1a9a82852d1d1f5e901feb4a7179c68953f22e6d4f5159badab33f634f",
+      "program_supported": false,
+      "chapter": "T1915调和第四",
+      "locator": "T46n1915：0462c03–06（十意）；0465b14–0466a15（调和第四）",
+      "access_method": "raw_tei_text",
+      "copyright_note": "CBETA电子版按https://cbeta.org/copyright声明，含非商业及相同方式分享条件；本包未再分发XML，仅保留原典定位、古代短句与原创摘要。",
+      "original_excerpt": "不寬、不急"
+    },
+    {
+      "id": "PR-07",
+      "slug": "practice-buddhist-mindfulness",
+      "name": "早期佛教四念处：身、受、心、法",
+      "tags": [
+        "佛教修行",
+        "四念处",
+        "四念處",
+        "念住",
+        "正念",
+        "入出息",
+        "安般",
+        "佛教"
+      ],
+      "aliases": [
+        "四念处是什么意思",
+        "正念怎么练",
+        "佛教呼吸观察"
+      ],
+      "subtitle": "以MN10稳定段落定位四类观察。",
+      "kind": "canonical_text_summary",
+      "publisher": "SuttaCentral；Bhikkhu Sujato英译",
+      "url": "https://raw.githubusercontent.com/suttacentral/bilara-data/published/translation/en/sujato/sutta/mn/mn10_translation-en-sujato.json",
+      "source_ids": [
+        "mn10"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-buddhist-mindfulness.md",
+      "sha256": "7c996487c46e5bec260e15ccfd6b945037b40684495793b4abdb9f3eb089d122",
+      "program_supported": false,
+      "chapter": "mn10:3.2–3.5（身受心法）；mn10:4.3–4.7（入出息）",
+      "locator": "mn10:3.2–3.5（身受心法）；mn10:4.3–4.7（入出息）",
+      "access_method": "published_segment_json",
+      "copyright_note": "Bilara发布译文采用CC0；本包只收经号、段落定位和原创中文归纳，未复制或翻译完整英译。"
+    },
+    {
+      "id": "PR-08",
+      "slug": "practice-buddhist-amitabha",
+      "name": "汉传净土入门：念佛、发愿与经文语境",
+      "tags": [
+        "佛教修行",
+        "念佛",
+        "净土",
+        "淨土",
+        "阿弥陀经",
+        "阿彌陀經",
+        "阿弥陀佛"
+      ],
+      "aliases": [
+        "念佛怎么开始",
+        "念多少遍能转运",
+        "净土入门"
+      ],
+      "subtitle": "念佛与发愿依经文说明，不设招财次数公式。",
+      "kind": "canonical_text_summary",
+      "publisher": "CBETA电子佛典基金会",
+      "url": "https://raw.githubusercontent.com/cbeta-org/xml-p5/master/T/T12/T12n0366.xml",
+      "source_ids": [
+        "amitabha"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-buddhist-amitabha.md",
+      "sha256": "cd170f0ec24fae684d1103e8f69519e3b6803929455db4e3978910df53b6b5cd",
+      "program_supported": false,
+      "chapter": "T12n0366：0347b07–17（发愿、执持名号、一心不乱）",
+      "locator": "T12n0366：0347b07–17（发愿、执持名号、一心不乱）",
+      "access_method": "raw_tei_text",
+      "copyright_note": "CBETA电子版权见https://cbeta.org/copyright；本包未导入XML、现代译文或注释，仅含原典定位与原创摘要。"
+    },
+    {
+      "id": "PR-09",
+      "slug": "practice-buddhist-daily-vow",
+      "name": "佛教日常修养：发愿、省过与善行",
+      "tags": [
+        "佛教修行",
+        "发愿",
+        "發願",
+        "忏悔",
+        "懺悔",
+        "回向",
+        "迴向",
+        "修行入门"
+      ],
+      "aliases": [
+        "佛教修行怎么入门",
+        "回向怎么写",
+        "忏悔如何落实"
+      ],
+      "subtitle": "在日常行为中落实修养与愿心。",
+      "kind": "religious_institution_summary",
+      "publisher": "法鼓山",
+      "url": "https://taitung.ddm.org.tw/default-ddmtw/xmnews/cont?qcat=0K297401756442626214&sid=0O102574962420005223&xsmsid=0K297379120077217595",
+      "source_ids": [
+        "ddm-change"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-buddhist-daily-vow.md",
+      "sha256": "4352d6ef8878f552c656c89a3c0bd0a324d731c8f39891f43d5197921ac893a0",
+      "program_supported": false,
+      "chapter": "2024-04-11；反省、发愿与逐渐改变的说明",
+      "locator": "2024-04-11；反省、发愿与逐渐改变的说明",
+      "access_method": "page_text",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "PR-10",
+      "slug": "practice-esoteric-dainichi",
+      "name": "汉译密教：《大日经》的菩提心、悲与方便",
+      "tags": [
+        "密宗",
+        "密教",
+        "汉译密教",
+        "漢譯密教",
+        "大日经",
+        "大日經",
+        "真言",
+        "菩提心"
+      ],
+      "aliases": [
+        "密宗是什么",
+        "大日经讲什么",
+        "汉传密教入门"
+      ],
+      "subtitle": "先读经典宗旨与语境，再查仪轨。",
+      "kind": "classical_primary_text",
+      "publisher": "CBETA电子佛典基金会",
+      "url": "https://raw.githubusercontent.com/cbeta-org/xml-p5/master/T/T18/T18n0848.xml",
+      "source_ids": [
+        "dainichi",
+        "kanseki"
+      ],
+      "additional_sources": [
+        {
+          "id": "kanseki",
+          "title": "tokushige-koyasan/kanseki-corpus",
+          "url": "https://github.com/tokushige-koyasan/kanseki-corpus",
+          "publisher": "项目维护者",
+          "locator": "README：CBETA XML来源、页栏标记、校勘省略说明",
+          "access_method": "project_documentation",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "CC BY-NC-SA 4.0；本包只收项目入口，未导入整库文本。"
+        }
+      ],
+      "path": "references/knowledge/practice/cards/practice-esoteric-dainichi.md",
+      "sha256": "b345e55dbf5cfa445cf3e8d0db46a1fa7a90c017951de1458c9f42263dae9df7",
+      "program_supported": false,
+      "chapter": "T0848卷一入真言门住心品",
+      "locator": "卷一入真言门住心品：T18n0848_0001b29–0001c02",
+      "access_method": "raw_tei_text",
+      "copyright_note": "CBETA电子版权见https://cbeta.org/copyright；只用古代短句、经号和原创释义，未导入XML或现代注释。",
+      "original_excerpt": "菩提心為因，悲為根本，方便為究竟。"
+    },
+    {
+      "id": "PR-11",
+      "slug": "practice-vajrayana-context",
+      "name": "藏传密续阅读：灌顶、仪轨与作明佛母资料",
+      "tags": [
+        "密宗",
+        "密续",
+        "密續",
+        "藏传佛教",
+        "藏傳佛教",
+        "金刚乘",
+        "金剛乘",
+        "作明佛母",
+        "Kurukulla",
+        "灌顶",
+        "双修",
+        "雙修"
+      ],
+      "aliases": [
+        "作明佛母招桃花",
+        "密宗双修是什么",
+        "藏传佛教怎么入门"
+      ],
+      "subtitle": "保留传承条件，区别资料介绍与实际仪轨。",
+      "kind": "canonical_translation_bibliography",
+      "publisher": "84000 Translating the Words of the Buddha",
+      "url": "https://84000.co/translation/toh437.pdf",
+      "source_ids": [
+        "kurukulla",
+        "84000-memory"
+      ],
+      "additional_sources": [
+        {
+          "id": "84000-memory",
+          "title": "84000/data-translation-memory",
+          "url": "https://github.com/84000/data-translation-memory",
+          "publisher": "84000",
+          "locator": "README：Copyright Declaration",
+          "access_method": "project_documentation",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "CC BY-NC-ND 3.0；本包只收项目入口，未导入、翻译或改作对齐语料。"
+        }
+      ],
+      "path": "references/knowledge/practice/cards/practice-vajrayana-context.md",
+      "sha256": "421efda2cc72e8a557bc5411b4939298aa1a658b44ebc679e4f1d4400997b033",
+      "program_supported": false,
+      "chapter": "Summary；Introduction i.1–i.3；Imprint（v2.42.19）",
+      "locator": "Summary；Introduction i.1–i.3；Imprint（v2.42.19）",
+      "access_method": "search_indexed_text",
+      "copyright_note": "本经所见译本为CC BY-NC-ND 4.0；translation-memory仓库为CC BY-NC-ND 3.0。二者不能混用。本包只收书目、链接和简短原创介绍，不导入或改写译文、仪轨与咒文。"
+    },
+    {
+      "id": "PR-12",
+      "slug": "practice-open-source-sources",
+      "name": "修行资料的开源检索入口与引用方法",
+      "tags": [
+        "修行资料",
+        "修行項目",
+        "修仙资料",
+        "佛教资料",
+        "开源",
+        "GitHub",
+        "CBETA",
+        "Bilara",
+        "fojin",
+        "tao-kb"
+      ],
+      "aliases": [
+        "修行资料去哪找",
+        "佛教开源项目",
+        "道教开源项目"
+      ],
+      "subtitle": "借鉴来源追溯与经注分读，不把项目自述当成原典。",
+      "kind": "project_reference_guide",
+      "publisher": "项目维护者",
+      "url": "https://github.com/LingTian/tao-kb",
+      "source_ids": [
+        "tao-kb",
+        "fojin",
+        "bilara",
+        "kanseki",
+        "84000-memory"
+      ],
+      "additional_sources": [
+        {
+          "id": "fojin",
+          "title": "xr843/fojin",
+          "url": "https://github.com/xr843/fojin",
+          "publisher": "项目维护者",
+          "locator": "README；skills/sutra-commentary/SKILL.md",
+          "access_method": "project_documentation",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "代码Apache-2.0，资料许可逐源另核；本包仅借鉴经注分读、来源定位，不移植代码或全文。"
+        },
+        {
+          "id": "bilara",
+          "title": "suttacentral/bilara-data",
+          "url": "https://github.com/suttacentral/bilara-data",
+          "publisher": "SuttaCentral",
+          "locator": "README：segment ID、Publication、published分支",
+          "access_method": "project_documentation",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "发布译文要求CC0；本包借鉴稳定段落ID，不导入语料全集。"
+        },
+        {
+          "id": "kanseki",
+          "title": "tokushige-koyasan/kanseki-corpus",
+          "url": "https://github.com/tokushige-koyasan/kanseki-corpus",
+          "publisher": "项目维护者",
+          "locator": "README：CBETA XML来源、页栏标记、校勘省略说明",
+          "access_method": "project_documentation",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "CC BY-NC-SA 4.0；本包只收项目入口，未导入整库文本。"
+        },
+        {
+          "id": "84000-memory",
+          "title": "84000/data-translation-memory",
+          "url": "https://github.com/84000/data-translation-memory",
+          "publisher": "84000",
+          "locator": "README：Copyright Declaration",
+          "access_method": "project_documentation",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "CC BY-NC-ND 3.0；本包只收项目入口，未导入、翻译或改作对齐语料。"
+        }
+      ],
+      "path": "references/knowledge/practice/cards/practice-open-source-sources.md",
+      "sha256": "099a300316a68a238bd77d0ce9e6bd6fad0445d0196fc83f29d219e96091ef84",
+      "program_supported": false,
+      "chapter": "README：原文、章节、sources.json、审计与待核目录",
+      "locator": "README：原文、章节、sources.json、审计与待核目录",
+      "access_method": "project_documentation",
+      "copyright_note": "仓库代码MIT；单部文本许可须逐项核对。本包没有复制仓库文本、代码或图谱。"
+    },
+    {
+      "id": "PR-13",
+      "slug": "practice-romance-yuelao",
+      "name": "增加桃花的民俗方法：月老、红线与求缘",
+      "tags": [
+        "增加桃花",
+        "增強桃花",
+        "招桃花",
+        "催桃花",
+        "求姻缘",
+        "求姻緣",
+        "月老",
+        "红线",
+        "紅線",
+        "桃花"
+      ],
+      "aliases": [
+        "如何增加桃花",
+        "怎么增加桃花",
+        "怎样招桃花",
+        "如何求姻缘",
+        "拜月老怎么做"
+      ],
+      "subtitle": "月老民俗有机构记录，具体参拜流程依地区与宫庙。",
+      "kind": "official_folklore_summary",
+      "publisher": "国史馆台湾文献馆",
+      "url": "https://dict.th.gov.tw/detailPage.aspx?Ca=287&ID=1252",
+      "source_ids": [
+        "yuelao-dictionary",
+        "yuelao-kaohsiung"
+      ],
+      "additional_sources": [
+        {
+          "id": "yuelao-kaohsiung",
+          "title": "向月老求牵线：甜蜜祈愿攻略",
+          "url": "https://takao.kcg.gov.tw/article/3687",
+          "publisher": "高雄市政府新闻局《高雄画刊》",
+          "locator": "月老的红线魔法；与月老的交心时刻：高雄关帝庙、凤邑双慈殿",
+          "access_method": "page_text",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+        }
+      ],
+      "path": "references/knowledge/practice/cards/practice-romance-yuelao.md",
+      "sha256": "f3b5e73234a89a47944ea9340ba473ae89e00e81a93cbbfe21dc1d75fbe6b881",
+      "program_supported": false,
+      "chapter": "辞条简介：月老、姻缘簿与红线象征",
+      "locator": "辞条简介：月老、姻缘簿与红线象征",
+      "access_method": "page_text",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "PR-14",
+      "slug": "practice-romance-chart",
+      "name": "八字紫微看桃花：咸池规则与夫妻宫引动",
+      "tags": [
+        "桃花",
+        "咸池",
+        "催桃花",
+        "桃花位",
+        "八字桃花",
+        "紫微桃花",
+        "红鸾",
+        "天喜",
+        "夫妻宫"
+      ],
+      "aliases": [
+        "按八字增加桃花",
+        "我的桃花位在哪里",
+        "如何看桃花年份"
+      ],
+      "subtitle": "程序标记与流年关系辅助选择相识时段，不套招桃花效果公式。",
+      "kind": "classical_rule_context",
+      "publisher": "中国哲学书电子化计划古籍转录",
+      "url": "https://ctext.org/wiki.pl?chapter=472359&if=en&remap=gb",
+      "source_ids": [
+        "shenfeng-taohua"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-romance-chart.md",
+      "sha256": "2e30d50470ece2ed780df743e4ea56ca9ec425660ce8a9e349b1028df9fecc69",
+      "program_supported": false,
+      "chapter": "《神峰通考》咸池条段242",
+      "locator": "段242：寅午戌见卯、申子辰见酉、巳酉丑见午、亥卯未见子；年／日两种起法",
+      "access_method": "search_indexed_text",
+      "copyright_note": "核到搜索索引段落，直读受限，未作影像校勘；采用古代短引与原创规则说明。",
+      "original_excerpt": "此以生年上起，或又以日上起"
+    },
+    {
+      "id": "PR-15",
+      "slug": "practice-romance-actions",
+      "name": "提升恋爱机会：认识人、表达与筛选",
+      "tags": [
+        "桃花",
+        "增加桃花",
+        "招桃花",
+        "脱单",
+        "脫單",
+        "异性缘",
+        "異性緣",
+        "烂桃花",
+        "爛桃花",
+        "恋爱机会"
+      ],
+      "aliases": [
+        "怎么脱单",
+        "怎么提升异性缘",
+        "如何提升恋爱机会",
+        "如何减少烂桃花",
+        "没有桃花怎么办"
+      ],
+      "subtitle": "把愿望变成可实行的认识人与相处安排。",
+      "kind": "original_action_guide",
+      "publisher": "国史馆台湾文献馆",
+      "url": "https://dict.th.gov.tw/detailPage.aspx?Ca=287&ID=1252",
+      "source_ids": [
+        "yuelao-dictionary"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-romance-actions.md",
+      "sha256": "6ce367b5db27ea2f0dd85627424442036006e6a3765a5ec0499a08b0609b6a14",
+      "program_supported": false,
+      "chapter": "辞条简介：月老、姻缘簿与红线象征",
+      "locator": "辞条简介：月老、姻缘簿与红线象征",
+      "access_method": "page_text",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "PR-16",
+      "slug": "practice-luck-liaofan",
+      "name": "改善运气的传统路径：《了凡四训》的立命与改过",
+      "tags": [
+        "转运",
+        "轉運",
+        "改运",
+        "改運",
+        "改善运气",
+        "改善運氣",
+        "了凡四训",
+        "了凡四訓",
+        "改命",
+        "积善"
+      ],
+      "aliases": [
+        "如何改善运气",
+        "怎么改善运气",
+        "怎么转运",
+        "运气不好怎么改",
+        "如何改命"
+      ],
+      "subtitle": "按四篇主线理解传统改过、积善与谦德。",
+      "kind": "classical_primary_text",
+      "publisher": "维基文库古籍转录",
+      "url": "https://zh.wikisource.org/zh-hant/了凡四訓",
+      "source_ids": [
+        "liaofan"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-luck-liaofan.md",
+      "sha256": "d1392c1e100f02b5a0dbdec4a7968c8a01159b6fe25236813191109095e1a6c4",
+      "program_supported": false,
+      "chapter": "立命之学、改过之法、积善之方、谦德之效",
+      "locator": "第一篇立命之学；第二篇改过之法；第三篇积善之方；第四篇谦德之效",
+      "access_method": "search_indexed_text",
+      "copyright_note": "古代短引与原创摘要；不复制现代白话译注。",
+      "original_excerpt": "命由我作，福自己求"
+    },
+    {
+      "id": "PR-17",
+      "slug": "practice-luck-temple",
+      "name": "祈福、安太岁与光明灯：地方民俗和寺院说明",
+      "tags": [
+        "转运",
+        "轉運",
+        "祈福",
+        "安太岁",
+        "安太歲",
+        "犯太岁",
+        "点灯",
+        "點燈",
+        "光明灯",
+        "光明燈"
+      ],
+      "aliases": [
+        "犯太岁怎么办",
+        "如何安太岁",
+        "点光明灯怎么做",
+        "祈福转运怎么做"
+      ],
+      "subtitle": "按记录介绍习俗，具体流程、费用和日期以所去寺庙为准。",
+      "kind": "official_and_institutional_folklore",
+      "publisher": "国史馆台湾文献馆",
+      "url": "https://dict.th.gov.tw/Print.aspx?ID=2398",
+      "source_ids": [
+        "taisui",
+        "ddm-light"
+      ],
+      "additional_sources": [
+        {
+          "id": "ddm-light",
+          "title": "虔心来点灯：法鼓山邀您布施光明",
+          "url": "https://th.ddm.org.tw/default-ddmtw/xmnews/cont?sid=0K297673547956912098&xsmsid=0K297353878952538129",
+          "publisher": "法鼓山",
+          "locator": "2017-01-05；光明灯、布施及回向说明",
+          "access_method": "page_text",
+          "accessed_on": "2026-10-05",
+          "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+          "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+        }
+      ],
+      "path": "references/knowledge/practice/cards/practice-luck-temple.md",
+      "sha256": "645e107921aa0916bf3f5562a3db8ec7c3791b7caafd863cfd571c7aa86d692d",
+      "program_supported": false,
+      "chapter": "辞条简介：年冲、对冲、年初安奉与值年太岁",
+      "locator": "辞条简介：年冲、对冲、年初安奉与值年太岁",
+      "access_method": "page_text",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "PR-18",
+      "slug": "practice-luck-actions",
+      "name": "运气不顺时的行动方案：工作、财务、人际与环境",
+      "tags": [
+        "转运",
+        "轉運",
+        "开运",
+        "開運",
+        "改善运气",
+        "运气不好",
+        "事业不顺",
+        "工作不顺",
+        "财运",
+        "财運",
+        "贵人",
+        "貴人",
+        "学习",
+        "環境"
+      ],
+      "aliases": [
+        "最近一直倒霉怎么办",
+        "工作不顺怎么转运",
+        "怎么增加贵人运",
+        "怎样提升财运",
+        "运气不好怎么办",
+        "如何开运"
+      ],
+      "subtitle": "按具体受阻的事给少量可实行、可回顾的改变。",
+      "kind": "original_action_guide",
+      "publisher": "法鼓山",
+      "url": "https://www.ddm.org.tw/xmnews/cont?sid=0N292547867071804169&xsmsid=0K297379120077217595",
+      "source_ids": [
+        "ddm-causality"
+      ],
+      "additional_sources": [],
+      "path": "references/knowledge/practice/cards/practice-luck-actions.md",
+      "sha256": "334b48745d3d36f25dc0babc3a337e2b75cd416ccb5d6835ae1d190c8196f3d4",
+      "program_supported": false,
+      "chapter": "2023-10-19；摘自《改运算命原来如此》",
+      "locator": "2023-10-19；摘自《改运算命原来如此》",
+      "access_method": "page_text",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "ishin",
+      "title": "《医心方》卷二十八刻本影像目录",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC892-411999017226-82344_%E9%86%AB%E5%BF%83%E6%96%B9_%E7%AC%AC28%E5%86%8A.pdf",
+      "publisher": "国家图书馆藏本／Wikimedia Commons 文件目录",
+      "locator": "Summary：第28册，丹波康赖撰，日本安政元年至万延元年[1854–1860]刻本；55页",
+      "access_method": "catalog_metadata",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "文件页将扫描标为公有领域；本包只保存书目信息和外链，未导入影像或逐页转录。"
+    },
+    {
+      "id": "lin-sexual-arts",
+      "title": "林富士《略论早期道教与房中术的关系》",
+      "url": "https://www1.ihp.sinica.edu.tw/Publications/Bulletin/91/Article/331",
+      "publisher": "中央研究院历史语言研究所",
+      "locator": "史语所集刊72.2（2001/06），233–300；摘要",
+      "access_method": "search_indexed_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "zuowang",
+      "title": "司马承祯《坐忘论》",
+      "url": "https://zh.wikisource.org/wiki/坐忘論",
+      "publisher": "维基文库古籍转录",
+      "locator": "收心；简事；全书七条次第",
+      "access_method": "page_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "只引用古代中文短句并原创解释；网站编排与其他贡献者内容不以本项目MIT许可替代。"
+    },
+    {
+      "id": "tao-kb",
+      "title": "LingTian/tao-kb",
+      "url": "https://github.com/LingTian/tao-kb",
+      "publisher": "项目维护者",
+      "locator": "README：原文、章节、sources.json、审计与待核目录",
+      "access_method": "project_documentation",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "仓库代码MIT；单部文本许可须逐项核对。本包没有复制仓库文本、代码或图谱。"
+    },
+    {
+      "id": "ganying",
+      "title": "《太上感应篇》",
+      "url": "https://zh.wikisource.org/w/index.php?title=太上感應篇&oldid=2569348",
+      "publisher": "维基文库古籍转录",
+      "locator": "是道则进段；积德累功段",
+      "access_method": "page_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "采用古代短引与原创摘要，不复制现代译注。"
+    },
+    {
+      "id": "zhiguan",
+      "title": "智顗《修习止观坐禅法要》T1915",
+      "url": "https://raw.githubusercontent.com/cbeta-org/xml-p5/master/T/T46/T46n1915.xml",
+      "publisher": "CBETA电子佛典基金会",
+      "locator": "T46n1915：0462c03–06（十意）；0465b14–0466a15（调和第四）",
+      "access_method": "raw_tei_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "CBETA电子版按https://cbeta.org/copyright声明，含非商业及相同方式分享条件；本包未再分发XML，仅保留原典定位、古代短句与原创摘要。"
+    },
+    {
+      "id": "mn10",
+      "title": "MN10 念处经／Mindfulness Meditation",
+      "url": "https://raw.githubusercontent.com/suttacentral/bilara-data/published/translation/en/sujato/sutta/mn/mn10_translation-en-sujato.json",
+      "publisher": "SuttaCentral；Bhikkhu Sujato英译",
+      "locator": "mn10:3.2–3.5（身受心法）；mn10:4.3–4.7（入出息）",
+      "access_method": "published_segment_json",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "Bilara发布译文采用CC0；本包只收经号、段落定位和原创中文归纳，未复制或翻译完整英译。"
+    },
+    {
+      "id": "amitabha",
+      "title": "鸠摩罗什译《佛说阿弥陀经》T0366",
+      "url": "https://raw.githubusercontent.com/cbeta-org/xml-p5/master/T/T12/T12n0366.xml",
+      "publisher": "CBETA电子佛典基金会",
+      "locator": "T12n0366：0347b07–17（发愿、执持名号、一心不乱）",
+      "access_method": "raw_tei_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "CBETA电子版权见https://cbeta.org/copyright；本包未导入XML、现代译文或注释，仅含原典定位与原创摘要。"
+    },
+    {
+      "id": "ddm-change",
+      "title": "学佛Q&A：人生可以改运吗？",
+      "url": "https://taitung.ddm.org.tw/default-ddmtw/xmnews/cont?qcat=0K297401756442626214&sid=0O102574962420005223&xsmsid=0K297379120077217595",
+      "publisher": "法鼓山",
+      "locator": "2024-04-11；反省、发愿与逐渐改变的说明",
+      "access_method": "page_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "dainichi",
+      "title": "《大毘卢遮那成佛神变加持经》T0848",
+      "url": "https://raw.githubusercontent.com/cbeta-org/xml-p5/master/T/T18/T18n0848.xml",
+      "publisher": "CBETA电子佛典基金会",
+      "locator": "卷一入真言门住心品：T18n0848_0001b29–0001c02",
+      "access_method": "raw_tei_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "CBETA电子版权见https://cbeta.org/copyright；只用古代短句、经号和原创释义，未导入XML或现代注释。"
+    },
+    {
+      "id": "kurukulla",
+      "title": "The Practice Manual of Noble Tārā Kurukullā（Toh437）",
+      "url": "https://84000.co/translation/toh437.pdf",
+      "publisher": "84000 Translating the Words of the Buddha",
+      "locator": "Summary；Introduction i.1–i.3；Imprint（v2.42.19）",
+      "access_method": "search_indexed_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "本经所见译本为CC BY-NC-ND 4.0；translation-memory仓库为CC BY-NC-ND 3.0。二者不能混用。本包只收书目、链接和简短原创介绍，不导入或改写译文、仪轨与咒文。"
+    },
+    {
+      "id": "fojin",
+      "title": "xr843/fojin",
+      "url": "https://github.com/xr843/fojin",
+      "publisher": "项目维护者",
+      "locator": "README；skills/sutra-commentary/SKILL.md",
+      "access_method": "project_documentation",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "代码Apache-2.0，资料许可逐源另核；本包仅借鉴经注分读、来源定位，不移植代码或全文。"
+    },
+    {
+      "id": "bilara",
+      "title": "suttacentral/bilara-data",
+      "url": "https://github.com/suttacentral/bilara-data",
+      "publisher": "SuttaCentral",
+      "locator": "README：segment ID、Publication、published分支",
+      "access_method": "project_documentation",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "发布译文要求CC0；本包借鉴稳定段落ID，不导入语料全集。"
+    },
+    {
+      "id": "kanseki",
+      "title": "tokushige-koyasan/kanseki-corpus",
+      "url": "https://github.com/tokushige-koyasan/kanseki-corpus",
+      "publisher": "项目维护者",
+      "locator": "README：CBETA XML来源、页栏标记、校勘省略说明",
+      "access_method": "project_documentation",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "CC BY-NC-SA 4.0；本包只收项目入口，未导入整库文本。"
+    },
+    {
+      "id": "84000-memory",
+      "title": "84000/data-translation-memory",
+      "url": "https://github.com/84000/data-translation-memory",
+      "publisher": "84000",
+      "locator": "README：Copyright Declaration",
+      "access_method": "project_documentation",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "CC BY-NC-ND 3.0；本包只收项目入口，未导入、翻译或改作对齐语料。"
+    },
+    {
+      "id": "yuelao-dictionary",
+      "title": "月下老人（辞条1252）",
+      "url": "https://dict.th.gov.tw/detailPage.aspx?Ca=287&ID=1252",
+      "publisher": "国史馆台湾文献馆",
+      "locator": "辞条简介：月老、姻缘簿与红线象征",
+      "access_method": "page_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "yuelao-kaohsiung",
+      "title": "向月老求牵线：甜蜜祈愿攻略",
+      "url": "https://takao.kcg.gov.tw/article/3687",
+      "publisher": "高雄市政府新闻局《高雄画刊》",
+      "locator": "月老的红线魔法；与月老的交心时刻：高雄关帝庙、凤邑双慈殿",
+      "access_method": "page_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "shenfeng-taohua",
+      "title": "《神峰通考》咸池条",
+      "url": "https://ctext.org/wiki.pl?chapter=472359&if=en&remap=gb",
+      "publisher": "中国哲学书电子化计划古籍转录",
+      "locator": "段242：寅午戌见卯、申子辰见酉、巳酉丑见午、亥卯未见子；年／日两种起法",
+      "access_method": "search_indexed_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "核到搜索索引段落，直读受限，未作影像校勘；采用古代短引与原创规则说明。"
+    },
+    {
+      "id": "liaofan",
+      "title": "袁黄《了凡四训》",
+      "url": "https://zh.wikisource.org/zh-hant/了凡四訓",
+      "publisher": "维基文库古籍转录",
+      "locator": "第一篇立命之学；第二篇改过之法；第三篇积善之方；第四篇谦德之效",
+      "access_method": "search_indexed_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "古代短引与原创摘要；不复制现代白话译注。"
+    },
+    {
+      "id": "taisui",
+      "title": "安太岁（辞条2398）",
+      "url": "https://dict.th.gov.tw/Print.aspx?ID=2398",
+      "publisher": "国史馆台湾文献馆",
+      "locator": "辞条简介：年冲、对冲、年初安奉与值年太岁",
+      "access_method": "page_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "ddm-light",
+      "title": "虔心来点灯：法鼓山邀您布施光明",
+      "url": "https://th.ddm.org.tw/default-ddmtw/xmnews/cont?sid=0K297673547956912098&xsmsid=0K297353878952538129",
+      "publisher": "法鼓山",
+      "locator": "2017-01-05；光明灯、布施及回向说明",
+      "access_method": "page_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    },
+    {
+      "id": "ddm-causality",
+      "title": "学佛Q&A：因果律是定命论吗？",
+      "url": "https://www.ddm.org.tw/xmnews/cont?sid=0N292547867071804169&xsmsid=0K297379120077217595",
+      "publisher": "法鼓山",
+      "locator": "2023-10-19；摘自《改运算命原来如此》",
+      "access_method": "page_text",
+      "accessed_on": "2026-10-05",
+      "adoption": "原创摘要、检索定位和少量明确标注的古代短引；未导入现代译注、论文全文或网页代码。",
+      "copyright_note": "仅保存原创摘要、书目与链接；来源页面权利保留。"
+    }
+  ],
+  "expected_topics": 18,
+  "scope": "historical and canonical source cards plus original romance/luck action guides; no complete modern books or esoteric instruction sequences",
+  "source_verification": [
+    {
+      "id": "PR-01",
+      "slug": "practice-fangzhong-bibliography",
+      "source_ids": [
+        "ishin",
+        "lin-sexual-arts"
+      ],
+      "access_method": "catalog_metadata",
+      "locator": "Summary：第28册，丹波康赖撰，日本安政元年至万延元年[1854–1860]刻本；55页"
+    },
+    {
+      "id": "PR-02",
+      "slug": "practice-fangzhong-scholarship",
+      "source_ids": [
+        "lin-sexual-arts"
+      ],
+      "access_method": "search_indexed_text",
+      "locator": "史语所集刊72.2（2001/06），233–300；摘要"
+    },
+    {
+      "id": "PR-03",
+      "slug": "practice-dao-zuowang",
+      "source_ids": [
+        "zuowang"
+      ],
+      "access_method": "page_text",
+      "locator": "收心；简事；全书七条次第",
+      "original_excerpt": "息亂而不滅照，守靜而不著空。"
+    },
+    {
+      "id": "PR-04",
+      "slug": "practice-dao-neidan-guide",
+      "source_ids": [
+        "tao-kb"
+      ],
+      "access_method": "project_documentation",
+      "locator": "README：原文、章节、sources.json、审计与待核目录"
+    },
+    {
+      "id": "PR-05",
+      "slug": "practice-dao-good-deeds",
+      "source_ids": [
+        "ganying"
+      ],
+      "access_method": "page_text",
+      "locator": "是道则进段；积德累功段",
+      "original_excerpt": "積德累功，慈心於物。"
+    },
+    {
+      "id": "PR-06",
+      "slug": "practice-buddhist-zhiguan",
+      "source_ids": [
+        "zhiguan"
+      ],
+      "access_method": "raw_tei_text",
+      "locator": "T46n1915：0462c03–06（十意）；0465b14–0466a15（调和第四）",
+      "original_excerpt": "不寬、不急"
+    },
+    {
+      "id": "PR-07",
+      "slug": "practice-buddhist-mindfulness",
+      "source_ids": [
+        "mn10"
+      ],
+      "access_method": "published_segment_json",
+      "locator": "mn10:3.2–3.5（身受心法）；mn10:4.3–4.7（入出息）"
+    },
+    {
+      "id": "PR-08",
+      "slug": "practice-buddhist-amitabha",
+      "source_ids": [
+        "amitabha"
+      ],
+      "access_method": "raw_tei_text",
+      "locator": "T12n0366：0347b07–17（发愿、执持名号、一心不乱）"
+    },
+    {
+      "id": "PR-09",
+      "slug": "practice-buddhist-daily-vow",
+      "source_ids": [
+        "ddm-change"
+      ],
+      "access_method": "page_text",
+      "locator": "2024-04-11；反省、发愿与逐渐改变的说明"
+    },
+    {
+      "id": "PR-10",
+      "slug": "practice-esoteric-dainichi",
+      "source_ids": [
+        "dainichi",
+        "kanseki"
+      ],
+      "access_method": "raw_tei_text",
+      "locator": "卷一入真言门住心品：T18n0848_0001b29–0001c02",
+      "original_excerpt": "菩提心為因，悲為根本，方便為究竟。"
+    },
+    {
+      "id": "PR-11",
+      "slug": "practice-vajrayana-context",
+      "source_ids": [
+        "kurukulla",
+        "84000-memory"
+      ],
+      "access_method": "search_indexed_text",
+      "locator": "Summary；Introduction i.1–i.3；Imprint（v2.42.19）"
+    },
+    {
+      "id": "PR-12",
+      "slug": "practice-open-source-sources",
+      "source_ids": [
+        "tao-kb",
+        "fojin",
+        "bilara",
+        "kanseki",
+        "84000-memory"
+      ],
+      "access_method": "project_documentation",
+      "locator": "README：原文、章节、sources.json、审计与待核目录"
+    },
+    {
+      "id": "PR-13",
+      "slug": "practice-romance-yuelao",
+      "source_ids": [
+        "yuelao-dictionary",
+        "yuelao-kaohsiung"
+      ],
+      "access_method": "page_text",
+      "locator": "辞条简介：月老、姻缘簿与红线象征"
+    },
+    {
+      "id": "PR-14",
+      "slug": "practice-romance-chart",
+      "source_ids": [
+        "shenfeng-taohua"
+      ],
+      "access_method": "search_indexed_text",
+      "locator": "段242：寅午戌见卯、申子辰见酉、巳酉丑见午、亥卯未见子；年／日两种起法",
+      "original_excerpt": "此以生年上起，或又以日上起"
+    },
+    {
+      "id": "PR-15",
+      "slug": "practice-romance-actions",
+      "source_ids": [
+        "yuelao-dictionary"
+      ],
+      "access_method": "page_text",
+      "locator": "辞条简介：月老、姻缘簿与红线象征"
+    },
+    {
+      "id": "PR-16",
+      "slug": "practice-luck-liaofan",
+      "source_ids": [
+        "liaofan"
+      ],
+      "access_method": "search_indexed_text",
+      "locator": "第一篇立命之学；第二篇改过之法；第三篇积善之方；第四篇谦德之效",
+      "original_excerpt": "命由我作，福自己求"
+    },
+    {
+      "id": "PR-17",
+      "slug": "practice-luck-temple",
+      "source_ids": [
+        "taisui",
+        "ddm-light"
+      ],
+      "access_method": "page_text",
+      "locator": "辞条简介：年冲、对冲、年初安奉与值年太岁"
+    },
+    {
+      "id": "PR-18",
+      "slug": "practice-luck-actions",
+      "source_ids": [
+        "ddm-causality"
+      ],
+      "access_method": "page_text",
+      "locator": "2023-10-19；摘自《改运算命原来如此》"
+    }
+  ]
+}

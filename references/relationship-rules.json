@@ -1,0 +1,36 @@
+{
+  "version": "relationship-structural-v3",
+  "taohua_by_branch": {
+    "子": "酉",
+    "丑": "午",
+    "寅": "卯",
+    "卯": "子",
+    "辰": "酉",
+    "巳": "午",
+    "午": "卯",
+    "未": "子",
+    "申": "酉",
+    "酉": "午",
+    "戌": "卯",
+    "亥": "子"
+  },
+  "sources": [
+    {
+      "repository": "https://github.com/1liye/bazi-chart",
+      "commit": "df008acfa31a79af0ff31612f4dfe20e38e0f715",
+      "file": "bazi.html",
+      "symbol": "SHEN_TAOHUA",
+      "license": "MIT",
+      "usage": "仅复用桃花地支映射；合冲与十神复用本包原有计算函数"
+    },
+    {
+      "repository": "https://github.com/xuemian168/bazi-skill",
+      "commit": "9c6b74c743c9ff46a2af8d786fb1cc8651804d5d",
+      "file": "references/compatibility-analysis.md",
+      "license": "Apache-2.0",
+      "usage": "参考单人/双人区分、方向性投影和跨盘矩阵设计，未复制原文或分数模型"
+    }
+  ],
+  "age_comparison": "single natal chart; sourced Ziwei spouse-palace pairing cues, Bazi positions auxiliary only; no comparison of birthdays",
+  "intimacy_features": "chart structure only; physiological ability not assessed"
+}

@@ -1,0 +1,9 @@
+{
+  "mode": "divination",
+  "method": "liuyao",
+  "label": "合成六爻演示",
+  "question": "接下来一个月推进这个合作，我应注意哪些条件？",
+  "casting": {"coins": [[3,3,3],[2,2,2],[3,2,2],[3,3,2],[3,2,2],[3,3,2]]},
+  "time": {"date": "2026-10-02", "time": "12:00", "timezone": "Asia/Shanghai"},
+  "options": {"day_boundary": "midnight"}
+}

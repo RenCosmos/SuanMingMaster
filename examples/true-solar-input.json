@@ -1,0 +1,10 @@
+{
+  "mode": "both",
+  "label": "真太阳时对照（合成）",
+  "birth": {
+    "calendar": "solar", "date": "2000-01-15", "time": "09:10",
+    "gender": "male", "timezone": "Asia/Shanghai",
+    "longitude": 116.4, "longitude_source": "合成验证坐标；实际使用请填写已核实的出生地经度"
+  },
+  "options": {"time_basis":"true_solar","bazi_day_boundary":"midnight","bazi_hour_stem_rule":"day_stem"}
+}

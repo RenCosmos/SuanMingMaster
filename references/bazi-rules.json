@@ -1,0 +1,7 @@
+{
+  "version": "bazi-structural-v1",
+  "visible_stem_weight": 1,
+  "hidden_weights": {"1": [1], "2": [0.7, 0.3], "3": [0.6, 0.3, 0.1]},
+  "month_branch_multiplier": 2,
+  "description": "结构权重模型：非月支藏干总权重 1，月支藏干总权重 2，显干各 1；不是传统统一旺衰或预测概率。"
+}

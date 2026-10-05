@@ -1,0 +1,657 @@
+{
+  "repository": "https://github.com/supe888/bazi_skills",
+  "commit": "f14a60b6192192d9472a6eb430cbae54a7cc50af",
+  "commit_date": "2026-06-17T09:44:16Z",
+  "retrieved_client_date": "2026-10-02",
+  "license": "Apache-2.0",
+  "topics": [
+    {
+      "id": 1,
+      "slug": "ziping-bazi",
+      "name": "子平八字",
+      "subtitle": "四柱预测",
+      "category": "eastern",
+      "tags": [
+        "八字",
+        "大运",
+        "流年",
+        "十神",
+        "格局"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/ziping-bazi.md",
+      "sha256": "5bed02a9c37d37a80a9628942c04977ac18f5bce29949a4ac20662cd7921191c",
+      "upstream_original_file_advertised": "eastern/ziping-bazi.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": true,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 2,
+      "slug": "ziwei-doushu",
+      "name": "紫微斗数",
+      "subtitle": "宫位星曜",
+      "category": "eastern",
+      "tags": [
+        "紫微",
+        "十二宫",
+        "大限",
+        "四化"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/ziwei-doushu.md",
+      "sha256": "2bca01221827d4894f27793f2e8056167ae5e02041c6d5c2aa9463680fd0eea1",
+      "upstream_original_file_advertised": "eastern/ziwei-doushu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": true,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 3,
+      "slug": "heluo-lishu",
+      "name": "河洛理数",
+      "subtitle": "数理卦命",
+      "category": "eastern",
+      "tags": [
+        "先天卦",
+        "后天卦",
+        "元堂"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/heluo-lishu.md",
+      "sha256": "9b03e587ba7fccdd6c425438c8baa6bb5c58615852bc43adc314651f51e80244",
+      "upstream_original_file_advertised": "eastern/heluo-lishu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 4,
+      "slug": "taiyi-shenshu",
+      "name": "太乙神数",
+      "subtitle": "三式之首",
+      "category": "eastern",
+      "tags": [
+        "九宫",
+        "十六神",
+        "国运"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/taiyi-shenshu.md",
+      "sha256": "df3d5993ee11c4ddfc11d972dbffe0349d0d9819966ecdd2c601364e678f934f",
+      "upstream_original_file_advertised": "eastern/taiyi-shenshu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 5,
+      "slug": "meihua-yishu",
+      "name": "梅花易数",
+      "subtitle": "触机起卦",
+      "category": "eastern",
+      "tags": [
+        "体用",
+        "动爻",
+        "数字起卦"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/meihua-yishu.md",
+      "sha256": "576afa022344be3dc831996418e77253cd6f053b8e12734bf7251e6a1f33a899",
+      "upstream_original_file_advertised": "eastern/meihua-yishu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 6,
+      "slug": "liuren-shenke",
+      "name": "六壬神课",
+      "subtitle": "四课三传",
+      "category": "eastern",
+      "tags": [
+        "天将",
+        "四课",
+        "三传"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/liuren-shenke.md",
+      "sha256": "8e1576af450fc3f58bc25d6637db61bf579fa244797e109c1e7ec1c7f93263ff",
+      "upstream_original_file_advertised": "eastern/liuren-shenke.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 7,
+      "slug": "qimen-dunjia",
+      "name": "奇门遁甲",
+      "subtitle": "九宫择吉",
+      "category": "eastern",
+      "tags": [
+        "九宫",
+        "八门",
+        "九星",
+        "择吉"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/qimen-dunjia.md",
+      "sha256": "1b8f1a9493185fa99fbfdb6a540f5914a03540b49ab20a6b044199f353a5f878",
+      "upstream_original_file_advertised": "eastern/qimen-dunjia.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 8,
+      "slug": "wenwang-liuyao",
+      "name": "六爻",
+      "subtitle": "文王卦",
+      "category": "eastern",
+      "tags": [
+        "纳甲",
+        "世应",
+        "用神",
+        "动爻"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/wenwang-liuyao.md",
+      "sha256": "833858b128431f33c94285b0c9e13f9ca53f957a69d5b7696f14603be30afcc0",
+      "upstream_original_file_advertised": "eastern/wenwang-liuyao.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": true,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 9,
+      "slug": "xiangshu",
+      "name": "相术",
+      "subtitle": "观相",
+      "category": "eastern",
+      "tags": [
+        "面相",
+        "手相",
+        "骨相"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/xiangshu.md",
+      "sha256": "2ca989d363173d72436e6af583338809a59c0782af0bd00edf21b2821e1d29bc",
+      "upstream_original_file_advertised": "eastern/xiangshu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 10,
+      "slug": "qizheng-siyu",
+      "name": "七政四余",
+      "subtitle": "星命",
+      "category": "eastern",
+      "tags": [
+        "星曜",
+        "黄道",
+        "命宫"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/qizheng-siyu.md",
+      "sha256": "a28bdcb8004cfd6c29b845eeb1649182d68ae81fbcf89ce65f9e8f964ef6b6d5",
+      "upstream_original_file_advertised": "eastern/qizheng-siyu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 11,
+      "slug": "cezi",
+      "name": "测字",
+      "subtitle": "汉字占卜",
+      "category": "eastern",
+      "tags": [
+        "拆字",
+        "谐音",
+        "笔画"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/cezi.md",
+      "sha256": "009a2c3ef6da4ed4a9c9cc34b29c4fdc01c5713c76b5e39778563b4c07b1f5d8",
+      "upstream_original_file_advertised": "eastern/cezi.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 12,
+      "slug": "guijia-zhanbu",
+      "name": "龟甲占卜",
+      "subtitle": "兆象",
+      "category": "eastern",
+      "tags": [
+        "卜辞",
+        "兆象",
+        "殷商"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/guijia-zhanbu.md",
+      "sha256": "9ebebe90c54ffe172486f4c150799ae9fc16a1988d1c9405110d52bd13547dc9",
+      "upstream_original_file_advertised": "eastern/guijia-zhanbu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 13,
+      "slug": "xiaoliuren",
+      "name": "小六壬",
+      "subtitle": "速占",
+      "category": "eastern",
+      "tags": [
+        "六宫",
+        "速断",
+        "时辰"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/xiaoliuren.md",
+      "sha256": "1a0321ba47ba30ebd6e4d62492590563ca1eb44a2455117684900339ab7de718",
+      "upstream_original_file_advertised": "eastern/xiaoliuren.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 14,
+      "slug": "fojiao-zhancha",
+      "name": "佛教占察",
+      "subtitle": "因果占",
+      "category": "eastern",
+      "tags": [
+        "占察",
+        "木轮",
+        "地藏"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/fojiao-zhancha.md",
+      "sha256": "e5fc0a5b84142020567c2d105e1bd6321d533a62164ee57a7bdd8d3f34810773",
+      "upstream_original_file_advertised": "eastern/fojiao-zhancha.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 15,
+      "slug": "tieban-shenshu",
+      "name": "铁板神数",
+      "subtitle": "条文考时",
+      "category": "eastern",
+      "tags": [
+        "条文",
+        "考时",
+        "数理"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/tieban-shenshu.md",
+      "sha256": "70c2f5424e5bdd302d65afe0cc8fcdd11b01b0f8c67d72fd5176f86adb20e342",
+      "upstream_original_file_advertised": "eastern/tieban-shenshu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 16,
+      "slug": "chenggu",
+      "name": "称骨",
+      "subtitle": "骨重歌诀",
+      "category": "folk",
+      "tags": [
+        "骨重",
+        "歌诀",
+        "袁天罡"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/chenggu.md",
+      "sha256": "7119e5233246f4b79cfa0a2576a3f58cd7a3d76bc99e67f72f8121d2898f2f6d",
+      "upstream_original_file_advertised": "folk/chenggu.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 17,
+      "slug": "xingming-sancai",
+      "name": "三才五格",
+      "subtitle": "姓名学",
+      "category": "folk",
+      "tags": [
+        "五格",
+        "三才",
+        "姓名"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/xingming-sancai.md",
+      "sha256": "3eb94ef39286a7a508c44785ca760a46350683ca0375b9af06580c90fbe8d3d5",
+      "upstream_original_file_advertised": "folk/xingming-sancai.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 18,
+      "slug": "lingqian",
+      "name": "灵签",
+      "subtitle": "观音签",
+      "category": "folk",
+      "tags": [
+        "签诗",
+        "100签",
+        "神明"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/lingqian.md",
+      "sha256": "5cf81cdbf25959bdc6e1487f83822d734ac12135a0b55efa99b9635fb474020e",
+      "upstream_original_file_advertised": "folk/lingqian.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 19,
+      "slug": "bobei",
+      "name": "掷筊",
+      "subtitle": "圣筊",
+      "category": "folk",
+      "tags": [
+        "筊杯",
+        "神明",
+        "是/否"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/bobei.md",
+      "sha256": "cc7112d8299e188cf7b673124e2d96f27e106b52dc528f4e3df0463076ced858",
+      "upstream_original_file_advertised": "folk/bobei.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 20,
+      "slug": "zhougong-jiemeng",
+      "name": "周公解梦",
+      "subtitle": "梦境",
+      "category": "folk",
+      "tags": [
+        "梦境",
+        "象征",
+        "心理"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/zhougong-jiemeng.md",
+      "sha256": "1559760218dee52ddefa54893a27f55e314e6a0c57b6686beee1f22de45b7630",
+      "upstream_original_file_advertised": "folk/zhougong-jiemeng.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 21,
+      "slug": "zeri-tongsheng",
+      "name": "择日通胜",
+      "subtitle": "吉日",
+      "category": "folk",
+      "tags": [
+        "黄历",
+        "通胜",
+        "宜忌"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/zeri-tongsheng.md",
+      "sha256": "b2ed69004500741b2ebbc37c1ba540829116c3c53978f22d66986a93342433c9",
+      "upstream_original_file_advertised": "folk/zeri-tongsheng.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 22,
+      "slug": "western-astrology",
+      "name": "西洋占星",
+      "subtitle": "本命星盘",
+      "category": "western",
+      "tags": [
+        "星盘",
+        "宫位",
+        "相位",
+        "行星"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/western-astrology.md",
+      "sha256": "e3cab58c97c66be6f8fa866f82befe2eb9533bf3823b600e7918b3d3072e49c9",
+      "upstream_original_file_advertised": "western/western-astrology.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 23,
+      "slug": "vedic-astrology",
+      "name": "印度占星",
+      "subtitle": "Jyotish",
+      "category": "western",
+      "tags": [
+        "Dasha",
+        "Nakshatra",
+        "恒星黄道"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/vedic-astrology.md",
+      "sha256": "f60bf9354a524d6b96d309d19b6c08d0c2cca29b5c97b81e0dfc3b5a29da9636",
+      "upstream_original_file_advertised": "western/vedic-astrology.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 24,
+      "slug": "tarot",
+      "name": "塔罗",
+      "subtitle": "78张牌",
+      "category": "western",
+      "tags": [
+        "大阿卡纳",
+        "牌阵",
+        "正逆位"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/tarot.md",
+      "sha256": "8f673899d9ecf706a7b195a6ae22ea42f60fde9ed7a2063b646a49bd6811a121",
+      "upstream_original_file_advertised": "western/tarot.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 25,
+      "slug": "lenormand",
+      "name": "雷诺曼",
+      "subtitle": "36张组合",
+      "category": "western",
+      "tags": [
+        "牌阵",
+        "组合",
+        "Grand Tableau"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/lenormand.md",
+      "sha256": "495bc32300b5f10961ed6a109b5542f2507deac93cc251aae4eb873faaa8ca38",
+      "upstream_original_file_advertised": "western/lenormand.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 26,
+      "slug": "geomancy",
+      "name": "地占",
+      "subtitle": "Geomancy",
+      "category": "western",
+      "tags": [
+        "十六图",
+        "地占",
+        "Shield Chart"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/geomancy.md",
+      "sha256": "048330056fed8b1ae54af5817bdf52dad1c29029cdd75e027cebf7a725d87d5e",
+      "upstream_original_file_advertised": "western/geomancy.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 27,
+      "slug": "runes",
+      "name": "卢恩符文",
+      "subtitle": "Runes",
+      "category": "western",
+      "tags": [
+        "符文",
+        "北欧",
+        "倒位"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/runes.md",
+      "sha256": "f90430ff05568e1038757734c1fe9c2c1759a9e0f2cff59f8088f8ddd06267ca",
+      "upstream_original_file_advertised": "western/runes.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 28,
+      "slug": "numerology",
+      "name": "数字命理",
+      "subtitle": "Numerology",
+      "category": "western",
+      "tags": [
+        "生命灵数",
+        "毕达哥拉斯"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/numerology.md",
+      "sha256": "ed9ba50fccebc11a0beabba3e53818e82eb3c1bf2958660f2330a9db551d299f",
+      "upstream_original_file_advertised": "western/numerology.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 29,
+      "slug": "dowsing",
+      "name": "灵摆",
+      "subtitle": "Dowsing",
+      "category": "western",
+      "tags": [
+        "灵摆",
+        "是/否",
+        "能量"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/dowsing.md",
+      "sha256": "0002df0d84bed5b4df50603e49964b05cd4662180a6ace60444df8ba2a0a6f34",
+      "upstream_original_file_advertised": "western/dowsing.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 30,
+      "slug": "tasseography",
+      "name": "茶叶占卜",
+      "subtitle": "Tasseography",
+      "category": "western",
+      "tags": [
+        "茶渣",
+        "杯相",
+        "符号"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/tasseography.md",
+      "sha256": "6ada2d9ea3a61e61cd64fe01e4006a910df796697647d61d1001492d41a412ac",
+      "upstream_original_file_advertised": "western/tasseography.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 31,
+      "slug": "crystallomancy",
+      "name": "水晶球",
+      "subtitle": "Scrying",
+      "category": "western",
+      "tags": [
+        "凝视",
+        "意象",
+        "Scrying"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/crystallomancy.md",
+      "sha256": "11f728ba830b48a88a0511d1e9e90fb487d9f8e7233048d392cc4b33863d680a",
+      "upstream_original_file_advertised": "western/crystallomancy.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 32,
+      "slug": "western-palmistry",
+      "name": "西方手相",
+      "subtitle": "Palmistry",
+      "category": "western",
+      "tags": [
+        "生命线",
+        "智慧线",
+        "感情线"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/western-palmistry.md",
+      "sha256": "ca819ac41e557b6382509db65a007c132758ff2eba0988686d8d06d8a62f7699",
+      "upstream_original_file_advertised": "western/western-palmistry.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 33,
+      "slug": "playing-cards-divination",
+      "name": "扑克占卜",
+      "subtitle": "Cartomancy",
+      "category": "western",
+      "tags": [
+        "扑克",
+        "花色",
+        "牌义"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/playing-cards-divination.md",
+      "sha256": "8ed8ac5dda2d29897f4818957b08d56178e854982f81f55a572b5d88c6ca2b2b",
+      "upstream_original_file_advertised": "western/playing-cards-divination.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 34,
+      "slug": "augury",
+      "name": "鸟占",
+      "subtitle": "Augury",
+      "category": "western",
+      "tags": [
+        "鸟兆",
+        "方向",
+        "罗马"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/augury.md",
+      "sha256": "0a3d907c7f596e61318b22c63ca02be497b281d4b4d93db3f3993befca1a243b",
+      "upstream_original_file_advertised": "western/augury.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    },
+    {
+      "id": 35,
+      "slug": "bibliomancy",
+      "name": "书本占卜",
+      "subtitle": "Bibliomancy",
+      "category": "western",
+      "tags": [
+        "随机翻页",
+        "经典",
+        "神谕"
+      ],
+      "path": "references/knowledge/supe888-bazi-skills/topics/bibliomancy.md",
+      "sha256": "88215c31c3a3ea526aa803b4c07139b181698b226c0ef61ab1509f9330b8db85",
+      "upstream_original_file_advertised": "western/bibliomancy.md",
+      "upstream_payload_path": "web/backend/prompts_zh_dump.json",
+      "program_supported": false,
+      "adaptation": "0.5.1: fixed disclaimer sections and repeated format boilerplate removed"
+    }
+  ],
+  "original_upstream_file_sha256": {
+    "upstream-prompts-zh.json": "3548fc0c91771b1272f78f519923c6a97d2ade168194c3bf284f636db1bcea27",
+    "upstream-metadata.py.txt": "9ecba6bd87b69a2d3ab165061c3570d4551807687d6e5794bb2bc54d6c60a75c",
+    "LICENSE-Apache-2.0.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "upstream-README.md": "e489d454c49f66c406e7370629310804dccb780a26f3e83105d8e0dd4e1b7bce"
+  },
+  "bundled_file_sha256": {
+    "upstream-prompts-zh.json": "7957f6a1cb501d363e55696cb93ddeb5bbe96fb5250c6fe65d46b8622a1ffce6",
+    "upstream-metadata.py.txt": "9ecba6bd87b69a2d3ab165061c3570d4551807687d6e5794bb2bc54d6c60a75c",
+    "LICENSE-Apache-2.0.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "upstream-README.md": "1029982827c993b6bc074c77a6407253072317b2ecfb761ce3b1ba3a4fe1fbc8"
+  },
+  "adaptation": "0.5.1: locally adapted knowledge text; original upstream commit and digests retained for provenance"
+}

@@ -1,0 +1,6 @@
+node_modules/
+work/
+dist/
+__pycache__/
+*.tmp-*
+.suanming-task.lock*

@@ -1,0 +1,28 @@
+{
+  "mode": "time_compare",
+  "label": "时辰对照（合成）",
+  "question": "比较出生时间对婚恋、对象画像和年上年下的影响",
+  "chart_mode": "both",
+  "birth": {
+    "calendar": "solar",
+    "date": "1995-01-15",
+    "gender": "female",
+    "timezone": "Asia/Shanghai"
+  },
+  "context": {
+    "stage": "single",
+    "topics": [
+      "romance",
+      "marriage",
+      "partner_image",
+      "age_relation",
+      "zodiac"
+    ]
+  },
+  "options": {
+    "partner_star_model": "auto"
+  },
+  "time_uncertainty": {
+    "type": "unknown"
+  }
+}

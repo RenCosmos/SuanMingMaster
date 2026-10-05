@@ -1,0 +1,48 @@
+{
+  "mode": "relationship",
+  "label": "双人关系合成样例",
+  "question": "我们如何改善恋爱沟通与亲密需求差异？",
+  "chart_mode": "both",
+  "people": [
+    {
+      "id": "a",
+      "label": "A（合成）",
+      "birth": {
+        "calendar": "solar",
+        "date": "1995-01-15",
+        "time": "09:30",
+        "gender": "female",
+        "timezone": "Asia/Shanghai"
+      }
+    },
+    {
+      "id": "b",
+      "label": "B（合成）",
+      "birth": {
+        "calendar": "solar",
+        "date": "1993-09-20",
+        "time": "18:40",
+        "gender": "male",
+        "timezone": "Asia/Shanghai"
+      }
+    }
+  ],
+  "target_date": "2026-10-02",
+  "context": {
+    "stage": "dating",
+    "topics": [
+      "romance",
+      "marriage",
+      "communication",
+      "intimacy",
+      "age_relation",
+      "sexual_ability",
+      "partner_image",
+      "zodiac"
+    ],
+    "narrative": "合成描述：我们对联系频率期待不同，希望练习直接表达需求。"
+  },
+  "options": {
+    "partner_star_model": "all"
+  }
+}

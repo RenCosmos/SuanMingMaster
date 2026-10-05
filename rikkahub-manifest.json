@@ -1,0 +1,273 @@
+{
+  "adapter_version": "rikkahub-workspace/v1.2.3",
+  "target_client": "RikkaHub 2.5.6",
+  "engine_version": "0.4.0",
+  "package_version": "1.2.3",
+  "package_revision": "1",
+  "bundled_annual_fixture": "synthetic; not user feedback birth data",
+  "divination_engine": "liuyao/0.1.0",
+  "supported_calculations": [
+    "bazi",
+    "ziwei",
+    "liuyao coin records",
+    "relationship single profile",
+    "relationship two-chart structural comparison",
+    "single-person uncertain birth-time candidate comparison",
+    "apparent solar time: longitude + equation of time + actual UTC offset",
+    "five-tigers / five-rats checks and month-root-transparency evidence",
+    "annual stem/hidden gods and transit-to-natal relations with spouse-palace filter and natal-group status",
+    "dayun hidden gods and transit-to-natal relations",
+    "48 natal palace-stem flying transformations and self-transform records",
+    "candidate comparison of annual spouse-palace relations and Ziwei spouse flying",
+    "sourced natal Ziwei partner-age pairing cues, conflicts and empty-palace support; Bazi position ledger auxiliary only",
+    "ritual document explicit solar/lunar dates and checked leap month; original text templates and optional print export"
+  ],
+  "knowledge_library": {
+    "repository": "https://github.com/supe888/bazi_skills",
+    "commit": "f14a60b6192192d9472a6eb430cbae54a7cc50af",
+    "topics": 35,
+    "license": "Apache-2.0",
+    "scope": "public Chinese prompts and report templates; not 35 calculation engines"
+  },
+  "skill_name": "bazi-ziwei",
+  "install_format": "local skill ZIP",
+  "skill_mount": "/skills/bazi-ziwei",
+  "output_mount": "/workspace",
+  "runtime": "Node.js >=20 with ICU",
+  "requires": [
+    "use_skill",
+    "workspace_shell",
+    "workspace_write_file",
+    "workspace_read_file",
+    "bound Linux workspace"
+  ],
+  "bundled_calculation_dependencies": true,
+  "bundled_node_runtime": false,
+  "runtime_installer": {
+    "node_version": "22.23.3",
+    "architectures": [
+      "arm64",
+      "x64"
+    ],
+    "distributions": [
+      "ubuntu",
+      "debian"
+    ]
+  },
+  "quickjs_compatible": false,
+  "android_device_tested": true,
+  "relationship_engine": "relationship/0.6.0",
+  "folklore_library": {
+    "version": "folklore-source-cards/v2",
+    "topics": 21,
+    "official_heritage_cards": 4,
+    "classical_primary_text_cards": 17,
+    "scope": "source cards with chapter locators and checked short excerpts; folklore, taboos, cultivation and sexual-cultivation history",
+    "new_classical_cards": 14,
+    "verification_record": "references/folklore/classical-verification.json",
+    "total_searchable_topics": 85,
+    "automatic_chart_for_knowledge_questions": false
+  },
+  "relationship_schema": "bazi-ziwei-relationship/v4",
+  "default_output": "chart.json + context.json + validation.json; bounded validated context on stdout; interpretation in chat",
+  "report_generation": "explicit --report / --render; AI reading.md only on request",
+  "age_relation": "single natal chart; classical Ziwei pairing directions, Bazi positions auxiliary only",
+  "sexual_ability_reading": "traditional symbolic discussion and voluntary self-report; no physiological score",
+  "partner_image": "bazi spouse palace + ziwei spouse stars + zodiac affinity; sourced symbolic descriptor ledger",
+  "conversation_style": "user-customizable voice; chart-based judgement, evidence and timing first; communication advice only when requested",
+  "partner_star_default": "auto; user-selected wealth/authority/all overrides",
+  "voice_preferences": [
+    "温和直说（默认）",
+    "简洁判断",
+    "命理细讲"
+  ],
+  "time_compare_engine": "time-compare/0.5.0",
+  "time_compare_schema": "bazi-ziwei-time-compare/v1",
+  "time_summary_schema": "bazi-ziwei-time-summary/v1",
+  "time_uncertainty": {
+    "inputs": [
+      "unknown whole known date",
+      "inclusive range with explicit next-day option",
+      "explicit candidate times"
+    ],
+    "boundaries": [
+      "early/late zi",
+      "calendar midnight",
+      "solar terms converted to birth timezone",
+      "timezone transitions",
+      "apparent-solar boundaries inverse-mapped to civil seconds"
+    ],
+    "sampling": "first/middle/last second per interval; up to 256 candidate points",
+    "selected_best_candidate": null,
+    "candidate_counts_are_probabilities": false,
+    "summary_requires_parent_recalculation": "legacy summary only; workflow uses version-bound validation receipt"
+  },
+  "solar_time": {
+    "method": "noaa-meeus-equation-of-time/v1",
+    "default": "clock",
+    "optional": "true_solar",
+    "longitude_required": true,
+    "affects": "bazi day/hour only; actual instant retained for year/month/qiyun; ziwei civil",
+    "reference_samples": {
+      "noaa_monthly": 2412,
+      "solar_location_cases": 18,
+      "independent_pillars": 430,
+      "solar_terms": 91,
+      "ten_gods": 100
+    },
+    "sample_max_term_difference_seconds": 54.407,
+    "review_band_seconds": 60
+  },
+  "bazi_hour_stem_rule": "day_stem default; library explicit legacy compatibility",
+  "knowledge_revision": "1.1.6-knowledge.1",
+  "annual_relations": {
+    "input": "target_date and annual_count 1–20; no target keeps annual empty",
+    "fields": [
+      "stem",
+      "branch",
+      "hidden_stems",
+      "hidden_ten_gods",
+      "pillar_relations",
+      "day_branch_relations"
+    ],
+    "groups": [
+      "三合",
+      "三会",
+      "三刑齐全",
+      "自刑（采用本规则表）"
+    ],
+    "group_states": [
+      "natal_already_complete",
+      "completed_with_period"
+    ],
+    "day_filter": "branch relations containing BZ-DAY; stem combinations kept separately",
+    "target_uses_same_rules": true,
+    "relationship_profiles_include_annual": true,
+    "automatic_event_or_transformation_verdict": false
+  },
+  "curated_library": {
+    "topics": 11,
+    "open_source_method_cards": 6,
+    "checked_classical_cards": 4,
+    "catalog": "references/knowledge/curated/catalog.json",
+    "source_adoption": "references/project-adoption.md",
+    "ritual_document_method_cards": 1
+  },
+  "previous_release": "1.2.1; computation algorithms and all 85 knowledge topics retained",
+  "input_lifecycle": {
+    "default_chart_input": "stdin JSON; no intermediate input file",
+    "knowledge_input": "direct --query / --topic / --limit / --offset / --chars; bounded output",
+    "temporary_input": "--temp-input; finally and mobile EXIT/signal traps",
+    "reusable_input": "--input; retained explicitly",
+    "cleanup_scope": "only explicitly owned input; no workspace sweep",
+    "retained_results": [
+      "chart.json",
+      "comparison.json"
+    ],
+    "reports": "only explicit --report / --render; reading.md on request",
+    "chart_retains_normalized_input": true,
+    "forced_termination_secure_erasure_guarantee": false,
+    "shuwen_input": "stdin default; --temp-input finally and shell trap; --input retained explicitly"
+  },
+  "runtime_bundle": {
+    "module_format": "CommonJS",
+    "development_tests_bundled": false,
+    "generated_example_results_bundled": false,
+    "source_maps_and_type_sources_bundled": false,
+    "self_test": "scripts/mobile.sh --check --self-test; compact critical cases with fixed external expectations",
+    "licenses_and_provenance_retained": true,
+    "critical_test_cases": 12,
+    "critical_test_module": "scripts/critical-checks.cjs",
+    "self_test_policy": "install/upgrade/troubleshooting only; no routine test execution"
+  },
+  "shuwen": {
+    "engine": "shuwen/0.1.0",
+    "schema": "bazi-ziwei-shuwen/v1",
+    "entry": "scripts/mobile.sh --shuwen --stdin",
+    "purposes": [
+      "peace",
+      "ancestor",
+      "memorial",
+      "thanks",
+      "repentance",
+      "wealth",
+      "custom"
+    ],
+    "forms": [
+      "shuwen",
+      "biaowen",
+      "jiwen"
+    ],
+    "styles": [
+      "classical",
+      "plain"
+    ],
+    "calendar_conversion": "explicit solar or lunar date, 1900–2100, leap-month checked; no server-date default",
+    "default_output": "stdout text and draft fields; no input or document file",
+    "explicit_exports": [
+      "shuwen.txt",
+      "shuwen.html"
+    ],
+    "print_layouts": [
+      "horizontal",
+      "vertical right-to-left with pagination"
+    ],
+    "template_origin": "original folk drafting; source and regional formats distinguished",
+    "knowledge_topic": "kb-shuwen-writing"
+  },
+  "practice_library": {
+    "version": "practice-knowledge/v1",
+    "topics": 18,
+    "sources": 22,
+    "catalog": "references/knowledge/practice/catalog.json",
+    "index": "references/practice-library-index.md",
+    "method": "references/luck-practice-method.md",
+    "source_scope": "original summaries and guides; bibliographic locators, small ancient excerpts; no complete corpus, modern translation or ritual manuals",
+    "source_identity_preserved": true,
+    "common_chinese_question_aliases": true,
+    "calculations_added": false,
+    "ordinary_questions_require_birth_data": false,
+    "automatic_report": false,
+    "knowledge_query_files": false
+  },
+  "workflow": {
+    "version": "1.2.3",
+    "entry": "scripts/workflow.cjs",
+    "engine_facade": "scripts/runtime-core.cjs",
+    "context_projector": "scripts/context.cjs",
+    "knowledge_entry": "scripts/knowledge-context.cjs",
+    "context_schema": "suanming-context/v1",
+    "knowledge_context_schema": "suanming-knowledge-context/v1",
+    "validation_schema": "suanming-validation/v1",
+    "stdout_max_bytes": 20480,
+    "knowledge_max_bytes": 12288,
+    "legacy_entry": "scripts/run.cjs",
+    "cache_receipt": "validation.json",
+    "knowledge_unchanged_from": "1.1.6",
+    "frozen_baseline": "1.1.6",
+    "self_test_policy": "installation / upgrade acceptance and troubleshooting only; never routine follow-ups",
+    "algorithm_changes": false,
+    "default_focus": {
+      "chart": "core",
+      "relationship": "relationship",
+      "time_compare": "time_compare",
+      "divination": "divination"
+    },
+    "reading_policy": "chart-based judgement, evidence and requested timing; reality checks from user narrative; no automatic counselling workflow"
+  },
+  "system_prompt_required": false,
+  "mobile_validation": {
+    "status": "tested",
+    "source": "user_confirmation",
+    "tested_package_version": "1.2.1",
+    "scope": "installation package on mobile",
+    "reported_on": "2026-10-05"
+  },
+  "optional_system_prompt": {
+    "path": "RikkaHub可选系统提示词.txt",
+    "required": false,
+    "purpose": "optional folk fortune-teller persona and voice",
+    "changes_execution_workflow": false,
+    "default_runtime_read": false
+  }
+}

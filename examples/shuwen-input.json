@@ -1,0 +1,20 @@
+{
+  "mode": "shuwen",
+  "purpose": "ancestor",
+  "form": "biaowen",
+  "style": "classical",
+  "applicants": [
+    {
+      "name": "示例甲",
+      "role": "后人"
+    }
+  ],
+  "recipient": "历代祖先",
+  "occasion": "家祭追思",
+  "petition": "愿家人相亲相助，珍重身体，勤勉持家。",
+  "date": {
+    "calendar": "solar",
+    "date": "2026-10-05",
+    "display": "both"
+  }
+}

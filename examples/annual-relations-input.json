@@ -1,0 +1,13 @@
+{
+  "mode": "bazi",
+  "label": "逐年流年关系合成样例（非用户资料）",
+  "birth": {
+    "calendar": "solar",
+    "date": "1994-02-13",
+    "time": "09:15",
+    "gender": "female",
+    "timezone": "Asia/Shanghai"
+  },
+  "target_date": "2029-06-01",
+  "options": {"annual_count": 3}
+}

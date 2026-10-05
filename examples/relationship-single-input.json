@@ -1,0 +1,34 @@
+{
+  "mode": "relationship",
+  "label": "单人关系合成样例",
+  "question": "怎样整理我的恋爱与亲密沟通需求？",
+  "chart_mode": "both",
+  "people": [
+    {
+      "id": "a",
+      "label": "A（合成）",
+      "birth": {
+        "calendar": "solar",
+        "date": "1995-01-15",
+        "time": "09:30",
+        "gender": "female",
+        "timezone": "Asia/Shanghai"
+      }
+    }
+  ],
+  "target_date": "2026-10-02",
+  "context": {
+    "stage": "single",
+    "topics": [
+      "romance",
+      "intimacy",
+      "age_relation",
+      "sexual_ability",
+      "partner_image",
+      "zodiac"
+    ]
+  },
+  "options": {
+    "partner_star_model": "all"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "repository": "https://github.com/Renhuai123/ziwei-doushu",
+  "commit": "79421c22501501eac783eeab52a7b485f9a2ed31",
+  "source": "lib/ziwei/constants.ts",
+  "source_sha256": "02f190b8e2718c202de239d57a7e26e0b7b8e1f5155ddce1dbfe92ca1d6eec4e",
+  "scope": "independent default table comparison; does not replace configured iztro rules",
+  "license": "MIT",
+  "table": {
+    "甲": [
+      "廉贞",
+      "破军",
+      "武曲",
+      "太阳"
+    ],
+    "乙": [
+      "天机",
+      "天梁",
+      "紫微",
+      "太阴"
+    ],
+    "丙": [
+      "天同",
+      "天机",
+      "文昌",
+      "廉贞"
+    ],
+    "丁": [
+      "太阴",
+      "天同",
+      "天机",
+      "巨门"
+    ],
+    "戊": [
+      "贪狼",
+      "太阴",
+      "右弼",
+      "天机"
+    ],
+    "己": [
+      "武曲",
+      "贪狼",
+      "天梁",
+      "文曲"
+    ],
+    "庚": [
+      "太阳",
+      "武曲",
+      "太阴",
+      "天同"
+    ],
+    "辛": [
+      "巨门",
+      "太阳",
+      "文曲",
+      "文昌"
+    ],
+    "壬": [
+      "天梁",
+      "紫微",
+      "左辅",
+      "武曲"
+    ],
+    "癸": [
+      "破军",
+      "巨门",
+      "太阴",
+      "贪狼"
+    ]
+  }
+}

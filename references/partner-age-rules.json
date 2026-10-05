@@ -1,0 +1,209 @@
+{
+  "version": "partner-age-sourced-v2",
+  "method": "traditional-partner-age/v2",
+  "scope": "single natal chart; opposite-sex traditional husband/wife clauses follow natal algorithm gender; no partner birthday comparison",
+  "sources": [
+    {
+      "id": "AGE-CLASSIC-ZW",
+      "book": "紫微斗数全书",
+      "chapter": "维基文库录本卷二·三妻妾",
+      "url": "https://zh.wikisource.org/zh-hans/紫微斗數全書/卷二#三妻妾",
+      "accessed_on": "2026-10-04",
+      "verification": "已核对在线原典录文，未作刻本影像校勘；不假托陈抟亲撰",
+      "source_kind": "classical_primary_text",
+      "copyright_note": "古籍原文公有领域；维基文库录文归其贡献者，页面载明 CC BY-SA 4.0；本项目自行归纳规则。"
+    },
+    {
+      "id": "AGE-CLASSIC-BZ",
+      "book": "三命通会（四库全书本）",
+      "chapter": "卷七·妻妾及女命相关段落",
+      "url": "https://zh.wikisource.org/zh-hant/三命通會_(四庫全書本)/卷07",
+      "accessed_on": "2026-10-04",
+      "verification": "已核对在线录文的六亲柱位及妻星讨论；本次未找到旧版完整柱位年龄公式",
+      "source_kind": "classical_primary_text",
+      "original_excerpt": "日為己身妻妾時為子孫",
+      "usage": "核对六亲宫位；不作为伴侣年龄方向的直接公式",
+      "copyright_note": "古籍原文公有领域；维基文库录文归其贡献者，页面载明 CC BY-SA 4.0；本项目白话原创。"
+    }
+  ],
+  "bazi_auxiliary": {
+    "rule_id": "AGE-BZ-POSITION",
+    "evidence_kind": "project_auxiliary_symbolism",
+    "use": "auxiliary_only",
+    "origin": "六亲柱位不是伴侣实际年龄公式；保留旧柱位账本为项目辅助取象，不独立决定年龄方向。",
+    "pillar_direction": {
+      "BZ-YEAR": "older",
+      "BZ-MONTH": "older",
+      "BZ-DAY": "peer",
+      "BZ-HOUR": "younger"
+    }
+  },
+  "ziwei": {
+    "scope": "natal spouse palace major stars; minor and empty-palace opposite matches auxiliary only",
+    "aggregation": "explicit override for a stated combination; otherwise retain all directions; disagreement mixed, no voting",
+    "rules": [
+      {
+        "id": "ZW-TONG-WIFE",
+        "stars": [
+          "天同"
+        ],
+        "star_scope": "major",
+        "gender": "male",
+        "direction": "younger",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "天同条",
+        "original_excerpt": "夫宜长妻宜少",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-TONG-HUSBAND",
+        "stars": [
+          "天同"
+        ],
+        "star_scope": "major",
+        "gender": "female",
+        "direction": "older",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "天同条",
+        "original_excerpt": "夫宜长妻宜少",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-JI-WIFE",
+        "stars": [
+          "天机"
+        ],
+        "star_scope": "major",
+        "gender": "male",
+        "direction": "younger",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "天机条",
+        "original_excerpt": "天机宜年少刚强之，妻可配夫宜长",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-JI-HUSBAND",
+        "stars": [
+          "天机"
+        ],
+        "star_scope": "major",
+        "gender": "female",
+        "direction": "older",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "天机条",
+        "original_excerpt": "天机宜年少刚强之，妻可配夫宜长",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-JI-LIANG-WIFE",
+        "stars": [
+          "天机",
+          "天梁"
+        ],
+        "star_scope": "major",
+        "gender": "male",
+        "direction": "older",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "天机条·天梁同宫",
+        "original_excerpt": "天梁同宜年长",
+        "evidence_kind": "classical_pairing_prescription",
+        "overrides": [
+          "ZW-JI-WIFE"
+        ]
+      },
+      {
+        "id": "ZW-LIANG-WIFE",
+        "stars": [
+          "天梁"
+        ],
+        "star_scope": "major",
+        "gender": "male",
+        "direction": "older",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "天梁条",
+        "original_excerpt": "天梁妻宜大美容",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-XIANG-HUSBAND",
+        "stars": [
+          "天相"
+        ],
+        "star_scope": "major",
+        "gender": "female",
+        "direction": "older",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "天相条",
+        "original_excerpt": "天相貌美贤淑夫宜年长",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-ZI-XIANG-WIFE",
+        "stars": [
+          "紫微",
+          "天相"
+        ],
+        "star_scope": "major",
+        "gender": "male",
+        "direction": "younger",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "紫微条·天相同宫",
+        "original_excerpt": "天相同年少",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-ZI-PO-WIFE",
+        "stars": [
+          "紫微",
+          "破军"
+        ],
+        "star_scope": "major",
+        "gender": "male",
+        "direction": "older",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "破军条·紫微同宫",
+        "original_excerpt": "紫微同宜年长之妻",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-WU-PEER",
+        "stars": [
+          "武曲"
+        ],
+        "star_scope": "major",
+        "gender": "both",
+        "direction": "peer",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "武曲条",
+        "original_excerpt": "同年夫妇也相当",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-CHANG-WIFE",
+        "stars": [
+          "文昌"
+        ],
+        "star_scope": "minor",
+        "gender": "male",
+        "direction": "younger",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "文昌条",
+        "original_excerpt": "文昌妻少内助聪明",
+        "evidence_kind": "classical_pairing_prescription"
+      },
+      {
+        "id": "ZW-LU-WIFE",
+        "stars": [
+          "禄存"
+        ],
+        "star_scope": "minor",
+        "gender": "male",
+        "direction": "younger",
+        "source_id": "AGE-CLASSIC-ZW",
+        "locator": "禄存条",
+        "original_excerpt": "妻宜年少",
+        "evidence_kind": "classical_pairing_prescription"
+      }
+    ]
+  }
+}

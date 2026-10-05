@@ -1,0 +1,405 @@
+{
+  "version": "partner-image-symbolic-v2",
+  "rule_origin": "原创整理的传统形象取象规则；年龄另按有来源的夫妻宫规则与八字辅助账本",
+  "weights": {
+    "bazi_day_element": 2,
+    "bazi_day_ten_god": 1,
+    "partner_element": 1,
+    "ziwei_spouse": 2,
+    "ziwei_opposite": 1
+  },
+  "age": {
+    "method": "traditional-partner-age/v2",
+    "rule_file": "references/partner-age-rules.json",
+    "use": "sourced Ziwei pairing cues and auxiliary-only Bazi positions"
+  },
+  "animals": {
+    "子": "鼠",
+    "丑": "牛",
+    "寅": "虎",
+    "卯": "兔",
+    "辰": "龙",
+    "巳": "蛇",
+    "午": "马",
+    "未": "羊",
+    "申": "猴",
+    "酉": "鸡",
+    "戌": "狗",
+    "亥": "猪"
+  },
+  "liuhe": [
+    "子丑",
+    "寅亥",
+    "卯戌",
+    "辰酉",
+    "巳申",
+    "午未"
+  ],
+  "sanhe": [
+    "申子辰",
+    "亥卯未",
+    "寅午戌",
+    "巳酉丑"
+  ],
+  "elements": {
+    "木": {
+      "appearance": [
+        "清秀",
+        "线条修长"
+      ],
+      "temperament": [
+        "舒展",
+        "有成长感"
+      ],
+      "style": [
+        "自然清爽"
+      ]
+    },
+    "火": {
+      "appearance": [
+        "神采明亮",
+        "表情鲜活"
+      ],
+      "temperament": [
+        "明朗",
+        "回应直接"
+      ],
+      "style": [
+        "有活力"
+      ]
+    },
+    "土": {
+      "appearance": [
+        "轮廓端稳",
+        "体态敦实"
+      ],
+      "temperament": [
+        "踏实",
+        "稳重"
+      ],
+      "style": [
+        "简洁实用"
+      ]
+    },
+    "金": {
+      "appearance": [
+        "线条利落",
+        "轮廓端正"
+      ],
+      "temperament": [
+        "利落",
+        "重分寸"
+      ],
+      "style": [
+        "整洁利落"
+      ]
+    },
+    "水": {
+      "appearance": [
+        "线条柔和",
+        "神情灵动"
+      ],
+      "temperament": [
+        "细腻",
+        "善于适应"
+      ],
+      "style": [
+        "柔和灵动"
+      ]
+    }
+  },
+  "ten_gods": {
+    "比肩": {
+      "appearance": [],
+      "temperament": [
+        "自主",
+        "同伴感强"
+      ],
+      "style": [
+        "自然自在"
+      ]
+    },
+    "劫财": {
+      "appearance": [],
+      "temperament": [
+        "有主见",
+        "行动直接"
+      ],
+      "style": [
+        "有个性"
+      ]
+    },
+    "食神": {
+      "appearance": [],
+      "temperament": [
+        "温和",
+        "重生活体验"
+      ],
+      "style": [
+        "舒适自然"
+      ]
+    },
+    "伤官": {
+      "appearance": [],
+      "temperament": [
+        "表达鲜明",
+        "有才气"
+      ],
+      "style": [
+        "个性鲜明"
+      ]
+    },
+    "正财": {
+      "appearance": [],
+      "temperament": [
+        "务实",
+        "重稳定"
+      ],
+      "style": [
+        "简洁实用"
+      ]
+    },
+    "偏财": {
+      "appearance": [],
+      "temperament": [
+        "开朗",
+        "善于交际"
+      ],
+      "style": [
+        "讲究体验"
+      ]
+    },
+    "正官": {
+      "appearance": [],
+      "temperament": [
+        "稳重",
+        "重分寸"
+      ],
+      "style": [
+        "端正整洁"
+      ]
+    },
+    "七杀": {
+      "appearance": [],
+      "temperament": [
+        "利落",
+        "有主见"
+      ],
+      "style": [
+        "干练鲜明"
+      ]
+    },
+    "正印": {
+      "appearance": [],
+      "temperament": [
+        "包容",
+        "有照顾感"
+      ],
+      "style": [
+        "温和得体"
+      ]
+    },
+    "偏印": {
+      "appearance": [],
+      "temperament": [
+        "细腻",
+        "重个人空间"
+      ],
+      "style": [
+        "文艺独特"
+      ]
+    }
+  },
+  "major_stars": {
+    "紫微": {
+      "appearance": [
+        "轮廓端正"
+      ],
+      "temperament": [
+        "稳重",
+        "有主见"
+      ],
+      "style": [
+        "端庄得体"
+      ]
+    },
+    "天机": {
+      "appearance": [
+        "清秀"
+      ],
+      "temperament": [
+        "机敏",
+        "善于变化"
+      ],
+      "style": [
+        "灵活轻巧"
+      ]
+    },
+    "太阳": {
+      "appearance": [
+        "神采明亮"
+      ],
+      "temperament": [
+        "明朗",
+        "外向"
+      ],
+      "style": [
+        "大方明快"
+      ]
+    },
+    "武曲": {
+      "appearance": [
+        "线条利落"
+      ],
+      "temperament": [
+        "利落",
+        "务实"
+      ],
+      "style": [
+        "简洁利落"
+      ]
+    },
+    "天同": {
+      "appearance": [
+        "线条柔和"
+      ],
+      "temperament": [
+        "亲和",
+        "重舒适"
+      ],
+      "style": [
+        "舒适自然"
+      ]
+    },
+    "廉贞": {
+      "appearance": [
+        "辨识度鲜明"
+      ],
+      "temperament": [
+        "表达鲜明",
+        "有主见"
+      ],
+      "style": [
+        "个性鲜明"
+      ]
+    },
+    "天府": {
+      "appearance": [
+        "轮廓端稳"
+      ],
+      "temperament": [
+        "稳重",
+        "重生活秩序"
+      ],
+      "style": [
+        "端庄得体"
+      ]
+    },
+    "太阴": {
+      "appearance": [
+        "清秀",
+        "线条柔和"
+      ],
+      "temperament": [
+        "细腻",
+        "温和"
+      ],
+      "style": [
+        "文艺清雅"
+      ]
+    },
+    "贪狼": {
+      "appearance": [
+        "神情灵动"
+      ],
+      "temperament": [
+        "好奇",
+        "善于交际"
+      ],
+      "style": [
+        "有活力"
+      ]
+    },
+    "巨门": {
+      "appearance": [],
+      "temperament": [
+        "重表达",
+        "有思辨感"
+      ],
+      "style": [
+        "有个人观点"
+      ]
+    },
+    "天相": {
+      "appearance": [
+        "轮廓端正"
+      ],
+      "temperament": [
+        "重分寸",
+        "讲协调"
+      ],
+      "style": [
+        "整洁得体"
+      ]
+    },
+    "天梁": {
+      "appearance": [
+        "沉稳端正"
+      ],
+      "temperament": [
+        "有照顾感",
+        "重原则"
+      ],
+      "style": [
+        "成熟稳妥"
+      ]
+    },
+    "七杀": {
+      "appearance": [
+        "线条利落"
+      ],
+      "temperament": [
+        "利落",
+        "自主"
+      ],
+      "style": [
+        "干练鲜明"
+      ]
+    },
+    "破军": {
+      "appearance": [
+        "辨识度鲜明"
+      ],
+      "temperament": [
+        "行动直接",
+        "求变化"
+      ],
+      "style": [
+        "个性鲜明"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "title": "紫微研习社·十四主星",
+      "url": "https://docs.iztro.com/learn/major-star",
+      "usage": "参考星曜气质主题，本文标签为简要原创归纳，不复制网页全文"
+    },
+    {
+      "title": "紫微斗数全书·卷一（古代相貌取象，现代转录）",
+      "url": "https://docs.iztro.com/zh_TW/learn/ancientBook-1",
+      "usage": "参考传统形貌取象背景，不导入寿夭、贞节、贵贱等断语"
+    },
+    {
+      "title": "鬼谷子神奇相法全书（CTP 众包转录）",
+      "url": "https://ctext.org/wiki.pl?chapter=665923&if=gb&remap=gb",
+      "usage": "五行形貌意象背景；搜索索引查核，非底本影像校勘，未复制全文"
+    },
+    {
+      "title": "1liye/bazi-chart 配偶宫十神描述",
+      "url": "https://github.com/1liye/bazi-chart/blob/df008acfa31a79af0ff31612f4dfe20e38e0f715/bazi.html",
+      "license": "MIT",
+      "usage": "参考配偶宫本气十神的画像组织；重写为中性标签，未移植性别评价和成败断语"
+    }
+  ]
+}

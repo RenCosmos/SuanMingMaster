@@ -1,0 +1,241 @@
+{
+  "version": "classical-source-verification/v1",
+  "checked_date": "2026-10-04",
+  "scope": "14 new source cards; attestation of passages, not efficacy validation or complete facsimile collation",
+  "full_text_bundled": false,
+  "modern_translations_bundled": false,
+  "records": [
+    {
+      "id": "FH-08",
+      "slug": "folk-liji-quli",
+      "book": "礼记",
+      "chapter": "曲礼上",
+      "url": "https://zh.wikisource.org/wiki/禮記/曲禮上",
+      "original_excerpt": "禮從宜，使從俗。",
+      "locator": "检索“禮從宜”及“大夫士出入君門”两处",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "篇中有“禮從宜，使從俗”，另有“大夫士出入君門，由闑右，不踐閾”。两句分属不同段落。",
+      "sha256": "188bf9594367d8fbc2a18ff4246ec64714e6237ec1f4464bf81ed12424e5b44b",
+      "fixed_revision_url": "https://zh.wikisource.org/w/index.php?title=禮記/曲禮上&oldid=11117081",
+      "additional_sources": [
+        {
+          "label": "中国哲学书电子化计划·曲礼上",
+          "url": "https://ctext.org/liji/qu-li-i",
+          "access_method": "search_indexed_text"
+        }
+      ]
+    },
+    {
+      "id": "FH-09",
+      "slug": "folk-baopuzi-weizhi",
+      "book": "抱朴子内篇",
+      "chapter": "微旨",
+      "url": "https://guoxue3000.com/tw/books/321/chapters/7",
+      "original_excerpt": "吾亦未能審此事之有無也。",
+      "locator": "“敢問欲修長生之道，何所禁忌”问答；检索“三尸”“竈神”",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "该问答并列慈心于物、恕己及人、救济困苦等行为，以及庚申、月晦和神灵记过的信仰。短引文对应作者对神灵记过叙事的态度。",
+      "sha256": "fd9aaf6527ff20450afae833d374dff264fa695e431cd00b8b3d4d3a64b003eb"
+    },
+    {
+      "id": "FH-10",
+      "slug": "folk-liji-jitong",
+      "book": "礼记",
+      "chapter": "祭统",
+      "url": "https://zh.wikisource.org/wiki/禮記/祭統",
+      "original_excerpt": "散齊七日以定之，致齊三日以齊之。",
+      "locator": "开篇斋戒说明；检索“散齊七日”",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "本文由“及時將祭，君子乃齊”进入斋戒说明，有“齊者不樂”及散齐七日、致齐三日的规定。",
+      "sha256": "23ee5de355cac1c34cd862225404bc67ddd7f51271ea63efb619c7fbe7e955e4"
+    },
+    {
+      "id": "FH-11",
+      "slug": "folk-jingchu-new-year",
+      "book": "荆楚岁时记",
+      "chapter": "正月一日",
+      "url": "https://zh.wikisource.org/wiki/荊楚歲時記",
+      "original_excerpt": "造桃板著戶，謂之仙木。",
+      "locator": "正月一日条；检索“造桃板”“先於庭前爆竹”",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "同一节令记有爆竹辟山臊、桃板称仙木和门神图像。页面中的后续“按”语含别书材料，引用时需另标身份。",
+      "sha256": "3c8b8ae22fc4b2e722e164089fd3411270672ad1bf3bdc07d9ac4e4517a9ced9"
+    },
+    {
+      "id": "FH-12",
+      "slug": "folk-jingchu-duanwu",
+      "book": "荆楚岁时记",
+      "chapter": "五月五日",
+      "url": "https://zh.wikisource.org/wiki/荊楚歲時記",
+      "original_excerpt": "五月五日，謂之浴蘭節。",
+      "locator": "五月五日条；检索“採艾”“五綵絲”",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "正文记采艾悬门户以及五彩丝系臂的习俗；竞渡按语分别引述屈原、伍子胥和相关地方说法。",
+      "sha256": "1dac055bc1def1aa32114bf5181c1e5b1b28ab20065eaa9d3ad900c6c115a0aa"
+    },
+    {
+      "id": "FH-13",
+      "slug": "folk-liji-yueling-summer",
+      "book": "礼记",
+      "chapter": "月令·仲夏之月",
+      "url": "https://zh.wikisource.org/wiki/禮記/月令",
+      "original_excerpt": "日長至，陰陽争，死生分。",
+      "locator": "仲夏之月条；检索“日長至”“定心氣”",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "段落先说日长至，再连写斋戒、止声色和定心气。页面“节嗜欲”处带“一作耆”的异文提示；短引文未擅改异文。",
+      "sha256": "8b5fdb16c525e47f4a928f1d9e15e0757771068ba3f4746b4956cc0a76d3c182"
+    },
+    {
+      "id": "FH-14",
+      "slug": "folk-hanshu-fangzhong",
+      "book": "汉书",
+      "chapter": "卷三十·艺文志·方技略·房中",
+      "url": "https://zh.wikisource.org/wiki/漢書/卷030",
+      "original_excerpt": "右房中八家，百八十六卷。",
+      "locator": "方技略“房中”小节；在“神僊”之前",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "原文列八部书名后合计卷数，随后的说明强调“乐而有节”，再进入神仙类。",
+      "sha256": "08b7f8d1e70d04a3d280aa071099c222fccc26d9f95dcfd284ba1a9c89a756a1",
+      "fixed_revision_url": "https://zh.wikisource.org/w/index.php?title=漢書/卷030&oldid=7908197"
+    },
+    {
+      "id": "FH-15",
+      "slug": "folk-baopuzi-fangzhong",
+      "book": "抱朴子内篇",
+      "chapter": "卷八·释滞",
+      "url": "https://guoxue3000.com/tw/books/321/chapters/9",
+      "original_excerpt": "房中之法十餘家",
+      "locator": "检索“房中之法十餘家”所在段落",
+      "access_method": "search_indexed_text",
+      "source_verification": "indexed_passage_checked",
+      "attestation": "网页搜索索引核到“房中之法十餘家”及“採陰益陽”“還精補腦”所在句；学术论文另引此篇作为房中诸家材料。未由访问失败的正文补造长引文。",
+      "sha256": "b430acb9ade10b3150a9979c4c6781dfb07984c4f98615c3c1812f6724d7b0a0",
+      "additional_sources": [
+        {
+          "label": "中国哲学书电子化计划·卷八释滞",
+          "url": "https://ctext.org/wiki.pl?chapter=119198&if=gb",
+          "access_method": "search_indexed_text"
+        },
+        {
+          "label": "林富士：略论早期道教与房中术的关系（学术交叉核对）",
+          "url": "https://www11.ihp.sinica.edu.tw/storage/w2_file/3094FZKwVkL.pdf",
+          "access_method": "search_indexed_text",
+          "source_kind": "scholarly_research"
+        }
+      ]
+    },
+    {
+      "id": "FH-16",
+      "slug": "folk-qianjin-fangzhong",
+      "book": "备急千金要方",
+      "chapter": "卷二十七·养性·房中补益第八",
+      "url": "https://guoxue3000.com/tw/books/324/chapters/226",
+      "original_excerpt": "務存節慾以廣養生也。",
+      "locator": "房中补益第八开篇论述；禁忌见“當避丙丁日”起的段落",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "开篇明确说明并非为纵情快意而作；后文将丙丁日、弦望晦朔及部分气候、天象列入禁忌。采用本次实际读到的转录页，未把缺段的另一在线卷本当作该节全文。",
+      "sha256": "eefbcfb368796e8aa27658f23bbe5191c46101a23652523bcd88ec2b6e043121",
+      "additional_sources": [
+        {
+          "label": "唐代医书的房中思想——以孙思邈《备急千金要方·房中补益》为研究主轴（学术书目核对）",
+          "url": "https://teric.naer.edu.tw/wSite/PDFReader?fileName=1573025334858&format=pdf&xmlId=",
+          "access_method": "search_indexed_text",
+          "source_kind": "scholarly_research"
+        }
+      ]
+    },
+    {
+      "id": "FH-17",
+      "slug": "folk-xingming-shuangxiu",
+      "book": "性命圭旨",
+      "chapter": "元集·性命说；参照亨集·龙虎交媾三元合一",
+      "url": "https://zh.wikisource.org/wiki/性命圭旨/元集",
+      "original_excerpt": "神氣雖有二用，性命則當雙修也哉。",
+      "locator": "元集“性命说”标题下，检索“何謂之性”“神氣雖有二用”",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "“性命说”先以元始真如、一灵说明性，以先天至精、一炁说明命，再谈性命不可分与双修。亨集所见“内交”“外交”分别配坎离龙虎与乾坤子午。",
+      "sha256": "5e440c6ac74b94bc13e81f2ea0bddbceb81148d4c2e7f834dc13cf38d4d90954",
+      "additional_sources": [
+        {
+          "label": "性命圭旨·亨集",
+          "url": "https://zh.wikisource.org/zh-hans/性命圭旨/亨集",
+          "access_method": "search_indexed_text"
+        }
+      ]
+    },
+    {
+      "id": "FH-18",
+      "slug": "folk-wuzhen-metaphor",
+      "book": "悟真篇",
+      "chapter": "七言四韵十六首·第三、第八",
+      "url": "https://zh.wikisource.org/wiki/悟真篇",
+      "original_excerpt": "不是凡砂及水銀。",
+      "locator": "七言四韵十六首：第三“學仙須是學天仙”；第八“休鍊三黃及四神”",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "第三首含“二物會時情性合”及夫妻意象；第八首结句明确区分真铅汞与凡砂水银。引用身份为诗文，不把页面后附异名、注解一并署作原诗。",
+      "sha256": "423f29148cec9fcab62467688b8fc8da0c453a84341024e36e94290b7bc88dda"
+    },
+    {
+      "id": "FH-19",
+      "slug": "folk-qingjing-desire",
+      "book": "太上老君说常清静经",
+      "chapter": "正文·人心好静而欲牵之段",
+      "url": "https://zh.wikisource.org/wiki/太上老君說常清靜經",
+      "original_excerpt": "澄其心而神自清。",
+      "locator": "正文开篇后“夫人神好清”段；与后附传授叙事分开",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "经文连写心好静而欲牵之，以及遣欲、澄心的关系；后文继续谈贪求、烦恼。题署太上老君按宗教文本身份保留，未据此认定历史上的老子亲笔。",
+      "sha256": "4f3e790d975c881329448f14d00d4ccfae3cae7f30a086958ae45f9aa037eb2c"
+    },
+    {
+      "id": "FH-20",
+      "slug": "folk-zhuangzi-xinzhai",
+      "book": "庄子",
+      "chapter": "人间世·心斋；大宗师·坐忘",
+      "url": "https://zh.wikisource.org/wiki/莊子/人間世",
+      "original_excerpt": "虛者，心齋也。",
+      "locator": "人间世颜回问答中“是祭祀之齋，非心齋也”；坐忘见大宗师“回坐忘矣”",
+      "access_method": "page_text",
+      "source_verification": "chapter_transcription_checked",
+      "attestation": "心斋段明确回应只在饮食上斋戒的理解；坐忘是大宗师另一段问答。两个原典地址分别保留。",
+      "sha256": "3550b0fafa9715b16c8964857f383000569c0ee4ba5f933309d61068f26431d9",
+      "fixed_revision_url": "https://zh.wikisource.org/w/index.php?title=莊子/人間世&oldid=11117687",
+      "additional_sources": [
+        {
+          "label": "庄子·大宗师",
+          "url": "https://zh.wikisource.org/wiki/莊子/大宗師",
+          "access_method": "page_text"
+        },
+        {
+          "label": "中国哲学书电子化计划·大宗师",
+          "url": "https://ctext.org/zhuangzi/great-and-most-honoured-master",
+          "access_method": "search_indexed_text"
+        }
+      ]
+    },
+    {
+      "id": "FH-21",
+      "slug": "folk-baopuzi-xifu",
+      "book": "抱朴子外篇",
+      "chapter": "疾谬",
+      "url": "https://ctext.org/baopuzi/ji-miu/zh",
+      "original_excerpt": "俗間有戲婦之法",
+      "locator": "检索“俗間有戲婦之法”段；前后为作者批评",
+      "access_method": "search_indexed_text",
+      "source_verification": "indexed_passage_checked",
+      "attestation": "检索索引所见段落写到戏妇后明确斥其鄙黩，又说民间行之日久而莫觉其非。保留作者批评的立场。",
+      "sha256": "931bc0a758814962933cbd2ad3124aae3ae3e6b3eeb2cbe5b28f92e7d3cb2062"
+    }
+  ]
+}

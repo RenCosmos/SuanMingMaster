@@ -1,0 +1,22 @@
+{
+  "label": "合成演示样例",
+  "mode": "both",
+  "birth": {
+    "calendar": "solar",
+    "date": "2000-01-01",
+    "time": "12:00",
+    "gender": "male",
+    "timezone": "Asia/Shanghai"
+  },
+  "target_date": "2026-10-02",
+  "options": {
+    "time_basis": "clock",
+    "bazi_day_boundary": "midnight",
+    "ziwei_day_boundary": "late_zi",
+    "ziwei_year_boundary": "lunar_new_year",
+    "ziwei_leap_adjust": true,
+    "ziwei_algorithm": "default",
+    "dayun_count": 8,
+    "annual_count": 5
+  }
+}
