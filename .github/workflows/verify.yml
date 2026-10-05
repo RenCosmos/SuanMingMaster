@@ -16,8 +16,9 @@ jobs:
         with:
           python-version: '3.12'
       - run: pnpm install --frozen-lockfile --ignore-scripts
-      - run: python tools/release.py --out ../release
+      - run: python tools/release.py --out "${{ runner.temp }}/release"
       - uses: actions/upload-artifact@v4
         with:
           name: tested-packages
-          path: ../release
+          path: ${{ runner.temp }}/release
+          if-no-files-found: error
