@@ -101,5 +101,15 @@
   "references/third-party/Renhuai123-ziwei-doushu/LICENSE-MIT.txt": "c0214b387494be5b7a6d3e7bf62897e43dd425c2b77f42e20925029252275be4",
   "references/third-party/xuemian168-bazi-skill/LICENSE-APACHE-2.0.txt": "fb4011dab589d23a32edd0d601a8ec942fc81f436ab8e03fa86f35a9d1c73e4c",
   "references/third-party/xuemian168-bazi-skill/NOTICE.txt": "144a2b7a07c35eb6739472e4f5287fa654217652c81f4c59eb2f05b25e76524b",
-  "references/third-party/xuziping-bazi/LICENSE-MIT.txt": "e40704212376202e559c332062affa8075789d0d0dee4e2bf359c38a626a9002"
+  "references/third-party/xuziping-bazi/LICENSE-MIT.txt": "e40704212376202e559c332062affa8075789d0d0dee4e2bf359c38a626a9002",
+  "references/knowledge/spirit/catalog.json": "8d757eb0eb5be82fcbf83c1ac05143c15df8b01eb08bfcab86e1d0c326b0d6b4",
+  "references/knowledge/spirit/cards/spirit-human-ghosts.md": "4b2c6a78e43baa5db5a5aa7637d241c12ef73c46429fe2fac81be1fd6174a551",
+  "references/knowledge/spirit/cards/spirit-dizang-ghost-kings.md": "8ca2e12f5fd7f588cc4aaaa74a52e3b8c0736fdf1e9ba955993c93c4263631f5",
+  "references/knowledge/spirit/cards/spirit-buddhist-protectors.md": "570abb4ce3ddc45e8092eed1e26d6d1c3e6cdaab1bc4347b6a67e5ae09c6cf07",
+  "references/knowledge/spirit/cards/spirit-rebirth-kinship.md": "55a1d835f190d90f2a82c0918149351f958970539b1ee987aa84d7289d5c33e7",
+  "references/knowledge/spirit/cards/spirit-marriage-future-life.md": "38753f94e7a729e1448dd6011568695236bd9fc71246a7f5cb914ea230aed622",
+  "references/knowledge/spirit/cards/spirit-dizang-memorial.md": "a47004154129a697a4ef3a238a6b58c7be4c71ab34926cdd37d03326771fc769",
+  "references/knowledge/spirit/cards/spirit-zhongyuan-pudu.md": "5b94fc7141392c508bbf6b50c395cb60ecbce4ebe9aa87f554e82f7859099570",
+  "references/knowledge/spirit/cards/spirit-ghost-marriage.md": "4ded4ffa42e442665aab7facda8b5b44460260644561b89f4dcec20efdfb337e",
+  "references/spirit-library-index.md": "085dea2e7fb1a397a3be17464f5b5bb91ac0cf1b803188bc30ca9804d06f42f3"
 }

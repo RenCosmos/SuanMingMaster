@@ -2,8 +2,8 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),cp=require('node:child_process');
 const {lookup,verifyKnowledge}=require('../scripts/knowledge.cjs');
 const catalog=require('../references/knowledge/practice/catalog.json');
-test('旧有67主题保留并加入18卡；完整校验共85主题与22个来源',()=>{
- const r=verifyKnowledge();assert.equal(r.topics+r.folklore_topics+r.curated_topics,67);assert.equal(r.practice_topics,18);assert.equal(r.practice_sources,22);assert.equal(r.total_topics,85);
+test('旧有67主题和18卡保留，基础85主题与22个修行来源完整',()=>{
+ const r=verifyKnowledge();assert.equal(r.topics+r.folklore_topics+r.curated_topics,67);assert.equal(r.practice_topics,18);assert.equal(r.practice_sources,22);assert.equal(r.total_topics-r.spirit_topics,85);
  for(const t of catalog.topics){const result=lookup({topic:t.slug});assert.equal(result.topic.source_kind,t.kind);assert.equal(result.topic.program_supported,false);assert.ok(result.content.length>300);assert.equal(result.source_url,t.url);}
 });
 test('实际中文提问直接命中方法，无须把问句拆成空格关键词',()=>{
@@ -25,7 +25,7 @@ test('来源记录缺失或被改为另一经文时，完整性校验拒绝',()=
  try{record.locator='未经核对的卷次';assert.throws(()=>verifyKnowledge(),/查核字段不一致/);}finally{record.locator=old;}
  const source=catalog.sources[0],url=source.url;
  try{source.url='https://example.com/wrong';assert.throws(()=>verifyKnowledge(),/主来源不一致/);}finally{source.url=url;}
- assert.equal(verifyKnowledge().total_topics,85);
+ const r=verifyKnowledge();assert.equal(r.total_topics-r.spirit_topics,85);
 });
 test('真实CLI知识查询不在工作目录写查询、输入、报告或计划文件',()=>{
  const cwd=fs.mkdtempSync(path.join(os.tmpdir(),'practice-query-'));

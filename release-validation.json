@@ -1,24 +1,25 @@
 {
   "ok": true,
-  "version": "1.2.3",
+  "version": "1.2.4",
   "tests": {
-    "tests": 240,
-    "pass": 240,
+    "tests": 247,
+    "pass": 247,
     "fail": 0,
     "skipped": 0,
     "cancelled": 0
   },
   "runtime_critical_cases": 12,
-  "knowledge_topics": 85,
-  "knowledge_files_byte_identical": 103,
-  "runtime_files": 628,
-  "source_files": 224,
-  "local_links": 192,
+  "knowledge_topics": 93,
+  "knowledge_files_byte_identical": 113,
+  "runtime_files": 638,
+  "source_files": 235,
+  "local_links": 205,
   "extracted_self_test": true,
+  "extracted_religious_queries": 3,
   "extracted_temp_cleanup": true,
   "extracted_cache_reuse": true,
   "archives": {
-    "bazi-ziwei-rikkahub-v1.2.3.zip": "f56c90a9156e04a21f9826b405e1c9c74ab931e68e0aea6b3e0884a9452ab377",
-    "SuanMingMaster-source-v1.2.3.zip": "1c1e872da2cc22d205ce232fa55afb66b50e40b9d8dad0200636c7f5516ed188"
+    "bazi-ziwei-rikkahub-v1.2.4.zip": "b907fcb293242603ec82d2dfd8afab071444431b56331de38cfbf400c6e23b25",
+    "SuanMingMaster-source-v1.2.4.zip": "44964642b27b88611f3545ad229ed734862be5b03cd23c79f175cf58c03773c1"
   }
 }

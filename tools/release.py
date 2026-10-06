@@ -51,13 +51,13 @@ def main():
     write(ROOT/'README.md',template.format(version=version,tests=counts['pass'],topics=topics,knowledge_files=len(knowledge)))
     write(ROOT/'验证记录.md',f'''# V{version} 验证记录
 
-全部{counts['pass']}项开发回归通过，零失败、零跳过。新增9项运行缺陷回归；手机包仍仅携带12组关键自检，开发测试不入手机包。
+全部{counts['pass']}项开发回归通过，零失败、零跳过。新增7项宗教知识回归；手机包仍仅携带12组关键自检，开发测试不入手机包。
 
-修复：统一输出碰撞保护（包含真实路径和硬链接）、有效输入归一化缓存、目录独占锁与已结束进程锁恢复、单次最终摘要发布；统一嵌套重算校验，39个候选基础排盘从158次降到78次。命理算法、口径、固定依赖和{topics}主题知识保持原内容。
+知识增补：新增8张宗教资料卡、7个来源，合计{topics}主题。限定宗教经典及相关民俗研究，检索保留传统、出处身份、查核深度与推断范围；不加入鬼压床医学资料，不认证个人鬼神身份或前世配偶。命理算法、计算口径、固定依赖和原85主题保持不变；沿用V1.2.3缓存、并发和输出保护修复。
 
 发布工具从package.json读取版本，直接运行测试和解包自检，校验知识基线、包内容与本地链接，生成可复验ZIP、SHA-256及结构化结果。开发使用packageManager指定的pnpm版本与frozen lockfile；源码、测试、工具和CI均作为普通文件入库。源码及安装包的所有实际验收结果见release-validation.json。
 
-原V1.2.1安装包的手机测试确认记录保留在清单中，后续版本沿用该工作区方式。系统提示词仍为可选，报告只按需生成。
+原V1.2.1安装包的手机测试确认记录保留在清单中，后续版本沿用该工作区方式。本版本已做电脑端解包验收，尚无新版本手机实测确认。系统提示词仍为可选，报告只按需生成。
 ''')
     files=sorted(f for f in ROOT.rglob('*') if f.is_file() and f.relative_to(ROOT).parts[0] not in ['.git','work','dist'] and '__pycache__' not in f.relative_to(ROOT).parts and not (f.parent==ROOT and (f.suffix=='.zip' or f.name in ['SHA256SUMS.txt','release-validation.json','INSTALL.md','TESTING.md','RikkaHub系统提示词.txt'])))
     runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md','pnpm-workspace.yaml'] and (f.relative_to(ROOT).parts[0]!='node_modules' or f.relative_to(ROOT).as_posix() in dependencies)]
@@ -83,11 +83,15 @@ def main():
         skill=extracted/'bazi-ziwei'
         for f in runtime:assert (skill/f.relative_to(ROOT)).read_bytes()==f.read_bytes()
         preflight=json.loads(execute([a.node,str(skill/'scripts/preflight.cjs'),'--self-test'],temp,env));assert preflight['ok'] and preflight['critical']['passed']==12
+        knowledge_queries={'撞鬼会怎么样':'spirit-dizang-ghost-kings','我有没有护法':'spirit-buddhist-protectors','前世姻缘':'spirit-marriage-future-life'}
+        for query,slug in knowledge_queries.items():
+            found=json.loads(execute([a.node,str(skill/'scripts/knowledge-context.cjs'),'--query',query,'--limit','1'],temp,env))
+            card=found['matches'][0];assert found['reference_only'] and card['slug']==slug and card['evidence_scope']=='religious_teaching' and card['inference_limits']
         inp=json.loads((skill/'examples/input.json').read_text(encoding='utf-8'));task=Path(temp)/'task';f=Path(temp)/'temp-input.json';write(f,json.dumps(inp))
         cmd=[a.node,str(skill/'scripts/workflow.cjs')];response=json.loads(execute([*cmd,'--temp-input',str(f),'--out',str(task)],temp,env));assert response['ok'] and response['temporary_input_removed'] and not f.exists()
         response=json.loads(execute([*cmd,'--reuse',str(task/'chart.json'),'--focus','relationship'],temp,env));assert response['cache_hit'] and not response['calculation_performed']
         assert not (task/'report.md').exists() and not (task/'report.html').exists()
-    result={'ok':True,'version':version,'tests':counts,'runtime_critical_cases':preflight['critical']['passed'],'knowledge_topics':topics,'knowledge_files_byte_identical':len(knowledge),'runtime_files':len(runtime),'source_files':len(source),'local_links':links,'extracted_self_test':True,'extracted_temp_cleanup':True,'extracted_cache_reuse':True,'archives':{f.name:sha(f.read_bytes()) for f in [install,src]}}
+    result={'ok':True,'version':version,'tests':counts,'runtime_critical_cases':preflight['critical']['passed'],'knowledge_topics':topics,'knowledge_files_byte_identical':len(knowledge),'runtime_files':len(runtime),'source_files':len(source),'local_links':links,'extracted_self_test':True,'extracted_religious_queries':len(knowledge_queries),'extracted_temp_cleanup':True,'extracted_cache_reuse':True,'archives':{f.name:sha(f.read_bytes()) for f in [install,src]}}
     write(out/'release-validation.json',json.dumps(result,ensure_ascii=False,indent=2)+'\n');write(out/'SHA256SUMS.txt',''.join(d+'  '+n+'\n' for n,d in result['archives'].items()))
     print(json.dumps(result,ensure_ascii=False))
 if __name__=='__main__':main()

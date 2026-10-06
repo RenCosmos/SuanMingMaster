@@ -2,9 +2,9 @@
 const fs=require('node:fs');const path=require('node:path');
 const {withInputLifecycle}=require('./input-lifecycle.cjs');
 function library(){
- const MANIFEST=require('../references/knowledge/supe888-bazi-skills/manifest.json'),FOLK=require('../references/folklore/catalog.json'),CURATED=require('../references/knowledge/curated/catalog.json'),PRACTICE=require('../references/knowledge/practice/catalog.json');
- const topics=[...MANIFEST.topics.map(t=>({...t,source_kind:'open_source_prompt_template',repository:MANIFEST.repository,commit:MANIFEST.commit,license:MANIFEST.license})),...FOLK.topics.map(t=>({...t,source_kind:t.kind})),...CURATED.topics.map(t=>({...t,source_kind:t.kind})),...PRACTICE.topics.map(t=>({...t,source_kind:t.kind}))];
- return {MANIFEST,FOLK,CURATED,PRACTICE,topics};
+ const MANIFEST=require('../references/knowledge/supe888-bazi-skills/manifest.json'),FOLK=require('../references/folklore/catalog.json'),CURATED=require('../references/knowledge/curated/catalog.json'),PRACTICE=require('../references/knowledge/practice/catalog.json'),SPIRIT=require('../references/knowledge/spirit/catalog.json');
+ const topics=[...MANIFEST.topics.map(t=>({...t,source_kind:'open_source_prompt_template',repository:MANIFEST.repository,commit:MANIFEST.commit,license:MANIFEST.license})),...FOLK.topics.map(t=>({...t,source_kind:t.kind})),...CURATED.topics.map(t=>({...t,source_kind:t.kind})),...PRACTICE.topics.map(t=>({...t,source_kind:t.kind})),...SPIRIT.topics.map(t=>({...t,source_kind:t.kind}))];
+ return {MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,topics};
 }
 function lookup(input){
  const {ROOT,check}=require('./common.cjs'),{topics}=library();
@@ -12,7 +12,7 @@ function lookup(input){
  for(const key of Object.keys(input))check(['topic','query','limit'].includes(key),`知识检索不支持字段 ${key}`);
  check(('topic' in input)!==('query' in input),'请只提供 topic 或 query 之一');
  const limit=input.limit===undefined?5:input.limit;check(Number.isInteger(limit)&&limit>=1&&limit<=10,'limit 须为 1–10');
- const base={ok:true,reference_only:true,source_policy:'每个命中单独标明来源；项目方法、开源提示词、官方名录、古籍不互相替代'};
+ const base={ok:true,reference_only:true,source_policy:'每个命中单独标明来源；项目方法、开源提示词、官方名录、古籍与宗教教义不互相替代；宗教来源不认证个人鬼神身份'};
  if('topic' in input){const t=topics.find(t=>t.slug===input.topic);check(t,'知识库没有该主题，请查看知识库索引');const file=path.resolve(ROOT,t.path);check(file.startsWith(ROOT+path.sep),'知识文件路径错误');return {...base,...(t.repository?{repository:t.repository,commit:t.commit,license:t.license}:{publisher:t.publisher,source_url:t.url,copyright_note:t.copyright_note}),topic:t,content:fs.readFileSync(file,'utf8')};}
  check(typeof input.query==='string'&&input.query.trim().length>=1&&input.query.length<=200,'query 须为 1–200 字');
  const q=input.query.trim().toLowerCase();const terms=q.split(/\s+/);const compact=q.replace(/[\s\p{P}]/gu,'');
@@ -25,7 +25,7 @@ function lookup(input){
  return {...base,query:input.query,matches};
 }
 function verifyKnowledge(){
- const {ROOT,readJson,digest,check}=require('./common.cjs'),{MANIFEST,FOLK,CURATED,PRACTICE,topics}=library();
+ const {ROOT,readJson,digest,check}=require('./common.cjs'),{MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,topics}=library();
  const dir=path.join(ROOT,'references/knowledge/supe888-bazi-skills');check(MANIFEST.topics.length===35,'知识主题数量不完整');
  const crypto=require('node:crypto');const sha=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
  for(const [file,expected] of Object.entries(MANIFEST.bundled_file_sha256))check(sha(path.join(dir,file))===expected,`知识库文件摘要不匹配：${file}`);
@@ -56,7 +56,24 @@ function verifyKnowledge(){
   check(e.slug===t.slug&&JSON.stringify(e.source_ids)===JSON.stringify(t.source_ids)&&e.locator===t.locator&&e.access_method===t.access_method&&e.original_excerpt===t.original_excerpt,'知识卡查核字段不一致');
   if(t.original_excerpt)check(fs.readFileSync(path.join(ROOT,t.path),'utf8').includes(t.original_excerpt),`修行原典短引缺失：${t.slug}`);
  }
- return {ok:true,topics:MANIFEST.topics.length,folklore_topics:FOLK.topics.length,curated_topics:CURATED.topics.length,curated_classical_topics:CURATED.classical_verification.length,practice_topics:PRACTICE.topics.length,practice_sources:PRACTICE.sources.length,total_topics:topics.length,new_classical_verified:evidence.records.length,commit:MANIFEST.commit,manifest_checksum:digest(MANIFEST),folklore_catalog_checksum:digest(FOLK),classical_verification_checksum:digest(evidence),curated_catalog_checksum:digest(CURATED),practice_catalog_checksum:digest(PRACTICE)};
+ check(SPIRIT.version==='spirit-knowledge/v1'&&SPIRIT.topics.length===8&&SPIRIT.expected_topics===8&&SPIRIT.sources.length===7&&SPIRIT.expected_sources===7,'宗教知识目录不完整');
+ check(SPIRIT.automatic_chart_for_knowledge_questions===false&&SPIRIT.personal_supernatural_identification_supported===false,'宗教知识能力边界错误');
+ const spiritIds=new Set(SPIRIT.sources.map(s=>s.id));check(spiritIds.size===SPIRIT.sources.length,'宗教来源编号重复');
+ for(const s of SPIRIT.sources)check(s.title&&s.publisher&&s.locator&&s.access_method&&s.verification_limit&&s.adoption&&s.copyright_note&&/^\d{4}-\d{2}-\d{2}$/.test(s.accessed_on)&&/^https:\/\//.test(s.url),'宗教来源字段不完整');
+ check(SPIRIT.source_verification.length===SPIRIT.topics.length,'宗教资料查核记录不完整');
+ const scopeKinds={religious_teaching:'religious_primary_text',regional_custom_research:'scholarly_research_summary',official_custom_description:'official_religious_culture_statement'};
+ for(const t of SPIRIT.topics){
+  check(t.program_supported===false&&scopeKinds[t.evidence_scope]===t.kind&&t.tradition&&t.publisher&&t.locator&&t.access_method&&t.copyright_note,'宗教知识卡身份或范围错误');
+  check(Array.isArray(t.source_ids)&&t.source_ids.length===1&&spiritIds.has(t.source_ids[0]),'宗教知识卡来源编号错误');
+  check(Array.isArray(t.aliases)&&t.aliases.length>0&&t.aliases.every(a=>typeof a==='string'&&a.length>=2),'宗教知识问句别名错误');
+  check(Array.isArray(t.inference_limits)&&t.inference_limits.length>0&&t.inference_limits.every(s=>typeof s==='string'&&s.length>0),'宗教知识卡缺少推断边界');
+  const s=SPIRIT.sources.find(s=>s.id===t.source_ids[0]);check(s.url===t.url&&s.publisher===t.publisher&&s.access_method===t.access_method,'宗教知识卡主来源不一致');
+  const records=SPIRIT.source_verification.filter(e=>e.id===t.id);check(records.length===1,'宗教知识卡查核编号错误');const e=records[0];
+  check(e.source_id===s.id&&e.locator===t.locator&&e.original_excerpt===t.original_excerpt&&typeof e.checked_claim==='string'&&e.checked_claim.length>0,'宗教知识卡查核字段不一致');
+  if(t.original_excerpt)check(fs.readFileSync(path.join(ROOT,t.path),'utf8').includes(t.original_excerpt),`宗教原典短引缺失：${t.slug}`);
+ }
+ check(SPIRIT.sources.every(s=>SPIRIT.topics.some(t=>t.source_ids.includes(s.id))),'宗教来源缺少对应主题');
+ return {ok:true,topics:MANIFEST.topics.length,folklore_topics:FOLK.topics.length,curated_topics:CURATED.topics.length,curated_classical_topics:CURATED.classical_verification.length,practice_topics:PRACTICE.topics.length,practice_sources:PRACTICE.sources.length,spirit_topics:SPIRIT.topics.length,spirit_sources:SPIRIT.sources.length,total_topics:topics.length,new_classical_verified:evidence.records.length,commit:MANIFEST.commit,manifest_checksum:digest(MANIFEST),folklore_catalog_checksum:digest(FOLK),classical_verification_checksum:digest(evidence),curated_catalog_checksum:digest(CURATED),practice_catalog_checksum:digest(PRACTICE),spirit_catalog_checksum:digest(SPIRIT)};
 }
 function operation(argv){
  if(argv.length===1&&['--help','-h'].includes(argv[0]))return 'knowledge.cjs --query "关键词" [--limit 1–10]\nknowledge.cjs --topic SLUG\nknowledge.cjs --temp-input QUERY.json（结束后清理）\nknowledge.cjs --input QUERY.json（保留输入）；或 --verify';

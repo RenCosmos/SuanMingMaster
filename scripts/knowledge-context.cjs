@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 'use strict';
-// Bounded retrieval facade. The original 85 topics and legacy lookup API are intact.
+// Bounded retrieval facade. The original 85 topics and legacy lookup API are intact; source cards may be added.
 const {withInputLifecycle}=require('./input-lifecycle.cjs');
 const {check,readJson,sha}=require('./runtime-core.cjs');
 const MAX_BYTES=12*1024;
+function sourceScope(topic){
+ if(!topic.evidence_scope)return {};
+ return {publisher:topic.publisher,locator:topic.locator,access_method:topic.access_method,tradition:topic.tradition,evidence_scope:topic.evidence_scope,inference_limits:topic.inference_limits,source_ids:topic.source_ids};
+}
 function excerpt(topic,content,options){
  const offset=options.offset??0,chars=options.chars??1800;
  check(Number.isSafeInteger(offset)&&offset>=0&&offset<=content.length,'offset 超出正文范围');
@@ -12,7 +16,7 @@ function excerpt(topic,content,options){
  // Never split a UTF-16 surrogate pair.
  if(end<content.length&&/[\uD800-\uDBFF]/.test(content[end-1]))end--;
  if(offset>0&&/[\uDC00-\uDFFF]/.test(content[offset]))throw new Error('offset 位于 Unicode 字符中间，请使用返回的 next_offset');
- return {id:topic.id,slug:topic.slug,name:topic.name,source_kind:topic.source_kind,
+ return {id:topic.id,slug:topic.slug,name:topic.name,source_kind:topic.source_kind,...sourceScope(topic),
   source_url:topic.url??topic.repository,commit:topic.commit??null,book:topic.book??null,chapter:topic.chapter??null,
   sha256:topic.sha256,total_chars:content.length,offset,returned_chars:end-offset,next_offset:end<content.length?end:null,content:content.slice(offset,end)};
 }
@@ -26,7 +30,7 @@ function retrieve(input){
  }else{
   check(offset===undefined&&chars===undefined,'offset / chars 只用于 --topic 正文分页');
   result={ok:true,schema_version:'suanming-knowledge-context/v1',reference_only:true,query:r.query,
-   matches:r.matches.map(t=>({id:t.id,slug:t.slug,name:t.name,source_kind:t.source_kind,source_url:t.url??t.repository,commit:t.commit??null,score:t.score,snippet:t.snippet,
+   matches:r.matches.map(t=>({id:t.id,slug:t.slug,name:t.name,source_kind:t.source_kind,...sourceScope(t),source_url:t.url??t.repository,commit:t.commit??null,score:t.score,snippet:t.snippet,
     read:{topic:t.slug,offset:0,chars:1800}}))};
  }
  check(Buffer.byteLength(JSON.stringify(result)+'\n')<=MAX_BYTES-256,'检索上下文超出预算，请减小 limit 或 chars');

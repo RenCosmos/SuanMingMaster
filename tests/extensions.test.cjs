@@ -55,8 +55,8 @@ test('候选摘要逐年比较日支关系和夫妻宫飞化，变化保留候�
  const year=d.comparison.fields.find(f=>f.id==='TC-BZ-ANNUAL-2030'),fly=d.comparison.fields.find(f=>f.id==='TC-ZW-SPOUSE-FLY');assert.equal(year.status,'varies');assert.equal(fly.status,'varies');
  assert.ok(year.evidence.every(e=>e.source_ids.includes('a:BZ-ANNUAL-2030')));assert.ok(fly.evidence.every(e=>e.source_ids.every(s=>s.startsWith('a:ZW-FLY-'))));tc.validateArtifact(d);tc.validateSummary(tc.summary(d),d);
 });
-test('85 主题检索分开项目方法与已核原典，三项目提交与许可完整',()=>{
- const k=require('../scripts/knowledge.cjs'),r=k.verifyKnowledge();assert.equal(r.total_topics,85);assert.equal(r.curated_topics,11);assert.equal(r.curated_classical_topics,4);
+test('原85基础主题分开项目方法与已核原典，三项目提交与许可完整',()=>{
+ const k=require('../scripts/knowledge.cjs'),r=k.verifyKnowledge();assert.equal(r.total_topics-r.spirit_topics,85);assert.equal(r.curated_topics,11);assert.equal(r.curated_classical_topics,4);
  const method=k.lookup({topic:'kb-ziwei-palace-flying'}),classic=k.lookup({topic:'kb-classic-year-decade'});assert.equal(method.topic.source_kind,'open_source_method_reference');assert.equal(classic.topic.source_kind,'classical_primary_text');assert.ok(classic.content.includes(classic.topic.original_excerpt));
  const cat=require('../references/knowledge/curated/catalog.json');assert.equal(new Set(cat.sources.map(s=>s.repository)).size,3);assert.ok(cat.sources.every(s=>/^[0-9a-f]{40}$/.test(s.commit)&&s.license_path));assert.ok(k.lookup({query:'寒暖',limit:10}).matches.some(t=>t.slug==='kb-classic-cold-warm'));
 });

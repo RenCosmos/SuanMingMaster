@@ -1,8 +1,8 @@
 {
-  "adapter_version": "rikkahub-workspace/v1.2.3",
+  "adapter_version": "rikkahub-workspace/v1.2.4",
   "target_client": "RikkaHub 2.5.6",
   "engine_version": "0.4.0",
-  "package_version": "1.2.3",
+  "package_version": "1.2.4",
   "package_revision": "1",
   "bundled_annual_fixture": "synthetic; not user feedback birth data",
   "divination_engine": "liuyao/0.1.0",
@@ -65,8 +65,19 @@
     "scope": "source cards with chapter locators and checked short excerpts; folklore, taboos, cultivation and sexual-cultivation history",
     "new_classical_cards": 14,
     "verification_record": "references/folklore/classical-verification.json",
-    "total_searchable_topics": 85,
+    "total_searchable_topics": 93,
     "automatic_chart_for_knowledge_questions": false
+  },
+  "spirit_library": {
+    "version": "spirit-knowledge/v1",
+    "revision": "2026-10-06-religion.1",
+    "topics": 8,
+    "sources": 7,
+    "catalog": "references/knowledge/spirit/catalog.json",
+    "index": "references/spirit-library-index.md",
+    "personal_supernatural_identification_supported": false,
+    "included_in_published_v1_2_3_zip": false,
+    "included_since_package": "1.2.4"
   },
   "relationship_schema": "bazi-ziwei-relationship/v4",
   "default_output": "chart.json + context.json + validation.json; bounded validated context on stdout; interpretation in chat",
@@ -231,7 +242,7 @@
     "knowledge_query_files": false
   },
   "workflow": {
-    "version": "1.2.3",
+    "version": "1.2.4",
     "entry": "scripts/workflow.cjs",
     "engine_facade": "scripts/runtime-core.cjs",
     "context_projector": "scripts/context.cjs",

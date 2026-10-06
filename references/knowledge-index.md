@@ -1,6 +1,6 @@
 # 外部知识库索引
 
-V1.1.6合计85个可检索主题：本页35主题、[民俗古籍索引](folklore-index.md)21卡、[精选方法与原典](project-adoption.md)11卡及[修行、桃花与转运](practice-library-index.md)18卡。原有67主题完整保留。项目来源和古籍记录见[精选目录](knowledge/curated/catalog.json)；新增资料来源、查核方式和字节摘要见[修行与行动目录](knowledge/practice/catalog.json)。
+V1.2.4合计93个可检索主题：原有85主题（本页35主题、[民俗古籍索引](folklore-index.md)21卡、[精选方法与原典](project-adoption.md)11卡及[修行、桃花与转运](practice-library-index.md)18卡）完整保留；2026-10-06另增[鬼神、护法与宿缘](spirit-library-index.md)8卡。项目来源和古籍记录见[精选目录](knowledge/curated/catalog.json)；修行资料见[修行与行动目录](knowledge/practice/catalog.json)，宗教来源、查核限制与摘要见[宗教目录](knowledge/spirit/catalog.json)。
 
 来源：[supe888/bazi_skills](https://github.com/supe888/bazi_skills)；固定提交 `f14a60b6192192d9472a6eb430cbae54a7cc50af`，Apache-2.0。许可证、原始来源摘要与本包改编文本的字节摘要随包保存；0.5.1 已清理模板中的固定免责要求和重复格式限制。
 

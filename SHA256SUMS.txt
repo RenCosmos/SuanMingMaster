@@ -1,2 +1,2 @@
-f56c90a9156e04a21f9826b405e1c9c74ab931e68e0aea6b3e0884a9452ab377  bazi-ziwei-rikkahub-v1.2.3.zip
-1c1e872da2cc22d205ce232fa55afb66b50e40b9d8dad0200636c7f5516ed188  SuanMingMaster-source-v1.2.3.zip
+b907fcb293242603ec82d2dfd8afab071444431b56331de38cfbf400c6e23b25  bazi-ziwei-rikkahub-v1.2.4.zip
+44964642b27b88611f3545ad229ed734862be5b03cd23c79f175cf58c03773c1  SuanMingMaster-source-v1.2.4.zip

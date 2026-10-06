@@ -79,3 +79,11 @@ CBETA的T1915、T0366、T0848只作经号、页栏定位与古代短引的查核
 SuttaCentral Bilara发布译文使用CC0，本包没有复制MN10英译全文，只保留稳定段落ID与原创中文归纳。84000 Toh437所见译本为CC BY-NC-ND 4.0，translation-memory仓库为CC BY-NC-ND 3.0；均未导入、翻译或改作其译文、仪轨及语料。
 
 tao-kb代码MIT，fojin代码Apache-2.0；各自文本许可另核。kanseki-corpus为CC BY-NC-SA 4.0。本包只介绍这些检索与整理入口，没有移植代码、知识图谱、MCP服务器或大语料全集。
+
+## V1.2.4宗教知识增补
+
+新增8张原创宗教资料卡及7个来源记录，见references/knowledge/spirit/catalog.json。原85主题及103份已冻结知识、来源、查核和许可文件不改动。
+
+CBETA T0262、T0412只用于篇章定位、两处古代短句查核和原创归纳，不导入XML、现代注释、完整咒语或仪轨。数字版适用https://cbeta.org/copyright的声明，包括CC BY-NC-SA 4.0及相关条件；项目MIT许可不取代来源权利。
+
+SuttaCentral AN4.55、SN15.14的Bhikkhu Sujato发布译文采用CC0，本批只收经号、段落ID与原创中文归纳。中央研究院网站上的丁仁杰论文、台湾内政部文化说明及台湾文献馆冥婚研究摘要，仅作简要原创整理与外链，不复制现代论文、网页、图片或扫描。冥婚卡查核限于官方摘要的搜索索引，未冒称已读全文。

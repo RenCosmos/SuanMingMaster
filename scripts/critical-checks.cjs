@@ -74,10 +74,12 @@ function cases(){return [
   assert.equal(d.age_relation.predictions[0].tendency,'younger');assert.equal(d.age_relation.predictions[0].exact_age_gap,null);
  }},
  {id:'KB-RETRIEVAL',run:({knowledge,knowledgeContext})=>{
-  assert.equal(knowledge.verifyKnowledge().total_topics,85);
+  const verified=knowledge.verifyKnowledge();assert.equal(verified.total_topics,93);assert.equal(verified.total_topics-verified.spirit_topics,85);assert.equal(verified.spirit_topics,8);
   const r=knowledgeContext.retrieve({query:'如何增加桃花',limit:1});
   assert.equal(r.matches[0].slug,'practice-romance-yuelao');assert.ok(r.matches[0].source_url);
   assert.equal(r.matches[0].content,undefined);assert.ok(Buffer.byteLength(JSON.stringify(r))<=12*1024);
+  const religion=knowledgeContext.retrieve({query:'前世姻缘',limit:1});assert.equal(religion.matches[0].slug,'spirit-marriage-future-life');
+  assert.equal(religion.matches[0].evidence_scope,'religious_teaching');assert.ok(religion.matches[0].inference_limits.length>0);
  }},
  {id:'SW-LUNAR-DATE',run:({shuwen})=>{
   assert.equal(shuwen.documentDate({calendar:'lunar',date:'2023-02-01',is_leap_month:true}).solar_date,'2023-03-22');
