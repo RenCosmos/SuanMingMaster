@@ -4,7 +4,7 @@ const core=require('./runtime-core.cjs');
 const {ROOT,VERSION,check,hash,sha,readJson,atomicJson}=core;
 const {actualPath,inside,assertOutputs,acquireTaskLocks}=require('./task-files.cjs');
 const {withInputLifecycle,readStdinJson}=require('./input-lifecycle.cjs');
-const {taskId}=require('./workflow-hints.cjs');
+const {taskId,executableActions}=require('./workflow-hints.cjs');
 const search=require('./partner-search.cjs');
 const MAX_OUTPUT_BYTES=20*1024,RECEIPT='suanming-partner-search-validation/v1';
 function parse(argv){
@@ -33,7 +33,7 @@ function project(data,{offset=0,limit=3,candidate}={}){
   next_actions:next===null?[]:[{action:'reuse',command_flags:['--agent','--partner-search'],offset:next,limit,...(candidate?{candidate}:{})}]};
 }
 function boundedResponse(base,data,o){
- let limit=o.limit??3;while(limit>=1){const context=project(data,{...o,limit}),r={...base,context,task_id:taskId(base.files),next_actions:context.next_actions,output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:o.limit??null,effective_limit:limit,budget_adjusted:limit!==(o.limit??3)}};
+ let limit=o.limit??3;while(limit>=1){const context=project(data,{...o,limit});context.next_actions=executableActions(context.next_actions,base.files);const r={...base,context,task_id:taskId(base.files),next_actions:context.next_actions,output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:o.limit??null,effective_limit:limit,budget_adjusted:limit!==(o.limit??3)}};
   for(let i=0;i<3;i++)r.output.bytes=Buffer.byteLength(JSON.stringify(r)+'\n');const text=JSON.stringify(r)+'\n';
   if(Buffer.byteLength(text)<MAX_OUTPUT_BYTES-128&&Buffer.byteLength(JSON.stringify({stdout:text}))<28*1024)return r;limit--;
  }

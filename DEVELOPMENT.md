@@ -22,3 +22,7 @@ V1.2.5新增tools/compatibility-baseline-v1.2.4.json与verify-compatibility.cjs�
 V1.3.0的候选筛选保持独立模块、规则及schema，不扩写冻结原计算层。examples/partner-search子目录存合成输入，不加入旧顶层接口回归集合。持有V1.2.5安装ZIP时构建另核固定SHA并做相同跨版本验收，逐字检查该版原脚本（仅workflow允许分派增补）与五份原生概览；没有旧包明确记录未执行，不修改基线放行。解包验收使用mobile --agent入口实际运行years/dates/people、分页及缓存。升级新功能的详细验收范围见专项方法和tests/partner-search.test.cjs。
 
 schema校验器只用于开发/CI（可安装在独立虚拟环境或测试目录），不改变Node运行依赖，不进手机包。--schema-validation用独立Draft2020-12实现检查两份schema、四类原始/归一化输入及完整输出，并验证概率和年份补造四柱被拒绝。输入schema按其URN在本地Registry注册，绝不联网解析引用；未启用该选项时结构化结果明确performed=false，不冒称已独立校验。
+
+V1.3.1的开发测试使用scripts/test-runner.cjs，显式枚举测试文件；没有tests或缺关键测试时退出码2，不显示0 tests成功。手机安装包只运行npm run check的12组关键自检；开发完整回归仍在源码。原296项用例保留，新增反馈回归；旧主题计数断言明确排除新4卡，继续保护原93主题。
+
+本次必要代码修复以tools/reviewed-changes-v1.3.1.json单独记录基于V1.3.0提交的旧/新SHA和理由；不重写冻结V1.2.4知识或依赖基线。跨版本比较只允许新增年界标签（旧盘缺失时重算嵌套摘要）及精确报告标签差异，其他计算与旧字段严格保留；实际旧命盘也验证。V1.3.0安装ZIP有固定SHA时增加该版本对照。四卡有独立目录与哈希，不改旧93主题；双人共同context仅共用新增年界说明，保留双方原字段及预算。详见[反馈记录](references/feedback-v1.3.1.md)。

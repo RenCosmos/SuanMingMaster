@@ -1,8 +1,8 @@
 {
-  "adapter_version": "rikkahub-workspace/v1.3.0",
+  "adapter_version": "rikkahub-workspace/v1.3.1",
   "target_client": "RikkaHub 2.5.6",
   "engine_version": "0.4.0",
-  "package_version": "1.3.0",
+  "package_version": "1.3.1",
   "package_revision": "1",
   "bundled_annual_fixture": "synthetic; not user feedback birth data",
   "divination_engine": "liuyao/0.1.0",
@@ -65,7 +65,7 @@
     "scope": "source cards with chapter locators and checked short excerpts; folklore, taboos, cultivation and sexual-cultivation history",
     "new_classical_cards": 14,
     "verification_record": "references/folklore/classical-verification.json",
-    "total_searchable_topics": 93,
+    "total_searchable_topics": 97,
     "automatic_chart_for_knowledge_questions": false
   },
   "spirit_library": {
@@ -242,7 +242,7 @@
     "knowledge_query_files": false
   },
   "workflow": {
-    "version": "1.3.0",
+    "version": "1.3.1",
     "entry": "scripts/workflow.cjs",
     "engine_facade": "scripts/runtime-core.cjs",
     "context_projector": "scripts/context.cjs",
@@ -280,16 +280,23 @@
   },
   "system_prompt_required": false,
   "mobile_validation": {
-    "status": "tested",
-    "source": "user_confirmation",
-    "tested_package_version": "1.3.0",
-    "scope": "installation package on mobile; user confirmation",
-    "reported_on": "2026-10-07",
-    "current_package_status": "accepted",
-    "tested_install_archive_sha256": "436e07f6fca71e2dde7a32532b06608c1eccae388421fbe48ef98cdb61512d8f",
-    "repack_scope": "documentation and acceptance metadata only; runtime and knowledge unchanged",
-    "detailed_device_or_case_log_supplied": false,
+    "status": "pending",
+    "source": "release_validation",
+    "tested_package_version": "1.3.1",
+    "scope": "desktop regression and extracted installation checks; not device confirmation",
+    "current_package_status": "device_confirmation_pending",
     "historical_confirmations": [
+      {
+        "status": "tested",
+        "source": "user_confirmation",
+        "tested_package_version": "1.3.0",
+        "scope": "installation package on mobile; user confirmation",
+        "reported_on": "2026-10-07",
+        "current_package_status": "accepted",
+        "tested_install_archive_sha256": "436e07f6fca71e2dde7a32532b06608c1eccae388421fbe48ef98cdb61512d8f",
+        "repack_scope": "documentation and acceptance metadata only; runtime and knowledge unchanged",
+        "detailed_device_or_case_log_supplied": false
+      },
       {
         "tested_package_version": "1.2.1",
         "source": "user_confirmation",
@@ -298,7 +305,7 @@
       }
     ]
   },
-  "android_device_tested_scope": "installation package 1.3.0 on mobile; user confirmation on 2026-10-07",
+  "android_device_tested_scope": "historical installation package 1.3.0; user confirmation on 2026-10-07; not inherited by 1.3.1",
   "rikkahub_tools": {
     "interface_checked_version": "2.5.6",
     "interface_commit": "447bb7e89710d31f1204d7a2973baa19fdbd5b28",
@@ -382,7 +389,7 @@
     "source_chart_import_is_read_only": true,
     "report_default": false,
     "temp_input_option_first_after_agent": true,
-    "phone_acceptance": "accepted via user mobile-test confirmation for package 1.3.0 on 2026-10-07"
+    "phone_acceptance": "historical user confirmation for 1.3.0; current version not inherited"
   },
   "optional_system_prompt": {
     "path": "RikkaHub可选系统提示词.txt",
@@ -390,5 +397,17 @@
     "purpose": "optional folk fortune-teller persona and voice",
     "changes_execution_workflow": false,
     "default_runtime_read": false
+  },
+  "feedback_fixes": {
+    "introduced_in": "1.3.1",
+    "new_partner_task_requires_out": true,
+    "zero_development_tests_exit_code": 2,
+    "reuse_argv": "complete mobile.sh arguments",
+    "reference_instruction_authority": "none",
+    "bazi_concept_topics": 4,
+    "original_full_text_topics_retained": 93,
+    "ziwei_year_boundary_scope": "natal_only",
+    "horoscope_year_boundary": "lunar_new_year",
+    "horoscope_month_boundary": "lunar_month"
   }
 }

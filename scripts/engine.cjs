@@ -29,7 +29,7 @@ function validateArtifact(data,{recalculate=true}={}) {
   }
   if(data.ziwei) {check(data.ziwei.chart.palaces?.length===12 && data.ziwei.calculations?.natal_mutagens?.length===4,'紫微报告不完整');check(data.ziwei.calculations.palace_stem_flying?.entries?.length===48&&data.ziwei.calculations.palace_stem_flying?.palace_summary?.length===12,'紫微宫干四化字段不完整；请重新计算');}
   if(recalculate) {
-    const fresh=build(data.input);
+    const fresh=require('./ziwei-conventions.cjs').alignLegacyMetadata(build(data.input),data);
     for(const key of ['normalized','bazi','ziwei','warnings']) check(digest(data[key]??null)===digest(fresh[key]??null),`${key} 与当前程序重算不一致；不可据此解读`);
     for(const key of ['engines','rules']) check(digest(data.provenance[key])===digest(fresh.provenance[key]),'计算依赖或规则版本已变化');
   }

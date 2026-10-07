@@ -22,7 +22,7 @@ def archive(path,files,prefix):
 def mobile_acceptance(manifest,version):
     record=manifest.get('mobile_validation',{})
     confirmed=record.get('status')=='tested' and record.get('source')=='user_confirmation' and record.get('tested_package_version')==version and record.get('current_package_status')=='accepted'
-    notice=f"V{version}安装包已由用户于{record['reported_on']}确认完成手机实测；本次仅更新说明与验收状态，程序和知识内容不变。" if confirmed else '手机验收记录以清单中与当前版本匹配的确认来源为准。'
+    notice=f"V{version}安装包已由用户于{record['reported_on']}确认完成手机实测。" if confirmed else '当前版本的桌面回归和解包验收与手机实测分开记录；历史V1.3.0的用户手机确认不自动继承为新版验收。'
     return confirmed,record,notice
 def main():
     p=argparse.ArgumentParser();p.add_argument('--out',required=True);p.add_argument('--node',default=shutil.which('node'));p.add_argument('--sh',default=os.environ.get('SUANMING_TEST_SH') or shutil.which('sh'));p.add_argument('--schema-validation',action='store_true');p.add_argument('--repack-from');a=p.parse_args()
@@ -78,6 +78,16 @@ def main():
             compatibility125=json.loads(execute([a.node,str(ROOT/'tools/verify-compatibility.cjs'),str(Path(old)/'bazi-ziwei')],ROOT,env))
             compatibility125['cross_version_compared']=True
     native_pages=json.loads(execute([a.node,str(ROOT/'tools/native-knowledge.cjs')],ROOT,env))
+    compatibility130={'cross_version_compared':False,'baseline':'1.3.0'}
+    previous130=ROOT/'bazi-ziwei-rikkahub-v1.3.0.zip'
+    if previous130.is_file():
+        assert sha(previous130.read_bytes())=='cfd7b6e8ac78339ededce670bbf9e10c1c6c1276c3055993d8aa57af9198d9c0','Frozen V1.3.0 ZIP changed'
+        with tempfile.TemporaryDirectory(prefix='suanming-baseline130-') as old:
+            with zipfile.ZipFile(previous130) as z:
+                for info in z.infolist():
+                    assert (Path(old)/info.filename).resolve().is_relative_to(Path(old).resolve());z.extract(info,old)
+            compatibility130=json.loads(execute([a.node,str(ROOT/'tools/verify-compatibility.cjs'),str(Path(old)/'bazi-ziwei')],ROOT,env))
+            compatibility130['cross_version_compared']=True
     for page in native_pages:
         assert (ROOT/page['path']).read_text(encoding='utf-8')==page['content'],'Native fallback drift: '+page['path']
         assert len(json.dumps({'text':page['content']},ensure_ascii=False).encode('utf-8'))<28*1024
@@ -86,17 +96,17 @@ def main():
     write(ROOT/'README.md',template.format(version=version,tests=counts['pass'],topics=topics,knowledge_files=len(knowledge),mobile_notice=mobile_notice))
     write(ROOT/'验证记录.md',f'''# V{version} 验证记录
 
-全部{counts['pass']}项开发回归通过，零失败、零跳过。保留原261项回归，新增候选筛选回归；手机包仍仅携带12组关键自检，开发测试不入手机包。
+全部{counts['pass']}项开发回归通过，零失败、零跳过、零取消。保留原296项用例，新增用户反馈专项回归；对知识总数的旧断言明确扣除4个增补主题，继续验证原93主题完整。手机安装包不含tests/，只携带12组关键自检；npm test / test:critical拒绝0用例成功，npm run check不是完整开发回归。
 
-本版新增独立正缘候选筛选：年份周期、明确小范围假设生辰、用户提供人物；除了生肖，使用明确日干/日支锚定与十神条件，保留跨盘合冲刑害破和原局齐全状态，不补造未知四柱/生日，不输出正缘概率/身份结论。规则与出处范围、schema、示例及按需方法独立；排盘计算引擎不改。V1.2.5调用、task_id/next_actions、双人警告、recovery及五类原生知识概览保留。全部排盘/关系/时辰对照/六爻/真太阳时/年龄与画像/亲密取象/疏文导出/旧CLI保持；原{topics}主题全文及113份知识基线不改，435份运行依赖和78份引擎/旧接口/方法等按V1.2.4逐字节校验。缓存指纹、全文检索策略和20KiB/12KiB预算未放宽；命理解读边界独立于计算一致性校验。
+V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正缘任务必填--out；reuse返回可执行argv；主Skill简化为识别/调用/核对/解读并保留按需细则；知识正文和snippet显式无指令权限。四张核心概念卡配套完整术语、同义/繁简词、领域筛选及最多一次无命中回退。原93主题全文及113份知识基线逐字保留，当前共{topics}主题；435份固定运行依赖未变。
 
-跨版本对照是否实际执行：{compatibility['cross_version_compared']}。若有冻结V1.2.4安装ZIP，构建工具核SHA后解包，比对14组计算/制文用例、85个主题投影、13种报告/导出与93主题全文，旧字段保留、新字段只增补；完整结果见release-validation.json的compatibility。没有旧ZIP时只报告冻结字节保护，不冒称完成这些跨版本用例。五份原生概览逐字核对原目录身份、来源及已记录推断限制，只是无需运行时的增补，不替代原文。
+紫微只新增本命与运限年/月界标签，不改变yearDivide或horoscopeDivide配置。2024-02-03 / 02-05 / 02-10三段固定预期通过；旧盘可重算校验、缓存复用且源文件不改。已有标签或柱位被篡改即使重签也拒绝。双人共同摘要共用新增年界元数据，双方原有证据都保留；20KiB stdout、28KiB转义包装和12KiB知识预算不放宽。
 
-V1.2.5实际跨版本对照：{compatibility125['cross_version_compared']}。另核该冻结包SHA后重复上述计算/投影/报告/全文对照，旧脚本（除workflow允许独立入口增补）及原生概览逐字保留。详细范围见compatibility_v1_2_5。新功能解包验收经mobile --agent入口运行三种搜索、分页、缓存和临时清理。独立Draft2020-12输入/输出schema校验实际执行：{schema_validation['performed']}，结果详见schema_validation。
+冻结V1.2.4字节基线不改，受本次修复影响的有限代码/说明按独立审定旧/新SHA验证；其他冻结文件仍严格相等，不声称78份代码全未改。V1.2.4 / V1.2.5 / V1.3.0实际跨版本对照分别为{compatibility['cross_version_compared']} / {compatibility125['cross_version_compared']} / {compatibility130['cross_version_compared']}。程序对14组计算、85个投影、13种报告/导出和原93主题正文逐项比较；仅允许旧盘缺失的新年界标签及精确报告标签差异。旧命盘本身也由当前验证器实际校验。没有相应旧ZIP时结果明确未执行，详细范围见release-validation.json。
 
-发布工具从package.json读取版本，直接运行测试和解包自检，校验知识基线、包内容与本地链接，生成可复验ZIP、SHA-256及结构化结果。开发使用packageManager指定的pnpm版本与frozen lockfile；源码、测试、工具和CI均作为普通文件入库。源码及安装包的所有实际验收结果见release-validation.json。
+安装包解包后验收12组自检、宗教与概念检索、临时清理、缓存及三种候选搜索；新的argv经真实mobile.sh入口实跑年度、时辰变体和正缘分页。独立Draft2020-12输入/输出schema校验实际执行：{schema_validation['performed']}，记录见schema_validation。五份原生知识概览逐字保留，不代替正文；新增概念卡有无需运行时的索引。
 
-{mobile_notice}手机验收来源为用户确认，电脑回归与ZIP解包检查由发布工具执行；设备型号或逐项手机日志不补造。原V1.2.1确认保留在清单历史记录中。系统提示词仍为可选，报告只按需生成。
+{mobile_notice}手机历史确认仅记录用户提供的范围，设备型号或逐项日志不补造。本次仅生成本地V{version}安装包与源码包，不自动上传。系统提示词仍为可选，报告仅按明确请求生成。
 ''')
     files=sorted(f for f in ROOT.rglob('*') if f.is_file() and f.relative_to(ROOT).parts[0] not in ['.git','work','dist'] and '__pycache__' not in f.relative_to(ROOT).parts and not (f.parent==ROOT and (f.suffix=='.zip' or f.name in ['SHA256SUMS.txt','release-validation.json','INSTALL.md','TESTING.md','RikkaHub系统提示词.txt'])))
     runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md','pnpm-workspace.yaml'] and (f.relative_to(ROOT).parts[0]!='node_modules' or f.relative_to(ROOT).as_posix() in dependencies)]
@@ -131,10 +141,20 @@ V1.2.5实际跨版本对照：{compatibility125['cross_version_compared']}。另
         skill=extracted/'bazi-ziwei'
         for f in runtime:assert (skill/f.relative_to(ROOT)).read_bytes()==f.read_bytes()
         preflight=json.loads(execute([a.node,str(skill/'scripts/preflight.cjs'),'--self-test'],temp,env));assert preflight['ok'] and preflight['critical']['passed']==12
+        development_test_guard={}
+        for name,args in [('test',[]),('test:critical',['--critical'])]:
+            tested=subprocess.run([a.node,str(skill/'scripts/test-runner.cjs'),*args],cwd=temp,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding='utf-8',timeout=30)
+            assert tested.returncode==2 and not tested.stdout and 'npm run check' in tested.stderr,'Packaged development tests must not report zero-test success'
+            development_test_guard[name]={'exit_code':tested.returncode,'clear_missing_tests_notice':True}
         knowledge_queries={'撞鬼会怎么样':'spirit-dizang-ghost-kings','我有没有护法':'spirit-buddhist-protectors','前世姻缘':'spirit-marriage-future-life'}
         for query,slug in knowledge_queries.items():
             found=json.loads(execute([a.node,str(skill/'scripts/knowledge-context.cjs'),'--query',query,'--limit','1'],temp,env))
             card=found['matches'][0];assert found['reference_only'] and card['slug']==slug and card['evidence_scope']=='religious_teaching' and card['inference_limits']
+        concept_queries={'官杀混杂是什么意思':'bazi-authority-mixed','什么叫财多身弱':'bazi-wealth-weak-self','伤官见官是什么意思':'bazi-hurting-officer','如何判断喜用神':'bazi-favorable-god'}
+        for query,slug in concept_queries.items():
+            found=json.loads(execute([a.node,str(skill/'scripts/knowledge-context.cjs'),'--query',query,'--limit','3'],temp,env))
+            assert found['matches'][0]['slug']==slug and found['retrieval']['domain']=='bazi' and found['instruction_authority']=='none'
+            assert all(t['trust_level']=='untrusted_reference_text' for t in found['matches'])
         inp=json.loads((skill/'examples/input.json').read_text(encoding='utf-8'));task=Path(temp)/'task';f=Path(temp)/'temp-input.json';write(f,json.dumps(inp))
         cmd=[a.node,str(skill/'scripts/workflow.cjs')];response=json.loads(execute([*cmd,'--temp-input',str(f),'--out',str(task)],temp,env));assert response['ok'] and response['temporary_input_removed'] and not f.exists()
         task_id=response['task_id'];assert task_id.startswith('SM-') and isinstance(response['next_actions'],list)
@@ -158,6 +178,11 @@ V1.2.5实际跨版本对照：{compatibility125['cross_version_compared']}。另
     result={'ok':True,'version':version,'tests':counts,'runtime_critical_cases':preflight['critical']['passed'],'knowledge_topics':topics,'knowledge_files_byte_identical':len(knowledge),'runtime_files':len(runtime),'source_files':len(source),'local_links':links,'extracted_self_test':True,'extracted_religious_queries':len(knowledge_queries),'extracted_temp_cleanup':True,'extracted_cache_reuse':True,'extracted_task_navigation':True,'native_fallback_pages':len(native_pages),'compatibility':compatibility,'compatibility_v1_2_5':compatibility125,'partner_search':partner_cases,'mobile_device_tested_current_version':mobile_confirmed,'mobile_validation':mobile_record,'archives':{f.name:sha(f.read_bytes()) for f in [install,src]}}
     result['schema_validation']=schema_validation
     result['repack']=repack
+    result['compatibility_v1_3_0']=compatibility130
+    result['packaged_development_test_guard']=development_test_guard
+    result['extracted_concept_queries']=len(concept_queries)
+    result['original_knowledge_topics_retained']=93
+    result['additional_concept_topics']=4
     write(out/'release-validation.json',json.dumps(result,ensure_ascii=False,indent=2)+'\n');write(out/'SHA256SUMS.txt',''.join(d+'  '+n+'\n' for n,d in result['archives'].items()))
     print(json.dumps(result,ensure_ascii=False))
 if __name__=='__main__':main()

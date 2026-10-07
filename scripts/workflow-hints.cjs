@@ -42,4 +42,15 @@ function failureFor(error){
  else if(/校验和不匹配|重算不一致|版本已变化/.test(error.message))action='restore_or_recalculate_from_original_input';
  return {ok:false,error:error.message,type,recovery:{action,retry_limit:retryLimit}};
 }
-module.exports={taskId,nextActions,failureFor};
+function executableActions(actions,files){
+ return actions.map(a=>{
+  if(a.action!=='reuse'||!files?.chart)return a;
+  const argv=['--reuse',files.chart];
+  if(a.command_flags?.includes('--partner-search'))argv.push('--partner-search');
+  for(const key of ['focus','person','candidate','field','years','offset','variant_offset','limit'])if(a[key]!==undefined&&a[key]!==null){
+   argv.push('--'+key.replaceAll('_','-'),key==='years'?a[key].join(':'):String(a[key]));
+  }
+  return {...a,entrypoint:'scripts/mobile.sh',argv};
+ });
+}
+module.exports={taskId,nextActions,executableActions,failureFor};

@@ -33,6 +33,7 @@ function ziwei(z,focus,compactPair=false){
  const transit=t?['decadal','yearly','age'].map(scope=>({scope,...pick(t[scope],['index','name','heavenlyStem','earthlyBranch','nominalAge']),
   mappings:primary.map(p=>({natal_palace_id:p.id,transit_palace:t[scope]?.palaceNames?.[p.index],stars:(t[scope]?.stars?.[p.index]??[]).map(star)}))})):[];
  return {...pick(z.chart,['soul','body','soul_palace_branch','body_palace_branch','five_elements_class','conventions']),
+  conventions:compactPair?Object.fromEntries(Object.entries(z.chart.conventions).filter(([k])=>!require('./ziwei-conventions.cjs').FIELDS.includes(k))):{...require('./ziwei-conventions.cjs').annotations(z.chart.conventions),...z.chart.conventions},
   primary_palaces:primary.map(p=>{const v=palace(p,true);if(compactPair)delete v.decadal;return v;}),related_palaces:z.chart.palaces.filter(p=>relevant.has(p.id)&&!ids.has(p.id)).map(p=>palace(p,false)),
   three_sides_four_correct:groups.map(g=>pick(g,['id','palace_id','self','trines','opposite'])),
   natal_mutagens:z.calculations.natal_mutagens,
@@ -103,6 +104,7 @@ function relationship(data,options){
   return out;
  }),person_ids:data.people.map(p=>p.id),stage:data.context.stage,...(people.length===2?{detail_scope:'双人共同摘要；各人完整主题细节用 --person a / b；逐年主题另用 --focus annual。'}:{})};
  if(people.length===2){
+  if(people.some(p=>p.chart.ziwei))result.ziwei_boundaries={natal:'year_boundary',transit_year:'lunar_new_year',transit_month:'lunar_month'};
   const warnings=new Map();
   for(const p of people)for(const message of p.chart.warnings??[]){
    if(!warnings.has(message))warnings.set(message,[]);

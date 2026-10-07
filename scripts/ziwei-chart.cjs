@@ -3,6 +3,7 @@ const {astro}=require('iztro');
 const {getMutagensByHeavenlyStem}=require('iztro/lib/utils');
 const {flyingMutagens}=require('./ziwei-flying.cjs');
 const {check}=require('./common.cjs');
+const {annotations}=require('./ziwei-conventions.cjs');
 const MUTAGENS=['禄','权','科','忌'];
 const MAJORS=['紫微','天机','太阳','武曲','天同','廉贞','天府','太阴','贪狼','巨门','天相','天梁','七杀','破军'];
 function timeIndex(hour) { return hour===23?12:Math.floor((hour+1)/2); }
@@ -34,6 +35,6 @@ function makeZiwei(ctx) {
       });
     }
   }
-  return {chart:{solar_date:a.solarDate,lunar_date:a.lunarDate,chinese_date:a.chineseDate,time:a.time,time_index:timeIndex(ctx.local.hour),soul:a.soul,body:a.body,soul_palace_branch:a.earthlyBranchOfSoulPalace,body_palace_branch:a.earthlyBranchOfBodyPalace,five_elements_class:a.fiveElementsClass,conventions:{year_boundary:ctx.options.ziwei_year_boundary,day_boundary:ctx.options.ziwei_day_boundary,leap_adjust:ctx.options.ziwei_leap_adjust,algorithm:ctx.options.ziwei_algorithm,age:'normal：名义年龄按年份；大限、小限不是周岁',clock:'出生地钟表日期和时辰；未做真太阳时校正'},palaces,target},calculations:{rule_version:'ziwei-structural-v2',natal_mutagens:natal,three_sides_four_correct:groups,empty_major_palaces:empties,transit_mutagens:transit,palace_stem_flying:flyingMutagens(palaces,getMutagensByHeavenlyStem)}};
+  return {chart:{solar_date:a.solarDate,lunar_date:a.lunarDate,chinese_date:a.chineseDate,time:a.time,time_index:timeIndex(ctx.local.hour),soul:a.soul,body:a.body,soul_palace_branch:a.earthlyBranchOfSoulPalace,body_palace_branch:a.earthlyBranchOfBodyPalace,five_elements_class:a.fiveElementsClass,conventions:{year_boundary:ctx.options.ziwei_year_boundary,...annotations({year_boundary:ctx.options.ziwei_year_boundary}),day_boundary:ctx.options.ziwei_day_boundary,leap_adjust:ctx.options.ziwei_leap_adjust,algorithm:ctx.options.ziwei_algorithm,age:'normal：名义年龄按年份；大限、小限不是周岁',clock:'出生地钟表日期和时辰；未做真太阳时校正'},palaces,target},calculations:{rule_version:'ziwei-structural-v2',natal_mutagens:natal,three_sides_four_correct:groups,empty_major_palaces:empties,transit_mutagens:transit,palace_stem_flying:flyingMutagens(palaces,getMutagensByHeavenlyStem)}};
 }
 module.exports={makeZiwei,timeIndex,MAJORS};

@@ -1,0 +1,13 @@
+{
+  "version": "knowledge-query-terms/v1",
+  "terms": [
+    {"term":"官杀混杂","aliases":["官煞混杂","官殺混雜","官煞混雜"],"domain":"bazi"},
+    {"term":"财多身弱","aliases":["財多身弱","财旺身弱","财旺身衰","身弱财多"],"domain":"bazi"},
+    {"term":"伤官见官","aliases":["傷官見官"],"domain":"bazi"},
+    {"term":"喜用神","aliases":["喜用","八字用神","取用神","用神"],"ambiguous_aliases":["用神"],"domain":"bazi"},
+    {"term":"月令","aliases":["月令提纲","提綱"],"domain":"bazi"},
+    {"term":"通根","aliases":["日主根气","根氣"],"domain":"bazi"},
+    {"term":"透干","aliases":["透幹","透出"],"domain":"bazi"},
+    {"term":"十神","aliases":["十神关系"],"domain":"bazi"}
+  ]
+}

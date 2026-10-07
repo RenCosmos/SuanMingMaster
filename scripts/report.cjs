@@ -33,13 +33,14 @@ function makeReport(d) {
   }
   if(d.ziwei) {
     const {chart:z,calculations:c}=d.ziwei;
-    section('紫微命盘摘要',['项目','结果'],[['农历',z.lunar_date],['时辰',z.time],['五行局',z.five_elements_class],['命宫地支',z.soul_palace_branch],['身宫地支',z.body_palace_branch],['命主 / 身主',`${z.soul} / ${z.body}`],['安星算法',z.conventions.algorithm],['换年口径',z.conventions.year_boundary],['闰月调整',String(z.conventions.leap_adjust)]]);
+    const boundaries={...require('./ziwei-conventions.cjs').annotations(z.conventions),...z.conventions};
+    section('紫微命盘摘要',['项目','结果'],[['农历',z.lunar_date],['时辰',z.time],['五行局',z.five_elements_class],['命宫地支',z.soul_palace_branch],['身宫地支',z.body_palace_branch],['命主 / 身主',`${z.soul} / ${z.body}`],['安星算法',z.conventions.algorithm],['本命年界',boundaries.natal_year_boundary],['运限年界',boundaries.horoscope_year_boundary],['运限月界',boundaries.horoscope_month_boundary],['闰月调整',String(z.conventions.leap_adjust)]]);
     section('紫微十二宫',['宫位','宫干支','主星（亮度 / 四化）','辅星','大限名义年龄','依据'],z.palaces.map(p=>[`${p.name}${p.isBodyPalace?'（身宫）':''}`,p.heavenlyStem+p.earthlyBranch,p.majorStars.map(s=>`${s.name}${s.brightness?`(${s.brightness})`:''}${s.mutagen?` 化${s.mutagen}`:''}`).join('、')||'空宫',p.minorStars.map(s=>s.name+(s.mutagen?` 化${s.mutagen}`:'')).join('、'),p.decadal.range.join('–'),p.id]));
     section('生年四化',['四化','星曜','本命宫位','依据'],c.natal_mutagens.map(x=>[`化${x.mutagen}`,x.star,x.palace,x.id]));
     section('本命宫干四化',['发出宫','宫干','四化','星曜','落入宫','自化','依据'],c.palace_stem_flying.entries.map(x=>[x.origin_palace,x.origin_heavenly_stem,'化'+x.mutagen,x.star,x.target_palace,x.is_self_transform?'是':'否',x.id]),'宫干四化沿用本次 iztro 配置；与生年、大限、流年四化分别阅读。');
     section('三方四正',['本宫','三合宫','对宫','依据'],c.three_sides_four_correct.map(g=>[g.palace,g.member_palaces.slice(1,3).map(p=>p.palace).join('、'),g.member_palaces[3].palace,g.id]));
     if(z.target) {
-      section('目标日期紫微岁运',['层级','宫位基准','干支','说明'],[[z.target.decadal.name,z.palaces[z.target.decadal.index].name,z.target.decadal.heavenlyStem+z.target.decadal.earthlyBranch,'采用引擎给出的运限层级'],['流年',z.palaces[z.target.yearly.index].name,z.target.yearly.heavenlyStem+z.target.yearly.earthlyBranch,'换年按所选紫微配置'],['小限',z.palaces[z.target.age.index].name,z.target.age.heavenlyStem+z.target.age.earthlyBranch,`名义年龄 ${z.target.age.nominalAge}`]]);
+      section('目标日期紫微岁运',['层级','宫位基准','干支','说明'],[[z.target.decadal.name,z.palaces[z.target.decadal.index].name,z.target.decadal.heavenlyStem+z.target.decadal.earthlyBranch,'采用引擎给出的运限层级'],['流年',z.palaces[z.target.yearly.index].name,z.target.yearly.heavenlyStem+z.target.yearly.earthlyBranch,'运限年界：'+boundaries.horoscope_year_boundary+'；非本命年界参数'],['小限',z.palaces[z.target.age.index].name,z.target.age.heavenlyStem+z.target.age.earthlyBranch,`名义年龄 ${z.target.age.nominalAge}`]]);
       section('大限 / 流年四化落点',['层级','四化','星曜','本命宫位','该层级宫名'],c.transit_mutagens.map(x=>[x.scope==='decadal'?'大限':'流年',`化${x.mutagen}`,x.star,x.natal_palace,x.scope_palace]));
     }
   }

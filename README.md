@@ -1,15 +1,15 @@
 # 算命大师（SuanMingMaster）
 
-适配RikkaHub2.5.6的本地命理计算引擎、93主题可检索知识库与Agent工作流。最新版 **V1.3.0**。
+适配RikkaHub2.5.6的本地命理引擎、97主题知识库与Agent工作流。最新版 **V1.3.1**。完整安装包名为bazi-ziwei-rikkahub-v1.3.1.zip，包根bazi-ziwei/SKILL.md；源码ZIP不含计算依赖，不能替代手机安装包。
 
-下载 [手机完整安装包](https://github.com/RenCosmos/SuanMingMaster/raw/refs/heads/main/bazi-ziwei-rikkahub-v1.3.0.zip)，在RikkaHub Skills导入、启用bazi-ziwei并绑定Linux Workspace。包内已有计算依赖，需要Node20+；一次性自检与安装方法见 [手机安装说明](手机安装说明.md)。系统提示词可留空或自定义；[推荐先生口吻](RikkaHub可选系统提示词.txt)完全可选。
+八字、紫微、六爻、婚恋单/双盘、正缘候选年份/假设生辰/已知对象匹配、年上年下、画像、亲密取象、真太阳时、未知时辰对照、岁运关系、宫干飞化、疏文/表文及民俗修行宗教资料均保留。聊天解读为默认，报告按需；[系统提示词](RikkaHub可选系统提示词.txt)完全可选。安装见[手机说明](手机安装说明.md)，调用见[使用说明](使用说明.md)。
 
-支持八字、紫微、六爻铜钱卦、婚恋单盘与双盘、对象画像、单人年上年下取象、真太阳时、未知时辰对照、逐年与大运合冲关系、宫干飞化、疏文表文和民俗修行检索。计算返回小型主题context，追问复用可信缓存；聊天解读为默认，需要时才生成报告。
+V1.3.1修复新建候选搜索缺--out的入口说明；next_actions.reuse增加完整argv；发布包npm test不再以0 tests成功退出，而是提示使用npm run check。紫微分别标明本命与运限年/月界，原计算配置不改。知识返回明确reference_material / untrusted_reference_text / instruction_authority:none。新增四张实质八字概念卡与术语/别名/领域筛选及最多一次无命中回退。完整核验与判断见[反馈记录](references/feedback-v1.3.1.md)，主Skill按识别→调用→核对→context解读简化，完整细则保留。
 
-V1.3.0新增[正缘候选筛选](references/partner-search-method.md)：根据本人八字，在明确范围筛年份、假设生辰或用户提供对象；除了生肖，还核对日干/日支锚定及十神条件，保留跨盘合冲刑害破。仅知年份不补造月日时柱；假设日期不是现实对象已知生日，命中数量不是概率。保留RikkaHub 2.5.6调用、超时与恢复、task_id/next_actions/双人警告和五类原生知识概览。所有旧计算、CLI、93主题全文、报告/疏文、固定依赖、缓存及输出预算不变。具体手机验收见[适配与恢复](references/rikkahub-adaptation.md)。宗教来源及推断限制保留，不认证个人鬼神身份或前世配偶；亲密取象不推断性取向、生理能力或医学结论。
+完整323项开发测试通过，原296项全部保留；手机包仅有12组关键自检，不包含开发tests/。原93主题全文、113份知识基线和435份固定运行依赖逐字保留；新增4概念主题。旧冻结基线不改，必要修复的少数代码按独立旧/新SHA审定清单验收。V1.2.4/V1.2.5/V1.3.0实际跨版本计算、投影、报告与正文比较范围见release-validation.json，不以“原代码全部未改”描述本版。
 
-保留原261项并新增候选筛选回归，完整296项测试通过；安装包解包12组自检、宗教检索、原工作流及三种新搜索的临时清理/缓存复用通过。113份知识/来源/查核/许可、435份运行依赖及78份引擎/旧接口/方法等按V1.2.4审定基线逐字节校验；持有冻结V1.2.4/V1.2.5安装ZIP时另做跨版本计算、投影、报告/导出及93主题全文对照，实际范围见release-validation.json。V1.3.0安装包已由用户于2026-10-07确认完成手机实测；本次仅更新说明与验收状态，程序和知识内容不变。原V1.2.1确认保留在历史记录中。
+20KiB工作流、12KiB知识及28KiB转义包装预算保留。所有计算与原知识功能未裁剪，缓存、任务锁、临时清理、旧CLI、报告/疏文与五份无运行时知识概览保留。命理不等同现实事实，不据盘判断性取向、生理能力或医学结论；宗教资料不认证个人鬼神身份、附身或前世配偶。
 
-源码、开发测试、固定依赖锁、构建工具和GitHub Actions现作为普通文件入库。见 [开发与发布](DEVELOPMENT.md)、[关键测试说明](references/critical-testing.md)、[验证记录](验证记录.md)。也可下载 [源码ZIP](https://github.com/RenCosmos/SuanMingMaster/raw/refs/heads/main/SuanMingMaster-source-v1.3.0.zip)。手机包不包含开发测试或生成结果；源码ZIP不含node_modules。安装包手机测试的用户确认记录保留在清单中。
+当前版本的桌面回归和解包验收与手机实测分开记录；历史V1.3.0的用户手机确认不自动继承为新版验收。
 
-安装包与源码包摘要见 [SHA256SUMS.txt](SHA256SUMS.txt)，结构化验收见 [release-validation.json](release-validation.json)。原创代码和文稿采用MIT，第三方许可和来源见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
+下载[手机完整安装包](https://github.com/RenCosmos/SuanMingMaster/raw/refs/heads/main/bazi-ziwei-rikkahub-v1.3.1.zip)或[源码ZIP](https://github.com/RenCosmos/SuanMingMaster/raw/refs/heads/main/SuanMingMaster-source-v1.3.1.zip)。摘要见[SHA256SUMS.txt](SHA256SUMS.txt)，验收结果见[release-validation.json](release-validation.json)及[验证记录](验证记录.md)。开发与构建方法见[DEVELOPMENT.md](DEVELOPMENT.md)，关键自检见[测试说明](references/critical-testing.md)。发布工具只构建和验收，不自行上传；上传由维护者另行授权。原创代码和文稿为MIT；第三方来源、许可及限制见[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。

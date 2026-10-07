@@ -72,3 +72,5 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --agent --reuse /workspace/bazi-ziwei-re
 ## 验收
 
 原计算、旧CLI、知识/来源/依赖按冻结基线逐字节校验；旧计算14组、投影85个、报告/导出13种和93主题全文实际跨版本对照。专项测试覆盖十二生肖、立春秒级/海外时区、成年截断、ALL/ANY、同时合破/三字齐全、明确时间/未知采样/真太阳时/DST、四柱/模型/边界、伪造checksum、缓存/分页/原盘导入/锁/临时清理/报告。发布解包再用手机入口跑三种搜索并复用。V1.3.0安装包的手机实测由用户于2026-10-07确认；后续升级保留旧包及任务再复核。
+
+V1.3.1入口约定：新建partner-search必须指定--out独立任务目录。next_actions中reuse的argv可直接传给scripts/mobile.sh，内含--reuse、--partner-search、offset、limit及适用candidate；逐参数安全引用，不将数组内容作为shell代码。

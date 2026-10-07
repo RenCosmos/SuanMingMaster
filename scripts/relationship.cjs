@@ -93,7 +93,7 @@ function validateArtifact(data,{recalculate=true}={}){
  check(data?.schema_version===SCHEMA&&data.engine_version==='relationship/0.6.0','不支持的关系报告格式；请用当前输入重新计算');
  const {checksum,...payload}=data;check(checksum?.algorithm==='sha256-canonical-json'&&checksum.value===digest(payload),'关系报告校验和不匹配');
  check(Array.isArray(data.people),'关系报告缺少人物盘');for(const person of data.people)engine.validateArtifact(person.chart,{recalculate:false});
- if(recalculate){const fresh=build(data.input);for(const key of ['people','profiles','comparison','age_relation','partner_images','intimacy_features','context','provenance','warnings'])check(digest(data[key])===digest(fresh[key]),`${key} 与当前程序重算不一致`);}
+ if(recalculate){const fresh=require('./ziwei-conventions.cjs').alignLegacyMetadata(build(data.input),data);for(const key of ['people','profiles','comparison','age_relation','partner_images','intimacy_features','context','provenance','warnings'])check(digest(data[key])===digest(fresh[key]),`${key} 与当前程序重算不一致`);}
  return checksum.value;
 }
 module.exports={build,validateArtifact,normalizeInput};

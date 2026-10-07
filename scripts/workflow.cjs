@@ -5,7 +5,7 @@ const {withInputLifecycle,readStdinJson}=require('./input-lifecycle.cjs');
 const core=require('./runtime-core.cjs');
 const {ROOT,VERSION,check,readJson,hash,sha,atomicJson}=core;
 const {actualPath,inside,assertOutputs,acquireTaskLocks}=require('./task-files.cjs');
-const {taskId,nextActions,failureFor}=require('./workflow-hints.cjs');
+const {taskId,nextActions,executableActions,failureFor}=require('./workflow-hints.cjs');
 const MAX_OUTPUT_BYTES=20*1024;
 const RECEIPT='validation.json';
 function parse(argv){
@@ -51,7 +51,7 @@ function boundedResponse(base,data,options){
  let limit=options.limit??(data.input.mode==='time_compare'?5:3);
  while(limit>=1){
   const context=project(data,{...options,limit});
-  const result={...base,context,...(base.files?.chart?{task_id:taskId(base.files)}:{}),next_actions:nextActions(context,base.people_page),output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:options.limit??null,effective_limit:limit,budget_adjusted:limit!==(options.limit??(data.input.mode==='time_compare'?5:3))}};
+  const result={...base,context,...(base.files?.chart?{task_id:taskId(base.files)}:{}),next_actions:executableActions(nextActions(context,base.people_page),base.files),output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:options.limit??null,effective_limit:limit,budget_adjusted:limit!==(options.limit??(data.input.mode==='time_compare'?5:3))}};
   // Count the whole JSON envelope, plus a JSON-escaped shell wrapper (conservative margin below 32KB).
   for(let i=0;i<3;i++)result.output.bytes=Buffer.byteLength(JSON.stringify(result)+'\n');
   const serialized=JSON.stringify(result)+'\n';

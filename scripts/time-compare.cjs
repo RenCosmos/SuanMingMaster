@@ -118,7 +118,7 @@ function validateArtifact(data){
  check(data?.schema_version===SCHEMA&&data.engine_version===VERSION,'不支持的时辰对照格式');const {checksum,...payload}=data;
  check(checksum?.algorithm==='sha256-canonical-json'&&checksum.value===digest(payload),'时辰对照校验和不匹配');
  check(Array.isArray(data.candidates),'缺少候选盘');for(const c of data.candidates)if(c.status==='calculated')relationship.validateArtifact(c.chart,{recalculate:false});
- const {checksum:unused,...fresh}=build(data.input);check(digest(payload)===digest(fresh),'时辰对照与当前程序重算不一致');return checksum.value;
+ const {checksum:unused,...fresh}=require('./ziwei-conventions.cjs').alignLegacyMetadata(build(data.input),data);check(digest(payload)===digest(fresh),'时辰对照与当前程序重算不一致');return checksum.value;
 }
 function summary(data){const {qiyun_sampled_start_times,...comparison}=data.comparison;const out=structuredClone({schema_version:'bazi-ziwei-time-summary/v1',parent_checksum:data.checksum.value,input:data.input,normalized:data.normalized,coverage:data.coverage,intervals:data.intervals,candidates:data.candidates.map(({chart,...c})=>c),comparison:{...comparison,fields:comparison.fields.map(({evidence,...f})=>f)},qiyun_sampled_start_times});out.checksum={algorithm:'sha256-canonical-json',value:digest(out)};return out;}
 function validateSummary(data,parent){check(data?.schema_version==='bazi-ziwei-time-summary/v1','不支持的时辰摘要格式');const {checksum,...payload}=data;check(checksum?.value===digest(payload)&&checksum.algorithm==='sha256-canonical-json','时辰摘要校验和不匹配');check(digest(data)===digest(summary(parent)),'时辰摘要与完整对照数据不一致');return checksum.value;}

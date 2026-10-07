@@ -1,0 +1,46 @@
+{
+  "version": "bazi-concepts/v1",
+  "introduced_in": "1.3.1",
+  "topics": [
+    {
+      "id":"BZC-01","slug":"bazi-authority-mixed","name":"官杀混杂","domain":"bazi",
+      "aliases":["官杀混杂","官煞混杂","官殺混雜","官煞混雜"],"tags":["八字","官杀混杂","正官","七杀","去留"],
+      "subtitle":"正官与七杀并见，需分透藏、轻重和制化，不直接断事件。",
+      "kind":"project_concept_reference","evidence_scope":"classical_concept_summary","program_supported":false,
+      "path":"references/knowledge/bazi-concepts/cards/bazi-authority-mixed.md","sha256":"771d391c312dea684ebf7af7d2418021765453d9a997abc99bbede1926b970f7",
+      "url":"https://zh.wikisource.org/wiki/三命通會/卷五#官煞混杂","publisher":"维基文库古籍电子转录；项目解释",
+      "book":"三命通会","chapter":"卷五·官煞混杂","locator":"官煞混杂小节","access_method":"web_primary_text_transcription","accessed_on":"2026-10-08",
+      "inference_limits":["非古籍逐字原文，未作影印校勘","并见不等于制化成立或现实多名伴侣"]
+    },
+    {
+      "id":"BZC-02","slug":"bazi-wealth-weak-self","name":"财多身弱","domain":"bazi",
+      "aliases":["财多身弱","財多身弱","财旺身弱","财旺身衰","身弱财多"],"tags":["八字","财多身弱","正财","偏财","日主","旺衰"],
+      "subtitle":"财与日主支持的相对结构，不以字数直接判旺衰或现实贫富。",
+      "kind":"project_concept_reference","evidence_scope":"classical_concept_summary","program_supported":false,
+      "path":"references/knowledge/bazi-concepts/cards/bazi-wealth-weak-self.md","sha256":"adc70806fe4782951c5a7bc5bbb8c255136d179ff79d7d4963bc7425fc19de6e",
+      "url":"https://zh.wikisource.org/wiki/三命通會/卷六#论正财","publisher":"维基文库古籍电子转录；项目解释",
+      "book":"三命通会","chapter":"卷六·论正财","locator":"论正财小节","access_method":"web_primary_text_transcription","accessed_on":"2026-10-08",
+      "inference_limits":["非古籍逐字原文，未作影印校勘","身弱不是医学判断；财多不证明现实财富"]
+    },
+    {
+      "id":"BZC-03","slug":"bazi-hurting-officer","name":"伤官见官","domain":"bazi",
+      "aliases":["伤官见官","傷官見官"],"tags":["八字","伤官见官","伤官","正官","制化"],
+      "subtitle":"伤官与正官的有条件关系，分透藏、根气、通关和格局用途。",
+      "kind":"project_concept_reference","evidence_scope":"classical_concept_summary","program_supported":false,
+      "path":"references/knowledge/bazi-concepts/cards/bazi-hurting-officer.md","sha256":"7da55890d7e99afda6dcbe7f864d03730da2c3564c19d2d65d3825391982501c",
+      "url":"https://www.donglishuzhai.net/chapter/3754.html","publisher":"东里书斋古籍原文转录；项目解释",
+      "book":"子平真诠","chapter":"四十一·论伤官","locator":"用财、佩印、用杀印与用官的原文段落","access_method":"web_primary_text_transcription","accessed_on":"2026-10-08",
+      "inference_limits":["网页校注与项目解释不是原句，未作影印校勘","不凭单一术语认证灾祸、官非或婚姻结局"]
+    },
+    {
+      "id":"BZC-04","slug":"bazi-favorable-god","name":"八字喜用神与取用","domain":"bazi",
+      "aliases":["喜用神","喜用","八字用神","取用神"],"tags":["八字","喜用神","月令","通根","透干","格局","取用"],
+      "subtitle":"区分格局取用与其他分析框架；不是缺什么补什么，也不是六爻用神。",
+      "kind":"project_concept_reference","evidence_scope":"classical_concept_summary","program_supported":false,
+      "path":"references/knowledge/bazi-concepts/cards/bazi-favorable-god.md","sha256":"22a1ac1f40d5a41faececb90e0e03fb29b3e7aaa53a492748cbfcf5d6b6ee6ba",
+      "url":"https://www.donglishuzhai.net/chapter/3721.html","publisher":"东里书斋古籍原文转录；项目解释",
+      "book":"子平真诠","chapter":"八·论用神","locator":"以日干配月令地支、四柱统归月令的原文段落","access_method":"web_primary_text_transcription","accessed_on":"2026-10-08",
+      "inference_limits":["术语辨析是项目整理，非原句，未作影印校勘","不自动判唯一喜用，不保证改名、饰物或方位效果"]
+    }
+  ]
+}

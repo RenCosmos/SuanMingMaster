@@ -1,6 +1,6 @@
 {
   "name": "bazi-ziwei-skill",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "private": true,
   "description": "Local metaphysics engine, bounded searchable knowledge and cached Agent workflows for RikkaHub",
   "license": "MIT",
@@ -11,9 +11,9 @@
   },
   "scripts": {
     "check": "node scripts/preflight.cjs --self-test",
-    "test": "node --test tests/*.test.cjs",
+    "test": "node scripts/test-runner.cjs",
     "workflow": "node scripts/workflow.cjs",
-    "test:critical": "node --test tests/critical.test.cjs tests/critical-cli.test.cjs",
+    "test:critical": "node scripts/test-runner.cjs --critical",
     "release": "python tools/release.py"
   },
   "packageManager": "pnpm@11.19.0"

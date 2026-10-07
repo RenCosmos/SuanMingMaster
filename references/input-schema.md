@@ -26,7 +26,7 @@
 | bazi_day_boundary | `midnight`（默认，lunar-typescript sect=2）或 `late_zi`（sect=1） |
 | bazi_hour_stem_rule | `day_stem` 默认：已选日干五鼠遁；`library`：兼容旧库晚子时推法 |
 | ziwei_day_boundary | `late_zi`（默认，iztro forward）或 `midnight`（current） |
-| ziwei_year_boundary | `lunar_new_year`（默认 normal）或 `lichun`（exact，采用 iztro 库的口径） |
+| ziwei_year_boundary | 只控制**本命年干支**：`lunar_new_year`（默认 normal）或 `lichun`（exact）。不控制运限；运限年/月仍按 iztro normal 的农历年/月界 |
 | ziwei_leap_adjust | true（默认），闰月前 15 天按本月，之后按下月；false 不调整 |
 | ziwei_algorithm | `default`（默认）或 `zhongzhou` |
 | dayun_count | 八字大运数量，1–12，默认 8 |
@@ -41,6 +41,8 @@ Temporal 按所填时区解析真实出生瞬间并保留实际 UTC 偏移。夏
 默认 midnight 日界的晚子日柱留在当日，时干从已选日干起五鼠遁；late_zi 日界的日柱在 23 点进位，时干随新日干计算。bazi_hour_stem_rule:library 兼容旧版当日日柱/次日日干起时。具体案例和理论依据见 [子平核对](bazi-theory-audit.md)。仅紫微模式拒绝 true_solar；both 模式紫微仍使用钟表记录。
 
 紫微引擎接收出生地钟表公历日期和时辰序号，闰月、换年、换日均在 JSON 留痕。`chinese_date` 是 iztro 提供的辅助干支信息，不能代替八字引擎的四柱，尤其当口径不同或出生地不在 UTC+8 时。
+
+紫微 `conventions.year_boundary` 保留兼容，含义为本命年界；新增 `natal_year_boundary` 明确该含义，`year_boundary_scope=natal_only`。`horoscope_year_boundary=lunar_new_year`、`horoscope_month_boundary=lunar_month` 分别标明运限年/月界。V1.3.1不更改旧 `yearDivide` / `horoscopeDivide` 算法：2024-02-05在立春后、春节前，八字目标年为甲辰，紫微流年仍为癸卯；不是将本命立春参数套在流年。配置含义见[iztro官方说明](https://docs.iztro.com/posts/config-n-plugin)。目标日仍按原正午规则，不声称支持目标节气秒级瞬间。
 
 目标分析日期统一取**出生地正午**作为展示用参考时刻：这不代表该日期所有时刻都处于同一节气。出生时间范围比较使用独立的时辰对照模式；目标分析日期的参考时刻沿用本页规则。
 

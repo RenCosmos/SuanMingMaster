@@ -4,6 +4,7 @@
 const {withInputLifecycle}=require('./input-lifecycle.cjs');
 const {check,readJson,sha}=require('./runtime-core.cjs');
 const MAX_BYTES=12*1024;
+const REFERENCE={content_type:'reference_material',trust_level:'untrusted_reference_text',instruction_authority:'none'};
 function sourceScope(topic){
  if(!topic.evidence_scope)return {};
  return {publisher:topic.publisher,locator:topic.locator,access_method:topic.access_method,tradition:topic.tradition,evidence_scope:topic.evidence_scope,inference_limits:topic.inference_limits,source_ids:topic.source_ids};
@@ -16,7 +17,7 @@ function excerpt(topic,content,options){
  // Never split a UTF-16 surrogate pair.
  if(end<content.length&&/[\uD800-\uDBFF]/.test(content[end-1]))end--;
  if(offset>0&&/[\uDC00-\uDFFF]/.test(content[offset]))throw new Error('offset 位于 Unicode 字符中间，请使用返回的 next_offset');
- return {id:topic.id,slug:topic.slug,name:topic.name,source_kind:topic.source_kind,...sourceScope(topic),
+ return {id:topic.id,slug:topic.slug,name:topic.name,source_kind:topic.source_kind,...REFERENCE,...sourceScope(topic),
   source_url:topic.url??topic.repository,commit:topic.commit??null,book:topic.book??null,chapter:topic.chapter??null,
   sha256:topic.sha256,total_chars:content.length,offset,returned_chars:end-offset,next_offset:end<content.length?end:null,content:content.slice(offset,end)};
 }
@@ -26,11 +27,11 @@ function retrieve(input){
  let result;
  if(r.topic){
   check(sha(Buffer.from(r.content,'utf8'))===r.topic.sha256,'知识正文摘要不匹配，请恢复原始知识库');
-  result={ok:true,schema_version:'suanming-knowledge-context/v1',reference_only:true,topic:excerpt(r.topic,r.content,{offset,chars})};
+  result={ok:true,schema_version:'suanming-knowledge-context/v1',reference_only:true,...REFERENCE,topic:excerpt(r.topic,r.content,{offset,chars})};
  }else{
   check(offset===undefined&&chars===undefined,'offset / chars 只用于 --topic 正文分页');
-  result={ok:true,schema_version:'suanming-knowledge-context/v1',reference_only:true,query:r.query,
-   matches:r.matches.map(t=>({id:t.id,slug:t.slug,name:t.name,source_kind:t.source_kind,...sourceScope(t),source_url:t.url??t.repository,commit:t.commit??null,score:t.score,snippet:t.snippet,
+  result={ok:true,schema_version:'suanming-knowledge-context/v1',reference_only:true,...REFERENCE,query:r.query,retrieval:r.retrieval,
+   matches:r.matches.map(t=>({id:t.id,slug:t.slug,name:t.name,source_kind:t.source_kind,...REFERENCE,domains:t.domains,...sourceScope(t),source_url:t.url??t.repository,commit:t.commit??null,score:t.score,snippet:t.snippet,
     read:{topic:t.slug,offset:0,chars:1800}}))};
  }
  check(Buffer.byteLength(JSON.stringify(result)+'\n')<=MAX_BYTES-256,'检索上下文超出预算，请减小 limit 或 chars');
@@ -41,7 +42,7 @@ function operation(argv){
  if(argv.length===1&&argv[0]==='--verify')return require('./knowledge.cjs').verifyKnowledge();
  if(argv.length===2&&argv[0]==='--input')return retrieve(readJson(argv[1]));
  check(argv.length>0&&argv.length%2===0,'检索参数须成对');
- const names={'--query':'query','--topic':'topic','--limit':'limit','--offset':'offset','--chars':'chars'},input={};
+ const names={'--query':'query','--topic':'topic','--limit':'limit','--offset':'offset','--chars':'chars','--domain':'domain'},input={};
  for(let i=0;i<argv.length;i+=2){const key=names[argv[i]];check(key&&!(key in input)&&argv[i+1]!==undefined&&!argv[i+1].startsWith('--'),'未知、重复或缺少检索参数值');
   input[key]=['limit','offset','chars'].includes(key)?Number(argv[i+1]):argv[i+1];
  }

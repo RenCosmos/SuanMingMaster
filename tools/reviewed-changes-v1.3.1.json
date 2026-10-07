@@ -1,0 +1,82 @@
+{
+  "version": "compatibility-reviewed-changes/v1",
+  "release": "1.3.1",
+  "baseline_commit": "a1ce5c916cd5af733a789f41e1a21e754d39fc79",
+  "frozen_baseline_rewritten": false,
+  "package_scripts": {
+    "test": "node scripts/test-runner.cjs",
+    "test:critical": "node scripts/test-runner.cjs --critical"
+  },
+  "files": {
+    "references/input-schema.md": {
+      "old_sha256": "124b26fc5c667ec75979d592d7970346b7bafa2d134c1f8891e46b5499929cc3",
+      "new_sha256": "8e3e804c2520daf5777b56266fe5e874a4e850729be64a0a2c72371149f3b4a0",
+      "reason": "clarify natal-only option and separate horoscope year/month boundaries"
+    },
+    "references/ziwei-method.md": {
+      "old_sha256": "8498675b32a9fd4fe2973d6f0eff918c98f3442ed09614c495c0e4f48d0eb86e",
+      "new_sha256": "282899f6fc5b6ffbf5cce8c07a7cb0e86a256602437bd72d1fd68eb63e109354",
+      "reason": "clarify unchanged natal and horoscope calendar conventions"
+    },
+    "scripts/ziwei-chart.cjs": {
+      "old_sha256": "624f5cf59a2d26a7665fc184f154b93686e04eeadb4eae9023ae2eabf6a3d8f4",
+      "new_sha256": "f4be9f26e9fb4c7caf97c8146a4b925f770fdb1971122d91a11c3569b7756289",
+      "reason": "add explicit boundary labels without modifying astro configuration"
+    },
+    "scripts/engine.cjs": {
+      "old_sha256": "3e6e1b33344dc52330de5fa0c251c84ab7189b2b457cd9be6ad3255e29c7d1bc",
+      "new_sha256": "3080b78dfad789b50087d748dfb0415c3dd011fdc3de04e85bdf3797cdc0ac45",
+      "reason": "validate legacy artifacts lacking only new metadata labels"
+    },
+    "scripts/relationship.cjs": {
+      "old_sha256": "2b42e791922b71e3b3abb78f4ff2bec2f186f1a5496a5b64317f7d91cea675e1",
+      "new_sha256": "8fd998ab122fe811706e79d46105fd6b3a14af35670cdbfe4e562d9219dca0e4",
+      "reason": "preserve nested legacy chart validation"
+    },
+    "scripts/time-compare.cjs": {
+      "old_sha256": "3de9e57f15adcd45f974a10da2f2422a6cf2ed42e26f012deaea729e2eba888d",
+      "new_sha256": "37c5a10021677df4b2c57886466339e03d4637a0125c4df52d8d375baa72f2aa",
+      "reason": "preserve legacy uncertain-time validation"
+    },
+    "scripts/report.cjs": {
+      "old_sha256": "e745b505fd715315343d8f3f9c762f14d6e89fc48957b11aaa2721e2f5506356",
+      "new_sha256": "2a3de2b5273e8dab4f572da858a4095f389ad798f4fed06f5296190087f98891",
+      "reason": "replace ambiguous boundary label with explicit natal/transit rows"
+    },
+    "scripts/context.cjs": {
+      "old_sha256": "804c4203c2b3e783dd09d6859189cd9596d1f022421a75fad75149b084675103",
+      "new_sha256": "f8b74780206526d7c13d545cbdc009876f2953d0276b7a31b221126e9e7b93c3",
+      "reason": "expose explicit boundaries including legacy cached charts"
+    },
+    "scripts/knowledge.cjs": {
+      "old_sha256": "edc427b8813dbb30e741c887ee8e09078ce5589dc55a66b0466de55a52a028b7",
+      "new_sha256": "26ea8ab27a1e2b3dbc855d7722ef1d12814a11dcebe031b640ef76a20e93843c",
+      "reason": "add concepts, domain-aware search and untrusted reference metadata"
+    },
+    "scripts/knowledge-context.cjs": {
+      "old_sha256": "3d4c60fac8cc06f93c93bbb7b912953dda9a4c05025746086a2d1c99fa04c11c",
+      "new_sha256": "d5035101b2d7f70b075318e7957205235eec544dd285bd5fe212efe8712e11b1",
+      "reason": "bounded domain-aware reference-only outputs"
+    },
+    "scripts/critical-checks.cjs": {
+      "old_sha256": "3c5db03ff2cbe34a8204aaa7f8594d33a6c0e28519b0f1a6e2c782cb7389ca13",
+      "new_sha256": "b42bcd951b49893b6f3117cf5671d969a5f5dcd7e719af10bd40bee6ec2dd9b8",
+      "reason": "assert original93 plus four additional concepts"
+    },
+    "scripts/workflow-hints.cjs": {
+      "old_sha256": "7e951c8584db5ddfe393416b4e8cbd54427120b674d5bf0eeaeaac4f50f05f70",
+      "new_sha256": "6becc232982f6de22558d8b76f3e60614f9b2214c16779b48a56614675a2831e",
+      "reason": "generate complete reusable argv while retaining selectors"
+    },
+    "scripts/workflow.cjs": {
+      "old_sha256": "39d3c5f45fa0a0cf6e5c74bafc483c60ed7f07ef395353a1462a0244d4f7f6be",
+      "new_sha256": "6b0fbb094f51bb67472b2312fcc2873f37ddf17209bb2c8b39174ad260cc1a24",
+      "reason": "include executable argv in bounded responses"
+    },
+    "scripts/partner-search-workflow.cjs": {
+      "old_sha256": "08746c2bfdebb1ee8ba4a24dd95cbaee34c45021b660a14dbcb2602a5fe823b0",
+      "new_sha256": "19bf7f3bc38953cbca8ddf073c60f186bee1fb4f1bf4e67c8470cbc8a85f98fc",
+      "reason": "include correct mode and pagination argv"
+    }
+  }
+}
