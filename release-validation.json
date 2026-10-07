@@ -1,9 +1,9 @@
 {
   "ok": true,
-  "version": "1.2.4",
+  "version": "1.3.0",
   "tests": {
-    "tests": 247,
-    "pass": 247,
+    "tests": 296,
+    "pass": 296,
     "fail": 0,
     "skipped": 0,
     "cancelled": 0
@@ -11,15 +11,118 @@
   "runtime_critical_cases": 12,
   "knowledge_topics": 93,
   "knowledge_files_byte_identical": 113,
-  "runtime_files": 638,
-  "source_files": 235,
-  "local_links": 205,
+  "runtime_files": 656,
+  "source_files": 260,
+  "local_links": 228,
   "extracted_self_test": true,
   "extracted_religious_queries": 3,
   "extracted_temp_cleanup": true,
   "extracted_cache_reuse": true,
+  "extracted_task_navigation": true,
+  "native_fallback_pages": 5,
+  "compatibility": {
+    "ok": true,
+    "baseline": "1.2.4",
+    "protected_checks": 626,
+    "protected_interfaces": 78,
+    "knowledge_files": 113,
+    "dependency_files": 435,
+    "prior_scripts_byte_identical": 0,
+    "native_pages_byte_identical": 0,
+    "calculation_cases": 14,
+    "context_projections": 85,
+    "report_variants": 13,
+    "full_knowledge_topics": 93,
+    "cross_version_compared": true
+  },
+  "compatibility_v1_2_5": {
+    "ok": true,
+    "baseline": "1.2.5",
+    "protected_checks": 626,
+    "protected_interfaces": 78,
+    "knowledge_files": 113,
+    "dependency_files": 435,
+    "prior_scripts_byte_identical": 32,
+    "native_pages_byte_identical": 5,
+    "calculation_cases": 14,
+    "context_projections": 85,
+    "report_variants": 13,
+    "full_knowledge_topics": 93,
+    "cross_version_compared": true
+  },
+  "partner_search": {
+    "years": {
+      "ok": true,
+      "temp_cleanup": true,
+      "cache_reuse": true,
+      "candidate_count": 17,
+      "entry": "mobile --agent"
+    },
+    "dates": {
+      "ok": true,
+      "temp_cleanup": true,
+      "cache_reuse": true,
+      "candidate_count": 4,
+      "entry": "mobile --agent"
+    },
+    "people": {
+      "ok": true,
+      "temp_cleanup": true,
+      "cache_reuse": true,
+      "candidate_count": 1,
+      "entry": "mobile --agent"
+    }
+  },
+  "mobile_device_tested_current_version": true,
+  "mobile_validation": {
+    "status": "tested",
+    "source": "user_confirmation",
+    "tested_package_version": "1.3.0",
+    "scope": "installation package on mobile; user confirmation",
+    "reported_on": "2026-10-07",
+    "current_package_status": "accepted",
+    "tested_install_archive_sha256": "436e07f6fca71e2dde7a32532b06608c1eccae388421fbe48ef98cdb61512d8f",
+    "repack_scope": "documentation and acceptance metadata only; runtime and knowledge unchanged",
+    "detailed_device_or_case_log_supplied": false,
+    "historical_confirmations": [
+      {
+        "tested_package_version": "1.2.1",
+        "source": "user_confirmation",
+        "reported_on": "2026-10-05",
+        "scope": "installation package on mobile"
+      }
+    ]
+  },
   "archives": {
-    "bazi-ziwei-rikkahub-v1.2.4.zip": "b907fcb293242603ec82d2dfd8afab071444431b56331de38cfbf400c6e23b25",
-    "SuanMingMaster-source-v1.2.4.zip": "44964642b27b88611f3545ad229ed734862be5b03cd23c79f175cf58c03773c1"
+    "bazi-ziwei-rikkahub-v1.3.0.zip": "cfd7b6e8ac78339ededce670bbf9e10c1c6c1276c3055993d8aa57af9198d9c0",
+    "SuanMingMaster-source-v1.3.0.zip": "8145cec2ef9b81b24666b2bd27eed6f543d609da780ff168422624366518bc74"
+  },
+  "schema_validation": {
+    "performed": true,
+    "draft": "2020-12",
+    "input_and_output_examples": {
+      "years": true,
+      "dates": true,
+      "people": true,
+      "pillars": true
+    },
+    "negative_probability_and_fabricated_year_pillars_rejected": true,
+    "network_ref_loading": false
+  },
+  "repack": {
+    "performed": true,
+    "tested_archive_sha256": "436e07f6fca71e2dde7a32532b06608c1eccae388421fbe48ef98cdb61512d8f",
+    "runtime_file_count": 656,
+    "byte_identical_files": 649,
+    "changed_documentation_and_metadata": [
+      "bazi-ziwei/references/partner-search-method.md",
+      "bazi-ziwei/references/rikkahub-adaptation.md",
+      "bazi-ziwei/references/workflow-architecture.md",
+      "bazi-ziwei/rikkahub-manifest.json",
+      "bazi-ziwei/使用说明.md",
+      "bazi-ziwei/手机安装说明.md",
+      "bazi-ziwei/验证记录.md"
+    ],
+    "program_knowledge_dependencies_unchanged": true
   }
 }

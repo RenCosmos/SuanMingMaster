@@ -1,8 +1,8 @@
 {
-  "adapter_version": "rikkahub-workspace/v1.2.4",
+  "adapter_version": "rikkahub-workspace/v1.3.0",
   "target_client": "RikkaHub 2.5.6",
   "engine_version": "0.4.0",
-  "package_version": "1.2.4",
+  "package_version": "1.3.0",
   "package_revision": "1",
   "bundled_annual_fixture": "synthetic; not user feedback birth data",
   "divination_engine": "liuyao/0.1.0",
@@ -164,7 +164,7 @@
     "source_adoption": "references/project-adoption.md",
     "ritual_document_method_cards": 1
   },
-  "previous_release": "1.2.1; computation algorithms and all 85 knowledge topics retained",
+  "previous_release": "1.2.4; all calculations, all 93 knowledge topics and legacy interfaces retained",
   "input_lifecycle": {
     "default_chart_input": "stdin JSON; no intermediate input file",
     "knowledge_input": "direct --query / --topic / --limit / --offset / --chars; bounded output",
@@ -242,7 +242,7 @@
     "knowledge_query_files": false
   },
   "workflow": {
-    "version": "1.2.4",
+    "version": "1.3.0",
     "entry": "scripts/workflow.cjs",
     "engine_facade": "scripts/runtime-core.cjs",
     "context_projector": "scripts/context.cjs",
@@ -264,15 +264,125 @@
       "time_compare": "time_compare",
       "divination": "divination"
     },
-    "reading_policy": "chart-based judgement, evidence and requested timing; reality checks from user narrative; no automatic counselling workflow"
+    "reading_policy": "chart-based judgement, evidence and requested timing; reality checks from user narrative; no automatic counselling workflow",
+    "additive_fields": [
+      "task_id",
+      "next_actions",
+      "context.interpretation_scope",
+      "context.reading.warnings (paired relationship)",
+      "error.recovery"
+    ],
+    "navigation_module": "scripts/workflow-hints.cjs",
+    "task_id_is_person_identity": false,
+    "automatic_retry": false,
+    "cache_fingerprint_policy_changed": false,
+    "full_text_retrieval_policy_changed": false
   },
   "system_prompt_required": false,
   "mobile_validation": {
     "status": "tested",
     "source": "user_confirmation",
-    "tested_package_version": "1.2.1",
-    "scope": "installation package on mobile",
-    "reported_on": "2026-10-05"
+    "tested_package_version": "1.3.0",
+    "scope": "installation package on mobile; user confirmation",
+    "reported_on": "2026-10-07",
+    "current_package_status": "accepted",
+    "tested_install_archive_sha256": "436e07f6fca71e2dde7a32532b06608c1eccae388421fbe48ef98cdb61512d8f",
+    "repack_scope": "documentation and acceptance metadata only; runtime and knowledge unchanged",
+    "detailed_device_or_case_log_supplied": false,
+    "historical_confirmations": [
+      {
+        "tested_package_version": "1.2.1",
+        "source": "user_confirmation",
+        "reported_on": "2026-10-05",
+        "scope": "installation package on mobile"
+      }
+    ]
+  },
+  "android_device_tested_scope": "installation package 1.3.0 on mobile; user confirmation on 2026-10-07",
+  "rikkahub_tools": {
+    "interface_checked_version": "2.5.6",
+    "interface_commit": "447bb7e89710d31f1204d7a2973baa19fdbd5b28",
+    "interface_checked_on": "2026-10-06",
+    "stdout_encoding": "JSON string inside workspace_shell outer JSON",
+    "shell_timeout_seconds": {
+      "default_host": 30,
+      "normal_explicit": 120,
+      "installer": 600,
+      "maximum_host": 600
+    },
+    "minimal_chart_requirements": [
+      "use_skill",
+      "workspace_shell",
+      "bound ready Linux Workspace",
+      "Node >=20 with ICU"
+    ],
+    "minimal_native_knowledge_requirements": [
+      "use_skill"
+    ],
+    "optional_file_tools": [
+      "workspace_read_file",
+      "workspace_write_file",
+      "workspace_edit_file"
+    ],
+    "legacy_requires_scope": "the existing requires list is the full-capability list, not the minimum for native knowledge or chat-only chart reading",
+    "install_zip_required": true,
+    "source_repository_import_is_complete_install": false,
+    "native_knowledge_fallback": {
+      "topics": 93,
+      "pages": [
+        "references/rikkahub-native/templates.md",
+        "references/rikkahub-native/folklore.md",
+        "references/rikkahub-native/curated.md",
+        "references/rikkahub-native/practice.md",
+        "references/rikkahub-native/spirit.md"
+      ],
+      "original_full_text_replaced": false,
+      "calculation_fallback_supported": false
+    },
+    "recovery_reference": "references/rikkahub-adaptation.md"
+  },
+  "partner_search": {
+    "introduced_in": "1.3.0",
+    "engine": "partner-search/1.0.0",
+    "entry": "scripts/mobile.sh --agent --stdin --partner-search --out TASK",
+    "module": "scripts/partner-search-workflow.cjs",
+    "old_engine_facade_modified": false,
+    "calculation_engine_modified": false,
+    "schema": "suanming-partner-search/v1",
+    "context_schema": "suanming-partner-search-context/v1",
+    "validation_schema": "suanming-partner-search-validation/v1",
+    "input_schema": "references/partner-search-input.schema.json",
+    "output_schema": "references/partner-search-output.schema.json",
+    "rules": "references/partner-search-rules.json",
+    "method": "references/partner-search-method.md",
+    "search_types": [
+      "years",
+      "dates",
+      "people"
+    ],
+    "limits": {
+      "year_cycles": 61,
+      "date_days": 31,
+      "provided_people": 20,
+      "explicit_times_per_date": 48
+    },
+    "default_conditions": [
+      "zodiac_affinity",
+      "spouse_branch_liuhe",
+      "day_stem_five_combine",
+      "partner_star_projection"
+    ],
+    "optional_user_element_condition": "element_supply",
+    "as_of_required": true,
+    "adult_eligibility_checked": true,
+    "year_candidate_unknown_pillars_fabricated": false,
+    "confirmed_partner": false,
+    "probability": null,
+    "sort_is_accuracy": false,
+    "source_chart_import_is_read_only": true,
+    "report_default": false,
+    "temp_input_option_first_after_agent": true,
+    "phone_acceptance": "accepted via user mobile-test confirmation for package 1.3.0 on 2026-10-07"
   },
   "optional_system_prompt": {
     "path": "RikkaHub可选系统提示词.txt",

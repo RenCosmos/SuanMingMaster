@@ -1,0 +1,5 @@
+{
+  "mode":"partner_search","question":"合成示例：已有四柱及出生年，不补造本人日期",
+  "self":{"pillars":["丙子","甲午","癸未","戊午"],"birth_year":1996},
+  "as_of":"2026-10-06","search":{"type":"years","year_range":[1984,2008]},"partner_star_model":"all"
+}

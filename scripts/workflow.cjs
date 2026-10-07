@@ -5,6 +5,7 @@ const {withInputLifecycle,readStdinJson}=require('./input-lifecycle.cjs');
 const core=require('./runtime-core.cjs');
 const {ROOT,VERSION,check,readJson,hash,sha,atomicJson}=core;
 const {actualPath,inside,assertOutputs,acquireTaskLocks}=require('./task-files.cjs');
+const {taskId,nextActions,failureFor}=require('./workflow-hints.cjs');
 const MAX_OUTPUT_BYTES=20*1024;
 const RECEIPT='validation.json';
 function parse(argv){
@@ -50,7 +51,7 @@ function boundedResponse(base,data,options){
  let limit=options.limit??(data.input.mode==='time_compare'?5:3);
  while(limit>=1){
   const context=project(data,{...options,limit});
-  const result={...base,context,output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:options.limit??null,effective_limit:limit,budget_adjusted:limit!==(options.limit??(data.input.mode==='time_compare'?5:3))}};
+  const result={...base,context,...(base.files?.chart?{task_id:taskId(base.files)}:{}),next_actions:nextActions(context,base.people_page),output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:options.limit??null,effective_limit:limit,budget_adjusted:limit!==(options.limit??(data.input.mode==='time_compare'?5:3))}};
   // Count the whole JSON envelope, plus a JSON-escaped shell wrapper (conservative margin below 32KB).
   for(let i=0;i<3;i++)result.output.bytes=Buffer.byteLength(JSON.stringify(result)+'\n');
   const serialized=JSON.stringify(result)+'\n';
@@ -109,6 +110,8 @@ function compute(o){
  return result;
 }
 function operation(argv){
+ const searches=argv.filter(a=>a==='--partner-search').length;
+ if(searches){check(searches===1,'--partner-search 只能提供一次');return require('./partner-search-workflow.cjs').operation(argv.filter(a=>a!=='--partner-search'));}
  if(argv.length===1&&['--help','-h'].includes(argv[0]))return `V${VERSION} workflow\n--stdin --out TASK_DIR [--focus core|career|relationship|annual|wealth|age_relation|partner_image|intimacy] [--report]\n--temp-input INPUT.json --out TASK_DIR（结束后清理）；--input 保留原输入\n--reuse TASK_DIR/chart.json [--focus THEME] [--years YYYY:YYYY] [--offset N] [--limit 1..10]\n时辰对照：--field TC-... [--variant-offset N] 或 --candidate TC-001；关系盘：--person a|b\n新盘同次重算校验；可信缓存不重算。stdout 与 context.json 是精简上下文；完整 chart.json 保留。\n--refresh 同时提供原始输入可强制重算；不同资料须使用新任务目录。`;
  let unlock;
  try{
@@ -133,5 +136,5 @@ function main(argv){
  const r=operation(argv);
  console.log(typeof r==='string'?r:JSON.stringify(r));return r;
 }
-if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error(JSON.stringify({ok:false,error:e.message,type:e.code??'workflow_error'}));process.exitCode=2;}}
+if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error(JSON.stringify(failureFor(e)));process.exitCode=2;}}
 module.exports={main,operation,parse,trusted,receiptFor,boundedResponse,MAX_OUTPUT_BYTES};

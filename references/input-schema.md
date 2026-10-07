@@ -50,7 +50,7 @@ Temporal 按所填时区解析真实出生瞬间并保留实际 UTC 偏移。夏
 
 顶层：`schema_version`、`skill_version`、`input`（含默认值的规范输入）、`normalized`、`warnings`、`provenance`、按 mode 选择的 `bazi` / `ziwei` 和 `checksum`。
 
-每个体系包含 `chart`（事实）与 `calculations`（衍生计算）。八字有逐项权重账本、规则文件摘要和 theory_evidence（月令、通根、透干及五虎遁/五鼠遁）；提供经度时另有 time_validation，年/月柱有 jieqi_boundary_review；紫微有星曜、宫位、四化和三方四正证据编号。所有执行依赖本地文件，无远程解读 API、无出生信息上传。
+每个体系包含 `chart`（程序计算事实）与 `calculations`（衍生计算）。八字有逐项权重账本、规则文件摘要和 theory_evidence（月令、通根、透干及五虎遁/五鼠遁）；提供经度时另有 time_validation，年/月柱有 jieqi_boundary_review；紫微有星曜、宫位、四化和三方四正证据编号。计算引擎依赖本地文件，不主动调用远端排盘/解读API或上传生辰；但用户消息和工具上下文可能经RikkaHub发送给所选模型供应商，不能把本地计算等同于聊天完全离线。规范输入仍保存在chart.json中，stdin不落中间文件不代表无资料留存。
 
 校验和按排序后的 JSON 内容计算。`--verify` 还按输入重新运行引擎，比较命盘、计算、警告、归一化时间及引擎/规则版本。不同 Node/ICU 时区数据库版本可能在历史时间上产生差异，因此记录版本并允许校验失败后要求重算。
 

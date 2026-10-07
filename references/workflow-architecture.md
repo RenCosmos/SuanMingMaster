@@ -1,6 +1,8 @@
-# V1.2.4 本地引擎、检索与 Agent 工作流
+# V1.3.0 本地引擎、检索与 Agent 工作流
 
 这是维护接口文档，普通用户问答无需读取。
+
+V1.3.0新增独立链路：mobile.sh --agent 输入选项 --partner-search → workflow分派 → partner-search-workflow.cjs → partner-search.cjs → 原engine/relationship/关系表 → 完整重算核验 → 独立分页context/receipt。不改runtime-core的四个适配器、mobile.sh、原算法或旧mode契约。--source-chart只读核验旧盘后导入原生辰；年份仅年柱、日期逐点假设、人物为用户输入。方法、schema、规则层和RikkaHub命令见[候选筛选](partner-search-method.md)。新receipt同样使用原版本指纹、路径身份检查、任务锁与输入生命周期；原接口及预算不变。
 
 实际链路：mobile.sh → workflow.cjs → runtime-core.cjs 适配器 → 原排盘算法 → 同次统一重算校验 → context.cjs 主题投影 → 有界 stdout。知识任务进入 knowledge-context.cjs → knowledge.cjs；制文仍用 shuwen.cjs。
 
@@ -8,7 +10,7 @@
 | --- | --- | --- |
 | 本地计算 | runtime-core 的 ADAPTERS、adapter、buildAndValidate、verify、integrity；四个惰性适配器 chart / relationship / time_compare / divination | 新引擎注册 input_modes、schemas、module、report；必须提供 build、validateArtifact 和 makeReport；计算规则放引擎与规则表 |
 | 上下文 | context.project(data, options)，suanming-context/v1 | 新 focus 注册 FOCUSES 及投影；保持真实证据 ID、来源校验和、选择范围和分页；不得在投影中改排盘规则 |
-| 可检索知识 | knowledge-context.retrieve(query)，suanming-knowledge-context/v1 | 查询和正文窗口分开，带 source_url、sha256 和 next_offset；85主题原文不删减；legacy knowledge.lookup 保留 |
+| 可检索知识 | knowledge-context.retrieve(query)，suanming-knowledge-context/v1 | 查询和正文窗口分开，带 source_url、sha256 和 next_offset；93主题原文不删减；legacy knowledge.lookup 保留；无运行时备用概览不替代原文 |
 | Agent 工作流 | workflow.operation(argv)、workflow.main(argv)，CLI 与函数同入口 | 编排输入、验证缓存、计算、上下文和按需报告；宿主只依赖 JSON 契约，不依赖内部文件遍历 |
 
 ## 输出与预算
@@ -17,9 +19,11 @@
 
 普通排盘默认 core，关系模式默认 relationship；career/wealth/annual 选对应主题；专项 age_relation/partner_image/intimacy 按需。年度列表含显干和藏干十神、pillar_relations、day_branch_relations，保留 touches_day_branch、group_state、natal_group_present 等原局与岁运关系标志。宫干飞化聚焦发出或落入该主题主宫，flying_scope 明确范围；完整48项仍在 chart。双人共同摘要可用 --person 扩展个人细节，预算不足时 people_page 明示下一人。
 
+V1.2.5只增补字段：workflow返回task_id和至多3条next_actions；context增加interpretation_scope，双人reading增加按person_ids去重的warnings。task_id只用于核对路径，不建人物索引；next_actions只给分页/补算建议，不执行、不猜选择。新错误recovery与原ok/error/type并存，退出码和stderr位置不变。原文件、字段、模式、方法、报告及旧CLI全部保留。细节与手机验收见[适配与恢复](rikkahub-adaptation.md)。
+
 stdout 全响应硬限20KiB UTF-8，并校验 JSON 转义后 shell 包装估算小于28KiB；知识响应限12KiB。列表超预算自动减小 limit，所有 next_offset 由实际返回条数计算。不裁剪 JSON 字符串，不吞掉错误；最小投影仍超预算时返回 context_budget_exceeded，指引收窄选择，计算结果仍可复用。输出预算为宿主包装预留空间。
 
-RikkaHub [官方消息生成文档](https://github.com/rikkahub/rikkahub/blob/master/docs/references/chat-generation-pipeline.md)记录：具备 Workspace Shell 时，超32KB工具输出前4KB保留，其余全文存入 tool_outputs。此处主动限制输出以避开该路径，不修改客户端。该文档核对于2026-10-05；本技能安装包的手机端测试已由用户确认。
+RikkaHub [官方消息生成文档](https://github.com/rikkahub/rikkahub/blob/master/docs/references/chat-generation-pipeline.md)记录：具备Workspace Shell时，超32KB工具输出前4KB保留，其余全文存入tool_outputs。此处主动限制输出以避开该路径，不修改客户端。该文档核对于2026-10-05；2.5.6工具契约已另核源码。V1.3.0手机实测由用户于2026-10-07确认，原V1.2.1确认保留在历史记录中。
 
 ## 验证与缓存
 

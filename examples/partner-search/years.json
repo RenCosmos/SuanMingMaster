@@ -1,0 +1,6 @@
+{
+  "mode":"partner_search","question":"合成示例：筛选附近候选年柱，不推定现实对象",
+  "self":{"birth":{"calendar":"solar","date":"1996-06-15","time":"12:00","gender":"male","timezone":"Asia/Shanghai"}},
+  "as_of":"2026-10-06","search":{"type":"years","year_range":[1984,2008]},
+  "partner_star_model":"all","filters":{"conditions":["zodiac_affinity","spouse_branch_liuhe","day_stem_five_combine","partner_star_projection"],"match":"any","year_gap":[-12,12]}
+}

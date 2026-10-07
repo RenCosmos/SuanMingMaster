@@ -1,0 +1,22 @@
+{
+  "version": "partner-search-conditions/v1",
+  "method": "explicit-condition-search-not-identity-prediction",
+  "sources": [
+    {"id":"PS-BRANCH","kind":"classical_primary_transcription","book":"三命通会","chapter":"卷二·论支元六合、论支元三合","url":"https://zh.wikisource.org/zh-hant/三命通會/卷二","scope":"地支关系表的传统依据；不证明相合者必为配偶，也不提供唯一生日公式","checked_on":"2026-10-06"},
+    {"id":"PS-STEM","kind":"classical_primary_transcription","book":"三命通会","chapter":"卷二·论十干合","url":"https://zh.wikisource.org/zh-hant/三命通會/卷二","scope":"天干五合的结构依据，不自动判合化或婚姻成立","checked_on":"2026-10-06"},
+    {"id":"PS-RELATIVE","kind":"classical_primary_transcription","book":"三命通会","chapter":"卷七·论六亲","url":"https://zh.wikisource.org/zh-hant/三命通會/卷七","scope":"本人日主的财、官等六亲取象；不等于未知伴侣日主或真实生日","checked_on":"2026-10-06"},
+    {"id":"PS-CALENDAR","kind":"official_calendar_explanation","title":"香港天文台·十二生肖","url":"https://www.hko.gov.hk/sc/gts/time/12animals.htm","scope":"地支与生肖对应；年柱周期由包内固定历法库按立春瞬间计算","checked_on":"2026-10-06"},
+    {"id":"PS-PROJECT","kind":"original_project_filter","title":"本项目候选筛选与展示约定","scope":"把用户所选结构条件用于枚举、筛选和排序；不是古籍中的正缘反推公式，没有准确率或正缘概率"}
+  ],
+  "conditions": {
+    "zodiac_affinity":{"label":"年支六合或同组三合候选","sources":["PS-BRANCH","PS-CALENDAR","PS-PROJECT"]},
+    "spouse_branch_liuhe":{"label":"候选锚定地支与本人日支六合","sources":["PS-BRANCH","PS-PROJECT"]},
+    "day_stem_five_combine":{"label":"候选锚定天干与本人日干五合","sources":["PS-STEM","PS-PROJECT"]},
+    "partner_star_projection":{"label":"候选锚定天干投影符合所选财／官杀模型","sources":["PS-RELATIVE","PS-PROJECT"]},
+    "element_supply":{"label":"候选四柱含用户明确指定的五行","sources":["PS-PROJECT"]}
+  },
+  "default_conditions":["zodiac_affinity","spouse_branch_liuhe","day_stem_five_combine","partner_star_projection"],
+  "risk_types":["地支六冲","地支六害","地支六破","相刑（成对规则）","三刑齐全","自刑（采用本规则表）"],
+  "ordering":"命中所选条件数量降序、出生年标签差绝对值升序、候选标识升序；相关条件可能重复表达同一结构，数量不是概率、独立证据数量或命理优劣分数",
+  "interpretation_scope":"多候选条件检索；不认证正缘身份，不凭生肖确定伴侣出生年月日，不把本人配偶星五行等同对方日主，不推断性取向、生理能力或医学结论"
+}
