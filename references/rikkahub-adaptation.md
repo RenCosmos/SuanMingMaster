@@ -14,7 +14,7 @@ workspace_shell 参数是 `command`、可选 `cwd` 和 `timeout`。timeout 单�
 
 ## 安装路径区别
 
-安装完整 `bazi-ziwei-rikkahub-v1.3.1.zip`，其根是 `bazi-ziwei/SKILL.md`，包含固定计算依赖。源码ZIP、单独SKILL.md和RikkaHub直接GitHub仓库导入不会自动解压仓库里的安装ZIP；源码仓库不提交node_modules，因此不是完整手机安装方式。升级保留旧安装ZIP及任务文件，重新导入完整新包并运行一次自检。不要删除旧运行时、任务或生辰来“重装”。
+安装完整 `bazi-ziwei-rikkahub-v1.3.5.zip`，其根是 `bazi-ziwei/SKILL.md`，包含固定计算依赖。源码ZIP、单独SKILL.md和RikkaHub直接GitHub仓库导入不会自动解压仓库里的安装ZIP；源码仓库不提交node_modules，因此不是完整手机安装方式。升级保留旧安装ZIP及任务文件，重新导入完整新包并运行一次自检。不要删除旧运行时、任务或生辰来“重装”。
 
 ## 任务与恢复
 
@@ -59,4 +59,4 @@ V1.3.0安装包已由用户于2026-10-07确认完成手机实测。以下清单�
 
 ## V1.3.1调用修复
 
-新建候选筛选：--agent --stdin --partner-search --out TASK。reuse动作增加entrypoint和argv，argv为mobile.sh完整参数数组（包含明确chart路径与全部筛选）；不要重新组装或eval。new_calculation无argv，不自动选输入/目录。原12组自检和输出预算保留，npm test在手机包明确失败提示缺开发测试；npm run check是关键自检而非完整回归。当前97主题=原93主题全文+4张概念卡。历史V1.3.0手机确认不继承为V1.3.1手机实测。
+新建候选筛选：--agent --stdin --partner-search --out TASK。reuse动作增加entrypoint和argv，argv为mobile.sh完整参数数组（包含明确chart路径与全部筛选）；不要重新组装或eval。new_calculation无argv，不自动选输入/目录。原12组自检和输出预算保留，npm test在手机包明确失败提示缺开发测试；npm run check是关键自检而非完整回归。V1.3.1原97主题保留；V1.3.5加入六张六爻概念卡，共103主题。历史V1.3.0手机确认不继承为当前版本手机实测。

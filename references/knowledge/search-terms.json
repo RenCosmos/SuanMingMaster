@@ -4,10 +4,16 @@
     {"term":"官杀混杂","aliases":["官煞混杂","官殺混雜","官煞混雜"],"domain":"bazi"},
     {"term":"财多身弱","aliases":["財多身弱","财旺身弱","财旺身衰","身弱财多"],"domain":"bazi"},
     {"term":"伤官见官","aliases":["傷官見官"],"domain":"bazi"},
-    {"term":"喜用神","aliases":["喜用","八字用神","取用神","用神"],"ambiguous_aliases":["用神"],"domain":"bazi"},
+    {"term":"喜用神","aliases":["喜用","八字用神","取用神","用神"],"ambiguous_aliases":["用神","取用神"],"domain":"bazi"},
     {"term":"月令","aliases":["月令提纲","提綱"],"domain":"bazi"},
     {"term":"通根","aliases":["日主根气","根氣"],"domain":"bazi"},
     {"term":"透干","aliases":["透幹","透出"],"domain":"bazi"},
-    {"term":"十神","aliases":["十神关系"],"domain":"bazi"}
+    {"term":"十神","aliases":["十神关系"],"domain":"bazi"},
+    {"term":"六爻用神","aliases":["六爻取用神","六爻取用","六爻用神怎么取","六爻用神如何取","用神","取用神","取用"],"ambiguous_aliases":["用神","取用神","取用"],"domain":"liuyao"},
+    {"term":"世应","aliases":["世爻","应爻","世應","應爻","世应关系"],"domain":"liuyao"},
+    {"term":"原神忌神仇神","aliases":["元神忌神仇神","六爻原神","六爻元神","六爻忌神","六爻仇神","原神","元神","忌神","仇神"],"ambiguous_aliases":["原神","元神","忌神","仇神"],"domain":"liuyao"},
+    {"term":"动爻变爻","aliases":["动爻","变爻","動爻","變爻","动变","老阴老阳","回头生","回头克","回頭生","回頭剋"],"domain":"liuyao"},
+    {"term":"月建日辰","aliases":["六爻旺衰","月建","日辰","日月旺衰","月建日建"],"domain":"liuyao"},
+    {"term":"旬空月破","aliases":["六爻旬空","六爻空亡","六爻月破","旬空与月破","旬空","空亡","月破","出空","填实"],"ambiguous_aliases":["旬空","空亡","月破","出空","填实"],"domain":"liuyao"}
   ]
 }

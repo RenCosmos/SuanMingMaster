@@ -6,10 +6,11 @@ const core=require('./runtime-core.cjs');
 const {ROOT,VERSION,check,readJson,hash,sha,atomicJson}=core;
 const {actualPath,inside,assertOutputs,acquireTaskLocks}=require('./task-files.cjs');
 const {taskId,nextActions,executableActions,failureFor}=require('./workflow-hints.cjs');
-const MAX_OUTPUT_BYTES=20*1024;
+const budget=require('./output-budget.cjs');
+const MAX_OUTPUT_BYTES=budget.WORKFLOW_BYTES;
 const RECEIPT='validation.json';
 function parse(argv){
- const o={};const flags={'--stdin':'stdin','--report':'report','--refresh':'refresh'};
+ const o={};const flags={'--stdin':'stdin','--report':'report','--refresh':'refresh','--comparison':'comparison'};
  const pairs={'--input':'input','--reuse':'reuse','--out':'out','--focus':'focus','--limit':'limit','--offset':'offset','--years':'years','--person':'person','--candidate':'candidate','--field':'field','--variant-offset':'variant_offset'};
  for(let i=0;i<argv.length;i++){
   const arg=argv[i],key=flags[arg]??pairs[arg];check(key&&!(key in o),'不支持或重复的参数 '+arg);
@@ -22,6 +23,7 @@ function parse(argv){
  for(const k of ['limit','offset','variant_offset'])if(k in o){check(/^\d+$/.test(o[k]),k+' 须为整数');o[k]=Number(o[k]);check(Number.isSafeInteger(o[k])&&o[k]>=(k==='limit'?1:0)&&(k!=='limit'||o[k]<=10),k+' 超出范围');}
  if(o.years){check(/^\d{4}:\d{4}$/.test(o.years),'--years 格式为 YYYY:YYYY');o.years=o.years.split(':').map(Number);check(o.years[0]<=o.years[1],'年份起止顺序错误');}
  if(o.person)check(['a','b'].includes(o.person),'--person 只能是 a / b');
+ check(!o.comparison||!o.person,'--comparison 不与 --person 混用');
  if(o.focus)check(require('./context.cjs').FOCUSES.includes(o.focus),'不支持的 focus');
  if(o.out)o.out=path.resolve(o.out);
  if(o.reuse)o.reuse=path.resolve(o.reuse);
@@ -52,13 +54,12 @@ function boundedResponse(base,data,options){
  while(limit>=1){
   const context=project(data,{...options,limit});
   const result={...base,context,...(base.files?.chart?{task_id:taskId(base.files)}:{}),next_actions:executableActions(nextActions(context,base.people_page),base.files),output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:options.limit??null,effective_limit:limit,budget_adjusted:limit!==(options.limit??(data.input.mode==='time_compare'?5:3))}};
-  // Count the whole JSON envelope, plus a JSON-escaped shell wrapper (conservative margin below 32KB).
-  for(let i=0;i<3;i++)result.output.bytes=Buffer.byteLength(JSON.stringify(result)+'\n');
-  const serialized=JSON.stringify(result)+'\n';
-  if(Buffer.byteLength(serialized)<=MAX_OUTPUT_BYTES-128&&Buffer.byteLength(JSON.stringify({stdout:serialized}))<28*1024)return result;
+  // Reserve room for lifecycle metadata in both the raw JSON and full shell envelope.
+  budget.stamp(result);
+  if(budget.fits(result,MAX_OUTPUT_BYTES,128))return result;
   limit--;
  }
- if(data.input.mode==='relationship'&&data.people.length===2&&!options.person){
+ if(data.input.mode==='relationship'&&data.people.length===2&&!options.person&&!options.comparison){
   return boundedResponse({...base,people_page:{requested:['a','b'],included:['a'],next_person:'b'}},data,{...options,person:'a'});
  }
  const e=new Error('本主题的最小上下文仍超过预算；用 --person a/b、--field 字段编号或 --candidate 候选编号缩小范围。完整结果可通过 --reuse 继续提取。');e.code='context_budget_exceeded';throw e;
@@ -112,7 +113,7 @@ function compute(o){
 function operation(argv){
  const searches=argv.filter(a=>a==='--partner-search').length;
  if(searches){check(searches===1,'--partner-search 只能提供一次');return require('./partner-search-workflow.cjs').operation(argv.filter(a=>a!=='--partner-search'));}
- if(argv.length===1&&['--help','-h'].includes(argv[0]))return `V${VERSION} workflow\n--stdin --out TASK_DIR [--focus core|career|relationship|annual|wealth|age_relation|partner_image|intimacy] [--report]\n--temp-input INPUT.json --out TASK_DIR（结束后清理）；--input 保留原输入\n--reuse TASK_DIR/chart.json [--focus THEME] [--years YYYY:YYYY] [--offset N] [--limit 1..10]\n时辰对照：--field TC-... [--variant-offset N] 或 --candidate TC-001；关系盘：--person a|b\n新盘同次重算校验；可信缓存不重算。stdout 与 context.json 是精简上下文；完整 chart.json 保留。\n--refresh 同时提供原始输入可强制重算；不同资料须使用新任务目录。`;
+ if(argv.length===1&&['--help','-h'].includes(argv[0]))return `V${VERSION} workflow\n--stdin --out TASK_DIR [--focus core|career|relationship|annual|wealth|age_relation|partner_image|intimacy] [--report]\n--temp-input INPUT.json --out TASK_DIR（结束后清理）；--input 保留原输入\n--reuse TASK_DIR/chart.json [--focus THEME] [--years YYYY:YYYY] [--offset N] [--limit 1..10]\n时辰对照：--field TC-... [--variant-offset N] 或 --candidate TC-001；关系盘：--person a|b；独立交叉证据：--comparison [--offset N] [--limit 1..10]（双人关系盘，focus=relationship）\n新盘同次重算校验；可信缓存不重算。stdout 与 context.json 是精简上下文；完整 chart.json 保留。\n--refresh 同时提供原始输入可强制重算；不同资料须使用新任务目录。`;
  let unlock;
  try{
  const r=withInputLifecycle(argv,args=>{
@@ -126,8 +127,7 @@ function operation(argv){
  unlock=acquireTaskLocks(dirs);
  return compute(o);
  });
-  for(let i=0;i<3;i++)r.output.bytes=Buffer.byteLength(JSON.stringify(r)+'\n');
-  check(r.output.bytes<=MAX_OUTPUT_BYTES,'最终响应超出预算');
+  budget.assertFits(budget.stamp(r),MAX_OUTPUT_BYTES);
   atomicJson(r.files.context,r);
  return r;
  }finally{unlock?.();}

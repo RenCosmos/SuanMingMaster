@@ -115,7 +115,7 @@ function makeHtml(data,layout='horizontal'){
  </style></head><body>${content}</body></html>\n`;
 }
 function operation(argv){
- if(argv.length===1&&['--help','-h'].includes(argv[0]))return 'shuwen.cjs --stdin [--out DIR --format txt|html|both --layout horizontal|vertical]\n--stdin 默认只返回文稿，不写文件；--temp-input INPUT.json 使用后清理；--input INPUT.json 明确保留。\n--list 列出用途；--out 明确导出疏文，不生成 chart.json 或报告。';
+ if(argv.length===1&&['--help','-h'].includes(argv[0]))return 'shuwen.cjs --stdin [--bounded --offset N --chars 200..3000] [--out DIR --format txt|html|both --layout horizontal|vertical]\nRikkaHub 日常调用加 --bounded；按 text_page.next_offset 和 next_actions 续读，同一原始 JSON 送回 stdin；导出仍是完整文稿。\n不带 --bounded 的旧接口返回完整 text 与 parts，可能超过宿主输出限制。\n--stdin 默认只返回文稿，不写文件；--temp-input INPUT.json 使用后清理；--input INPUT.json 明确保留。\n--list 列出用途；--out 明确导出疏文，不生成 chart.json 或报告。';
  if(argv.length===1&&argv[0]==='--list')return {ok:true,purposes:PURPOSES,forms:FORMS,styles:['classical','plain']};
  const options={},keys={'--input':'input','--out':'out','--format':'format','--layout':'layout'};
  for(let i=0;i<argv.length;i++){
@@ -135,6 +135,14 @@ function operation(argv){
  catch(e){const failures=[];for(const file of created){try{fs.unlinkSync(file);}catch(cleanup){if(cleanup.code!=='ENOENT')failures.push(cleanup.code||'unknown');}}if(failures.length)e.message+='；未完成输出清理：'+failures.join('、');throw e;}
  return {...data,files:files.map(f=>f.path),saved:true,layout:format==='txt'?null:layout};
 }
-function main(argv){const result=withInputLifecycle(argv,operation);console.log(typeof result==='string'?result:JSON.stringify(result));return result;}
-if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error(JSON.stringify({ok:false,error:e.message,type:e.code==='cleanup_error'?'cleanup_error':'input_or_export_error'}));process.exitCode=2;}}
-module.exports={build,documentDate,makeHtml,main,VERSION};
+function main(argv){
+ let facade;
+ // Start cleanup before loading optional paging dependencies, just as for legacy dates.
+ const result=withInputLifecycle(argv,args=>{
+  if(!args.includes('--bounded'))return operation(args);
+  facade=require('./shuwen-context.cjs');return facade.projectOperation(args,operation);
+ });
+ facade?.finish(result);console.log(typeof result==='string'?result:JSON.stringify(result));return result;
+}
+module.exports={build,documentDate,makeHtml,operation,main,VERSION};
+if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error(JSON.stringify({ok:false,error:e.message,type:['cleanup_error','context_budget_exceeded'].includes(e.code)?e.code:'input_or_export_error'}));process.exitCode=2;}}

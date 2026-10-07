@@ -1,0 +1,377 @@
+{
+  "version": "liuyao-concepts/v1",
+  "revision": "2026-10-08.1",
+  "publication_status": "included_in_package",
+  "introduced_in_package": "1.3.5",
+  "expected_topics": 6,
+  "automatic_chart_for_knowledge_questions": false,
+  "automatic_use_god_selection_supported": false,
+  "copyright_note": "参考公有领域古籍，卡片为项目原创概念归纳；不复制网页现代按语或翻译，不称影印校勘或逐字原文。",
+  "topics": [
+    {
+      "id": "LYC-01",
+      "slug": "liuyao-use-god",
+      "name": "六爻用神与取用",
+      "domain": "liuyao",
+      "aliases": [
+        "六爻用神",
+        "六爻取用神",
+        "六爻取用",
+        "用神",
+        "取用神",
+        "取用"
+      ],
+      "tags": [
+        "六爻",
+        "六爻用神",
+        "六亲",
+        "取用"
+      ],
+      "subtitle": "按具体占问定位六亲候选，不等同八字喜用神，不自动选用神或占断。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": false,
+      "path": "references/knowledge/liuyao-concepts/cards/liuyao-use-god.md",
+      "sha256": "12dbc7b214698cb3bb0f10e0cb2ece13e8681dbbdef1a76afeba91995c7840d1",
+      "url": "https://zh.wikisource.org/zh-hans/增刪卜易/8",
+      "publisher": "维基文库古籍原文转录；项目解释",
+      "book": "增删卜易",
+      "chapter": "用神章第八",
+      "locator": "父母、官鬼、兄弟、妻财、子孙五类条目",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-08",
+      "source_references": [
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/8",
+          "book": "增删卜易",
+          "chapter": "用神章第八",
+          "locator": "父母、官鬼、兄弟、妻财、子孙五类条目",
+          "checked_claim": "按占问事项选择对应六亲类别；古代人物称谓不映射现代身份",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        },
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/9",
+          "book": "增删卜易",
+          "chapter": "用神元神忌神仇神章第九",
+          "locator": "开头及父母三现例卦",
+          "checked_claim": "同类爻多现时有取用条件，不采用网页后人按语",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        }
+      ],
+      "verification_limit": "核对网页原文转录及章定位，未作影印校勘；古代经验不是现实事件的验证。",
+      "inference_limits": [
+        "项目概念归纳非古籍逐字原文；程序记录与传统解释分开",
+        "不自动选用神、判生克有效性、完整旺衰、成功概率或精确应期",
+        "不认证性取向、性别认同、医学结论、鬼神身份或他人主观心理"
+      ]
+    },
+    {
+      "id": "LYC-02",
+      "slug": "liuyao-shi-ying",
+      "name": "六爻世应与世爻应爻",
+      "domain": "liuyao",
+      "aliases": [
+        "世应",
+        "世爻",
+        "应爻",
+        "世應",
+        "應爻",
+        "世应关系"
+      ],
+      "tags": [
+        "六爻",
+        "世应",
+        "世爻",
+        "应爻",
+        "八宫"
+      ],
+      "subtitle": "世应是八宫位置；人物意义依问事语境，不自动认证伴侣或关系结果。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": false,
+      "path": "references/knowledge/liuyao-concepts/cards/liuyao-shi-ying.md",
+      "sha256": "e2cc1e818f2271a39d03b26143814ce91fb5897261dff36623916e90db04a2e0",
+      "url": "https://zh.wikisource.org/zh-hans/增刪卜易/6",
+      "publisher": "维基文库古籍原文转录；项目解释",
+      "book": "增删卜易",
+      "chapter": "世应章第六",
+      "locator": "乾宫八卦世位与应位说明",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-08",
+      "source_references": [
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/6",
+          "book": "增删卜易",
+          "chapter": "世应章第六",
+          "locator": "乾宫八卦世位与应位说明",
+          "checked_claim": "世位次序及应与世相隔三位；主体与相对方释义为项目整理",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        }
+      ],
+      "verification_limit": "核对网页原文转录及章定位，未作影印校勘；古代经验不是现实事件的验证。",
+      "inference_limits": [
+        "项目概念归纳非古籍逐字原文；程序记录与传统解释分开",
+        "不自动选用神、判生克有效性、完整旺衰、成功概率或精确应期",
+        "不认证性取向、性别认同、医学结论、鬼神身份或他人主观心理"
+      ]
+    },
+    {
+      "id": "LYC-03",
+      "slug": "liuyao-yuan-ji-chou",
+      "name": "六爻原神忌神仇神",
+      "domain": "liuyao",
+      "aliases": [
+        "原神忌神仇神",
+        "元神忌神仇神",
+        "六爻原神",
+        "六爻元神",
+        "六爻忌神",
+        "六爻仇神",
+        "原神",
+        "元神",
+        "忌神",
+        "仇神"
+      ],
+      "tags": [
+        "六爻",
+        "原神",
+        "元神",
+        "忌神",
+        "仇神"
+      ],
+      "subtitle": "相对于已选六爻用神定义生克角色，有关系不等于作用有效。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": false,
+      "path": "references/knowledge/liuyao-concepts/cards/liuyao-yuan-ji-chou.md",
+      "sha256": "4e1c1f43bcd232018693f98a52dfad6cb88f052b92e60b7d5853ec8dbeaae52a",
+      "url": "https://zh.wikisource.org/zh-hans/增刪卜易/9",
+      "publisher": "维基文库古籍原文转录；项目解释",
+      "book": "增删卜易",
+      "chapter": "用神元神忌神仇神章第九",
+      "locator": "开头四类关系定义",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-08",
+      "source_references": [
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/9",
+          "book": "增删卜易",
+          "chapter": "用神元神忌神仇神章第九",
+          "locator": "开头四类关系定义",
+          "checked_claim": "生用为元神、克用为忌神、克元生忌为仇神，不采用后人按语",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        },
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/10",
+          "book": "增删卜易",
+          "chapter": "元神忌神衰旺章第十",
+          "locator": "有力与无力的原神、忌神条件",
+          "checked_claim": "生克作用受旺衰、动变与用神条件制约",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        }
+      ],
+      "verification_limit": "核对网页原文转录及章定位，未作影印校勘；古代经验不是现实事件的验证。",
+      "inference_limits": [
+        "项目概念归纳非古籍逐字原文；程序记录与传统解释分开",
+        "不自动选用神、判生克有效性、完整旺衰、成功概率或精确应期",
+        "不认证性取向、性别认同、医学结论、鬼神身份或他人主观心理"
+      ]
+    },
+    {
+      "id": "LYC-04",
+      "slug": "liuyao-moving-changing",
+      "name": "六爻动爻变爻",
+      "domain": "liuyao",
+      "aliases": [
+        "动爻变爻",
+        "动爻",
+        "变爻",
+        "動爻",
+        "變爻",
+        "动变",
+        "老阴老阳",
+        "回头生",
+        "回头克",
+        "回頭生",
+        "回頭剋"
+      ],
+      "tags": [
+        "六爻",
+        "动爻",
+        "变爻",
+        "动变",
+        "回头生",
+        "回头克"
+      ],
+      "subtitle": "动爻变爻与回头关系的区别；不补造动爻，不自动断吉凶应期。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": false,
+      "path": "references/knowledge/liuyao-concepts/cards/liuyao-moving-changing.md",
+      "sha256": "a9f5e66cf162b443b525f8360a71e9f27c5f3dc57dfcae68bba68cee667ed1e6",
+      "url": "https://zh.wikisource.org/zh-hans/增刪卜易/7",
+      "publisher": "维基文库古籍原文转录；项目解释",
+      "book": "增删卜易",
+      "chapter": "动变章第七",
+      "locator": "阴阳动变与变爻六亲说明",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-08",
+      "source_references": [
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/7",
+          "book": "增删卜易",
+          "chapter": "动变章第七",
+          "locator": "阴阳动变与变爻六亲说明",
+          "checked_claim": "阳动变阴、阴动变阳；变爻六亲按本卦宫五行",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        },
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/15",
+          "book": "增删卜易",
+          "chapter": "动变生克冲合章第十五",
+          "locator": "开头及坤之晋例卦",
+          "checked_claim": "变爻回头作用于对应本位动爻，区别其他爻之间的关系",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        }
+      ],
+      "verification_limit": "核对网页原文转录及章定位，未作影印校勘；古代经验不是现实事件的验证。",
+      "inference_limits": [
+        "项目概念归纳非古籍逐字原文；程序记录与传统解释分开",
+        "不自动选用神、判生克有效性、完整旺衰、成功概率或精确应期",
+        "不认证性取向、性别认同、医学结论、鬼神身份或他人主观心理"
+      ]
+    },
+    {
+      "id": "LYC-05",
+      "slug": "liuyao-month-day",
+      "name": "六爻月建日辰",
+      "domain": "liuyao",
+      "aliases": [
+        "月建日辰",
+        "六爻旺衰",
+        "月建",
+        "日辰",
+        "日月旺衰",
+        "月建日建"
+      ],
+      "tags": [
+        "六爻",
+        "月建",
+        "日辰",
+        "旺衰",
+        "日冲"
+      ],
+      "subtitle": "占时日月关系的条件分析；程序账本不自动判完整旺衰或暗动。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": false,
+      "path": "references/knowledge/liuyao-concepts/cards/liuyao-month-day.md",
+      "sha256": "68dd323573d18cd7f9fcc14f763cc58798f9c2dbb87981c0fad476a5e3a02e92",
+      "url": "https://zh.wikisource.org/zh-hans/增刪卜易/16",
+      "publisher": "维基文库古籍原文转录；项目解释",
+      "book": "增删卜易",
+      "chapter": "月将章第十六",
+      "locator": "开头月建生扶冲克与月破说明",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-08",
+      "source_references": [
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/16",
+          "book": "增删卜易",
+          "chapter": "月将章第十六",
+          "locator": "开头月建生扶冲克与月破说明",
+          "checked_claim": "月建作为一月条件，月建冲爻为月破",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        },
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/17",
+          "book": "增删卜易",
+          "chapter": "日辰章第十七",
+          "locator": "开头日辰关系与旺静、衰静日冲说明",
+          "checked_claim": "日冲的传统解释需结合旺衰静动，不由冲的配对直接裁定",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        }
+      ],
+      "verification_limit": "核对网页原文转录及章定位，未作影印校勘；古代经验不是现实事件的验证。",
+      "inference_limits": [
+        "项目概念归纳非古籍逐字原文；程序记录与传统解释分开",
+        "不自动选用神、判生克有效性、完整旺衰、成功概率或精确应期",
+        "不认证性取向、性别认同、医学结论、鬼神身份或他人主观心理"
+      ]
+    },
+    {
+      "id": "LYC-06",
+      "slug": "liuyao-empty-broken",
+      "name": "六爻旬空月破",
+      "domain": "liuyao",
+      "aliases": [
+        "旬空月破",
+        "六爻旬空",
+        "六爻空亡",
+        "六爻月破",
+        "旬空与月破",
+        "旬空",
+        "空亡",
+        "月破",
+        "出空",
+        "填实"
+      ],
+      "tags": [
+        "六爻",
+        "旬空",
+        "月破",
+        "空亡",
+        "出空",
+        "填实"
+      ],
+      "subtitle": "旬空由日旬确定，月破由月建相冲确定；不凭空破标志断成败或应期。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": false,
+      "path": "references/knowledge/liuyao-concepts/cards/liuyao-empty-broken.md",
+      "sha256": "6cd671b37048868e8a48b5dd15a867b850c1df69b094b235f83a1a40e4095b1f",
+      "url": "https://zh.wikisource.org/zh-hans/增刪卜易/26",
+      "publisher": "维基文库古籍原文转录；项目解释",
+      "book": "增删卜易",
+      "chapter": "旬空章第二十六",
+      "locator": "开头六旬空支表与旬空定义",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-08",
+      "source_references": [
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/26",
+          "book": "增删卜易",
+          "chapter": "旬空章第二十六",
+          "locator": "开头六旬空支表与旬空定义",
+          "checked_claim": "十日旬中未出现的两支为旬空，不等于爻不存在",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        },
+        {
+          "url": "https://zh.wikisource.org/zh-hans/增刪卜易/16",
+          "book": "增删卜易",
+          "chapter": "月将章第十六",
+          "locator": "月建冲爻与当下空、出旬说明",
+          "checked_claim": "月破和旬空不同；当前标志不保证后来事件必成",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-08"
+        }
+      ],
+      "verification_limit": "核对网页原文转录及章定位，未作影印校勘；古代经验不是现实事件的验证。",
+      "inference_limits": [
+        "项目概念归纳非古籍逐字原文；程序记录与传统解释分开",
+        "不自动选用神、判生克有效性、完整旺衰、成功概率或精确应期",
+        "不认证性取向、性别认同、医学结论、鬼神身份或他人主观心理"
+      ]
+    }
+  ]
+}

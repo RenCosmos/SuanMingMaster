@@ -6,7 +6,8 @@ const {actualPath,inside,assertOutputs,acquireTaskLocks}=require('./task-files.c
 const {withInputLifecycle,readStdinJson}=require('./input-lifecycle.cjs');
 const {taskId,executableActions}=require('./workflow-hints.cjs');
 const search=require('./partner-search.cjs');
-const MAX_OUTPUT_BYTES=20*1024,RECEIPT='suanming-partner-search-validation/v1';
+const budget=require('./output-budget.cjs');
+const MAX_OUTPUT_BYTES=budget.WORKFLOW_BYTES,RECEIPT='suanming-partner-search-validation/v1';
 function parse(argv){
  const o={},flags={'--stdin':'stdin','--refresh':'refresh','--report':'report'},pairs={'--input':'input','--reuse':'reuse','--out':'out','--offset':'offset','--limit':'limit','--candidate':'candidate','--source-chart':'source_chart','--source-person':'source_person'};
  for(let i=0;i<argv.length;i++){const arg=argv[i],key=flags[arg]??pairs[arg];check(key&&!(key in o),'候选筛选不支持或重复参数 '+arg);if(flags[arg])o[key]=true;else{check(argv[i+1]!==undefined&&!argv[i+1].startsWith('--'),arg+' 缺少值');o[key]=argv[++i];}}
@@ -34,8 +35,8 @@ function project(data,{offset=0,limit=3,candidate}={}){
 }
 function boundedResponse(base,data,o){
  let limit=o.limit??3;while(limit>=1){const context=project(data,{...o,limit});context.next_actions=executableActions(context.next_actions,base.files);const r={...base,context,task_id:taskId(base.files),next_actions:context.next_actions,output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:o.limit??null,effective_limit:limit,budget_adjusted:limit!==(o.limit??3)}};
-  for(let i=0;i<3;i++)r.output.bytes=Buffer.byteLength(JSON.stringify(r)+'\n');const text=JSON.stringify(r)+'\n';
-  if(Buffer.byteLength(text)<MAX_OUTPUT_BYTES-128&&Buffer.byteLength(JSON.stringify({stdout:text}))<28*1024)return r;limit--;
+  budget.stamp(r);
+  if(budget.fits(r,MAX_OUTPUT_BYTES,128))return r;limit--;
  }
  const e=new Error('候选最小上下文超出预算；请缩小条件或年份／日期范围，完整结果保留。');e.code='context_budget_exceeded';throw e;
 }
@@ -70,7 +71,7 @@ function operation(argv){
   const r=withInputLifecycle(argv,args=>{const o=parse(args);o.out=safeTarget(o.out??path.dirname(o.reuse));if(o.reuse)safeTarget(path.dirname(o.reuse));
    const writes=[path.join(o.out,'context.json'),...(o.report?['report.md','report.html'].map(n=>path.join(o.out,n)):[]),...(!o.reuse?[path.join(o.out,'chart.json'),path.join(o.out,'validation.json')]:path.basename(o.reuse)==='chart.json'?[path.join(path.dirname(o.reuse),'validation.json')]:[])];
    assertOutputs(o.input??o.reuse,writes);if(o.source_chart)assertOutputs(o.source_chart,writes);unlock=acquireTaskLocks([o.out,...(o.reuse?[path.dirname(o.reuse)]:[])]);return compute(o);
-  });for(let i=0;i<3;i++)r.output.bytes=Buffer.byteLength(JSON.stringify(r)+'\n');check(r.output.bytes<=MAX_OUTPUT_BYTES,'最终响应超出预算');atomicJson(r.files.context,r);return r;
+  });budget.assertFits(budget.stamp(r),MAX_OUTPUT_BYTES);atomicJson(r.files.context,r);return r;
  }finally{unlock?.();}
 }
 module.exports={operation,parse,project,boundedResponse,calculationKey,MAX_OUTPUT_BYTES};

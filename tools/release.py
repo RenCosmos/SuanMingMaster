@@ -8,10 +8,17 @@ import argparse,hashlib,json,os,re,shutil,subprocess,sys,tempfile,zipfile
 ROOT=Path(__file__).resolve().parents[1]
 def sha(data):return hashlib.sha256(data).hexdigest()
 def write(path,text):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text,encoding='utf-8',newline='\n')
-def execute(args,cwd,env):
-    r=subprocess.run(args,cwd=cwd,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding='utf-8',errors='replace',timeout=180)
+def execute(args,cwd,env,input_text=None):
+    r=subprocess.run(args,cwd=cwd,env=env,input=input_text,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding='utf-8',errors='replace',timeout=180)
     if r.returncode:raise RuntimeError(f'Command failed ({r.returncode}): {args[0]}\n{r.stdout[-8000:]}\n{r.stderr[-4000:]}')
     return r.stdout
+def bounded(stdout,max_bytes):
+    assert len(stdout.encode('utf-8'))<=max_bytes,'Packaged stdout exceeds budget'
+    shell=json.dumps({'exitCode':0,'stdout':stdout,'stderr':'','timedOut':False},ensure_ascii=False,separators=(',',':'))
+    assert len(shell.encode('utf-8'))<28*1024,'Packaged shell envelope exceeds budget'
+    data=json.loads(stdout);assert data['ok']
+    if 'output' in data:assert data['output']['bytes']==len(stdout.encode('utf-8'))
+    return data
 def archive(path,files,prefix):
     with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
         for file in files:
@@ -42,7 +49,7 @@ def main():
     mobile_confirmed,mobile_record,mobile_notice=mobile_acceptance(manifest,version)
     write(ROOT/'rikkahub-manifest.json',json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     # Generate maintained version labels only; never rewrite knowledge text.
-    for name in ['SKILL.md','使用说明.md','手机安装说明.md','references/workflow-architecture.md','references/critical-testing.md']:
+    for name in ['SKILL.md','使用说明.md','手机安装说明.md','references/agent-workflow-guide.md','references/workflow-architecture.md','references/critical-testing.md']:
         f=ROOT/name;s=f.read_text(encoding='utf-8')
         s=re.sub(r'(?m)^# ([^\n]*?)V\d+\.\d+\.\d+',lambda m:'# '+m.group(1)+'V'+version,s,count=1)
         if name=='手机安装说明.md':s=re.sub(r'(?m)^(1\. 导入 )bazi-ziwei-rikkahub-v\d+\.\d+\.\d+\.zip',lambda m:m.group(1)+f'bazi-ziwei-rikkahub-v{version}.zip',s)
@@ -91,22 +98,22 @@ def main():
     for page in native_pages:
         assert (ROOT/page['path']).read_text(encoding='utf-8')==page['content'],'Native fallback drift: '+page['path']
         assert len(json.dumps({'text':page['content']},ensure_ascii=False).encode('utf-8'))<28*1024
-    topics=json.loads(execute([a.node,str(ROOT/'scripts/knowledge.cjs'),'--verify'],ROOT,env))['total_topics']
+    knowledge_summary=json.loads(execute([a.node,str(ROOT/'scripts/knowledge.cjs'),'--verify'],ROOT,env));topics=knowledge_summary['total_topics']
     template=(ROOT/'tools/README.template.md').read_text(encoding='utf-8')
     write(ROOT/'README.md',template.format(version=version,tests=counts['pass'],topics=topics,knowledge_files=len(knowledge),mobile_notice=mobile_notice))
     write(ROOT/'验证记录.md',f'''# V{version} 验证记录
 
-全部{counts['pass']}项开发回归通过，零失败、零跳过、零取消。保留原296项用例，新增用户反馈专项回归；对知识总数的旧断言明确扣除4个增补主题，继续验证原93主题完整。手机安装包不含tests/，只携带12组关键自检；npm test / test:critical拒绝0用例成功，npm run check不是完整开发回归。
+全部{counts['pass']}项开发回归通过，零失败、零跳过、零取消。保留原296项用例，新增用户反馈专项回归；对知识总数的旧断言明确扣除4张八字与6张六爻增补卡，继续分别验证原85／93／97主题完整。手机安装包不含tests/，只携带12组关键自检；npm test / test:critical拒绝0用例成功，npm run check不是完整开发回归。
 
-V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正缘任务必填--out；reuse返回可执行argv；主Skill简化为识别/调用/核对/解读并保留按需细则；知识正文和snippet显式无指令权限。四张核心概念卡配套完整术语、同义/繁简词、领域筛选及最多一次无命中回退。原93主题全文及113份知识基线逐字保留，当前共{topics}主题；435份固定运行依赖未变。
+V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正缘任务必填--out；reuse返回可执行argv；主Skill简化为识别/调用/核对/解读并保留按需细则；知识正文和snippet显式无指令权限。四张八字概念卡保留，另增六张[六爻基础卡](references/liuyao-concepts-index.md)，配套语境消歧、具体术语优先、显式领域过滤及最多一次无命中回退；自动领域只参与排序。原97主题全文及113份知识基线逐字保留，当前共{topics}主题；435份固定运行依赖未变。
 
 紫微只新增本命与运限年/月界标签，不改变yearDivide或horoscopeDivide配置。2024-02-03 / 02-05 / 02-10三段固定预期通过；旧盘可重算校验、缓存复用且源文件不改。已有标签或柱位被篡改即使重签也拒绝。双人共同摘要共用新增年界元数据，双方原有证据都保留；20KiB stdout、28KiB转义包装和12KiB知识预算不放宽。
 
 冻结V1.2.4字节基线不改，受本次修复影响的有限代码/说明按独立审定旧/新SHA验证；其他冻结文件仍严格相等，不声称78份代码全未改。V1.2.4 / V1.2.5 / V1.3.0实际跨版本对照分别为{compatibility['cross_version_compared']} / {compatibility125['cross_version_compared']} / {compatibility130['cross_version_compared']}。程序对14组计算、85个投影、13种报告/导出和原93主题正文逐项比较；仅允许旧盘缺失的新年界标签及精确报告标签差异。旧命盘本身也由当前验证器实际校验。没有相应旧ZIP时结果明确未执行，详细范围见release-validation.json。
 
-安装包解包后验收12组自检、宗教与概念检索、临时清理、缓存及三种候选搜索；新的argv经真实mobile.sh入口实跑年度、时辰变体和正缘分页。独立Draft2020-12输入/输出schema校验实际执行：{schema_validation['performed']}，记录见schema_validation。五份原生知识概览逐字保留，不代替正文；新增概念卡有无需运行时的索引。
+安装包解包后验收12组自检、宗教与概念检索、临时清理、缓存及三种候选搜索；新的argv经真实mobile.sh入口实跑年度、时辰变体和正缘分页。本次另验《礼记·月令》无需domain命中、长路径合盘双方/全部comparison证据、长疏文按原JSON续页还原及完整TXT/HTML导出，完整shell包装与最终清理字段均计入预算。独立Draft2020-12输入/输出schema校验实际执行：{schema_validation['performed']}，记录见schema_validation。五份原生知识概览逐字保留，不代替正文；新增概念卡有无需运行时的索引。
 
-{mobile_notice}手机历史确认仅记录用户提供的范围，设备型号或逐项日志不补造。本次仅生成本地V{version}安装包与源码包，不自动上传。系统提示词仍为可选，报告仅按明确请求生成。
+{mobile_notice}手机历史确认仅记录用户提供的范围，设备型号或逐项日志不补造。构建工具生成V{version}完整安装包、源码包及验收记录，不自行上传；GitHub同步另按用户授权执行。原V1.3.1下载包保留不覆盖，本次汇集后续检索/合盘/六爻/预算/提示词修复。系统提示词按skill-creator的分层披露原则去重，仍为可选；程序解释规则、原知识和完整导出不删。
 ''')
     files=sorted(f for f in ROOT.rglob('*') if f.is_file() and f.relative_to(ROOT).parts[0] not in ['.git','work','dist'] and '__pycache__' not in f.relative_to(ROOT).parts and not (f.parent==ROOT and (f.suffix=='.zip' or f.name in ['SHA256SUMS.txt','release-validation.json','INSTALL.md','TESTING.md','RikkaHub系统提示词.txt'])))
     runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md','pnpm-workspace.yaml'] and (f.relative_to(ROOT).parts[0]!='node_modules' or f.relative_to(ROOT).as_posix() in dependencies)]
@@ -155,6 +162,17 @@ V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正�
             found=json.loads(execute([a.node,str(skill/'scripts/knowledge-context.cjs'),'--query',query,'--limit','3'],temp,env))
             assert found['matches'][0]['slug']==slug and found['retrieval']['domain']=='bazi' and found['instruction_authority']=='none'
             assert all(t['trust_level']=='untrusted_reference_text' for t in found['matches'])
+        liuyao_concept_queries={'六爻用神怎么取':'liuyao-use-god','世爻和应爻有什么区别':'liuyao-shi-ying','六爻元神是什么意思':'liuyao-yuan-ji-chou','动爻和变爻的区别':'liuyao-moving-changing','六爻月建日辰怎么看':'liuyao-month-day','六爻旬空月破的区别':'liuyao-empty-broken'}
+        liuyao_catalog=json.loads((skill/'references/knowledge/liuyao-concepts/catalog.json').read_text(encoding='utf-8'))
+        assert liuyao_catalog['expected_topics']==len(liuyao_catalog['topics'])==6
+        for topic in liuyao_catalog['topics']:
+            file=skill/topic['path'];assert sha(file.read_bytes())==topic['sha256'],'Packaged Liuyao concept missing or changed'
+        for query,slug in liuyao_concept_queries.items():
+            found=json.loads(execute([a.node,str(skill/'scripts/knowledge-context.cjs'),'--query',query,'--limit','3'],temp,env))
+            assert found['matches'][0]['slug']==slug and found['retrieval']['domain']=='liuyao' and found['retrieval']['terms']
+            assert not any(t['slug'] in ['folk-zhouyi-xian','folk-zhouyi-heng'] for t in found['matches'])
+            assert len(json.dumps(found,ensure_ascii=False).encode('utf-8'))<=12*1024
+        assert (skill/'references/liuyao-concepts-index.md').is_file()
         inp=json.loads((skill/'examples/input.json').read_text(encoding='utf-8'));task=Path(temp)/'task';f=Path(temp)/'temp-input.json';write(f,json.dumps(inp))
         cmd=[a.node,str(skill/'scripts/workflow.cjs')];response=json.loads(execute([*cmd,'--temp-input',str(f),'--out',str(task)],temp,env));assert response['ok'] and response['temporary_input_removed'] and not f.exists()
         task_id=response['task_id'];assert task_id.startswith('SM-') and isinstance(response['next_actions'],list)
@@ -162,6 +180,53 @@ V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正�
         assert response['task_id']==task_id and response['context']['interpretation_scope']
         for page in native_pages:assert (skill/page['path']).read_text(encoding='utf-8')==page['content']
         assert not (task/'report.md').exists() and not (task/'report.html').exists()
+        # Exercise the installation's comparison continuations, not the source tests.
+        pair_input=(skill/'examples/relationship-pair-input.json').read_text(encoding='utf-8')
+        pair_task=Path(temp)/('pair-long-path '+"quoted-'"+'x'*64)
+        entry=[a.sh,str(skill/'scripts/mobile.sh')] if a.sh else cmd
+        paired=bounded(execute([*entry,'--stdin','--out',str(pair_task),'--focus','relationship'],temp,env,pair_input),20*1024)
+        pair_chart=Path(paired['files']['chart']);pair_bytes=pair_chart.read_bytes();original_pair=json.loads(pair_bytes)
+        if paired.get('people_page',{}).get('next_person'):
+            action=next(x for x in paired['next_actions'] if x.get('person')==paired['people_page']['next_person'])
+            other=bounded(execute([*entry,*action['argv']],temp,env),20*1024)
+            assert other['task_id']==paired['task_id'] and other['cache_hit']
+            action=next(x for x in other['next_actions'] if x.get('comparison'))
+            args=action['argv']
+        else:args=['--reuse',str(pair_chart),'--comparison','--focus','relationship','--limit','3']
+        relations=[];matrix=[];comparison_pages=0
+        while True:
+            page=bounded(execute([*entry,*args],temp,env),20*1024);comparison_pages+=1;assert comparison_pages<=30
+            assert page['task_id']==paired['task_id'] and page['context']['source_checksum']==original_pair['checksum']['value']
+            comparison=page['context']['reading']['comparison'];relations+=comparison['bazi']['cross_relations']['items'];matrix+=comparison['bazi']['pillar_matrix']['items']
+            actions=[x for x in page['next_actions'] if x.get('comparison')]
+            if not actions:break
+            args=actions[0]['argv']
+        assert relations==original_pair['comparison']['bazi']['cross_relations'] and matrix==original_pair['comparison']['bazi']['pillar_matrix']
+        assert pair_chart.read_bytes()==pair_bytes
+        pair_acceptance={'ok':True,'comparison_pages':comparison_pages,'complete_cross_relations':True,'source_chart_byte_identical':True}
+        classical=bounded(execute([a.node,str(skill/'scripts/knowledge-context.cjs'),'--query','《礼记·月令》','--limit','3'],temp,env),12*1024)
+        assert classical['matches'][0]['slug']=='folk-liji-yueling-summer' and classical['retrieval']['filter_domain'] is None
+        document={'mode':'shuwen','purpose':'custom','body_text':'甲"\\\n'*1000,'petition':'愿'*1500,'commitment':'诺'*1500,'applicants':[{'name':'名'*120,'role':'称'*120,'birth_text':'时'*120,'residence':'居'*300} for _ in range(20)]}
+        document_input=json.dumps(document,ensure_ascii=False)
+        complete=json.loads(execute([a.node,str(skill/'scripts/shuwen.cjs'),'--stdin'],temp,env,document_input))
+        assert len(json.dumps(complete,ensure_ascii=False).encode('utf-8'))>32*1024
+        args=['--shuwen','--stdin','--bounded','--chars','3000','--out',str(Path(temp)/'document'),'--format','both','--layout','vertical']
+        document_entry=[a.sh,str(skill/'scripts/mobile.sh')] if a.sh else [a.node,str(skill/'scripts/shuwen.cjs')]
+        text='';document_sha=None;document_pages=0;max_stdout=0;export_files=[]
+        while True:
+            stdout=execute([*document_entry,*(args if a.sh else args[1:])],temp,env,document_input)
+            page=bounded(stdout,12*1024);document_pages+=1;assert document_pages<=50
+            max_stdout=max(max_stdout,len(stdout.encode('utf-8')))
+            document_sha=document_sha or page['document_sha256'];assert page['document_sha256']==document_sha
+            if document_pages==1:export_files=page['files']
+            text+=page['text']
+            if not page['next_actions']:break
+            action=page['next_actions'][0];assert action['requires_same_input'] and '--out' not in action['argv'];args=action['argv']
+        assert text==complete['text'] and Path(export_files[0]).read_text(encoding='utf-8')==complete['text']
+        assert len(export_files)==2 and Path(export_files[1]).read_text(encoding='utf-8').startswith('<!doctype html>')
+        html_check='const fs=require("node:fs"),assert=require("node:assert/strict"),sw=require("./scripts/shuwen.cjs");assert.equal(fs.readFileSync(process.argv[1],"utf8"),sw.makeHtml(sw.build(JSON.parse(fs.readFileSync(0,"utf8"))),"vertical"));console.log("ok");'
+        assert execute([a.node,'-e',html_check,export_files[1]],skill,env,document_input).strip()=='ok'
+        document_acceptance={'ok':True,'pages':document_pages,'max_stdout_bytes':max_stdout,'full_text_reassembled':True,'complete_exports':True,'entry':'mobile --shuwen' if a.sh else 'Node shuwen'}
         # New mode uses the unchanged mobile shell contract and its own bounded receipt.
         partner_cases={}
         for mode in ['years','dates','people']:
@@ -182,7 +247,14 @@ V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正�
     result['packaged_development_test_guard']=development_test_guard
     result['extracted_concept_queries']=len(concept_queries)
     result['original_knowledge_topics_retained']=93
-    result['additional_concept_topics']=4
+    result['additional_concept_topics']=knowledge_summary['bazi_concept_topics']+knowledge_summary['liuyao_concept_topics']
+    result['bazi_concept_topics']=knowledge_summary['bazi_concept_topics']
+    result['liuyao_concept_topics']=knowledge_summary['liuyao_concept_topics']
+    result['extracted_liuyao_concept_queries']=len(liuyao_concept_queries)
+    result['extracted_classical_query']=True
+    result['extracted_pair_comparison']=pair_acceptance
+    result['extracted_bounded_shuwen']=document_acceptance
+    result['full_shell_envelope_checked']=True
     write(out/'release-validation.json',json.dumps(result,ensure_ascii=False,indent=2)+'\n');write(out/'SHA256SUMS.txt',''.join(d+'  '+n+'\n' for n,d in result['archives'].items()))
     print(json.dumps(result,ensure_ascii=False))
 if __name__=='__main__':main()

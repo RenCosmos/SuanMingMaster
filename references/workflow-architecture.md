@@ -1,10 +1,10 @@
-# V1.3.1 本地引擎、检索与 Agent 工作流
+# V1.3.5 本地引擎、检索与 Agent 工作流
 
 这是维护接口文档，普通用户问答无需读取。
 
 V1.3.0新增独立链路：mobile.sh --agent 输入选项 --partner-search → workflow分派 → partner-search-workflow.cjs → partner-search.cjs → 原engine/relationship/关系表 → 完整重算核验 → 独立分页context/receipt。不改runtime-core的四个适配器、mobile.sh、原算法或旧mode契约。--source-chart只读核验旧盘后导入原生辰；年份仅年柱、日期逐点假设、人物为用户输入。方法、schema、规则层和RikkaHub命令见[候选筛选](partner-search-method.md)。新receipt同样使用原版本指纹、路径身份检查、任务锁与输入生命周期；原接口及预算不变。
 
-实际链路：mobile.sh → workflow.cjs → runtime-core.cjs 适配器 → 原排盘算法 → 同次统一重算校验 → context.cjs 主题投影 → 有界 stdout。知识任务进入 knowledge-context.cjs → knowledge.cjs；制文仍用 shuwen.cjs。
+实际链路：mobile.sh → workflow.cjs → runtime-core.cjs 适配器 → 原排盘算法 → 同次统一重算校验 → context.cjs 主题投影 → 有界 stdout。知识任务进入 knowledge-context.cjs → knowledge.cjs；日常制文为 shuwen.cjs --bounded → shuwen-context.cjs → 原build/导出。完整制文旧入口保留。
 
 | 层 | 已实现接口 | 扩展约束 |
 | --- | --- | --- |
@@ -21,9 +21,13 @@ V1.3.0新增独立链路：mobile.sh --agent 输入选项 --partner-search → w
 
 V1.2.5只增补字段：workflow返回task_id和至多3条next_actions；context增加interpretation_scope，双人reading增加按person_ids去重的warnings。task_id只用于核对路径，不建人物索引；next_actions只给分页/补算建议，不执行、不猜选择。新错误recovery与原ok/error/type并存，退出码和stderr位置不变。原文件、字段、模式、方法、报告及旧CLI全部保留。细节与手机验收见[适配与恢复](rikkahub-adaptation.md)。
 
-stdout 全响应硬限20KiB UTF-8，并校验 JSON 转义后 shell 包装估算小于28KiB；知识响应限12KiB。列表超预算自动减小 limit，所有 next_offset 由实际返回条数计算。不裁剪 JSON 字符串，不吞掉错误；最小投影仍超预算时返回 context_budget_exceeded，指引收窄选择，计算结果仍可复用。输出预算为宿主包装预留空间。
+output-budget.cjs统一计算stdout全响应UTF-8字节及JSON转义后的完整shell包装 `{exitCode:0,stdout,stderr:"",timedOut:false}`，包括末尾换行和导航参数。工作流硬限20KiB，知识/疏文页12KiB，包装小于28KiB；不放宽原预算。工作流/疏文投影预留128字节，知识预留256字节；临时输入清理等最终字段加入后再检查全部预算，通过才发布context或stdout。output.bytes为最终stdout字节数。
 
-RikkaHub [官方消息生成文档](https://github.com/rikkahub/rikkahub/blob/master/docs/references/chat-generation-pipeline.md)记录：具备Workspace Shell时，超32KB工具输出前4KB保留，其余全文存入tool_outputs。此处主动限制输出以避开该路径，不修改客户端。该文档核对于2026-10-05；2.5.6工具契约已另核源码。V1.3.0手机实测由用户于2026-10-07确认，原V1.2.1确认保留在历史记录中。
+列表超预算自动减小limit；疏文减小chars，next_offset由实际返回范围计算。不切割序列化JSON、不吞错误；最小投影仍超预算返回context_budget_exceeded，计算原盘及完整文稿保留。知识查询过大时明确要求减小limit/chars，不以截断替代正常分页。
+
+RikkaHub2.5.6固定提交447bb7e89710d31f1204d7a2973baa19fdbd5b28的[消息生成文档](https://github.com/rikkahub/rikkahub/blob/447bb7e89710d31f1204d7a2973baa19fdbd5b28/docs/references/chat-generation-pipeline.md)记录：具备Workspace Shell时，超32KB工具输出前4KB保留，其余全文存入tool_outputs。[WorkspaceTools](https://github.com/rikkahub/rikkahub/blob/447bb7e89710d31f1204d7a2973baa19fdbd5b28/app/src/main/java/me/rerere/rikkahub/data/ai/tools/WorkspaceTools.kt)确认上述包装字段；2026-10-08再次核对。预算避开这条工具截断路径，不保证所有模型供应商的上下文/最终回复限制。--engine、--knowledge-full、完整制文旧CLI及手动读取整文件不受本层保护，不能用作日常小型返回。V1.3.0手机确认仅是历史记录，不继承为本地改动设备验收。
+
+疏文新增可选--bounded（--offset N、--chars 200..3000），返回text_page、document_sha256和带完整argv的next_actions。续页需同一原始JSON，经stdin重放，不缓存生辰/文稿输入、不复用已清理文件；不重复--out。逐页text可还原原完整文稿，完整TXT/横排或竖排HTML导出仍由原operation一次完成。旧build/text/parts和不带--bounded的CLI行为不改，详见[制文方法](shuwen-method.md)。
 
 ## 验证与缓存
 
@@ -48,3 +52,13 @@ stdin、命令行知识参数均不生成中间输入。--temp-input 沿用 Node
 ## V1.3.1增量
 
 next_actions.reuse新增entrypoint=scripts/mobile.sh及完整argv数组；原选择字段与new_calculation语义保留。知识库原93主题不改，新增4张独立八字概念卡；knowledge-search提供最长术语优先、繁简别名、显式/推定领域及无命中一次问句回退。snippet和正文均是untrusted_reference_text、instruction_authority:none。紫微新增本命/运限年界标签，原算法不动；旧无标签命盘仍重算全部计算事实，仅对确实缺失的新增标签做兼容视图，源盘不改。
+
+## 本地反馈续修：古籍检索与合盘分页
+
+检索先按目录中的 book/chapter 和标题识别书篇；retrieval.domain/domain_source 是排序提示，不能据此认为其他领域已被排除。retrieval.filter_domain 只有用户显式传 --domain 时才非空并严格筛选。完整术语优先，含“用神”不自动升级为“喜用神”；原问句回退仍最多一次，不改原97主题正文。
+
+双人 core/relationship/intimacy 超预算回退单人页时，reading.pair_evidence.missing 列出当前响应缺少的另一人物与 comparison。先执行 people_page.next_person 对应 argv，该人物页的 next_actions 会返回 --comparison 的完整 argv；显式 --person 查询也会提供这个入口。它清除人物和年度筛选、使用 focus=relationship，不需要模型改拼命令。
+
+交叉页命令：`sh /skills/bazi-ziwei/scripts/mobile.sh --reuse CHART --comparison --focus relationship --offset 0 --limit 3`。只用于双人关系盘，不与 --person、--years 或时辰筛选混用。旧 focus 与默认双人投影不变。context.selection.comparison=true 区分该视图；reading.comparison 保留原 comparison 的 id/kind、双向日主投影和独立紫微对照。bazi.cross_relations 和 pillar_matrix 各带 total/offset/items/next_offset，items 为完整原记录，含双方 source IDs。共享 comparison_page 按较长列表的 total 推进，较短列表读完后可能为空，不能用它覆盖前页已读证据。next_actions 给下一共享页的完整 argv。
+
+pair_evidence.page_is_last 只表示到达列表末尾；comparison_complete_in_this_response 只有从 offset=0 且本页覆盖全部交叉列表才为 true。末页或越界空页会提示 comparison_previous_pages，不能当作交叉关系为空或全文已读。合盘解读合并同一 task_id/source_checksum 的 a/b 与全部必要交叉页；未取得交叉证据时只能解释单盘，不能补造合盘结论。全部输出仍在20KiB/转义包装28KiB内，旧 chart.json 不改写、可信缓存不重算。

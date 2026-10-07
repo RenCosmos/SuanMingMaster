@@ -13,6 +13,13 @@ function nextActions(context,peoplePage){
   if(!actions.some(a=>JSON.stringify(a)===JSON.stringify(value)))actions.push(value);
  };
  if(peoplePage?.next_person)add({action:'reuse',person:peoplePage.next_person,focus:context.focus});
+ if(reading.comparison_page?.next_offset!==null&&reading.comparison_page?.next_offset!==undefined){
+  add({action:'reuse',focus:'relationship',comparison:true,offset:reading.comparison_page.next_offset,person:null,years:null,candidate:null,field:null});
+ }
+ // Finish the requested people page first; its continuation then exposes the comparison view.
+ if(reading.pair_evidence?.missing?.includes('comparison')&&!peoplePage?.next_person){
+  add({action:'reuse',focus:'relationship',comparison:true,offset:0,person:null,years:null,candidate:null,field:null});
+ }
  const annual=reading.bazi?.annual?[{page:reading.bazi.annual}]:
   (reading.people??[]).filter(p=>p.chart.bazi?.annual).map(p=>({page:p.chart.bazi.annual,person:p.person_id}));
  for(const {page,person} of annual){
@@ -46,6 +53,7 @@ function executableActions(actions,files){
  return actions.map(a=>{
   if(a.action!=='reuse'||!files?.chart)return a;
   const argv=['--reuse',files.chart];
+  if(a.comparison)argv.push('--comparison');
   if(a.command_flags?.includes('--partner-search'))argv.push('--partner-search');
   for(const key of ['focus','person','candidate','field','years','offset','variant_offset','limit'])if(a[key]!==undefined&&a[key]!==null){
    argv.push('--'+key.replaceAll('_','-'),key==='years'?a[key].join(':'):String(a[key]));

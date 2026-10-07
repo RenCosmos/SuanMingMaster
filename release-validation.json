@@ -1,19 +1,19 @@
 {
   "ok": true,
-  "version": "1.3.1",
+  "version": "1.3.5",
   "tests": {
-    "tests": 323,
-    "pass": 323,
+    "tests": 399,
+    "pass": 399,
     "fail": 0,
     "skipped": 0,
     "cancelled": 0
   },
   "runtime_critical_cases": 12,
-  "knowledge_topics": 97,
+  "knowledge_topics": 103,
   "knowledge_files_byte_identical": 113,
-  "runtime_files": 668,
-  "source_files": 274,
-  "local_links": 258,
+  "runtime_files": 680,
+  "source_files": 289,
+  "local_links": 275,
   "extracted_self_test": true,
   "extracted_religious_queries": 3,
   "extracted_temp_cleanup": true,
@@ -25,8 +25,8 @@
     "baseline": "1.2.4",
     "protected_checks": 626,
     "protected_interfaces": 78,
-    "reviewed_changed_protected_files": 9,
-    "protected_files_byte_identical": 69,
+    "reviewed_changed_protected_files": 11,
+    "protected_files_byte_identical": 67,
     "knowledge_files": 113,
     "dependency_files": 435,
     "prior_scripts_byte_identical": 0,
@@ -45,11 +45,11 @@
     "baseline": "1.2.5",
     "protected_checks": 626,
     "protected_interfaces": 78,
-    "reviewed_changed_protected_files": 9,
-    "protected_files_byte_identical": 69,
+    "reviewed_changed_protected_files": 11,
+    "protected_files_byte_identical": 67,
     "knowledge_files": 113,
     "dependency_files": 435,
-    "prior_scripts_byte_identical": 22,
+    "prior_scripts_byte_identical": 21,
     "native_pages_byte_identical": 5,
     "calculation_cases": 14,
     "context_projections": 85,
@@ -87,7 +87,7 @@
   "mobile_validation": {
     "status": "pending",
     "source": "release_validation",
-    "tested_package_version": "1.3.1",
+    "tested_package_version": "1.3.5",
     "scope": "desktop regression and extracted installation checks; not device confirmation",
     "current_package_status": "device_confirmation_pending",
     "historical_confirmations": [
@@ -111,8 +111,8 @@
     ]
   },
   "archives": {
-    "bazi-ziwei-rikkahub-v1.3.1.zip": "0b27ab0dd9c1031867e4b4d446f6cb139ec6cde9ddb0a9ac12bc71efa42ad099",
-    "SuanMingMaster-source-v1.3.1.zip": "ddef593a1f78abc052c3019345650e8fada99b90023ecc6a1e7d686b69523194"
+    "bazi-ziwei-rikkahub-v1.3.5.zip": "1a831b1136a43918e3fe6aacc7c07fb9c0648f226714fecf799b81caa5fb7a86",
+    "SuanMingMaster-source-v1.3.5.zip": "0c60b2b47c67c5312b1063be6dcb920903667e642460cb25795050d3b27d7a56"
   },
   "schema_validation": {
     "performed": true,
@@ -134,11 +134,11 @@
     "baseline": "1.3.0",
     "protected_checks": 626,
     "protected_interfaces": 78,
-    "reviewed_changed_protected_files": 9,
-    "protected_files_byte_identical": 69,
+    "reviewed_changed_protected_files": 11,
+    "protected_files_byte_identical": 67,
     "knowledge_files": 113,
     "dependency_files": 435,
-    "prior_scripts_byte_identical": 24,
+    "prior_scripts_byte_identical": 23,
     "native_pages_byte_identical": 5,
     "calculation_cases": 14,
     "context_projections": 85,
@@ -161,5 +161,24 @@
   },
   "extracted_concept_queries": 4,
   "original_knowledge_topics_retained": 93,
-  "additional_concept_topics": 4
+  "additional_concept_topics": 10,
+  "bazi_concept_topics": 4,
+  "liuyao_concept_topics": 6,
+  "extracted_liuyao_concept_queries": 6,
+  "extracted_classical_query": true,
+  "extracted_pair_comparison": {
+    "ok": true,
+    "comparison_pages": 16,
+    "complete_cross_relations": true,
+    "source_chart_byte_identical": true
+  },
+  "extracted_bounded_shuwen": {
+    "ok": true,
+    "pages": 8,
+    "max_stdout_bytes": 11006,
+    "full_text_reassembled": true,
+    "complete_exports": true,
+    "entry": "mobile --shuwen"
+  },
+  "full_shell_envelope_checked": true
 }

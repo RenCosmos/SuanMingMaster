@@ -74,7 +74,8 @@ function cases(){return [
   assert.equal(d.age_relation.predictions[0].tendency,'younger');assert.equal(d.age_relation.predictions[0].exact_age_gap,null);
  }},
  {id:'KB-RETRIEVAL',run:({knowledge,knowledgeContext})=>{
-  const verified=knowledge.verifyKnowledge();assert.equal(verified.bazi_concept_topics,4);assert.equal(verified.total_topics-verified.bazi_concept_topics,93);assert.equal(verified.total_topics-verified.spirit_topics-verified.bazi_concept_topics,85);assert.equal(verified.spirit_topics,8);
+  const verified=knowledge.verifyKnowledge();assert.equal(verified.bazi_concept_topics,4);assert.equal(verified.liuyao_concept_topics,6);assert.equal(verified.total_topics-verified.bazi_concept_topics-verified.liuyao_concept_topics,93);assert.equal(verified.total_topics-verified.spirit_topics-verified.bazi_concept_topics-verified.liuyao_concept_topics,85);assert.equal(verified.spirit_topics,8);
+  const liuyao=knowledgeContext.retrieve({query:'六爻用神怎么取',limit:3});assert.equal(liuyao.matches[0].slug,'liuyao-use-god');assert.deepEqual(liuyao.retrieval.terms,['六爻用神']);assert.ok(!liuyao.matches.some(t=>['folk-zhouyi-xian','folk-zhouyi-heng'].includes(t.slug)));
   const r=knowledgeContext.retrieve({query:'如何增加桃花',limit:1});
   assert.equal(r.matches[0].slug,'practice-romance-yuelao');assert.ok(r.matches[0].source_url);
   assert.equal(r.matches[0].content,undefined);assert.ok(Buffer.byteLength(JSON.stringify(r))<=12*1024);

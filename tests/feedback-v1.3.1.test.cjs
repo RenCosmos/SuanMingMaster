@@ -90,8 +90,8 @@ for(const [query,slug] of [['官杀混杂是什么意思','bazi-authority-mixed'
  const full=knowledge.lookup({topic:slug});assert.ok(full.content.length>300);assert.equal(full.topic.program_supported,false);assert.ok(full.content.includes('出处：'));assert.ok(full.topic.inference_limits.length);
 });
 test('explicit domain and ambiguous 用神 do not silently impose Bazi on Liuyao',()=>{
- assert.equal(retrieve({query:'六爻用神怎么取',limit:1}).matches[0].slug,'wenwang-liuyao');
- assert.equal(retrieve({query:'用神',domain:'liuyao',limit:1}).matches[0].slug,'wenwang-liuyao');
+ assert.equal(retrieve({query:'六爻用神怎么取',limit:1}).matches[0].slug,'liuyao-use-god');
+ assert.equal(retrieve({query:'用神',domain:'liuyao',limit:1}).matches[0].slug,'liuyao-use-god');
  assert.equal(retrieve({query:'用神',limit:3}).retrieval.domain,null);
  assert.throws(()=>retrieve({query:'用神',domain:'all'}),/domain/);assert.throws(()=>retrieve({topic:'ziping-bazi',domain:'bazi'}),/domain/);
 });
@@ -107,5 +107,5 @@ test('every snippet and body is explicitly untrusted while original prompt text 
 });
 test('knowledge domain CLI and total preserve all old topics plus four concepts under output budget',()=>{
  const r=cp.spawnSync(process.execPath,[path.join(root,'scripts/knowledge-context.cjs'),'--query','如何判断喜用神','--domain','bazi','--limit','3'],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);assert.equal(JSON.parse(r.stdout).matches[0].slug,'bazi-favorable-god');assert.ok(Buffer.byteLength(r.stdout)<12*1024);
- const k=knowledge.verifyKnowledge();assert.equal(k.total_topics,97);assert.equal(k.total_topics-k.bazi_concept_topics,93);assert.equal(k.bazi_concept_topics,4);
+ const k=knowledge.verifyKnowledge();assert.equal(k.total_topics,103);assert.equal(k.total_topics-k.bazi_concept_topics-k.liuyao_concept_topics,93);assert.equal(k.bazi_concept_topics,4);
 });

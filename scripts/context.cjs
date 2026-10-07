@@ -115,7 +115,20 @@ function relationship(data,options){
  if(data.comparison&&!options.person&&['core','relationship','intimacy'].includes(options.focus))result.comparison={id:data.comparison.id,
   bazi:data.comparison.bazi?{day_master_projection:data.comparison.bazi.day_master_projection,cross_relations:data.comparison.bazi.cross_relations.map(relation)}:null,
   ziwei:data.comparison.ziwei};
+ if(data.comparison&&options.person&&['core','relationship','intimacy'].includes(options.focus))result.pair_evidence={scope:'this_response',
+  missing:[...data.people.filter(p=>p.id!==options.person).map(p=>'person:'+p.id),'comparison']};
  return result;
+}
+function comparison(data,options){
+ const c=data.comparison,b=c.bazi,relations=page(b?.cross_relations??[],options),matrix=page(b?.pillar_matrix??[],options);
+ const total=Math.max(relations.total,matrix.total),offset=options.offset??0,limit=options.limit??3;
+ return {person_ids:data.people.map(p=>p.id),stage:data.context.stage,comparison:{id:c.id,kind:c.kind,
+  bazi:b?{day_master_projection:b.day_master_projection,cross_relations:relations,pillar_matrix:matrix}:null,ziwei:c.ziwei},
+  comparison_page:{total,offset,next_offset:offset+limit<total?offset+limit:null},
+  pair_evidence:{scope:'comparison_view',people_included:[],comparison_available:true,page_is_last:offset+limit>=total,
+   comparison_complete_in_this_response:offset===0&&offset+limit>=total,
+   missing:[...(offset>0?['comparison_previous_pages']:[]),...(offset+limit<total?['comparison_next_page']:[])],
+   note:'仅交叉证据；与同一任务已读的 a/b 单盘页合看，各列表按其 total/offset 汇总，末页不代表单页已包含全文。'}};
 }
 function timeCompare(data,options){
  if(options.candidate){
@@ -150,11 +163,15 @@ function project(data,options={}){
  check(!options.candidate||data.input.mode==='time_compare','--candidate 只用于时辰对照');
  check(!options.field||data.input.mode==='time_compare','--field 只用于时辰对照');
  check(!options.person||data.input.mode==='relationship','--person 只用于关系盘');
+ if(options.comparison){check(data.input.mode==='relationship'&&data.people.length===2&&data.comparison,'--comparison 只用于双人关系盘');
+  check(!options.person&&!options.candidate&&!options.field,'--comparison 不与人物或时辰选择混用');
+  check(!options.years&&!(options.variant_offset??0),'--comparison 不与年度或变体筛选混用');
+  check(options.focus==='relationship','--comparison 使用 --focus relationship');}
  const mode=data.input.mode;
  check(!['time_compare','divination'].includes(options.focus)||mode===options.focus,'focus 与计算模式不匹配');
- const reading=mode==='time_compare'?timeCompare(data,options):mode==='relationship'?relationship(data,options):mode==='divination'?divination(data):chartContext(data,options);
+ const reading=options.comparison?comparison(data,options):mode==='time_compare'?timeCompare(data,options):mode==='relationship'?relationship(data,options):mode==='divination'?divination(data):chartContext(data,options);
  return {schema_version:'suanming-context/v1',focus:options.focus,source_schema:data.schema_version,source_checksum:data.checksum.value,
-  selection:{offset:options.offset,limit:options.limit,years:options.years??null,person:options.person??null,candidate:options.candidate??null,field:options.field??null,variant_offset:options.variant_offset??0},
+  selection:{offset:options.offset,limit:options.limit,years:options.years??null,person:options.person??null,candidate:options.candidate??null,field:options.field??null,variant_offset:options.variant_offset??0,...(options.comparison?{comparison:true}:{})},
   reading,interpretation_scope:'命理取象非事实保证；不推断性取向、生理能力或医学结论。',interpretation_rules:['先给当前问题的命理判断和盘面依据；问时机就分析岁运或卦象，沟通建议仅按需补充，不用心理安慰替代断事。','月令、通根与透干合看；五行数量不直接定旺衰、格局或喜用。','合冲与合局表示结构引动，须结合原局和大运；不直接判成化或事件。','逐年显干、藏干十神与日支关系同时看；三合原局已有与岁运补齐分开。','紫微本命、宫干与岁运四化分开；宫位编号以本次盘为准。','时辰对照的候选点数不是概率；分页中的一致项只在 coverage 范围内成立。'],
   available:{focuses:mode==='divination'?['divination']:FOCUSES.filter(f=>!['divination','time_compare'].includes(f)||mode===f),person_ids:data.people?.map(p=>p.id)??null,
    expansion:'使用 --reuse 原chart.json --focus 主题；列表按 next_offset 翻页，时辰字段按 --field / --variant-offset 或 --candidate 展开。完整结果保留在磁盘，无需 cat。'}};

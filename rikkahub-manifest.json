@@ -1,8 +1,8 @@
 {
-  "adapter_version": "rikkahub-workspace/v1.3.1",
+  "adapter_version": "rikkahub-workspace/v1.3.5",
   "target_client": "RikkaHub 2.5.6",
   "engine_version": "0.4.0",
-  "package_version": "1.3.1",
+  "package_version": "1.3.5",
   "package_revision": "1",
   "bundled_annual_fixture": "synthetic; not user feedback birth data",
   "divination_engine": "liuyao/0.1.0",
@@ -65,7 +65,7 @@
     "scope": "source cards with chapter locators and checked short excerpts; folklore, taboos, cultivation and sexual-cultivation history",
     "new_classical_cards": 14,
     "verification_record": "references/folklore/classical-verification.json",
-    "total_searchable_topics": 97,
+    "total_searchable_topics": 103,
     "automatic_chart_for_knowledge_questions": false
   },
   "spirit_library": {
@@ -164,7 +164,7 @@
     "source_adoption": "references/project-adoption.md",
     "ritual_document_method_cards": 1
   },
-  "previous_release": "1.2.4; all calculations, all 93 knowledge topics and legacy interfaces retained",
+  "previous_release": "1.3.1; original 97 knowledge topics, calculations and legacy interfaces retained",
   "input_lifecycle": {
     "default_chart_input": "stdin JSON; no intermediate input file",
     "knowledge_input": "direct --query / --topic / --limit / --offset / --chars; bounded output",
@@ -194,7 +194,11 @@
   "shuwen": {
     "engine": "shuwen/0.1.0",
     "schema": "bazi-ziwei-shuwen/v1",
-    "entry": "scripts/mobile.sh --shuwen --stdin",
+    "entry": "scripts/mobile.sh --shuwen --stdin --bounded",
+    "bounded_schema": "suanming-shuwen-context/v1",
+    "bounded_max_bytes": 12288,
+    "pagination": "text_page.next_offset and complete next_actions.argv; replay the same input on stdin; no repeated export",
+    "full_legacy_cli_preserved": true,
     "purposes": [
       "peace",
       "ancestor",
@@ -242,7 +246,7 @@
     "knowledge_query_files": false
   },
   "workflow": {
-    "version": "1.3.1",
+    "version": "1.3.5",
     "entry": "scripts/workflow.cjs",
     "engine_facade": "scripts/runtime-core.cjs",
     "context_projector": "scripts/context.cjs",
@@ -252,6 +256,9 @@
     "validation_schema": "suanming-validation/v1",
     "stdout_max_bytes": 20480,
     "knowledge_max_bytes": 12288,
+    "shell_envelope_max_bytes_exclusive": 28672,
+    "output_budget_module": "scripts/output-budget.cjs",
+    "final_budget_includes_input_cleanup": true,
     "legacy_entry": "scripts/run.cjs",
     "cache_receipt": "validation.json",
     "knowledge_unchanged_from": "1.1.6",
@@ -282,7 +289,7 @@
   "mobile_validation": {
     "status": "pending",
     "source": "release_validation",
-    "tested_package_version": "1.3.1",
+    "tested_package_version": "1.3.5",
     "scope": "desktop regression and extracted installation checks; not device confirmation",
     "current_package_status": "device_confirmation_pending",
     "historical_confirmations": [
@@ -305,7 +312,7 @@
       }
     ]
   },
-  "android_device_tested_scope": "historical installation package 1.3.0; user confirmation on 2026-10-07; not inherited by 1.3.1",
+  "android_device_tested_scope": "historical installation package 1.3.0; user confirmation on 2026-10-07; not inherited by 1.3.5",
   "rikkahub_tools": {
     "interface_checked_version": "2.5.6",
     "interface_commit": "447bb7e89710d31f1204d7a2973baa19fdbd5b28",
@@ -397,6 +404,16 @@
     "purpose": "optional folk fortune-teller persona and voice",
     "changes_execution_workflow": false,
     "default_runtime_read": false
+  },
+  "liuyao_concept_library": {
+    "version": "liuyao-concepts/v1",
+    "topics": 6,
+    "catalog": "references/knowledge/liuyao-concepts/catalog.json",
+    "index": "references/liuyao-concepts-index.md",
+    "publication_status": "included_in_package",
+    "introduced_in_package": "1.3.5",
+    "automatic_use_god_selection_supported": false,
+    "automatic_chart_for_knowledge_questions": false
   },
   "feedback_fixes": {
     "introduced_in": "1.3.1",

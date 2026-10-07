@@ -3,9 +3,9 @@ const fs=require('node:fs');const path=require('node:path');
 const {withInputLifecycle}=require('./input-lifecycle.cjs');
 function library(){
  const MANIFEST=require('../references/knowledge/supe888-bazi-skills/manifest.json'),FOLK=require('../references/folklore/catalog.json'),CURATED=require('../references/knowledge/curated/catalog.json'),PRACTICE=require('../references/knowledge/practice/catalog.json'),SPIRIT=require('../references/knowledge/spirit/catalog.json');
- const CONCEPTS=require('../references/knowledge/bazi-concepts/catalog.json');
- const topics=[...MANIFEST.topics.map(t=>({...t,source_kind:'open_source_prompt_template',repository:MANIFEST.repository,commit:MANIFEST.commit,license:MANIFEST.license})),...FOLK.topics.map(t=>({...t,source_kind:t.kind})),...CURATED.topics.map(t=>({...t,source_kind:t.kind})),...PRACTICE.topics.map(t=>({...t,source_kind:t.kind})),...SPIRIT.topics.map(t=>({...t,source_kind:t.kind})),...CONCEPTS.topics.map(t=>({...t,source_kind:t.kind}))];
- return {MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,CONCEPTS,topics};
+ const CONCEPTS=require('../references/knowledge/bazi-concepts/catalog.json'),LIUYAO_CONCEPTS=require('../references/knowledge/liuyao-concepts/catalog.json');
+ const topics=[...MANIFEST.topics.map(t=>({...t,source_kind:'open_source_prompt_template',repository:MANIFEST.repository,commit:MANIFEST.commit,license:MANIFEST.license})),...FOLK.topics.map(t=>({...t,source_kind:t.kind})),...CURATED.topics.map(t=>({...t,source_kind:t.kind})),...PRACTICE.topics.map(t=>({...t,source_kind:t.kind})),...SPIRIT.topics.map(t=>({...t,source_kind:t.kind})),...CONCEPTS.topics.map(t=>({...t,source_kind:t.kind})),...LIUYAO_CONCEPTS.topics.map(t=>({...t,source_kind:t.kind}))];
+ return {MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,CONCEPTS,LIUYAO_CONCEPTS,topics};
 }
 function lookup(input){
  const {ROOT,check}=require('./common.cjs'),{topics}=library();
@@ -22,7 +22,7 @@ function lookup(input){
  return {...base,query:input.query,...found};
 }
 function verifyKnowledge(){
- const {ROOT,readJson,digest,check}=require('./common.cjs'),{MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,CONCEPTS,topics}=library();
+ const {ROOT,readJson,digest,check}=require('./common.cjs'),{MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,CONCEPTS,LIUYAO_CONCEPTS,topics}=library();
  const dir=path.join(ROOT,'references/knowledge/supe888-bazi-skills');check(MANIFEST.topics.length===35,'知识主题数量不完整');
  const crypto=require('node:crypto');const sha=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
  for(const [file,expected] of Object.entries(MANIFEST.bundled_file_sha256))check(sha(path.join(dir,file))===expected,`知识库文件摘要不匹配：${file}`);
@@ -72,10 +72,21 @@ function verifyKnowledge(){
  check(SPIRIT.sources.every(s=>SPIRIT.topics.some(t=>t.source_ids.includes(s.id))),'宗教来源缺少对应主题');
  check(CONCEPTS.version==='bazi-concepts/v1'&&CONCEPTS.topics.length===4,'八字概念卡目录不完整');
  for(const t of CONCEPTS.topics)check(t.domain==='bazi'&&t.kind==='project_concept_reference'&&t.program_supported===false&&t.publisher&&t.book&&t.chapter&&t.locator&&t.accessed_on==='2026-10-08'&&t.access_method==='web_primary_text_transcription'&&t.inference_limits?.length&&t.aliases?.length,'八字概念卡来源字段不完整');
- return {ok:true,topics:MANIFEST.topics.length,folklore_topics:FOLK.topics.length,curated_topics:CURATED.topics.length,curated_classical_topics:CURATED.classical_verification.length,practice_topics:PRACTICE.topics.length,practice_sources:PRACTICE.sources.length,spirit_topics:SPIRIT.topics.length,spirit_sources:SPIRIT.sources.length,bazi_concept_topics:CONCEPTS.topics.length,total_topics:topics.length,new_classical_verified:evidence.records.length,commit:MANIFEST.commit,manifest_checksum:digest(MANIFEST),folklore_catalog_checksum:digest(FOLK),classical_verification_checksum:digest(evidence),curated_catalog_checksum:digest(CURATED),practice_catalog_checksum:digest(PRACTICE),spirit_catalog_checksum:digest(SPIRIT),bazi_concept_catalog_checksum:digest(CONCEPTS)};
+ check(LIUYAO_CONCEPTS.version==='liuyao-concepts/v1'&&LIUYAO_CONCEPTS.expected_topics===6&&LIUYAO_CONCEPTS.topics.length===6,'六爻概念卡目录不完整');
+ check(LIUYAO_CONCEPTS.automatic_chart_for_knowledge_questions===false&&LIUYAO_CONCEPTS.automatic_use_god_selection_supported===false,'六爻知识能力边界错误');
+ for(const t of LIUYAO_CONCEPTS.topics){
+  check(t.domain==='liuyao'&&t.kind==='project_concept_reference'&&t.evidence_scope==='classical_concept_summary'&&t.program_supported===false&&t.publisher&&t.book&&t.chapter&&t.locator&&t.access_method==='web_primary_text_transcription'&&t.verification_limit,'六爻概念卡来源字段不完整');
+  check(Array.isArray(t.inference_limits)&&t.inference_limits.length>0&&t.inference_limits.every(s=>typeof s==='string'&&s.length>0),'六爻概念卡缺少推断边界');
+  check(Array.isArray(t.aliases)&&t.aliases.length>0&&t.aliases.every(s=>typeof s==='string'&&s.length>=2),'六爻概念卡别名错误');
+  check(Array.isArray(t.source_references)&&t.source_references.length>0,'六爻概念卡缺少来源记录');
+  const content=fs.readFileSync(path.join(ROOT,t.path),'utf8');
+  for(const s of t.source_references)check(s.book===t.book&&s.chapter&&s.locator&&s.checked_claim&&s.access_method===t.access_method&&s.accessed_on===t.accessed_on&&/^\d{4}-\d{2}-\d{2}$/.test(s.accessed_on)&&/^https:\/\/zh\.wikisource\.org\/zh-hans\//.test(s.url)&&content.includes(s.url),'六爻概念卡查核记录不一致');
+  const primary=t.source_references[0];check(primary.url===t.url&&primary.chapter===t.chapter&&primary.locator===t.locator,'六爻概念卡主来源不一致');
+ }
+ return {ok:true,topics:MANIFEST.topics.length,folklore_topics:FOLK.topics.length,curated_topics:CURATED.topics.length,curated_classical_topics:CURATED.classical_verification.length,practice_topics:PRACTICE.topics.length,practice_sources:PRACTICE.sources.length,spirit_topics:SPIRIT.topics.length,spirit_sources:SPIRIT.sources.length,bazi_concept_topics:CONCEPTS.topics.length,liuyao_concept_topics:LIUYAO_CONCEPTS.topics.length,total_topics:topics.length,new_classical_verified:evidence.records.length,commit:MANIFEST.commit,manifest_checksum:digest(MANIFEST),folklore_catalog_checksum:digest(FOLK),classical_verification_checksum:digest(evidence),curated_catalog_checksum:digest(CURATED),practice_catalog_checksum:digest(PRACTICE),spirit_catalog_checksum:digest(SPIRIT),bazi_concept_catalog_checksum:digest(CONCEPTS),liuyao_concept_catalog_checksum:digest(LIUYAO_CONCEPTS)};
 }
 function operation(argv){
- if(argv.length===1&&['--help','-h'].includes(argv[0]))return 'knowledge.cjs --query "关键词" [--limit 1–10]\nknowledge.cjs --topic SLUG\nknowledge.cjs --temp-input QUERY.json（结束后清理）\nknowledge.cjs --input QUERY.json（保留输入）；或 --verify';
+ if(argv.length===1&&['--help','-h'].includes(argv[0]))return 'knowledge.cjs --query "关键词" [--limit 1–10] [--domain '+require('./knowledge-search.cjs').DOMAINS.join('|')+']\n--domain 仅用于 --query；显式指定时严格过滤；省略时自动领域仅影响排序。\nknowledge.cjs --topic SLUG\nknowledge.cjs --temp-input QUERY.json（结束后清理）\nknowledge.cjs --input QUERY.json（保留输入）；或 --verify';
  if(argv.length===1&&argv[0]==='--verify')return verifyKnowledge();
  const {readJson,check}=require('./common.cjs');
  if(argv.length===2&&argv[0]==='--input')return lookup(readJson(argv[1]));

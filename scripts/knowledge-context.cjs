@@ -3,7 +3,8 @@
 // Bounded retrieval facade. The original 85 topics and legacy lookup API are intact; source cards may be added.
 const {withInputLifecycle}=require('./input-lifecycle.cjs');
 const {check,readJson,sha}=require('./runtime-core.cjs');
-const MAX_BYTES=12*1024;
+const budget=require('./output-budget.cjs');
+const MAX_BYTES=budget.REFERENCE_BYTES;
 const REFERENCE={content_type:'reference_material',trust_level:'untrusted_reference_text',instruction_authority:'none'};
 function sourceScope(topic){
  if(!topic.evidence_scope)return {};
@@ -34,11 +35,11 @@ function retrieve(input){
    matches:r.matches.map(t=>({id:t.id,slug:t.slug,name:t.name,source_kind:t.source_kind,...REFERENCE,domains:t.domains,...sourceScope(t),source_url:t.url??t.repository,commit:t.commit??null,score:t.score,snippet:t.snippet,
     read:{topic:t.slug,offset:0,chars:1800}}))};
  }
- check(Buffer.byteLength(JSON.stringify(result)+'\n')<=MAX_BYTES-256,'检索上下文超出预算，请减小 limit 或 chars');
+ budget.assertFits(result,MAX_BYTES-256,'检索上下文超出预算，请减小 limit 或 chars');
  return {...result,output_limit_bytes:MAX_BYTES};
 }
 function operation(argv){
- if(argv.length===1&&['--help','-h'].includes(argv[0]))return '--query 关键词 [--limit 1..10]；--topic SLUG [--offset N] [--chars 200..3000]。全文不删减，next_offset 可继续。--verify 显式全库查核。';
+ if(argv.length===1&&['--help','-h'].includes(argv[0]))return '--query 关键词 [--limit 1..10] [--domain '+require('./knowledge-search.cjs').DOMAINS.join('|')+']\n--topic SLUG [--offset N] [--chars 200..3000]。全文不删减，next_offset 可继续。\n--domain 仅用于 --query；显式指定时严格过滤；省略时自动领域仅影响排序。\n--verify 显式全库查核。';
  if(argv.length===1&&argv[0]==='--verify')return require('./knowledge.cjs').verifyKnowledge();
  if(argv.length===2&&argv[0]==='--input')return retrieve(readJson(argv[1]));
  check(argv.length>0&&argv.length%2===0,'检索参数须成对');
@@ -48,6 +49,6 @@ function operation(argv){
  }
  return retrieve(input);
 }
-function main(argv){const r=withInputLifecycle(argv,operation);console.log(typeof r==='string'?r:JSON.stringify(r));return r;}
+function main(argv){const r=withInputLifecycle(argv,operation);if(typeof r!=='string')budget.assertFits(r,MAX_BYTES);console.log(typeof r==='string'?r:JSON.stringify(r));return r;}
 if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error(JSON.stringify({ok:false,error:e.message,type:e.code??'knowledge_error'}));process.exitCode=2;}}
 module.exports={retrieve,excerpt,operation,main,MAX_BYTES};

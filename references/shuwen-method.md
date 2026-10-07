@@ -41,15 +41,19 @@
 ## 手机执行与保存
 
 ```sh
-sh /skills/bazi-ziwei/scripts/mobile.sh --shuwen --stdin <<'SHUWEN_JSON'
+sh /skills/bazi-ziwei/scripts/mobile.sh --shuwen --stdin --bounded <<'SHUWEN_JSON'
 {"mode":"shuwen","purpose":"ancestor","form":"biaowen","applicants":[{"name":"示例甲"}],"date":{"calendar":"solar","date":"2026-10-05"}}
 SHUWEN_JSON
 ```
 
-检查 exitCode=0、timedOut=false、stdout.ok=true，按返回的 `text` 给文稿；同时核对 `missing_fields`。不把程序 JSON 全贴给用户，不生成 `input.json`、`chart.json`、`report.md`、`report.html`。
+检查 exitCode=0、timedOut=false、truncated不为true，再解析stdout并检查ok=true。按返回的 `text` 给文稿，同时核对 `missing_fields`。不把程序JSON全贴给用户，不生成 `input.json`、`chart.json`、`report.md`、`report.html`。
+
+`--bounded` 返回 suanming-shuwen-context/v1，整响应≤12KiB、完整shell包装<28KiB。`text_page`含total_chars、offset、returned_chars、next_offset（UTF-16位置）；默认chars=1800，可用--chars 200..3000。next_offset非空时仍有正文未读，直接执行next_actions中的完整argv，并把**同一原始JSON**送回stdin；不凭摘要续写，不把当前页说成全文。核对document_sha256相同后合并各页text，Unicode字符不拆开。
+
+续页不重复--out、不重建已存在导出文件，也不指向已清理临时输入；无需自动保存原始JSON。长稿可按用户需要分段展示，或明确请求时导出完整文件。`--bounded`只改变stdout投影，不改日期、模板、完整text/parts或TXT/HTML内容；不带该参数的旧CLI仍保留完整输出，可能超过RikkaHub工具容量，不作日常入口。
 
 明确需要文件时，给上述命令增加 `--out /workspace/bazi-ziwei-reports/TASK/document --format both --layout vertical`。`format` 支持 txt、html、both；HTML 支持横排和从右向左的竖排，多页自动分列，打印不加载网络字体或脚本。文字默认导出 `shuwen.txt`，HTML 为 `shuwen.html`；竖排只用于 HTML。导出为可用文稿文件，不额外保存输入 JSON。已有同名输出时使用新的任务目录，避免覆盖旧稿。
 
-必须用输入文件时，采用 `--shuwen --temp-input PATH`，成功与异常均清理；用户明确要保留时才用 `--input`。不要将 `shuwen.txt`、`shuwen.html` 标为临时输入；详见 [输入生命周期](input-lifecycle.md)。改稿直接复用聊天中的已给信息，保存新版时仍须有用户要保存的意图。
+必须用输入文件时，采用 `--shuwen --temp-input PATH --bounded`，成功与异常均清理；用户明确要保留时才用 `--input`。不要将 `shuwen.txt`、`shuwen.html` 标为临时输入；详见 [输入生命周期](input-lifecycle.md)。改稿直接复用聊天中的已给信息，保存新版时仍须有用户要保存的意图。
 
 用户随后询问烧纸、焚香或仪式顺序时，另按实际地域、仪式和已有来源回答；生成文稿不等于已代为呈递或举行仪式，也不自动安排收费法事或对外提交。
