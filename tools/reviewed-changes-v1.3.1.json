@@ -1,6 +1,6 @@
 {
   "version": "compatibility-reviewed-changes/v1",
-  "release": "1.3.5",
+  "release": "1.4.0",
   "baseline_commit": "a1ce5c916cd5af733a789f41e1a21e754d39fc79",
   "frozen_baseline_rewritten": false,
   "package_scripts": {
@@ -8,6 +8,11 @@
     "test:critical": "node scripts/test-runner.cjs --critical"
   },
   "files": {
+    "scripts/partner-search.cjs": {
+      "old_sha256": "05755f6fed986ed214eb264c8b551ab4cfa35dcb93ce21ce5c81dcac178bbb33",
+      "new_sha256": "721a7caf22bb5caafd4e321928ccd6269ee2a1fafd22ff96acdf4ad13a774e74",
+      "reason": "V1.3.6 removes all self and candidate adult gates only; preserves fields, conditions, scoring, sorting and other runtime scripts; engine 1.0.1 distinguishes age semantics"
+    },
     "references/input-schema.md": {
       "old_sha256": "124b26fc5c667ec75979d592d7970346b7bafa2d134c1f8891e46b5499929cc3",
       "new_sha256": "8e3e804c2520daf5777b56266fe5e874a4e850729be64a0a2c72371149f3b4a0",
@@ -75,8 +80,8 @@
     },
     "scripts/partner-search-workflow.cjs": {
       "old_sha256": "08746c2bfdebb1ee8ba4a24dd95cbaee34c45021b660a14dbcb2602a5fe823b0",
-      "new_sha256": "c851bbda4f59df15f0e5efa37781227b0ca187ae232bc33235e313b07ecf0c2c",
-      "reason": "include correct mode and pagination argv; measure full shell envelope with lifecycle margin and recheck final response before context publication"
+      "new_sha256": "3b7674f67130940df68a41eb3fb8824d711542795d251b950f2f2c41787ca09e",
+      "reason": "retain existing argv and bounded regular calculation; V1.3.7 opt-in batch route and internal supplied input; V1.3.8 adds mutually exclusive plan route and synchronizes help"
     },
     "scripts/shuwen.cjs": {
       "old_sha256": "12e917351bd6f52ff2df00270dd86ffa4c758cb8a15abba7b116bf13612bbdd9",
@@ -87,6 +92,61 @@
       "old_sha256": "68c6b07b636f72e715f7c2ae50851262e98b942c03853d08ba759227dfe565e5",
       "new_sha256": "ed9bf35d2e26c211605a86bc4f08d601946861522ad1dc394771ba87fea3ab89",
       "reason": "document bounded text paging and same-input continuation; preserve full export and legacy API"
+    },
+    "scripts/input-lifecycle.cjs": {
+      "old_sha256": "d7b9ab8843cca9b0b0f72bfcf7a52469f5c66b67ac394ec8f71a569c5288bba4",
+      "new_sha256": "7b29a351d4cc46db8546949d86a28234073e84fc6c473227e2f3d49d2deada0f",
+      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed"
+    },
+    "scripts/partner-search-report.cjs": {
+      "old_sha256": "36dc98fb711d5c918f3b99fb26b2d5360763d497b795794eb32e618ce732e263",
+      "new_sha256": "9fae29012e15711f24f0a4685164eae06f4ae79b1a4046238d4c0fb568f8b643",
+      "reason": "V1.3.8 removes only the obsolete age exclusion sentence from Markdown and HTML reports; all computed fields, evidence and unavailable-point notice retained"
+    },
+    "references/partner-image-method.md": {
+      "old_sha256": "89bf12211153f54f5894da3bb1cdf8db6daf5d5210c61035f570df9811509fa4",
+      "new_sha256": "1df65b7ff3f79c30827c65e0a122210c0c8ff8adde516b3889f73a7279f6ee33",
+      "reason": "V1.3.8 clarifies candidate year mapping is supported and links the planner without claiming a unique real partner"
+    },
+    "scripts/task-files.cjs": {
+      "old_sha256": "84e606583cfeef05bd0af456f0a3fcc9a34521c24c6024a538fa000199ef5201",
+      "new_sha256": "d7d7e995aa2ee3b957ed0c52e41bfabf94a72f38a96f7f32ed536613626fb0b2",
+      "reason": "V1.3.8 uses exact BigInt device/inode identifiers to prevent Windows Number rounding from falsely treating unrelated outputs as hard links; actual hard-link protection retained"
+    },
+    "references/folk-cultivation-method.md": {
+      "old_sha256": "06e6993b00184796a7772bca22d8308011f01511d27207f6b280e8bfbc62da50",
+      "new_sha256": "66d9a5b46ea6da1d9b3adda3fd289537c7ed5dd61474043b60063dc4e2195277",
+      "reason": "V1.3.9 discusses religion within the requested tradition and centralizes personal-identity boundaries instead of repeating denial-like boilerplate"
+    },
+    "references/spirit-library-index.md": {
+      "old_sha256": "085dea2e7fb1a397a3be17464f5b5bb91ac0cf1b803188bc30ca9804d06f42f3",
+      "new_sha256": "1495ab73d0ab50fe95ba739f805f9254ffad295533fbedc6560bdaade76742aa",
+      "reason": "V1.3.9 respects religious framing without unsolicited existence debates; retains sourced teaching, personal-identity and concrete harm boundaries"
+    },
+    "references/knowledge/spirit/catalog.json": {
+      "old_sha256": "8d757eb0eb5be82fcbf83c1ac05143c15df8b01eb08bfcab86e1d0c326b0d6b4",
+      "new_sha256": "20953aa7978ba7aeb7716d81fb1c27b5966771bcb0c916011fbd357322fea4f4",
+      "reason": "V1.3.9 removes existence-certification asides and updates three card digests; all eight topics, seven source records, excerpts and capability flags retained"
+    },
+    "references/knowledge/spirit/cards/spirit-human-ghosts.md": {
+      "old_sha256": "4b2c6a78e43baa5db5a5aa7637d241c12ef73c46429fe2fac81be1fd6174a551",
+      "new_sha256": "80691009b913648e26a189284c4c06d1f2ea64deb93dc5efcff751ffd4987f30",
+      "reason": "V1.3.9 removes one unsolicited supernatural-detection aside; all research explanation, links and personal inference boundary retained"
+    },
+    "references/knowledge/spirit/cards/spirit-buddhist-protectors.md": {
+      "old_sha256": "570abb4ce3ddc45e8092eed1e26d6d1c3e6cdaab1bc4347b6a67e5ae09c6cf07",
+      "new_sha256": "6434b215fcea6977b2bab82a1ed0ff2a80ba04ac77c36c8b922cc7b4716fa208",
+      "reason": "V1.3.9 gives affirmative tradition-based discussion while retaining no fabricated personal protector, cure guarantee or harmful operations"
+    },
+    "references/knowledge/spirit/cards/spirit-zhongyuan-pudu.md": {
+      "old_sha256": "5b94fc7141392c508bbf6b50c395cb60ecbce4ebe9aa87f554e82f7859099570",
+      "new_sha256": "50676c207a03a26ecaa25769515cf1567e8d2e9670cc1de559427aa34029ed5a",
+      "reason": "V1.3.9 replaces existence-certification aside with local ritual context; original source and cultural explanations retained"
+    },
+    "scripts/mobile.sh": {
+      "old_sha256": "e9c2dc6325896a2b7daabf4ac7de3e77647a0f13883a25674c9ca2e071da2596",
+      "new_sha256": "1cb7bdf237e2898fc3e04066f7d94dae8d2007b8ad6ffda5337df39c3b9729c6",
+      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed"
     }
   }
 }

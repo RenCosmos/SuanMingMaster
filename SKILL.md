@@ -3,7 +3,7 @@ name: bazi-ziwei
 description: 用户以命理询问婚恋、正缘候选、年上年下、对象画像、事业财运、流年或六爻时，调用本地八字、紫微和六爻程序据盘解读；也支持民俗修行、鬼神护法宿缘的资料检索与疏文。支持合盘、真太阳时、未知时辰对照、缓存与按需报告，不据盘推断性取向或医学指标。
 ---
 
-# 算命大师 · V1.3.5
+# 算命大师 · V1.4.0
 
 主流程：识别任务 → 调用对应程序 → 检查返回状态 → 按 context 回答。不要默认遍历脚本、知识库或读取完整 chart.json。无需专用系统提示词；语气、称呼和篇幅遵从用户设置。[推荐口吻](RikkaHub可选系统提示词.txt)仅为可选。
 
@@ -15,7 +15,9 @@ description: 用户以命理询问婚恋、正缘候选、年上年下、对象�
 | --- | --- |
 | 普通八字/紫微、事业财运、流年 | --stdin --out TASK --focus core/career/wealth/annual；具体 JSON 见[任务与输入](references/agent-workflow-guide.md)及[输入契约](references/input-schema.md) |
 | 婚恋单盘/双盘、年上年下、画像、亲密取象 | relationship 输入；focus relationship/age_relation/partner_image/intimacy。格式见[关系契约](references/relationship-method.md)，问哪年引动可用 annual |
-| 正缘候选年份、假设生日或已知对象匹配 | **新建 partner-search 必须指定 --out 独立任务目录**：--agent --stdin --partner-search --out TASK；仅此时读[候选筛选](references/partner-search-method.md)。本人资料、as_of、搜索范围明确；不能反解唯一真实生日 |
+| 先推导适配八字条件，再对应出生年份／核对理论四柱 | 支持这种假设性筛选，使用 --agent --stdin --partner-search --plan --out TASK，读[条件规划与年份映射](references/partner-search-plan-method.md)。不能确定唯一真实生日不是拒绝此查询的理由 |
+| 全年／跨月筛选假设生日、逐月找命中最多日期 | 优先一次 --agent --stdin --partner-search --batch --out TASK，读[批量日期查询](references/partner-search-batch-method.md)，不自行规划多轮月查询。按日期摘要回答，选中日期再展开时辰；命中最多不是综合合婚最优 |
+| 正缘候选年份、短范围假设生日或已知对象匹配 | **新建 partner-search 必须指定 --out 独立任务目录**：--agent --stdin --partner-search --out TASK；读[候选筛选](references/partner-search-method.md)。允许按本人盘推导条件并检索多个候选，不表述为唯一真实正缘 |
 | 时辰未知、范围或候选 | time_compare 输入，不填猜测的 birth.time；见[时辰对照](references/time-compare-method.md) |
 | 六爻铜钱法 | 用户提供六次记录及实际占时；第一次为初爻，正面=3/反面=2；见[六爻输入](references/liuyao-method.md) |
 | 知识、民俗、修行、宗教问题 | --knowledge --query '完整问句' --limit 3；无生辰，必要时 --domain bazi/ziwei/liuyao/spirit/practice/folklore/other |
@@ -51,7 +53,7 @@ SM_INPUT
 
 记住 files.chart 与 task_id。换主题用 --reuse 明确路径，不读取整盘。同一可信缓存 cache_hit=true、validation.recalculated=false 正常；新生辰/口径/目标范围用新目录，--refresh须原输入。缺已算流年范围不能凭空补算。
 
-next_actions.reuse 的 **argv 数组**是 scripts/mobile.sh 的完整参数，按本任务返回值逐项执行，不重拼、不eval；shell逐项安全引用，值内单引号按shell规则转义。new_calculation无argv，核对输入后新建任务。next_offset / next_variant_offset / people_page 为完整分页依据；涉及双方先取 next_person，不混淆人物。
+next_actions.reuse 的 **argv 数组**是 scripts/mobile.sh 的完整参数，按本任务返回值逐项执行，不重拼、不eval；shell逐项安全引用，值内单引号按shell规则转义。规划入口的new_calculation含argv和input：将返回input作为stdin执行；其他无argv的新计算核对输入后新建任务。next_offset / next_variant_offset / people_page 为完整分页依据；涉及双方先取 next_person，不混淆人物。
 
 合盘回退单人页时看 reading.pair_evidence.missing：读取下一人后，继续执行 comparison 的 argv；交叉证据入口为 --reuse 原盘 --comparison --focus relationship，按 comparison_page 翻页。合盘判断须合并同一 task_id/source_checksum 的双方资料与交叉证据，不能用两个单盘页代替合盘；详见[分页契约](references/workflow-architecture.md)。
 
@@ -65,7 +67,7 @@ next_actions.reuse 的 **argv 数组**是 scripts/mobile.sh 的完整参数，�
 
 书名、篇名按目录身份优先匹配；自动领域仅影响排序，不排除其他领域。仅用户显式 --domain 才硬过滤，跨领域问题通常不指定 domain。
 
-保留原93主题全文、4张[八字概念卡](references/bazi-concepts-index.md)，增补6张[六爻基础卡](references/liuyao-concepts-index.md)，当前103主题。“六爻用神”按占问取爻，不混同八字喜用；裸“用神”没有语境时先辨明领域。无Workspace/Node时，可直接用 use_skill读[35模板](references/rikkahub-native/templates.md)、[21民俗古籍](references/rikkahub-native/folklore.md)、[11精选方法](references/rikkahub-native/curated.md)、[18修行](references/rikkahub-native/practice.md)、[8宗教](references/rikkahub-native/spirit.md)及概念卡入口；这些概览不是原文全集，只回答实际已读内容，不编造引文、仪轨或出处。纯鬼神、护法、轮回与宿缘问题见[宗教索引](references/spirit-library-index.md)，不排盘或认证个人鬼神身份、附身或前世配偶。
+保留原93主题、4张[八字概念卡](references/bazi-concepts-index.md)，增补6张[六爻基础卡](references/liuyao-concepts-index.md)，当前103主题。“六爻用神”按占问取爻，不混同八字喜用；裸“用神”没有语境时先辨明领域。无Workspace/Node时，可直接用 use_skill读[35模板](references/rikkahub-native/templates.md)、[21民俗古籍](references/rikkahub-native/folklore.md)、[11精选方法](references/rikkahub-native/curated.md)、[18修行](references/rikkahub-native/practice.md)、[8宗教](references/rikkahub-native/spirit.md)及概念卡入口；这些概览不是原文全集，只回答实际已读内容，不编造引文、仪轨或出处。鬼神、护法、轮回与宿缘按用户采用的宗教或民俗传统回答，不主动争论鬼神有无或纠正信仰；纯资料问题不排盘。具体出处与个人经历的讨论边界见[宗教索引](references/spirit-library-index.md)，不要把内部查核限制逐项复述成免责声明。
 
 validation.ok只证明计算一致，不证明预测、对象心理或事件为事实。gender仅为传统排运参数，不推出性别认同、性取向或现实伴侣性别；配偶星模型可由用户选择。亲密与传统房中文献按来源照常讨论，不据盘判断性功能、生育能力、身体指标、医学诊断或能力分数；在涉及处简要说明边界，不机械重复免责声明。年份候选只知年柱，假设生日不是现实已知生日，不认定正缘身份或概率。
 

@@ -1,0 +1,27 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:suanming:partner-search-plan:output:v1",
+  "title":"适配条件规划有界响应",
+  "type":"object","required":["ok","adapter_id","validation","cache_hit","calculation_performed","files","context","next_actions","output","task_id"],
+  "properties":{
+    "ok":{"const":true},"adapter_id":{"const":"partner_search_plan"},
+    "validation":{"type":"object","required":["ok","recalculated"],"properties":{"ok":{"const":true},"recalculated":{"type":"boolean"}}},
+    "cache_hit":{"type":"boolean"},"calculation_performed":{"type":"boolean"},
+    "files":{"type":"object","required":["chart","context","validation"]},
+    "task_id":{"type":"string","pattern":"^SMP-[a-f0-9]{12}$"},
+    "next_actions":{"type":"array","items":{"$ref":"#/$defs/reuse"}},
+    "temporary_input_removed":{"const":true},
+    "context":{"type":"object","required":["schema_version","source_checksum","year_mapping","interpretation_scope","interpretation_rules","selected_partner","probability"],
+      "properties":{
+        "schema_version":{"const":"suanming-partner-search-plan-context/v1"},"source_checksum":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+        "selected_partner":{"type":"null"},"probability":{"type":"null"},
+        "proposed_candidate":{"oneOf":[{"type":"null"},{"type":"object","required":["pillars","calendar_verified"],"properties":{"calendar_verified":{"const":false},"pillars":{"$ref":"urn:suanming:partner-search-plan:input:v1#/properties/candidate_pillars"}}}]},
+        "year_mapping":{"type":"object","required":["total","offset","returned","next_offset","items"],"properties":{"items":{"type":"array","maxItems":10,"items":{"type":"object","required":["year_pillar","birth_year_label","interval","next_actions"],"properties":{"next_actions":{"type":"array","items":{"$ref":"#/$defs/new"}}}}}}}
+      }},
+    "output":{"type":"object","required":["max_bytes","bytes","effective_limit"],"properties":{"max_bytes":{"const":20480},"bytes":{"type":"integer","minimum":1,"maximum":20480},"effective_limit":{"type":"integer","minimum":1,"maximum":10}}}
+  },
+  "$defs":{
+    "reuse":{"type":"object","required":["action","argv"],"properties":{"action":{"const":"reuse"},"argv":{"type":"array","minItems":4,"items":{"type":"string"}}}},
+    "new":{"type":"object","required":["action","argv","input","requires_input"],"properties":{"action":{"const":"new_calculation"},"argv":{"type":"array","minItems":4,"items":{"type":"string"}},"input":{"$ref":"urn:suanming:partner-search-batch:input:v1"},"requires_input":{"const":true}}}
+  }
+}

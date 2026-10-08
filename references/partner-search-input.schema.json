@@ -35,5 +35,5 @@
     "birth":{"type":"object","additionalProperties":false,"required":["calendar","date","time","gender","timezone"],"properties":{"calendar":{"enum":["solar","lunar"]},"date":{"$ref":"#/$defs/date"},"time":{"$ref":"#/$defs/time"},"gender":{"enum":["male","female"]},"timezone":{"type":"string","minLength":1},"is_leap_month":{"type":"boolean"},"longitude":{"type":"number","minimum":-180,"maximum":180},"longitude_source":{"type":"string","minLength":1,"maxLength":400}}},
     "options":{"type":"object","additionalProperties":false,"properties":{"time_basis":{"enum":["clock","true_solar"]},"bazi_day_boundary":{"enum":["midnight","late_zi"]},"bazi_hour_stem_rule":{"enum":["day_stem","library"]},"ziwei_day_boundary":{"enum":["midnight","late_zi"]},"ziwei_year_boundary":{"enum":["lunar_new_year","lichun"]},"ziwei_leap_adjust":{"type":"boolean"},"ziwei_algorithm":{"enum":["default","zhongzhou"]},"dayun_count":{"type":"integer","minimum":1,"maximum":12},"annual_count":{"type":"integer","minimum":1,"maximum":20}}}
   },
-  "$comment":"本程序还校验真实日期/时区/闰月、成年条件、干支阴阳/五虎遁/五鼠遁、年柱与公历年、端点先后/跨度、人物ID唯一、真太阳时经度、element_supply需用户显式五行及候选四柱。CLI --source-chart 导入前的请求不带self，导入后符合本schema。默认as_of禁止使用服务器日期。"
+  "$comment":"本程序还校验真实日期/时区/闰月、干支阴阳/五虎遁/五鼠遁、年柱与公历年、端点先后/跨度、人物ID唯一、真太阳时经度、element_supply需用户显式五行及候选四柱。CLI --source-chart 导入前的请求不带self，导入后符合本schema。默认as_of禁止使用服务器日期。"
 }

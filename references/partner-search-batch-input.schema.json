@@ -1,0 +1,20 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:suanming:partner-search-batch:input:v1",
+  "title":"批量假设日期查询输入（不是现实正缘预测）",
+  "type":"object","additionalProperties":false,
+  "required":["mode","self","as_of","search"],
+  "properties":{
+    "mode":{"const":"partner_search_batch"},
+    "label":{"type":"string","maxLength":80},"question":{"type":"string","maxLength":1000},
+    "self":{"$ref":"urn:suanming:partner-search:input:v1#/properties/self"},
+    "as_of":{"$ref":"urn:suanming:partner-search:input:v1#/$defs/date"},
+    "search":{"$ref":"urn:suanming:partner-search:input:v1#/properties/search/oneOf/1"},
+    "filters":{"$ref":"urn:suanming:partner-search:input:v1#/properties/filters"},
+    "partner_star_model":{"enum":["all","wealth","authority"],"default":"all"},
+    "ranking":{"enum":["monthly_top","global_top","all"],"default":"monthly_top"},
+    "candidate_year_branch":{"enum":["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]},
+    "candidate_pillars":{"type":"array","minItems":4,"maxItems":4,"items":{"type":"string","pattern":"^[甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]$"}}
+  },
+  "$comment":"所有URN仅本地Registry解析，不联网。程序校验真实日期与范围最多366日，内部按月拆成原引擎的<=31日任务。ranking和年支scope是明确摘要选择，不把any改all，不减少时辰采样。source-chart请求导入self后符合schema。"
+}

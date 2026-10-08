@@ -5,7 +5,7 @@
   "type":"object","additionalProperties":false,
   "required":["schema_version","engine_version","rule_version","input","self","coverage","candidates","unavailable","ordering","interpretation_scope","sources","selected_partner","probability","checksum"],
   "properties":{
-    "schema_version":{"const":"suanming-partner-search/v1"},"engine_version":{"const":"partner-search/1.0.0"},"rule_version":{"const":"partner-search-conditions/v1"},
+    "schema_version":{"const":"suanming-partner-search/v1"},"engine_version":{"const":"partner-search/1.0.1"},"rule_version":{"const":"partner-search-conditions/v1"},
     "input":{"$ref":"urn:suanming:partner-search:input:v1"},
     "self":{"type":"object","required":["source_kind","calendar_verified","birth_year","birth_date","pillars","spouse_star_occurrences","spouse_palace","age_cue","warnings"],"properties":{"source_kind":{"enum":["computed_birth","user_supplied_pillars"]},"calendar_verified":{"type":"boolean"},"birth_year":{"type":"integer"},"birth_date":{"type":["string","null"]},"pillars":{"type":"array","minItems":4,"maxItems":4},"spouse_star_occurrences":{"type":"array"},"age_cue":{"type":["object","null"]}}},
     "coverage":{"type":"object","required":["type","examined","accepted","underage_excluded","outside_year_gap","failed_conditions","excluded_relations","unavailable","scope","full_bazi_gender_placeholder"],"properties":{"type":{"enum":["years","dates","people"]},"examined":{"$ref":"#/$defs/count"},"accepted":{"$ref":"#/$defs/count"},"underage_excluded":{"$ref":"#/$defs/count"},"outside_year_gap":{"$ref":"#/$defs/count"},"failed_conditions":{"$ref":"#/$defs/count"},"excluded_relations":{"$ref":"#/$defs/count"},"unavailable":{"$ref":"#/$defs/count"},"scope":{"type":"string"}}},
@@ -24,5 +24,5 @@
     "count":{"type":"integer","minimum":0},
     "evaluation":{"type":"object","required":["passes_conditions","excluded_by_relations","matched_conditions","unmatched_conditions","matched_condition_count","candidate_anchor","zodiac_relation","self_to_candidate_anchor_ten_god","candidate_anchor_to_self_ten_god","anchor_relations","structural_relations","risk_relations","condition_references","missing_evidence","probability","confirmed_partner"],"properties":{"candidate_anchor":{"enum":["year_pillar_only","day_pillar"]},"passes_conditions":{"type":"boolean"},"matched_condition_count":{"$ref":"#/$defs/count"},"structural_relations":{"type":"array"},"risk_relations":{"type":"array"},"condition_references":{"type":"array"},"missing_evidence":{"type":"array"},"probability":{"type":"null"},"confirmed_partner":{"const":false}}}
   },
-  "$comment":"schema检验结构，校验和检验完整性，validateArtifact重新生成检验计算与筛选一致性；三者都不能证明命理预测或现实正缘身份。"
+  "$comment":"schema检验结构，校验和检验完整性，validateArtifact重新生成检验计算与筛选一致性；三者都不能证明命理预测或现实正缘身份。partner-search/1.0.1取消所有成年校验，保留字段结构：underage_excluded不再计入年龄排除，eligible_birth_interval不再按成年日期截短。旧1.0.0产物不能当作新引擎产物使用。"
 }

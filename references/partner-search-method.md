@@ -1,12 +1,14 @@
-# V1.3.0 正缘候选筛选
+# V1.3.8 正缘候选筛选
 
-只在用户问“可能哪年生、什么属相/八字、按本人八字筛选候选”时读取。本模块把明确结构条件投射到用户指定范围，实际枚举并筛选，不是从本人八字唯一反解现实配偶生日。同一条件可命中多人、多日期；空结果只表示本次范围/条件无命中，不意味着没有正缘。
+V1.3.7：全年／跨月或“逐月查哪些日期”优先使用[批量日期查询](partner-search-batch-method.md)，一次调用、按日期汇总。以下原单任务输入、计算、31天上限、分页与报告保持不变；不要为缩短输出把any擅自改成all，也不要用第一页几个时刻代表整天。
+
+只在用户问“可能哪年生、什么属相/八字、按本人八字筛选候选”时读取。本模块支持从本人八字提炼适配假设、对应候选年份并实际枚举日期，不把结果表述为唯一现实配偶生日。用户说“推正缘八字再对应年份”时按[条件规划与年份映射](partner-search-plan-method.md)执行，不因无法认证身份而整体拒绝。同一条件可命中多人、多日期；空结果只表示本次范围/条件无命中，不意味着没有正缘。
 
 ## 输入与范围
 
 本人完整生辰沿用[原输入口径](input-schema.md)，农历核对闰月，时间未知先走原时辰对照，不能选“最优”时辰当事实。也可提供按年月日时排列的四柱及公历出生年：程序检查干支阴阳、五虎遁、五鼠遁、年柱周期，但不声称验证了真实生日，不由四柱补造紫微盘。
 
-as_of 必填客户端本次参考日期，不取服务器当前年。仅此新增婚配筛选要求成年，原排盘范围不变。本人有日期时检查已过18岁生日；仅报出生年时要求年份差至少19。人物候选检查实际日期；年份周期只展示已成年日期部分。
+as_of 必填客户端本次参考日期，不取服务器当前年。V1.3.6仅取消所有成年校验：本人生日、本人四柱＋出生年、年份／日期／人物候选均不按年龄拒绝、排除或截短。其他范围、结构条件与排序不变。保留原字段名：underage_excluded为未执行年龄排除的0，eligible_birth_interval为完整立春周期；引擎标识改为partner-search/1.0.1以区分旧语义，旧候选产物需用原输入在新目录重算。
 
 | 搜索 | 实际计算 | 未知或不能推出 |
 | --- | --- | --- |
@@ -20,7 +22,7 @@ dates 一次最多31天。默认 unknown 沿用原时辰对照的钟表换日、
 
 people 一次1–20人，id 用不重复匿名字母数字连字符；未知时间先对照而不是补造。
 
-机器契约：[输入JSON schema](partner-search-input.schema.json)、[完整结果JSON schema](partner-search-output.schema.json)。两份Draft2020-12 schema按各自$id在本地Registry注册，输出用输入URN引用，无联网取schema。程序另校验真实日期/时区/闰月、干支合法性、端点跨度、成年范围及checksum。合成示例：[年份](../examples/partner-search/years.json)、[日期](../examples/partner-search/dates.json)、[人物](../examples/partner-search/people.json)、[四柱](../examples/partner-search/pillars.json)，不是用户资料。
+机器契约：[输入JSON schema](partner-search-input.schema.json)、[完整结果JSON schema](partner-search-output.schema.json)。两份Draft2020-12 schema按各自$id在本地Registry注册，输出用输入URN引用，无联网取schema。程序另校验真实日期/时区/闰月、干支合法性、端点跨度及checksum。合成示例：[年份](../examples/partner-search/years.json)、[日期](../examples/partner-search/dates.json)、[人物](../examples/partner-search/people.json)、[四柱](../examples/partner-search/pillars.json)，不是用户资料。
 
 ## 筛选条件与辅助线索
 
@@ -65,12 +67,12 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --agent --reuse /workspace/bazi-ziwei-re
 sh /skills/bazi-ziwei/scripts/mobile.sh --agent --reuse /workspace/bazi-ziwei-reports/partner-001/chart.json --partner-search --candidate PSY-1997
 ```
 
-用实际 next_offset / next_actions 翻页，--candidate 用本任务ID展开命中、未命中、出处和全部关系。报告只在明确要求时 --report。同目录不同搜索输入拒绝；改范围、筛选、本人或口径开新任务。缓存核对字节、checksum、版本指纹，失效完整重算；独立receipt不削弱旧缓存。
+用实际 next_offset / next_actions 翻页，--candidate 用本任务ID展开命中、未命中、出处和全部关系。报告只在明确要求时 --report；工具模板和模型整理报告均不加入年龄排除或成年限制的模板表述，保留用户原题、正常年龄倾向及无法计算采样点说明。同目录不同搜索输入拒绝；改范围、筛选、本人或口径开新任务。缓存核对字节、checksum、版本指纹，失效完整重算；独立receipt不削弱旧缓存。
 
 已有明确旧chart时可省略本次JSON的 self，加 --source-chart 原盘路径；双人盘必须 --source-person a/b。导入前完整核验原盘，复用原生辰，原文件不改。time_compare 不自动挑候选；忘记路径请用户明确选择，不自动取最新命盘。
 
 ## 验收
 
-原计算、旧CLI、知识/来源/依赖按冻结基线逐字节校验；旧计算14组、投影85个、报告/导出13种和93主题全文实际跨版本对照。专项测试覆盖十二生肖、立春秒级/海外时区、成年截断、ALL/ANY、同时合破/三字齐全、明确时间/未知采样/真太阳时/DST、四柱/模型/边界、伪造checksum、缓存/分页/原盘导入/锁/临时清理/报告。发布解包再用手机入口跑三种搜索并复用。V1.3.0安装包的手机实测由用户于2026-10-07确认；后续升级保留旧包及任务再复核。
+原计算、旧CLI、知识/来源/依赖按冻结基线逐字节校验；旧计算14组、投影85个、报告/导出13种和93主题全文实际跨版本对照。专项测试覆盖十二生肖、立春秒级/海外时区、取消全部成年校验、ALL/ANY、同时合破/三字齐全、明确时间/未知采样/真太阳时/DST、四柱/模型/边界、伪造checksum、缓存/分页/原盘导入/锁/临时清理/报告。发布解包再用手机入口跑三种搜索并复用。V1.3.0安装包的手机实测由用户于2026-10-07确认；后续升级保留旧包及任务再复核。
 
 V1.3.1入口约定：新建partner-search必须指定--out独立任务目录。next_actions中reuse的argv可直接传给scripts/mobile.sh，内含--reuse、--partner-search、offset、limit及适用candidate；逐参数安全引用，不将数组内容作为shell代码。

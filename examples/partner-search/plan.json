@@ -1,0 +1,8 @@
+{
+  "mode":"partner_search_plan",
+  "self":{"birth":{"calendar":"solar","date":"1996-06-15","time":"12:00","gender":"male","timezone":"Asia/Shanghai"}},
+  "as_of":"2026-10-08",
+  "search":{"type":"years","year_range":[1997,1997]},
+  "partner_star_model":"all",
+  "filters":{"match":"any","year_gap":[-12,12]}
+}

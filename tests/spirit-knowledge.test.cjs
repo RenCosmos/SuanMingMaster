@@ -57,7 +57,8 @@ test('新卡真实CLI不要求生辰且不写临时查询、排盘或报告',()=
 });
 test('知识基线包含全部新卡和目录且每个冻结文件的字节摘要一致',()=>{
  const baseline=require('../tools/knowledge-baseline.json');
- for(const t of catalog.topics)assert.equal(baseline[t.path],t.sha256);
+ const reviewed=require('../tools/reviewed-changes-v1.3.1.json').files;
+ for(const t of catalog.topics)assert.equal(reviewed[t.path]?.new_sha256??baseline[t.path],t.sha256);
  assert.ok(baseline['references/knowledge/spirit/catalog.json']);assert.ok(baseline['references/spirit-library-index.md']);
- for(const [file,sha] of Object.entries(baseline))assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex'),sha,file);
+ for(const [file,sha] of Object.entries(baseline)){const amendment=reviewed[file];if(amendment)assert.equal(amendment.old_sha256,sha);assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex'),amendment?.new_sha256??sha,file);}
 });

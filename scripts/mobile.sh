@@ -19,7 +19,7 @@ if [ "$temp_requested" -eq 1 ]; then
   temp_input=$temp_parent/$temp_name
   case "$temp_input" in "$skill_dir"/*) printf '%s\n' '{"ok":false,"error":"技能包资源不能标记为临时输入"}' >&2; exit 2 ;; esac
   temp_lower=$(printf '%s' "$temp_name" | tr '[:upper:]' '[:lower:]')
-  case "$temp_lower" in chart.json|context.json|brief.json|validation.json|comparison.json|report.md|report.html|reading.md|shuwen.txt|shuwen.html)
+  case "$temp_lower" in chart.json|batch.json|context.json|brief.json|validation.json|comparison.json|report.md|report.html|reading.md|shuwen.txt|shuwen.html)
     printf '%s\n' '{"ok":false,"error":"结果文件不能标记为临时输入"}' >&2; exit 2 ;;
   esac
   if [ -L "$temp_input" ] || { [ -e "$temp_input" ] && [ ! -f "$temp_input" ]; }; then

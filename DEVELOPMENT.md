@@ -1,30 +1,58 @@
 # 开发与发布
 
-版本以package.json为准；构建工具生成相关版本标签及验证记录。Node24、Python3、packageManager指定版本的pnpm为开发环境，运行时仍支持Node20+。pnpm-workspace.yaml配置扁平且无符号链接的依赖目录，确保ZIP解压后可独立运行；.npmrc仅用于旧版pnpm兼容。
+当前唯一源码在项目根目录，版本以 package.json 为准；不要再按版本复制展开源码。发布物放 releases/v版本号，历史恢复包放 archive，兼容测试夹具放 tools/baselines。
 
-```sh
+开发环境仍使用 Node24、Python3 和 packageManager 指定的 pnpm；运行时支持 Node20+。pnpm-workspace.yaml 保持扁平、无链接依赖，安装包携带已验证运行依赖。安装依赖只在首次准备环境或锁文件变更时进行：
+
+~~~sh
 corepack pnpm install --frozen-lockfile --ignore-scripts
-corepack pnpm test
+~~~
+
+## 日常：按改动选择，不跑全套
+
+| 修改范围 | 验证方式 |
+| --- | --- |
+| 纯文档、口吻、目录说明 | git diff --check，核对相关链接/结构；不重算整盘或全年候选 |
+| 移动源码、换运行环境 | npm run check：一次12组关键自检，加文件摘要对照 |
+| 改动实际功能 | 仅运行对应 tests/*.test.cjs，必要时补关键自检 |
+| 正式发布 | release.py 一次完成全量回归、schema、兼容与解包验收 |
+
+专项示例（选择本次相关项，不要全部复制执行）：
+
+~~~sh
+node --test tests/knowledge-context.test.cjs
+node --test tests/partner-search-plan.test.cjs tests/partner-search-batch.test.cjs
+~~~
+
+完整测试文件和所有用例保留；npm test 仍是全量入口，不作为日常默认。npm run test:critical 是含故障注入的开发关键回归，区别于12组运行自检。不要同一轮先跑 npm test 再跑完整 release.py；正式发布直接由构建工具跑一次全套即可。失败修复后只补跑受影响项；最终发布按风险完成一次最终验收，不反复运行无变化的用例。
+
+普通 push / pull_request 的本地 CI 配置只做12组关键自检；手动 workflow_dispatch 或 v 开头的标签才进入完整发布验收，并取消同一分支已过时的运行。本次只是本地配置调整，没有触发或上传 GitHub。
+
+Windows旧Git基线与保留的原文件可能存在CRLF差异；此时使用 git -c core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol diff --check，保留其他空白检查，不改写冻结文件。
+
+手机包不含 tests/，npm test / test:critical 仍明确退出2，提示使用 npm run check；不让0 tests冒充成功。正式发布日志与日常检查分开记录，不将历史通过结果或关键自检称为本轮全量回归。
+
+## 正式发布：一次完整构建
+
+首次配置独立开发环境时安装 schema 验证依赖，随后运行一次构建：
+
+~~~sh
 python -m pip install -r tools/schema-validation-requirements.txt
-python tools/release.py --out ../release --schema-validation
-```
+python tools/release.py --out releases/v1.3.9 --schema-validation
+~~~
 
-Windows可通过--node指定node.exe、--sh指定Git sh.exe。所有开发测试留在源码；手机包仅携带运行代码、知识、使用资料、必要示例和12组关键自检。输出目录须在源码目录之外。
+发布下个版本时先按用户要求更新版本，再替换输出目录。输出允许在源码外或专用 releases/ 内；archive、releases、Git 元数据、个人任务输出和开发缓存不进入源码/安装包，AGENTS.md 与全部 tests/tools 只进源码包。Windows 可用 --node 指定 node.exe、--sh 指定 Git sh.exe；开发测试需要 sh 时使用同一环境和可用 PATH。
 
-release.py直接运行当前测试并检查退出码，拒绝失败/跳过；逐字节查核知识基线，生成安装ZIP及不含node_modules的源码ZIP，检查归档与本地链接，然后从安装ZIP解包做自检、临时输入清理和缓存复用验收。验证结果在release-validation.json，测试日志在构建输出目录。GitHub Actions调用同一构建命令。
+构建工具完整运行开发用例并拒绝失败、跳过或取消；生成安装ZIP、源码ZIP、SHA256SUMS.txt、test-output.txt 与 release-validation.json，并从安装ZIP解包验收实际工具入口、临时清理、缓存和分页。手机实测仍单独记录，不继承旧版确认。构建和测试不自动提交或上传。
 
-新增或更新知识时，明确审查来源/许可和正文后更新tools/knowledge-baseline.json；常规代码修复无需改该基线。tools/runtime-dependency-baseline.json保留已验证的运行依赖文件及哈希，生成手机包时按清单选取，排除包管理器本机路径元数据、重复缓存和开发声明文件。更新依赖时需复核该清单与冻结锁文件，再做解包验证。构建工具不自行上传，测试通过后再发布下载文件。
+## 知识、依赖与兼容基准
 
-V1.2.5新增tools/compatibility-baseline-v1.2.4.json与verify-compatibility.cjs：冻结78份引擎/旧CLI/报告/方法/示例/基线文件，并复验原113份知识、435份运行依赖。构建时若仓库保留已核SHA的V1.2.4安装ZIP，会安全解包并进行跨版本14组计算、85个主题投影、13种报告/导出和93主题全文对照；没有旧ZIP时明确只报告字节保护，不冒称已执行跨版本对照。源码ZIP不含历史安装ZIP，可从已发布版本取得旧包完成同样验收。
+tools/knowledge-baseline.json、tools/compatibility-baseline-v1.2.4.json 和 tools/runtime-dependency-baseline.json 保持冻结。必要文案或代码修复在 tools/reviewed-changes-v1.3.1.json 记录明确旧/新SHA及理由；宗教句子仅允许逐句审定替换，不跳过其他正文、来源或字段。113份知识基线、435份固定依赖继续校验；概念卡各自目录与摘要保持完整。
 
-五份references/rikkahub-native概览由tools/native-knowledge.cjs的只读渲染函数派生；测试逐字核对目录、来源及推断限制并限制每页包装后28KiB内。它们是无运行时增补，不覆盖原目录、原文或检索。更新生成页仍须用正常文件编辑流程，生成器本身不写文件。
+tools/baselines 中保留 V1.2.4 / V1.2.5 / V1.3.0 的三个固定SHA安装ZIP，仅作真实兼容夹具，不是活跃开发版本。构建优先读取此处，仍兼容以前根目录的基准位置。完整发布继续进行14组计算、85个投影、13种报告/导出、原93主题和旧命盘重验；基准缺失时明确记录未执行，不伪装通过。
 
-V1.3.0的候选筛选保持独立模块、规则及schema，不扩写冻结原计算层。examples/partner-search子目录存合成输入，不加入旧顶层接口回归集合。持有V1.2.5安装ZIP时构建另核固定SHA并做相同跨版本验收，逐字检查该版原脚本（仅workflow允许分派增补）与五份原生概览；没有旧包明确记录未执行，不修改基线放行。解包验收使用mobile --agent入口实际运行years/dates/people、分页及缓存。升级新功能的详细验收范围见专项方法和tests/partner-search.test.cjs。
+五份 references/rikkahub-native 概览继续由 tools/native-knowledge.cjs 只读派生，保持主题、来源、限制和包装预算，不替代正文全集。schema 验证器仅供开发/CI，引用使用本地Registry，不联网解析，也不进入手机包。
 
-schema校验器只用于开发/CI（可安装在独立虚拟环境或测试目录），不改变Node运行依赖，不进手机包。--schema-validation用独立Draft2020-12实现检查两份schema、四类原始/归一化输入及完整输出，并验证概率和年份补造四柱被拒绝。输入schema按其URN在本地Registry注册，绝不联网解析引用；未启用该选项时结构化结果明确performed=false，不冒称已独立校验。
+## 恢复
 
-V1.3.1的开发测试使用scripts/test-runner.cjs，显式枚举测试文件；没有tests或缺关键测试时退出码2，不显示0 tests成功。手机安装包只运行npm run check的12组关键自检；开发完整回归仍在源码。原296项用例保留，新增反馈回归；旧主题计数断言明确排除新4卡，继续保护原93主题。
-
-本次必要代码修复以tools/reviewed-changes-v1.3.1.json单独记录基于V1.3.0提交的旧/新SHA和理由；不重写冻结V1.2.4知识或依赖基线。跨版本比较只允许新增年界标签（旧盘缺失时重算嵌套摘要）及精确报告标签差异，其他计算与旧字段严格保留；实际旧命盘也验证。V1.3.0安装ZIP有固定SHA时增加该版本对照。四卡有独立目录与哈希，不改旧93主题；双人共同context仅共用新增年界说明，保留双方原字段及预算。详见[反馈记录](references/feedback-v1.3.1.md)。
-
-V1.3.5汇集后续反馈修复，保持计算层与原97主题正文不变，新增六爻六卡和有界疏文投影；兼容审定清单沿用历史文件名tools/reviewed-changes-v1.3.1.json，其release字段同步为当前版本。构建额外核验完整shell包装、古籍检索、合盘comparison可达性与长疏文逐页还原。旧安装ZIP保留作真实回归基线，手机验收不继承历史确认。
+工作区整理前的全部旧源码、未提交修改及历史发布物已放 archive/cleanup-2026-10-09，附逐项SHA清单。恢复时按清单选定版本到临时目录，不直接覆盖当前源码，也不要运行归档内含旧绝对路径的维护脚本。主Git历史保留；本次减少的是日常测试次数，不删除功能、知识或开发用例。

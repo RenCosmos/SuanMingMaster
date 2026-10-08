@@ -9,7 +9,7 @@ function actualPath(file){
 }
 function samePath(a,b){return process.platform==='win32'?a.toLowerCase()===b.toLowerCase():a===b;}
 function inside(file,root){const rel=path.relative(root,file);return rel===''||(!path.isAbsolute(rel)&&rel!=='..'&&!rel.startsWith('..'+path.sep));}
-function identity(file){try{const s=fs.statSync(file);return {dev:s.dev,ino:s.ino};}catch(e){if(e.code==='ENOENT')return null;throw e;}}
+function identity(file){try{const s=fs.statSync(file,{bigint:true});return {dev:s.dev,ino:s.ino};}catch(e){if(e.code==='ENOENT')return null;throw e;}}
 function assertOutputs(source,targets){
  const realSource=source?actualPath(source):null,sourceStat=source?identity(source):null;
  for(const target of targets){

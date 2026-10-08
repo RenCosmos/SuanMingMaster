@@ -2,7 +2,7 @@
 // 只依赖 Node 内置模块，计算依赖加载失败时也能清理已交给本次调用的临时输入。
 const fs=require('node:fs'),path=require('node:path');
 const ROOT=fs.realpathSync(path.resolve(__dirname,'..'));
-const RESULTS=new Set(['chart.json','context.json','brief.json','validation.json','comparison.json','report.md','report.html','reading.md','shuwen.txt','shuwen.html']);
+const RESULTS=new Set(['chart.json','batch.json','context.json','brief.json','validation.json','comparison.json','report.md','report.html','reading.md','shuwen.txt','shuwen.html']);
 function fail(message,code='input_error'){const e=new Error(message);e.code=code;throw e;}
 function inside(file,root){const rel=path.relative(root,file);return rel===''||(!path.isAbsolute(rel)&&rel!=='..'&&!rel.startsWith('..'+path.sep));}
 function prepare(file){

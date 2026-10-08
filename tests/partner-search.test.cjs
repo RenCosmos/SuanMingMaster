@@ -46,10 +46,10 @@ test('year labels are precise Lichun instants including seconds, not Jan 1 or lu
 test('Lichun cycle boundaries retain the same instant in overseas timezone',()=>{
  const i=input();i.search.timezone='America/New_York';const c=search.build(i).candidates[0];assert.equal(Temporal.ZonedDateTime.from(c.interval.start).epochNanoseconds,search.lichun(1997).epochNanoseconds);assert.ok(c.interval.start.includes('America/New_York'));
 });
-test('adult cutoff clips the last eligible year cycle and excludes later cycles',()=>{
+test('year candidates are not age-excluded or truncated at an adult cutoff',()=>{
  const i=input();i.search.year_range=[2008,2010];i.filters.conditions=['partner_star_projection'];i.filters.match='any';i.filters.year_gap=[-100,100];const d=search.build(i);
- assert.equal(d.coverage.underage_excluded,2);for(const c of d.candidates)assert.equal(c.eligible_birth_interval.end_exclusive,'2008-10-07T00:00:00+08:00[Asia/Shanghai]');
- const young=input();young.self.birth= birth('2010-01-01');assert.throws(()=>search.build(young),/成年/);
+ assert.equal(d.coverage.examined,3);assert.equal(d.coverage.underage_excluded,0);assert.ok(d.candidates.length>0);for(const c of d.candidates)assert.deepEqual(c.eligible_birth_interval,{start:c.interval.start,end_exclusive:c.interval.end_exclusive});
+ const young=input();young.self.birth=birth('2010-01-01');const result=search.build(young);assert.equal(result.self.birth_date,'2010-01-01');assert.equal(search.validateArtifact(result),result.checksum.value);
 });
 test('year-stem projection explicitly differs from unknown candidate day master',()=>{
  for(const c of years.candidates){assert.equal(c.evaluation.candidate_anchor,'year_pillar_only');assert.ok(c.evaluation.missing_evidence.join('').includes('不是对方日主'));}
@@ -103,9 +103,24 @@ test('manual four-pillar input is validated but never assigned a made-up birthda
  const i=input();i.self={pillars:['丙子','甲午','癸未','戊午'],birth_year:1996};const d=search.build(i);assert.equal(d.self.calendar_verified,false);assert.equal(d.self.birth_date,null);assert.equal(d.self.age_cue,null);assert.deepEqual(d.self.pillars.map(p=>p.ganzhi),years.self.pillars.map(p=>p.ganzhi));assert.deepEqual(d.candidates.map(c=>c.id),years.candidates.map(c=>c.id));
  i.self.pillars[1]='丙午';assert.throws(()=>search.build(i),/五虎遁/);i.self.pillars[1]='甲午';i.self.pillars[3]='甲午';assert.throws(()=>search.build(i),/五鼠遁/);
 });
-test('manual year metadata accepts early-year prior cycle but rejects impossible cycle and uncertain adulthood',()=>{
+test('manual year metadata still rejects impossible cycles but has no adult-year gate',()=>{
  const i=input();i.self={pillars:['丙子','甲午','癸未','戊午'],birth_year:1997};assert.equal(search.normalizeInput(i).self.birth_year,1997);
- i.self.birth_year=2000;assert.throws(()=>search.normalizeInput(i),/年柱不符/);i.self.birth_year=1996;i.as_of='2014-12-31';assert.throws(()=>search.normalizeInput(i),/18岁/);
+ i.self.birth_year=2000;assert.throws(()=>search.normalizeInput(i),/年柱不符/);i.self.birth_year=1996;i.as_of='2014-12-31';assert.equal(search.normalizeInput(i).self.birth_year,1996);
+});
+test('young self birth and equivalent four pillars produce the same candidates',()=>{
+ const i=input();i.self.birth=birth('2010-01-01');i.filters.year_gap=[-100,100];const fromBirth=search.build(i);
+ i.self={pillars:fromBirth.self.pillars.map(p=>p.ganzhi),birth_year:2010};const fromPillars=search.build(i);
+ assert.deepEqual(fromPillars.candidates,fromBirth.candidates);assert.deepEqual(fromPillars.coverage,fromBirth.coverage);assert.equal(search.validateArtifact(fromPillars),fromPillars.checksum.value);
+});
+test('recent date and person candidates obey conditions without adult exclusions',()=>{
+ const i=input();i.filters={conditions:['zodiac_affinity'],match:'all',year_gap:[-100,100]};i.search={type:'dates',start:'2009-06-01',end:'2009-06-02',time_uncertainty:{type:'candidates',times:['09:00']}};
+ const dates=search.build(i);assert.equal(dates.coverage.examined,2);assert.equal(dates.coverage.underage_excluded,0);assert.equal(dates.candidates.length,2);assert.equal(search.validateArtifact(dates),dates.checksum.value);
+ i.search={type:'people',people:[{id:'young-synthetic',birth:birth('2009-06-01','09:00')}]};const people=search.build(i);assert.equal(people.coverage.examined,1);assert.equal(people.coverage.underage_excluded,0);assert.equal(people.candidates[0].person_id,'young-synthetic');assert.equal(search.validateArtifact(people),people.checksum.value);
+ i.filters.year_gap=[-2,2];const excluded=search.build(i);assert.equal(excluded.candidates.length,0);assert.equal(excluded.coverage.outside_year_gap,1);
+});
+test('direct artifact validation rejects old engine semantics even with a valid checksum',()=>{
+ const d=structuredClone(years);assert.equal(d.engine_version,'partner-search/1.0.1');d.engine_version='partner-search/1.0.0';const {checksum,...payload}=d;d.checksum.value=digest(payload);
+ assert.throws(()=>search.integrity(d),/不支持的候选筛选版本/);assert.throws(()=>search.validateArtifact(d),/不支持的候选筛选版本/);
 });
 test('existing Ziwei age cue is auxiliary only and is not converted into an exact age gap',()=>{
  const i=input();i.self.chart_mode='both';const d=search.build(i);assert.ok(d.self.age_cue);assert.deepEqual(d.candidates.map(c=>c.id),years.candidates.map(c=>c.id));for(const c of d.candidates)if(typeof c.age_cue_alignment==='object')assert.equal(c.age_cue_alignment.use,'auxiliary_display_only_not_filter_or_probability');
@@ -146,6 +161,15 @@ test('stdin produces no retained raw input, temporary inputs clean up on success
 test('mobile --agent entry routes new mode while temporary option stays first',()=>{
  const sh=process.env.SUANMING_TEST_SH??(process.platform==='win32'?undefined:'sh');assert.ok(sh,'Set SUANMING_TEST_SH on Windows');const f=write('shell-temp-input.json',input()),task=path.join(temporary,'shell');
  const r=cp.spawnSync(sh,[path.join(root,'scripts/mobile.sh'),'--agent','--temp-input',f,'--partner-search','--out',task],{encoding:'utf8',env:{...process.env,PATH:[path.dirname(process.execPath),path.dirname(sh),process.env.PATH].join(path.delimiter)}});assert.equal(r.status,0,r.stderr);assert.equal(JSON.parse(r.stdout).adapter_id,'partner_search');assert.equal(fs.existsSync(f),false);
+});
+test('mobile entry accepts young self through both birth and four-pillar inputs',()=>{
+ const sh=process.env.SUANMING_TEST_SH??(process.platform==='win32'?undefined:'sh');assert.ok(sh,'Set SUANMING_TEST_SH on Windows');
+ const i=input();i.self.birth=birth('2008-06-15');i.search={type:'people',people:[{id:'young-synthetic',birth:birth('2009-06-01','09:00')}]};i.filters={conditions:['zodiac_affinity'],match:'all',year_gap:[-100,100]};
+ const facts=search.build(i);for(const type of ['birth','pillars']){
+  const raw=structuredClone(i);if(type==='pillars')raw.self={pillars:facts.self.pillars.map(p=>p.ganzhi),birth_year:2008};
+  const r=cp.spawnSync(sh,[path.join(root,'scripts/mobile.sh'),'--agent','--stdin','--partner-search','--out',path.join(temporary,'young-'+type)],{encoding:'utf8',input:JSON.stringify(raw),env:{...process.env,PATH:[path.dirname(process.execPath),path.dirname(sh),process.env.PATH].join(path.delimiter)}});
+  assert.equal(r.status,0,r.stderr);const out=JSON.parse(r.stdout);assert.equal(out.validation.ok,true);assert.equal(out.context.candidates.items[0].person_id,'young-synthetic');limited(out);
+ }
 });
 test('source-chart imports verified existing birth without overwriting chart or old output',()=>{
  const old=core.buildAndValidate(fixture('input.json')).data,file=write('original-chart.json',old),bytes=fs.readFileSync(file),i=input();delete i.self;

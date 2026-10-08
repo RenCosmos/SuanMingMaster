@@ -1,4 +1,4 @@
-# 工作流细则 · V1.3.5
+# 工作流细则 · V1.4.0
 
 按需查阅的输入与续读细则。通用调用、状态核对、输出预算、来源边界和隐私统一以 [主流程](../SKILL.md) 为准；本页不另设角色或重复系统提示词。
 
@@ -28,7 +28,7 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --reuse /workspace/bazi-ziwei-reports/TA
 
 --years只筛选已有流年。年度标签是立春周期，不等于单次target_date；requested_range_computed=false时，核对原输入、调整target_date/annual_count并在新目录补算。annual_count初次输入支持1–20，不能用空页断为没有机会。超过页容量按返回next_offset继续，合并同一task_id/source_checksum的页面。
 
-next_actions至多3条，不覆盖全部可选展开方式。reuse的argv是完整mobile.sh参数；new_calculation没有可执行argv，不能自动选择人物或输入。时辰用field_index/status判断一致与分歧，--field TC-…与--variant-offset N展开变体，--candidate TC-001展开候选；一致项只在coverage范围成立，不认定最佳时辰。
+普通排盘next_actions至多3条，不覆盖全部可选展开方式。reuse的argv是完整mobile.sh参数；普通new_calculation没有可执行argv，不能自动选择人物或输入。V1.3.8规划入口明确返回new_calculation的argv及input，按本次已选人物/范围把input作为stdin执行，详见[规划方法](partner-search-plan-method.md)。时辰用field_index/status判断一致与分歧，--field TC-…与--variant-offset N展开变体，--candidate TC-001展开候选；一致项只在coverage范围成立，不认定最佳时辰。
 
 双人看reading.warnings的person_ids区分来源。people_page先补另一人，随后补comparison及其分页；专门入口和完成标记见[分页契约](workflow-architecture.md)。不能将两个人的单盘页当作跨盘证据。
 

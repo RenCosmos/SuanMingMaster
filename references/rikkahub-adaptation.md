@@ -59,4 +59,4 @@ V1.3.0安装包已由用户于2026-10-07确认完成手机实测。以下清单�
 
 ## V1.3.1调用修复
 
-新建候选筛选：--agent --stdin --partner-search --out TASK。reuse动作增加entrypoint和argv，argv为mobile.sh完整参数数组（包含明确chart路径与全部筛选）；不要重新组装或eval。new_calculation无argv，不自动选输入/目录。原12组自检和输出预算保留，npm test在手机包明确失败提示缺开发测试；npm run check是关键自检而非完整回归。V1.3.1原97主题保留；V1.3.5加入六张六爻概念卡，共103主题。历史V1.3.0手机确认不继承为当前版本手机实测。
+新建候选筛选：--agent --stdin --partner-search --out TASK。reuse动作增加entrypoint和argv，argv为mobile.sh完整参数数组（包含明确chart路径与全部筛选）；不要重新组装或eval。普通new_calculation无argv，不自动选输入/目录；V1.3.8[规划入口](partner-search-plan-method.md)返回完整argv及明确input，把input作为stdin执行本次已选范围的候选查询。原12组自检和输出预算保留，npm test在手机包明确失败提示缺开发测试；npm run check是关键自检而非完整回归。V1.3.1原97主题保留；V1.3.5加入六张六爻概念卡，共103主题。历史V1.3.0手机确认不继承为当前版本手机实测。

@@ -1,6 +1,6 @@
 {
   "version": "spirit-knowledge/v1",
-  "revision": "2026-10-06-religion.1",
+  "revision": "2026-10-09-religion-tone.2",
   "expected_topics": 8,
   "expected_sources": 7,
   "scope": "宗教原典、宗教文化研究与官方民俗说明；不增加排盘或个人超自然身份判定",
@@ -75,7 +75,7 @@
       "locator": "2026-08-27新闻正文：中元来源、地方祭典及祭祀建议",
       "access_method": "official_page_text",
       "accessed_on": "2026-10-06",
-      "verification_limit": "官方文化说明限于台湾中元普度及所列地方例子，不作超自然存在认证",
+      "verification_limit": "官方文化说明限于台湾中元普度及所列地方例子",
       "adoption": "原创摘要与外链，不复制新闻全文或图片",
       "copyright_note": "网页及图片权利依来源网站声明；本项目只整理简要摘要，不将项目许可扩展至来源网页"
     },
@@ -103,7 +103,7 @@
       "url": "https://idv.sinica.edu.tw/jcting/essay/2020L.pdf", "locator": "印刷页77–81",
       "access_method": "pdf_text_layer", "copyright_note": "原创摘要与定位，论文权利属原权利人",
       "inference_limits": ["不能认证个人身边的鬼神身份", "不把地方研究写成佛道统一教义"],
-      "path": "references/knowledge/spirit/cards/spirit-human-ghosts.md", "sha256": "4b2c6a78e43baa5db5a5aa7637d241c12ef73c46429fe2fac81be1fd6174a551", "program_supported": false
+      "path": "references/knowledge/spirit/cards/spirit-human-ghosts.md", "sha256": "80691009b913648e26a189284c4c06d1f2ea64deb93dc5efcff751ffd4987f30", "program_supported": false
     },
     {
       "id": "SG-02", "slug": "spirit-dizang-ghost-kings", "name": "遇鬼、鬼王与护念：《地藏经》",
@@ -130,8 +130,8 @@
       "book": "妙法莲华经", "chapter": "卷七陀罗尼品第二十六", "locator": "T09n0262：0059a14–29；0059b20–27",
       "access_method": "raw_tei_text", "original_excerpt": "我等亦欲擁護讀誦受持法華經者，除其衰患。",
       "copyright_note": "古代短句与原创摘要，不再分发CBETA XML；数字版权利见https://cbeta.org/copyright",
-      "inference_limits": ["不凭命盘确认个人护法身份", "不把经文愿文变成免灾实证保证", "不替其他宗派拼造护法谱系"],
-      "path": "references/knowledge/spirit/cards/spirit-buddhist-protectors.md", "sha256": "570abb4ce3ddc45e8092eed1e26d6d1c3e6cdaab1bc4347b6a67e5ae09c6cf07", "program_supported": false
+      "inference_limits": ["不凭命盘确认个人护法身份", "不把经文愿文变成个人免灾保证", "不替其他宗派拼造护法谱系"],
+      "path": "references/knowledge/spirit/cards/spirit-buddhist-protectors.md", "sha256": "6434b215fcea6977b2bab82a1ed0ff2a80ba04ac77c36c8b922cc7b4716fa208", "program_supported": false
     },
     {
       "id": "SG-04", "slug": "spirit-rebirth-kinship", "name": "轮回、宿世亲缘与前世身份",
@@ -174,15 +174,15 @@
     },
     {
       "id": "SG-07", "slug": "spirit-zhongyuan-pudu", "name": "中元普度、无祀亡魂与大士爷",
-      "subtitle": "佛道观念与台湾地方祭祀，官方文化说明不等于鬼魂认证",
+      "subtitle": "佛道观念与台湾地方祭祀，保留中元普度的地方文化语境",
       "tags": ["中元", "普度", "普渡", "无祀亡魂", "大士爷", "地官", "道教"],
       "aliases": ["中元", "普度", "普渡", "好兄弟", "无祀亡魂", "大士爷", "大士爺", "地官赦罪"],
       "kind": "official_religious_culture_statement", "tradition": "台湾中元民俗中的佛道融合", "evidence_scope": "official_custom_description",
       "source_ids": ["SG-S06"], "publisher": "台湾内政部宗教及礼制司",
       "url": "https://www.moi.gov.tw/News_Content.aspx?n=2&s=340538", "locator": "2026-08-27正文中元来源、地方祭典及祭祀建议",
       "access_method": "official_page_text", "copyright_note": "原创摘要与外链；不复制网页全文及图片",
-      "inference_limits": ["不把地方祭俗写成普遍禁令", "政府文化说明不认证鬼魂存在或个人遭遇"],
-      "path": "references/knowledge/spirit/cards/spirit-zhongyuan-pudu.md", "sha256": "5b94fc7141392c508bbf6b50c395cb60ecbce4ebe9aa87f554e82f7859099570", "program_supported": false
+      "inference_limits": ["不把地方祭俗写成普遍禁令", "不据文化说明判定个人遭遇"],
+      "path": "references/knowledge/spirit/cards/spirit-zhongyuan-pudu.md", "sha256": "50676c207a03a26ecaa25769515cf1567e8d2e9670cc1de559427aa34029ed5a", "program_supported": false
     },
     {
       "id": "SG-08", "slug": "spirit-ghost-marriage", "name": "冥婚、人鬼婚姻与祭祀归属",

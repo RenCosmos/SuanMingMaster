@@ -9,7 +9,7 @@ const gridEngine=require('./time-compare.cjs');
 const RULES=require('../references/partner-search-rules.json');
 const IMAGE=require('../references/partner-image-rules.json');
 const WEIGHTS=require('../references/bazi-rules.json');
-const SCHEMA='suanming-partner-search/v1',VERSION='partner-search/1.0.0';
+const SCHEMA='suanming-partner-search/v1',VERSION='partner-search/1.0.1';
 const GAN='甲乙丙丁戊己庚辛壬癸',ZHI='子丑寅卯辰巳午未申酉戌亥',IDS=['BZ-YEAR','BZ-MONTH','BZ-DAY','BZ-HOUR'];
 const compareDate=Temporal.PlainDate.compare;
 function fields(o,allowed,label){check(o&&typeof o==='object'&&!Array.isArray(o),label+' 必须是对象');for(const k of Object.keys(o))check(allowed.includes(k),label+' 不支持字段 '+k);}
@@ -34,14 +34,12 @@ function normalizeInput(raw){
  if(raw.self.birth){
   check(raw.self.birth_year===undefined,'birth 输入不另填 birth_year');const chartMode=raw.self.chart_mode??'bazi';check(['bazi','both'].includes(chartMode),'self.chart_mode 须为 bazi / both');
   const n=normalize({mode:chartMode,birth:raw.self.birth,options:raw.self.options});birthYear=n.local.year;
-  check(compareDate(n.local.toPlainDate(),asOf.subtract({years:18}))<=0,'候选婚配筛选要求本人已成年；其他原排盘功能不受影响');
   self={birth:n.input.birth,options:n.input.options,chart_mode:chartMode};
  }else{
   check(raw.self.options===undefined&&raw.self.chart_mode===undefined,'四柱输入不接受生辰算法选项；不支持由四柱伪造紫微盘');
   manualPillars(raw.self.pillars);birthYear=raw.self.birth_year;check(Number.isInteger(birthYear)&&birthYear>=1900&&birthYear<=2100,'四柱输入须提供1900–2100的公历出生年以定位周期');
   const expected=y=>Solar.fromYmd(y,6,15).getLunar().getYearInGanZhiExact();
   check([expected(birthYear),expected(birthYear-1)].includes(raw.self.pillars[0]),'birth_year 与年柱不符；年初可属于前一立春周期');
-  check(asOf.year-birthYear>=19,'仅有出生年不能确认18岁生日已过；请提供成年后的参考日期或原始生辰');
   self={pillars:[...raw.self.pillars],birth_year:birthYear};
  }
  const model=raw.partner_star_model??'all';check(['all','wealth','authority'].includes(model),'partner_star_model 须为 all / wealth / authority，不从性别推断现实伴侣');
@@ -102,7 +100,7 @@ function ageAlignment(self,start,end){
  return {cue,direction,alignment:direction==='overlapping_birth_date'?'uncertain':cue==='peer'?'not_quantified':direction===cue?'aligns':'differs',use:'auxiliary_display_only_not_filter_or_probability'};
 }
 function build(raw){
- const input=normalizeInput(raw),self=selfFacts(input),asOf=date(input.as_of,'as_of'),cutoff=asOf.subtract({years:18}),results=[],unavailable=[];
+ const input=normalizeInput(raw),self=selfFacts(input),results=[],unavailable=[];
  let examined=0,underage=0,outsideGap=0,failedConditions=0,excludedRelations=0;
  function consider(item,pillars,partial,start,end=start){
   examined++;const gap=item.birth_year_label-self.birth_year;if(gap<input.filters.year_gap[0]||gap>input.filters.year_gap[1]){outsideGap++;return;}
@@ -111,19 +109,17 @@ function build(raw){
  }
  if(input.search.type==='years'){
   for(let y=input.search.year_range[0];y<=input.search.year_range[1];y++){
-   const start=lichun(y).withTimeZone(input.search.timezone),end=lichun(y+1).withTimeZone(input.search.timezone),stop=cutoff.add({days:1}).toZonedDateTime(input.search.timezone);
-   if(Temporal.ZonedDateTime.compare(start,stop)>=0){underage++;continue;}const eligibleEnd=Temporal.ZonedDateTime.compare(end,stop)>0?stop:end;
+   const start=lichun(y).withTimeZone(input.search.timezone),end=lichun(y+1).withTimeZone(input.search.timezone),eligibleEnd=end;
    const ganzhi=Solar.fromYmd(y,6,15).getLunar().getYearInGanZhiExact(),p={id:'CANDIDATE-YEAR',ganzhi,stem:ganzhi[0],branch:ganzhi[1]};
    const inclusiveEnd=eligibleEnd.subtract({seconds:1});
    consider({id:'PSY-'+y,kind:'year_cycle',birth_year_label:y,year_pillar:ganzhi,year_boundary:'lichun_instant',interval:{start:start.toString(),end_exclusive:end.toString()},eligible_birth_interval:{start:start.toString(),end_exclusive:eligibleEnd.toString()},exact_birth_date:null,exact_birth_time:null,identity_status:'hypothetical_year_condition'},[p],true,start.toPlainDate().toString(),inclusiveEnd.toPlainDate().toString());
   }
  }else if(input.search.type==='people'){
-  for(const person of input.search.people){const c=engine.build({mode:'bazi',birth:person.birth,options:person.options});if(compareDate(date(c.normalized.solar_date,'candidate.birth_date'),cutoff)>0){underage++;continue;}
+  for(const person of input.search.people){const c=engine.build({mode:'bazi',birth:person.birth,options:person.options});
    consider({id:'PSP-'+person.id,kind:'provided_person',person_id:person.id,birth_year_label:Number(c.normalized.solar_date.slice(0,4)),birth:person.birth,normalized:c.normalized,warnings:c.warnings,identity_status:'user_provided_not_destiny_confirmed'},c.bazi.chart.pillars,false,c.normalized.solar_date);
   }
  }else{
   for(let d=date(input.search.start,'start'),last=date(input.search.end,'end');compareDate(d,last)<=0;d=d.add({days:1})){
-   if(compareDate(d,cutoff)>0){underage++;continue;}
    const location=Object.fromEntries(['longitude','longitude_source'].filter(k=>input.search[k]!==undefined).map(k=>[k,input.search[k]]));
    const prepared=gridEngine.prepare({mode:'time_compare',chart_mode:'bazi',birth:{calendar:'solar',date:d.toString(),gender:'male',timezone:input.search.timezone,...location},birth_options:input.search.options,time_uncertainty:input.search.time_uncertainty}),grid=gridEngine.generate(prepared);
    for(const point of grid.points){try{

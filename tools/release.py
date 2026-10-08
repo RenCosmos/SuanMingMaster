@@ -31,9 +31,16 @@ def mobile_acceptance(manifest,version):
     confirmed=record.get('status')=='tested' and record.get('source')=='user_confirmation' and record.get('tested_package_version')==version and record.get('current_package_status')=='accepted'
     notice=f"V{version}安装包已由用户于{record['reported_on']}确认完成手机实测。" if confirmed else '当前版本的桌面回归和解包验收与手机实测分开记录；历史V1.3.0的用户手机确认不自动继承为新版验收。'
     return confirmed,record,notice
+
+def baseline_archive(version):
+    name=f'bazi-ziwei-rikkahub-v{version}.zip'
+    preferred=ROOT/'tools'/'baselines'/name
+    return preferred if preferred.is_file() else ROOT/name
 def main():
     p=argparse.ArgumentParser();p.add_argument('--out',required=True);p.add_argument('--node',default=shutil.which('node'));p.add_argument('--sh',default=os.environ.get('SUANMING_TEST_SH') or shutil.which('sh'));p.add_argument('--schema-validation',action='store_true');p.add_argument('--repack-from');a=p.parse_args()
-    assert a.node,'Node.js is required';out=Path(a.out).resolve();assert not out.is_relative_to(ROOT),'Build output must be outside the source checkout';out.mkdir(parents=True,exist_ok=True)
+    assert a.node,'Node.js is required';out=Path(a.out).resolve()
+    assert not out.is_relative_to(ROOT) or out.is_relative_to(ROOT/'releases'),'Build output must be outside the source checkout or under dedicated releases/'
+    out.mkdir(parents=True,exist_ok=True)
     package=json.loads((ROOT/'package.json').read_text(encoding='utf-8'));version=package['version'];assert re.fullmatch(r'\d+\.\d+\.\d+',version)
     assert package['packageManager']=='pnpm@11.19.0','Use the reviewed package-manager version'
     for name in package['dependencies']:
@@ -44,7 +51,12 @@ def main():
         path=ROOT/name
         assert name.startswith('node_modules/') and path.is_file() and sha(path.read_bytes())==digest,'Runtime dependency changed or missing: '+name
     knowledge=json.loads((ROOT/'tools/knowledge-baseline.json').read_text(encoding='utf-8'))
-    for name,digest in knowledge.items():assert sha((ROOT/name).read_bytes())==digest,'Knowledge changed: '+name
+    reviewed=json.loads((ROOT/'tools/reviewed-changes-v1.3.1.json').read_text(encoding='utf-8'))['files']
+    knowledge_amendments={name:reviewed[name] for name in knowledge if name in reviewed}
+    for name,digest in knowledge.items():
+        amendment=knowledge_amendments.get(name)
+        if amendment:assert amendment['old_sha256']==digest,'Frozen knowledge baseline rewritten: '+name
+        assert sha((ROOT/name).read_bytes())==(amendment['new_sha256'] if amendment else digest),'Knowledge changed outside reviewed wording: '+name
     manifest=json.loads((ROOT/'rikkahub-manifest.json').read_text(encoding='utf-8'));manifest['package_version']=version;manifest['adapter_version']='rikkahub-workspace/v'+version;manifest['workflow']['version']=version
     mobile_confirmed,mobile_record,mobile_notice=mobile_acceptance(manifest,version)
     write(ROOT/'rikkahub-manifest.json',json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
@@ -64,7 +76,7 @@ def main():
     schema_validation=json.loads(execute([sys.executable,str(ROOT/'tools/validate-partner-schema.py'),'--node',a.node],ROOT,env)) if a.schema_validation else {'performed':False}
     compatibility=json.loads(execute([a.node,str(ROOT/'tools/verify-compatibility.cjs')],ROOT,env))
     compatibility['cross_version_compared']=False
-    baseline=ROOT/'bazi-ziwei-rikkahub-v1.2.4.zip'
+    baseline=baseline_archive('1.2.4')
     if baseline.is_file():
         contract=json.loads((ROOT/'tools/compatibility-baseline-v1.2.4.json').read_text(encoding='utf-8'))
         assert sha(baseline.read_bytes())==contract['baseline_archive_sha256'],'Frozen baseline ZIP changed'
@@ -75,7 +87,7 @@ def main():
             compatibility=json.loads(execute([a.node,str(ROOT/'tools/verify-compatibility.cjs'),str(Path(old)/'bazi-ziwei')],ROOT,env))
             compatibility['cross_version_compared']=True
     compatibility125={'cross_version_compared':False,'baseline':'1.2.5'}
-    previous=ROOT/'bazi-ziwei-rikkahub-v1.2.5.zip'
+    previous=baseline_archive('1.2.5')
     if previous.is_file():
         assert sha(previous.read_bytes())=='5cc46c39247376116c98e69a6a0323b1168ac893454ed32b7bb76bcd9533ca64','Frozen V1.2.5 ZIP changed'
         with tempfile.TemporaryDirectory(prefix='suanming-baseline125-') as old:
@@ -86,7 +98,7 @@ def main():
             compatibility125['cross_version_compared']=True
     native_pages=json.loads(execute([a.node,str(ROOT/'tools/native-knowledge.cjs')],ROOT,env))
     compatibility130={'cross_version_compared':False,'baseline':'1.3.0'}
-    previous130=ROOT/'bazi-ziwei-rikkahub-v1.3.0.zip'
+    previous130=baseline_archive('1.3.0')
     if previous130.is_file():
         assert sha(previous130.read_bytes())=='cfd7b6e8ac78339ededce670bbf9e10c1c6c1276c3055993d8aa57af9198d9c0','Frozen V1.3.0 ZIP changed'
         with tempfile.TemporaryDirectory(prefix='suanming-baseline130-') as old:
@@ -105,18 +117,28 @@ def main():
 
 全部{counts['pass']}项开发回归通过，零失败、零跳过、零取消。保留原296项用例，新增用户反馈专项回归；对知识总数的旧断言明确扣除4张八字与6张六爻增补卡，继续分别验证原85／93／97主题完整。手机安装包不含tests/，只携带12组关键自检；npm test / test:critical拒绝0用例成功，npm run check不是完整开发回归。
 
-V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正缘任务必填--out；reuse返回可执行argv；主Skill简化为识别/调用/核对/解读并保留按需细则；知识正文和snippet显式无指令权限。四张八字概念卡保留，另增六张[六爻基础卡](references/liuyao-concepts-index.md)，配套语境消歧、具体术语优先、显式领域过滤及最多一次无命中回退；自动领域只参与排序。原97主题全文及113份知识基线逐字保留，当前共{topics}主题；435份固定运行依赖未变。
+V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正缘任务必填--out；reuse返回可执行argv；主Skill简化为识别/调用/核对/解读并保留按需细则；知识正文和snippet显式无指令权限。四张八字概念卡保留，另增六张[六爻基础卡](references/liuyao-concepts-index.md)，配套语境消歧、具体术语优先、显式领域过滤及最多一次无命中回退；自动领域只参与排序。原主题、来源及全文入口保留，当前共{topics}主题；113份冻结知识基线不重写，{len(knowledge_amendments)}份文案/目录/索引按旧新SHA审定，其余{len(knowledge)-len(knowledge_amendments)}份逐字一致；435份固定运行依赖未变。
 
 紫微只新增本命与运限年/月界标签，不改变yearDivide或horoscopeDivide配置。2024-02-03 / 02-05 / 02-10三段固定预期通过；旧盘可重算校验、缓存复用且源文件不改。已有标签或柱位被篡改即使重签也拒绝。双人共同摘要共用新增年界元数据，双方原有证据都保留；20KiB stdout、28KiB转义包装和12KiB知识预算不放宽。
 
-冻结V1.2.4字节基线不改，受本次修复影响的有限代码/说明按独立审定旧/新SHA验证；其他冻结文件仍严格相等，不声称78份代码全未改。V1.2.4 / V1.2.5 / V1.3.0实际跨版本对照分别为{compatibility['cross_version_compared']} / {compatibility125['cross_version_compared']} / {compatibility130['cross_version_compared']}。程序对14组计算、85个投影、13种报告/导出和原93主题正文逐项比较；仅允许旧盘缺失的新年界标签及精确报告标签差异。旧命盘本身也由当前验证器实际校验。没有相应旧ZIP时结果明确未执行，详细范围见release-validation.json。
+冻结V1.2.4字节基线不改，受本次修复影响的有限代码/说明按独立审定旧/新SHA验证；其他冻结文件仍严格相等，不声称78份代码全未改。V1.2.4 / V1.2.5 / V1.3.0实际跨版本对照分别为{compatibility['cross_version_compared']} / {compatibility125['cross_version_compared']} / {compatibility130['cross_version_compared']}。程序对14组计算、85个投影、13种报告/导出和原93主题正文逐项比较；仅允许旧盘缺失的新年界标签、精确报告标签及已审定宗教句子的有限替换，不跳过主题、来源或其他正文。旧命盘本身也由当前验证器实际校验。没有相应旧ZIP时结果明确未执行，详细范围见release-validation.json。
 
-安装包解包后验收12组自检、宗教与概念检索、临时清理、缓存及三种候选搜索；新的argv经真实mobile.sh入口实跑年度、时辰变体和正缘分页。本次另验《礼记·月令》无需domain命中、长路径合盘双方/全部comparison证据、长疏文按原JSON续页还原及完整TXT/HTML导出，完整shell包装与最终清理字段均计入预算。独立Draft2020-12输入/输出schema校验实际执行：{schema_validation['performed']}，记录见schema_validation。五份原生知识概览逐字保留，不代替正文；新增概念卡有无需运行时的索引。
+安装包解包后验收12组自检、宗教与概念检索、临时清理、缓存及三种候选搜索；新的argv经真实mobile.sh入口实跑年度、时辰变体和正缘分页。本次另验《礼记·月令》无需domain命中、长路径合盘双方/全部comparison证据、长疏文按原JSON续页还原及完整TXT/HTML导出，完整shell包装与最终清理字段均计入预算。独立Draft2020-12输入/输出schema校验实际执行：{schema_validation['performed']}，记录见schema_validation。五份原生知识概览保留全部主题与来源，仅同步审定措辞和完整性说明，不代替正文；新增概念卡有无需运行时的索引。
 
-{mobile_notice}手机历史确认仅记录用户提供的范围，设备型号或逐项日志不补造。构建工具生成V{version}完整安装包、源码包及验收记录，不自行上传；GitHub同步另按用户授权执行。原V1.3.1下载包保留不覆盖，本次汇集后续检索/合盘/六爻/预算/提示词修复。系统提示词按skill-creator的分层披露原则去重，仍为可选；程序解释规则、原知识和完整导出不删。
+V1.3.7新增可选批量日期入口，仅协调原<=31日任务并做日期投影。ANY/ALL条件、全部时辰采样、每月完整chart、原候选引擎1.0.1及旧CLI不改。每月最高／全年最高／所有符合条件分开；命中采样共同关系与变体关系分开，不将前三个时刻代表整天或把命中数量当合婚优劣。批量缓存、恢复、月份／日期／时辰argv分页、防篡改与原盘只读导入回归通过，解包后的真实手机入口批量验收见partner_search_batch。
+
+V1.3.8删除候选报告原未成年人排除文案，不删除计算字段或无法计算的采样提示。新增--plan先提炼年支／日干／日支条件，再对应实际年柱周期；明确理论四柱可交给--batch精确核对原采样点，不将唯一身份边界当查询禁令。批量1.0.1支持可选四柱约束并保留1.0.0无约束旧任务兼容，原候选引擎1.0.1不改。Windows文件标识改为BigInt精确比较，保留真实硬链接保护。新增规划/报告和解包后的完整年份→四柱核验见partner_search_plan。
+
+V1.3.9仅调整宗教对话口吻及其派生资料：沿用户采用的传统回答，不主动争论鬼神有无，不把纯宗教问答转成科学或医学科普，不反复复述内部查核限制。三张卡删除/替换无关存在认证插话，原教义、短引、出处、8主题与7来源保留；不添加个人附身、护法或前世身份认证能力，也不删除防恐吓、胁迫、伤害或治病保证的边界。本版全部scripts/、计算规则、输入输出schema及435份依赖与V1.3.8字节相同；新增维护测试核对审定句子之外的三张卡正文可完整还原。
+
+V1.4.0相对V1.3.9仅同步发布版本与说明；运行脚本、计算规则、知识正文、schema与固定依赖不改。源码与安装包按用户授权上传GitHub，旧文件和历史提交保留不覆盖；当前包和摘要以V1.4.0 Release为准。
+
+{mobile_notice}手机历史确认仅记录用户提供的范围，设备型号或逐项日志不补造。构建工具生成V{version}完整安装包、源码包及验收记录，不自行上传；GitHub同步另按用户授权执行。原V1.3.8下载包与源码保留不覆盖，本次汇集后续检索/合盘/六爻/预算/提示词修复。系统提示词按skill-creator的分层披露原则维护，仍为可选；程序解释规则、原知识功能和完整导出不删。
 ''')
-    files=sorted(f for f in ROOT.rglob('*') if f.is_file() and f.relative_to(ROOT).parts[0] not in ['.git','work','dist'] and '__pycache__' not in f.relative_to(ROOT).parts and not (f.parent==ROOT and (f.suffix=='.zip' or f.name in ['SHA256SUMS.txt','release-validation.json','INSTALL.md','TESTING.md','RikkaHub系统提示词.txt'])))
-    runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md','pnpm-workspace.yaml'] and (f.relative_to(ROOT).parts[0]!='node_modules' or f.relative_to(ROOT).as_posix() in dependencies)]
+    batch_scale=json.loads(execute([a.node,str(ROOT/'tools/verify-batch-scale.cjs')],ROOT,env))
+    assert batch_scale['ok']
+    files=sorted(f for f in ROOT.rglob('*') if f.is_file() and f.relative_to(ROOT).parts[0] not in ['.git','work','dist','archive','releases','.codex','.agents'] and '__pycache__' not in f.relative_to(ROOT).parts and not (f.parent==ROOT and (f.suffix=='.zip' or f.name in ['SHA256SUMS.txt','release-validation.json','INSTALL.md','TESTING.md','RikkaHub系统提示词.txt','最新版本说明.md','工作区整理说明.md'])))
+    runtime=[f for f in files if f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md','AGENTS.md','pnpm-workspace.yaml'] and (f.relative_to(ROOT).parts[0]!='node_modules' or f.relative_to(ROOT).as_posix() in dependencies)]
     source=[f for f in files if f.relative_to(ROOT).parts[0]!='node_modules']
     for f in runtime:
         rel=f.relative_to(ROOT);assert not f.is_symlink()
@@ -240,7 +262,67 @@ V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正�
             assert reused['cache_hit'] and not reused['calculation_performed'] and not reused['validation']['recalculated'] and reused['task_id']==response['task_id']
             assert not (task/'report.md').exists() and not (task/'report.html').exists()
             partner_cases[mode]={'ok':True,'temp_cleanup':True,'cache_reuse':True,'candidate_count':response['context']['candidates']['total'],'entry':'mobile --agent' if a.sh else 'Node workflow'}
-    result={'ok':True,'version':version,'tests':counts,'runtime_critical_cases':preflight['critical']['passed'],'knowledge_topics':topics,'knowledge_files_byte_identical':len(knowledge),'runtime_files':len(runtime),'source_files':len(source),'local_links':links,'extracted_self_test':True,'extracted_religious_queries':len(knowledge_queries),'extracted_temp_cleanup':True,'extracted_cache_reuse':True,'extracted_task_navigation':True,'native_fallback_pages':len(native_pages),'compatibility':compatibility,'compatibility_v1_2_5':compatibility125,'partner_search':partner_cases,'mobile_device_tested_current_version':mobile_confirmed,'mobile_validation':mobile_record,'archives':{f.name:sha(f.read_bytes()) for f in [install,src]}}
+        # Batch is additive: the package entry calculates the same monthly artifacts.
+        inp=json.loads((skill/'examples/partner-search/batch.json').read_text(encoding='utf-8'))
+        task=Path(temp)/'batch';f=Path(temp)/'batch-input-temp.json';write(f,json.dumps(inp))
+        entry=[a.sh,str(skill/'scripts/mobile.sh'),'--agent'] if a.sh else cmd
+        response=bounded(execute([*entry,'--temp-input',str(f),'--partner-search','--batch','--out',str(task)],temp,env),20*1024)
+        assert response['ok'] and response['validation']['ok'] and response['temporary_input_removed'] and not f.exists()
+        assert response['adapter_id']=='partner_search_batch' and response['context']['computed_complete']
+        assert response['context']['filters']['match']=='any' and response['context']['candidate_birth_time_is_hypothetical']
+        manifest=json.loads((task/'batch.json').read_text(encoding='utf-8'));assert manifest['complete'] and len(manifest['jobs'])==2
+        originals={j['chart']:sha((task/j['chart']).read_bytes()) for j in manifest['jobs']}
+        reused=bounded(execute([*entry,'--reuse',str(task/'batch.json'),'--partner-search','--batch'],temp,env),20*1024)
+        assert reused['cache_hit'] and not reused['calculation_performed'] and not reused['validation']['recalculated']
+        date=next(d for m in response['context']['months'] for d in m['dates'])
+        detail=bounded(execute([*entry,*date['details']['argv']],temp,env),20*1024)
+        assert detail['context']['date_detail']['selection']['date']==date['date'] and detail['context']['date_detail']['birth_time_is_hypothetical']
+        pages=0;point_ids=[]
+        while True:
+            pages+=1;point_ids.extend(c['id'] for c in detail['context']['date_detail']['candidates']['items'])
+            next_action=next((a for a in detail['next_actions'] if '--date' in a['argv']),None)
+            if next_action is None:break
+            detail=bounded(execute([*entry,*next_action['argv']],temp,env),20*1024)
+        assert len(point_ids)==date['matching_samples'] and len(set(point_ids))==len(point_ids)
+        assert all(sha((task/name).read_bytes())==digest for name,digest in originals.items())
+        batch_acceptance={'ok':True,'months':2,'entry':'mobile --agent --batch' if a.sh else 'Node workflow --batch','temp_cleanup':True,'trusted_cache_reuse':True,'month_artifacts_unchanged':True,'unknown_time_sampling_preserved':True,'date_detail_pages':pages,'date_samples_recovered':len(point_ids),'initial_stdout_bytes':response['output']['bytes'],'full_shell_envelope_checked':True}
+        # Exercise the new planner and its actual returned whole-cycle input/argv.
+        candidate_code='const e=require("./scripts/engine.cjs");console.log(JSON.stringify(e.build({mode:"bazi",birth:{calendar:"solar",date:"1997-06-15",time:"12:00",gender:"male",timezone:"Asia/Shanghai"}}).bazi.chart.pillars.map(p=>p.ganzhi)));'
+        candidate=json.loads(execute([a.node,'-e',candidate_code],skill,env))
+        inp=json.loads((skill/'examples/partner-search/plan.json').read_text(encoding='utf-8'));inp['candidate_pillars']=candidate
+        task=Path(temp)/'plan';f=Path(temp)/'plan-temp-input.json';write(f,json.dumps(inp))
+        response=bounded(execute([*entry,'--temp-input',str(f),'--partner-search','--plan','--out',str(task)],temp,env),20*1024)
+        assert response['adapter_id']=='partner_search_plan' and response['validation']['ok'] and response['temporary_input_removed'] and not f.exists()
+        assert response['context']['proposed_candidate']['calendar_verified'] is False
+        plan_bytes=(task/'chart.json').read_bytes()
+        reused=bounded(execute([*entry,'--reuse',str(task/'chart.json'),'--partner-search','--plan'],temp,env),20*1024)
+        assert reused['cache_hit'] and not reused['calculation_performed'] and (task/'chart.json').read_bytes()==plan_bytes
+        action=response['context']['year_mapping']['items'][0]['next_actions'][0]
+        assert action['requires_input'] and action['input']['candidate_pillars']==candidate and action['input']['search']['time_uncertainty']['type']=='unknown'
+        exact=bounded(execute([*entry,*action['argv']],temp,env,json.dumps(action['input'])),20*1024)
+        assert exact['context']['computed_complete'] and exact['context']['scope']['candidate_pillars']==candidate
+        queue=[exact];dates=[];summary_pages=0
+        while queue:
+            page=queue.pop(0);summary_pages+=1
+            dates.extend(d for m in page['context']['months'] for d in m['dates'])
+            for next_action in page['next_actions']:
+                queue.append(bounded(execute([*entry,*next_action['argv']],temp,env),20*1024))
+        assert dates and any(d['date']=='1997-06-15' for d in dates)
+        detail=bounded(execute([*entry,*dates[0]['details']['argv']],temp,env),20*1024)
+        assert detail['context']['date_detail']['candidates']['items'] and all(c['full_bazi']==candidate for c in detail['context']['date_detail']['candidates']['items'])
+        batch_file=Path(exact['files']['chart']);manifest=json.loads(batch_file.read_text(encoding='utf-8'))
+        assert manifest['engine_version']=='partner-search-batch/1.0.1' and len(manifest['jobs'])>=12
+        month_file=batch_file.parent/manifest['jobs'][0]['chart'];month_bytes=month_file.read_bytes()
+        rendered=bounded(execute([*entry,'--reuse',str(month_file),'--partner-search','--report','--limit','1'],temp,env),20*1024)
+        for file in [rendered['files']['report_md'],rendered['files']['report_html']]:
+            text=Path(file).read_text(encoding='utf-8')
+            assert '未成年日期／周期排除' not in text and '无法计算采样点' in text
+        assert month_file.read_bytes()==month_bytes
+        plan_acceptance={'ok':True,'entry':'mobile --agent --plan then returned --batch argv' if a.sh else 'Node plan then returned batch argv','temp_cleanup':True,'trusted_cache_reuse':True,'whole_year_cycle_executed':True,'month_jobs':len(manifest['jobs']),'exact_four_pillars_verified':True,'summary_pages':summary_pages,'target_date_count':len(dates),'old_candidate_engine_unchanged':True,'report_age_exclusion_text_removed':True,'source_bytes_unchanged':True,'full_shell_envelope_checked':True}
+    result={'ok':True,'version':version,'tests':counts,'runtime_critical_cases':preflight['critical']['passed'],'knowledge_topics':topics,'knowledge_files_byte_identical':len(knowledge),'runtime_files':len(runtime),'source_files':len(source),'local_links':links,'extracted_self_test':True,'extracted_religious_queries':len(knowledge_queries),'extracted_temp_cleanup':True,'extracted_cache_reuse':True,'extracted_task_navigation':True,'native_fallback_pages':len(native_pages),'compatibility':compatibility,'compatibility_v1_2_5':compatibility125,'partner_search':partner_cases,'partner_search_batch':batch_acceptance,'mobile_device_tested_current_version':mobile_confirmed,'mobile_validation':mobile_record,'archives':{f.name:sha(f.read_bytes()) for f in [install,src]}}
+    result['knowledge_files_byte_identical']=len(knowledge)-len(knowledge_amendments)
+    result['knowledge_files_reviewed_wording_changes']=list(knowledge_amendments)
+    result['religion_discourse']={'requested_tradition_respected':True,'unsolicited_existence_debate':False,'personal_supernatural_identification_supported':False,'topics':8,'sources':7,'three_cards_other_text_exactly_restored_by_tests':True}
     result['schema_validation']=schema_validation
     result['repack']=repack
     result['compatibility_v1_3_0']=compatibility130
@@ -255,6 +337,8 @@ V1.3.1修复范围见[反馈核验](references/feedback-v1.3.1.md)：新建正�
     result['extracted_pair_comparison']=pair_acceptance
     result['extracted_bounded_shuwen']=document_acceptance
     result['full_shell_envelope_checked']=True
+    result['batch_scale_validation']=batch_scale
+    result['partner_search_plan']=plan_acceptance
     write(out/'release-validation.json',json.dumps(result,ensure_ascii=False,indent=2)+'\n');write(out/'SHA256SUMS.txt',''.join(d+'  '+n+'\n' for n,d in result['archives'].items()))
     print(json.dumps(result,ensure_ascii=False))
 if __name__=='__main__':main()

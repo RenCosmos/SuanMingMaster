@@ -9,15 +9,15 @@ function protectedFiles(root=ROOT){
  const packageContract=read(path.join(root,'package.json'));delete packageContract.version;
  const expectedPackage=structuredClone(BASELINE.package_contract);Object.assign(expectedPackage.scripts,REVIEWED.package_scripts);
  assert.deepEqual(packageContract,expectedPackage,'package contract/dependencies changed');
- let count=0,reviewed=0;
+ let count=0,reviewed=0,reviewedInterfaces=0;
  for(const ledger of [BASELINE.protected_sha256,read(path.join(__dirname,'knowledge-baseline.json')),read(path.join(__dirname,'runtime-dependency-baseline.json'))]){
   for(const [file,digest] of Object.entries(ledger)){
-   const amendment=REVIEWED.files[file];if(amendment){assert.equal(amendment.old_sha256,digest,'frozen baseline must not be rewritten: '+file);reviewed++;}
+   const amendment=REVIEWED.files[file];if(amendment){assert.equal(amendment.old_sha256,digest,'frozen baseline must not be rewritten: '+file);reviewed++;if(ledger===BASELINE.protected_sha256)reviewedInterfaces++;}
    assert.equal(sha(fs.readFileSync(path.join(root,file))),amendment?.new_sha256??digest,'protected bytes changed: '+file);count++;
   }
  }
  for(const [file,e] of Object.entries(REVIEWED.files))assert.equal(sha(fs.readFileSync(path.join(root,file))),e.new_sha256,'reviewed change drift: '+file);
- return {protected_checks:count,protected_interfaces:Object.keys(BASELINE.protected_sha256).length,reviewed_changed_protected_files:reviewed,protected_files_byte_identical:Object.keys(BASELINE.protected_sha256).length-reviewed,knowledge_files:113,dependency_files:435};
+ return {protected_checks:count,protected_interfaces:Object.keys(BASELINE.protected_sha256).length,reviewed_changed_protected_files:reviewed,protected_files_byte_identical:Object.keys(BASELINE.protected_sha256).length-reviewedInterfaces,knowledge_files:113,dependency_files:435};
 }
 function preserves(oldValue,newValue,where='context'){
  if(Array.isArray(oldValue)){
@@ -35,7 +35,7 @@ function compare(oldRoot,currentRoot=ROOT){
   for(const name of fs.readdirSync(path.join(oldRoot,'scripts'))){if(name==='workflow.cjs'&&baseline==='1.2.5')continue;const file=path.join(oldRoot,'scripts',name);if(!fs.statSync(file).isFile())continue;const e=REVIEWED.files['scripts/'+name];
    if(e){assert.equal(sha(fs.readFileSync(file)),e.old_sha256,'reviewed old script mismatch: '+name);assert.equal(sha(fs.readFileSync(path.join(currentRoot,'scripts',name))),e.new_sha256,'reviewed new script mismatch: '+name);}
    else{assert.deepEqual(fs.readFileSync(path.join(currentRoot,'scripts',name)),fs.readFileSync(file),'prior script changed: '+name);priorScripts++;}}
-  for(const name of ['templates','folklore','curated','practice','spirit']){const rel='references/rikkahub-native/'+name+'.md';assert.deepEqual(fs.readFileSync(path.join(currentRoot,rel)),fs.readFileSync(path.join(oldRoot,rel)),'native overview changed: '+name);nativePages++;}
+  for(const name of ['templates','folklore','curated','practice','spirit']){const rel='references/rikkahub-native/'+name+'.md';assert.equal(fs.readFileSync(path.join(currentRoot,rel),'utf8'),require('./religion-tone-review.cjs').rewriteText(fs.readFileSync(path.join(oldRoot,rel),'utf8')),'native overview outside reviewed wording changed: '+name);nativePages++;}
  }
  const oldProjection=require(path.join(oldRoot,'scripts/context.cjs')),projection=require(path.join(currentRoot,'scripts/context.cjs'));
  const oldFlow=require(path.join(oldRoot,'scripts/workflow.cjs')),flow=require(path.join(currentRoot,'scripts/workflow.cjs'));
@@ -73,9 +73,9 @@ function compare(oldRoot,currentRoot=ROOT){
  const knowledge=require(path.join(currentRoot,'scripts/knowledge.cjs')),legacy=require(path.join(oldRoot,'scripts/knowledge.cjs'));
  let topics=0;
  for(const catalog of require('./native-knowledge.cjs').GROUPS){
-  for(const topic of read(path.join(currentRoot,catalog[2])).topics){preserves(legacy.lookup({topic:topic.slug}),knowledge.lookup({topic:topic.slug}));topics++;}
+  for(const topic of read(path.join(currentRoot,catalog[2])).topics){preserves(require('./religion-tone-review.cjs').reviewedLegacy(legacy.lookup({topic:topic.slug})),knowledge.lookup({topic:topic.slug}));topics++;}
  }
- return {ok:true,baseline,...protection,prior_scripts_byte_identical:priorScripts,native_pages_byte_identical:nativePages,calculation_cases:cases.length+2,context_projections:projections,report_variants:reports,full_knowledge_topics:topics,calculation_comparison:'strict equality after removing only absent new year-boundary labels and recomputing nested checksums',report_comparison:'strict equality except exact reviewed year-boundary labels',legacy_artifacts_reverified:true};
+ return {ok:true,baseline,...protection,prior_scripts_byte_identical:priorScripts,native_pages_byte_identical:0,native_pages_reviewed_wording:nativePages,calculation_cases:cases.length+2,context_projections:projections,report_variants:reports,full_knowledge_topics:topics,knowledge_comparison:"strict equality except exact reviewed religion wording and corresponding card SHA values",calculation_comparison:'strict equality after removing only absent new year-boundary labels and recomputing nested checksums',report_comparison:'strict equality except exact reviewed year-boundary labels',legacy_artifacts_reverified:true};
 }
 function labelledReport(r){
  function update(s){

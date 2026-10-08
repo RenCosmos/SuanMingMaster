@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:suanming:partner-search-plan:input:v1",
+  "title":"适配结构假设与年份映射输入",
+  "type":"object","additionalProperties":false,"required":["mode","self","as_of","search"],
+  "properties":{
+    "mode":{"const":"partner_search_plan"},
+    "label":{"type":"string","maxLength":80},"question":{"type":"string","maxLength":1000},
+    "self":{"$ref":"urn:suanming:partner-search:input:v1#/properties/self"},
+    "as_of":{"$ref":"urn:suanming:partner-search:input:v1#/$defs/date"},
+    "search":{"$ref":"urn:suanming:partner-search:input:v1#/properties/search/oneOf/0"},
+    "filters":{"$ref":"urn:suanming:partner-search:input:v1#/properties/filters"},
+    "partner_star_model":{"enum":["all","wealth","authority"],"default":"all"},
+    "candidate_pillars":{"type":"array","minItems":4,"maxItems":4,"items":{"type":"string","pattern":"^[甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]$"}}
+  },
+  "$comment":"程序另查干支阴阳、五虎遁、五鼠遁和原本人输入口径。理论四柱只按年柱映射范围，完整历法一致性须继续实际日期枚举。原盘导入请求补入self后符合schema。"
+}
