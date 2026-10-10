@@ -1,0 +1,123 @@
+{
+  "version": "romance-knowledge/v1",
+  "expected_topics": 4,
+  "sources_file": "references/romance-rules.json",
+  "topics": [
+    {
+      "id": "REL-K01",
+      "slug": "romance-classical-marriage",
+      "name": "星宫喜忌与长期婚配",
+      "tags": [
+        "八字",
+        "婚姻",
+        "正缘",
+        "长期",
+        "妻宫",
+        "妻星"
+      ],
+      "aliases": [
+        "长期婚姻",
+        "婚配承接",
+        "子平真诠论妻子"
+      ],
+      "subtitle": "星宫与月令喜忌合看，不能以正财偏财直接划分长期与短期。",
+      "kind": "classical_primary_text",
+      "source_id": "REL-ZP-WIFE",
+      "book": "子平真诠",
+      "chapter": "论妻子",
+      "original_excerpt": "既看妻宮，又看妻星。",
+      "url": "https://donglishuzhai.net/chapter/3737.html",
+      "publisher": "东里书斋古籍录文",
+      "path": "references/knowledge/romance/cards/romance-classical-marriage.md",
+      "sha256": "a93f1507b2021dc4a736d4431cb39a842d472c7702dab8d6be48cea25a94c62f",
+      "program_supported": true
+    },
+    {
+      "id": "REL-K02",
+      "slug": "romance-hongkong-distinction",
+      "name": "桃花交往与红鸾婚配",
+      "tags": [
+        "八字",
+        "紫微",
+        "桃花",
+        "红鸾",
+        "婚配",
+        "恋爱"
+      ],
+      "aliases": [
+        "桃花和红鸾",
+        "红鸾与桃花",
+        "李居明桃花",
+        "李居明红鸾"
+      ],
+      "subtitle": "香港作者原文的交往与正式婚配分层思路，星曜按实际盘面定位。",
+      "kind": "modern_author_interpretation",
+      "source_id": "REL-LKM-ROMANCE",
+      "url": "https://www.likuiming.com/Article/view/CJUr6IXKA8",
+      "publisher": "李居明多媒体平台",
+      "path": "references/knowledge/romance/cards/romance-hongkong-distinction.md",
+      "sha256": "a4c58a1284db3aed938c145c70a82e3152be8f848371f9acb71b5b6892632c3d",
+      "program_supported": true
+    },
+    {
+      "id": "REL-K03",
+      "slug": "romance-modern-age",
+      "name": "八字对象年上年下的现代说法",
+      "tags": [
+        "八字",
+        "年上",
+        "年下",
+        "年龄",
+        "日坐伤官",
+        "日坐印星"
+      ],
+      "aliases": [
+        "八字对象年上还是年下",
+        "八字对象年龄",
+        "八字配偶年龄",
+        "年上年下现代说法",
+        "日坐伤官",
+        "日坐印星"
+      ],
+      "subtitle": "现代作者日支本气与旺透条件分开，紫微古籍主证及柱位旁证保留。",
+      "kind": "modern_author_interpretation",
+      "source_id": "REL-ZXL-AGE",
+      "url": "https://www.sohu.com/a/229487199_103311",
+      "publisher": "张鑫龙命理风水阁作者号",
+      "path": "references/knowledge/romance/cards/romance-modern-age.md",
+      "sha256": "d74a6eebcbb0bef37d888ea4108b8730dd3fd244dc77cad213768fdf937f9830",
+      "program_supported": true
+    },
+    {
+      "id": "REL-K04",
+      "slug": "romance-two-tracks",
+      "name": "暧昧短缘与长期正缘的联合阅读",
+      "tags": [
+        "八字",
+        "婚恋",
+        "短择",
+        "长择",
+        "露水情缘",
+        "暧昧",
+        "正缘",
+        "异性缘"
+      ],
+      "aliases": [
+        "露水情缘",
+        "暧昧短择",
+        "短期关系",
+        "长期关系",
+        "短缘和长缘",
+        "异性缘八字"
+      ],
+      "subtitle": "先断吸引，再断婚配承接，结合岁运与跨盘证据分主次。",
+      "kind": "project_method_reference",
+      "source_id": "REL-ZP-WIFE",
+      "url": "https://donglishuzhai.net/chapter/3737.html",
+      "publisher": "本项目原创综合方法；古籍与现代作者来源分别标明",
+      "path": "references/knowledge/romance/cards/romance-two-tracks.md",
+      "sha256": "5cf81436c1cc62d1ca084d389b5c7e08c604c522454be82a349f67ec5b832296",
+      "program_supported": true
+    }
+  ]
+}

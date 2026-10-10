@@ -37,7 +37,7 @@ test('inferred domains do not erase matching out-of-domain material or fabricate
  assert.deepEqual(search.search(topics,'《》',10,()=> '正文').matches,[]);
 });
 test('real mobile knowledge command finds the classical source with no manual domain hint',()=>{
- const r=shell(['--knowledge','--query','《礼记·月令》','--limit','3']);assert.equal(r.matches[0].slug,'folk-liji-yueling-summer');assert.equal(r.retrieval.filter_domain,null);assert.equal(knowledge.verifyKnowledge().total_topics,103);
+ const r=shell(['--knowledge','--query','《礼记·月令》','--limit','3']);assert.equal(r.matches[0].slug,'folk-liji-yueling-summer');assert.equal(r.retrieval.filter_domain,null);assert.equal(knowledge.verifyKnowledge().total_topics-knowledge.verifyKnowledge().romance_topics,103);
 });
 for(const script of ['knowledge-context.cjs','knowledge.cjs']){
  const run=argv=>cp.spawnSync(process.execPath,[path.join(root,'scripts',script),...argv],{encoding:'utf8',cwd:tmp,timeout:30000,maxBuffer:128*1024});

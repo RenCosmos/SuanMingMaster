@@ -38,7 +38,7 @@ test('mixed domains and explicit classical identities remain discoverable',()=>{
  const classic=retrieve({query:'《周易·咸》和六爻用神有什么区别',limit:3});assert.ok(classic.matches.some(t=>t.slug==='folk-zhouyi-xian'));assert.ok(classic.matches.some(t=>t.slug==='liuyao-use-god'));assert.equal(classic.retrieval.filter_domain,null);
 });
 test('six additional concepts preserve every original source count and manifest enumeration',()=>{
- const r=knowledge.verifyKnowledge();assert.equal(r.liuyao_concept_topics,6);assert.equal(r.total_topics,103);assert.equal(r.total_topics-r.liuyao_concept_topics,97);assert.equal(r.total_topics-r.liuyao_concept_topics-r.bazi_concept_topics,93);assert.equal(r.total_topics-r.liuyao_concept_topics-r.bazi_concept_topics-r.spirit_topics,85);
+ const r=knowledge.verifyKnowledge();assert.equal(r.liuyao_concept_topics,6);assert.equal(r.total_topics-r.romance_topics,103);assert.equal(r.total_topics-r.romance_topics-r.liuyao_concept_topics,97);assert.equal(r.total_topics-r.romance_topics-r.liuyao_concept_topics-r.bazi_concept_topics,93);assert.equal(r.total_topics-r.romance_topics-r.liuyao_concept_topics-r.bazi_concept_topics-r.spirit_topics,85);
  const manifest=require('../rikkahub-manifest.json');assert.equal(manifest.folklore_library.total_searchable_topics,r.total_topics);assert.equal(manifest.liuyao_concept_library.topics,6);assert.equal(manifest.liuyao_concept_library.automatic_use_god_selection_supported,false);assert.equal(knowledge.lookup({topic:'wenwang-liuyao'}).topic.program_supported,true);
 });
 test('new cards have substantive text, checked chapter records and exact paged roundtrips',()=>{

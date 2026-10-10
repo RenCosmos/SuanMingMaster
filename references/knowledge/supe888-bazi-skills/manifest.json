@@ -19,7 +19,7 @@
         "格局"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/ziping-bazi.md",
-      "sha256": "5bed02a9c37d37a80a9628942c04977ac18f5bce29949a4ac20662cd7921191c",
+      "sha256": "391f433da84d86ad85cc234052abcf32fe18b14b875b51e983ad6ca13b433769",
       "upstream_original_file_advertised": "eastern/ziping-bazi.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": true,
@@ -38,7 +38,7 @@
         "四化"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/ziwei-doushu.md",
-      "sha256": "2bca01221827d4894f27793f2e8056167ae5e02041c6d5c2aa9463680fd0eea1",
+      "sha256": "7d68d696de001d8b782a18ef28b36e2ab6585a4aac6d28acb6aa2ae348589c2a",
       "upstream_original_file_advertised": "eastern/ziwei-doushu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": true,
@@ -56,7 +56,7 @@
         "元堂"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/heluo-lishu.md",
-      "sha256": "9b03e587ba7fccdd6c425438c8baa6bb5c58615852bc43adc314651f51e80244",
+      "sha256": "1bad072720d24ab14f22b0d9147b9451bfd5d5add0e863e40711184a9e3bfe1b",
       "upstream_original_file_advertised": "eastern/heluo-lishu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -74,7 +74,7 @@
         "国运"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/taiyi-shenshu.md",
-      "sha256": "df3d5993ee11c4ddfc11d972dbffe0349d0d9819966ecdd2c601364e678f934f",
+      "sha256": "08f3b1b6179a7d7a14adf8fd4af26e29895ffcf2a91f406843406ea30c4954f5",
       "upstream_original_file_advertised": "eastern/taiyi-shenshu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -92,7 +92,7 @@
         "数字起卦"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/meihua-yishu.md",
-      "sha256": "576afa022344be3dc831996418e77253cd6f053b8e12734bf7251e6a1f33a899",
+      "sha256": "44570e719909ce8e96c8826d002a274e1179fc442a1cfdaf2ec9e1a960f00568",
       "upstream_original_file_advertised": "eastern/meihua-yishu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -110,7 +110,7 @@
         "三传"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/liuren-shenke.md",
-      "sha256": "8e1576af450fc3f58bc25d6637db61bf579fa244797e109c1e7ec1c7f93263ff",
+      "sha256": "77de00ff1a86d4fdef0fa71aafc227051154f88608dfe885f0869fef848b97e0",
       "upstream_original_file_advertised": "eastern/liuren-shenke.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -129,7 +129,7 @@
         "择吉"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/qimen-dunjia.md",
-      "sha256": "1b8f1a9493185fa99fbfdb6a540f5914a03540b49ab20a6b044199f353a5f878",
+      "sha256": "0ab532d9432eccb0ab46b1e0b844fdacd8070a078c183adcf2723f252b92d094",
       "upstream_original_file_advertised": "eastern/qimen-dunjia.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -148,7 +148,7 @@
         "动爻"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/wenwang-liuyao.md",
-      "sha256": "833858b128431f33c94285b0c9e13f9ca53f957a69d5b7696f14603be30afcc0",
+      "sha256": "4d6bee48b4c4fd0b2a09642b54faada83b3162f110dccff3b1b5fb16aca5b8a4",
       "upstream_original_file_advertised": "eastern/wenwang-liuyao.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": true,
@@ -166,7 +166,7 @@
         "骨相"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/xiangshu.md",
-      "sha256": "2ca989d363173d72436e6af583338809a59c0782af0bd00edf21b2821e1d29bc",
+      "sha256": "b85951ca3163853402da65b28f606ffe4e0869e0fe767d1f91ad7622ddc28d7d",
       "upstream_original_file_advertised": "eastern/xiangshu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -184,7 +184,7 @@
         "命宫"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/qizheng-siyu.md",
-      "sha256": "a28bdcb8004cfd6c29b845eeb1649182d68ae81fbcf89ce65f9e8f964ef6b6d5",
+      "sha256": "38e1d35cbbaf4057401d6571d79d4c8511fb249b6b628549ee8ca83a7e99a479",
       "upstream_original_file_advertised": "eastern/qizheng-siyu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -202,7 +202,7 @@
         "笔画"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/cezi.md",
-      "sha256": "009a2c3ef6da4ed4a9c9cc34b29c4fdc01c5713c76b5e39778563b4c07b1f5d8",
+      "sha256": "26e78ebd348f301bb07217ba34ac2912db2ef8f98ffdada35c1e5070189ab045",
       "upstream_original_file_advertised": "eastern/cezi.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -220,7 +220,7 @@
         "殷商"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/guijia-zhanbu.md",
-      "sha256": "9ebebe90c54ffe172486f4c150799ae9fc16a1988d1c9405110d52bd13547dc9",
+      "sha256": "e42ea3af49fa5c799138e391a8656a6d5a18eb532126cfd26c4b6602129d3d5b",
       "upstream_original_file_advertised": "eastern/guijia-zhanbu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -238,7 +238,7 @@
         "时辰"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/xiaoliuren.md",
-      "sha256": "1a0321ba47ba30ebd6e4d62492590563ca1eb44a2455117684900339ab7de718",
+      "sha256": "961cf996e91e83cfad65ea916c228b0a586db1f277beb95b7ab08c54f140157f",
       "upstream_original_file_advertised": "eastern/xiaoliuren.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -256,7 +256,7 @@
         "地藏"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/fojiao-zhancha.md",
-      "sha256": "e5fc0a5b84142020567c2d105e1bd6321d533a62164ee57a7bdd8d3f34810773",
+      "sha256": "a47daea799af518ec9ff94747c97f6895bf6e0322007bc60c9e11c0d4fb65959",
       "upstream_original_file_advertised": "eastern/fojiao-zhancha.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -274,7 +274,7 @@
         "数理"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/tieban-shenshu.md",
-      "sha256": "70c2f5424e5bdd302d65afe0cc8fcdd11b01b0f8c67d72fd5176f86adb20e342",
+      "sha256": "39e0ef2863095886f8c205bb871e5225c2f2c373131d573b6d8a12ef0fa0e224",
       "upstream_original_file_advertised": "eastern/tieban-shenshu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -292,7 +292,7 @@
         "袁天罡"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/chenggu.md",
-      "sha256": "7119e5233246f4b79cfa0a2576a3f58cd7a3d76bc99e67f72f8121d2898f2f6d",
+      "sha256": "7dc5b061604b0294e0a671ac6f1a794f14f0dc161a3df81e243502a6015951f3",
       "upstream_original_file_advertised": "folk/chenggu.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -310,7 +310,7 @@
         "姓名"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/xingming-sancai.md",
-      "sha256": "3eb94ef39286a7a508c44785ca760a46350683ca0375b9af06580c90fbe8d3d5",
+      "sha256": "038697a89ec21441606844fab1cfe13ced7ef9364465608d84b8ce141fccf49e",
       "upstream_original_file_advertised": "folk/xingming-sancai.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -328,7 +328,7 @@
         "神明"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/lingqian.md",
-      "sha256": "5cf81cdbf25959bdc6e1487f83822d734ac12135a0b55efa99b9635fb474020e",
+      "sha256": "ce577a278f387be9f539e9cf04a7a3c992a585b33bafa32503ec39acdb549cdc",
       "upstream_original_file_advertised": "folk/lingqian.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -346,7 +346,7 @@
         "是/否"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/bobei.md",
-      "sha256": "cc7112d8299e188cf7b673124e2d96f27e106b52dc528f4e3df0463076ced858",
+      "sha256": "93384afac5f5264f752b92859fb139973972ddc4e9e00f200c9119debd890584",
       "upstream_original_file_advertised": "folk/bobei.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -364,7 +364,7 @@
         "心理"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/zhougong-jiemeng.md",
-      "sha256": "1559760218dee52ddefa54893a27f55e314e6a0c57b6686beee1f22de45b7630",
+      "sha256": "c2cbcb9821a834614457d7beb32260318dbb9e8bb3718c3ee40c89a4ae773852",
       "upstream_original_file_advertised": "folk/zhougong-jiemeng.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -382,7 +382,7 @@
         "宜忌"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/zeri-tongsheng.md",
-      "sha256": "b2ed69004500741b2ebbc37c1ba540829116c3c53978f22d66986a93342433c9",
+      "sha256": "95b103c811d92ad82d08eb4ed917ed3458fb1430e9402a06186f7116a1f9af83",
       "upstream_original_file_advertised": "folk/zeri-tongsheng.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -401,7 +401,7 @@
         "行星"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/western-astrology.md",
-      "sha256": "e3cab58c97c66be6f8fa866f82befe2eb9533bf3823b600e7918b3d3072e49c9",
+      "sha256": "7d028ec3bde1e6b9c237d7a06e86fcce8056785802821714a85bc1e60864694d",
       "upstream_original_file_advertised": "western/western-astrology.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -419,7 +419,7 @@
         "恒星黄道"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/vedic-astrology.md",
-      "sha256": "f60bf9354a524d6b96d309d19b6c08d0c2cca29b5c97b81e0dfc3b5a29da9636",
+      "sha256": "fe1c491f2058260ac53f0d9899fc9a1a9e55ae83bd5929ff8b728ad3f78a466d",
       "upstream_original_file_advertised": "western/vedic-astrology.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -437,7 +437,7 @@
         "正逆位"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/tarot.md",
-      "sha256": "8f673899d9ecf706a7b195a6ae22ea42f60fde9ed7a2063b646a49bd6811a121",
+      "sha256": "fd7d15adca85aec360ad4daa7f604a76050bd28003d1454a5c694cf546c862c7",
       "upstream_original_file_advertised": "western/tarot.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -455,7 +455,7 @@
         "Grand Tableau"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/lenormand.md",
-      "sha256": "495bc32300b5f10961ed6a109b5542f2507deac93cc251aae4eb873faaa8ca38",
+      "sha256": "0a1953f961707bd7779c31a0e84b90a49e3e58bda375a829f90184839b88e3d3",
       "upstream_original_file_advertised": "western/lenormand.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -473,7 +473,7 @@
         "Shield Chart"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/geomancy.md",
-      "sha256": "048330056fed8b1ae54af5817bdf52dad1c29029cdd75e027cebf7a725d87d5e",
+      "sha256": "93d15912079e47fcfcf61d0a22953bfca8ec44bf4865cfcff1d17e445f7dd5da",
       "upstream_original_file_advertised": "western/geomancy.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -491,7 +491,7 @@
         "倒位"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/runes.md",
-      "sha256": "f90430ff05568e1038757734c1fe9c2c1759a9e0f2cff59f8088f8ddd06267ca",
+      "sha256": "9c97741196f02923f2ae89d506ff66eb6fa5d8e4db21a52848f4bd36ca92da82",
       "upstream_original_file_advertised": "western/runes.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -508,7 +508,7 @@
         "毕达哥拉斯"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/numerology.md",
-      "sha256": "ed9ba50fccebc11a0beabba3e53818e82eb3c1bf2958660f2330a9db551d299f",
+      "sha256": "590f409aec51a0bd2bf123f400749bc37aaf04abe4fe9275c37b2c3de1341c57",
       "upstream_original_file_advertised": "western/numerology.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -526,7 +526,7 @@
         "能量"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/dowsing.md",
-      "sha256": "0002df0d84bed5b4df50603e49964b05cd4662180a6ace60444df8ba2a0a6f34",
+      "sha256": "d14c8ab11d241bc950d4bdc5d4bba4b51aad6399af8dfe6b4785e8b9e7dfad0e",
       "upstream_original_file_advertised": "western/dowsing.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -544,7 +544,7 @@
         "符号"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/tasseography.md",
-      "sha256": "6ada2d9ea3a61e61cd64fe01e4006a910df796697647d61d1001492d41a412ac",
+      "sha256": "f0acc0db1c36832b22953a57fdad7a229e408107570d5e96692997c787caa121",
       "upstream_original_file_advertised": "western/tasseography.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -562,7 +562,7 @@
         "Scrying"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/crystallomancy.md",
-      "sha256": "11f728ba830b48a88a0511d1e9e90fb487d9f8e7233048d392cc4b33863d680a",
+      "sha256": "865e2f5026427a41118413dddf80aca35b51577061982d6ecb61f7429aecc88d",
       "upstream_original_file_advertised": "western/crystallomancy.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -580,7 +580,7 @@
         "感情线"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/western-palmistry.md",
-      "sha256": "ca819ac41e557b6382509db65a007c132758ff2eba0988686d8d06d8a62f7699",
+      "sha256": "cbef2d34381cb0950bd8c1e31608c135baab3398b33832a8a915a59218a852af",
       "upstream_original_file_advertised": "western/western-palmistry.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -598,7 +598,7 @@
         "牌义"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/playing-cards-divination.md",
-      "sha256": "8ed8ac5dda2d29897f4818957b08d56178e854982f81f55a572b5d88c6ca2b2b",
+      "sha256": "1d9b3bc07e81a12f27d7bd104c0aa3ffdc69850802470dbde193796c98e52cc6",
       "upstream_original_file_advertised": "western/playing-cards-divination.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -616,7 +616,7 @@
         "罗马"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/augury.md",
-      "sha256": "0a3d907c7f596e61318b22c63ca02be497b281d4b4d93db3f3993befca1a243b",
+      "sha256": "436f5cbf84764b125b989a0f1a997f40b80bfd4246a73f49b3e471ca50502e5d",
       "upstream_original_file_advertised": "western/augury.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,
@@ -634,7 +634,7 @@
         "神谕"
       ],
       "path": "references/knowledge/supe888-bazi-skills/topics/bibliomancy.md",
-      "sha256": "88215c31c3a3ea526aa803b4c07139b181698b226c0ef61ab1509f9330b8db85",
+      "sha256": "3d0c79bab69ecd8b4a8990e15ea87e1ab18aac38854ce08865308117bfac3bbd",
       "upstream_original_file_advertised": "western/bibliomancy.md",
       "upstream_payload_path": "web/backend/prompts_zh_dump.json",
       "program_supported": false,

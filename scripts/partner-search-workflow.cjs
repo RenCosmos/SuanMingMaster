@@ -48,24 +48,24 @@ function importSource(raw,o){
  check(chart?.bazi,'原盘须有明确的单人八字；未知时辰请先核对候选，不擅选最优时辰');
  return {...raw,self:{birth:chart.input.birth,options:chart.input.options,chart_mode:chart.ziwei?'both':'bazi'}};
 }
-function compute(o,suppliedInput){
- const fingerprint=core.fingerprint();let data,validation,receipt,cacheHit=false,calculated=false,chartFile=o.reuse??path.join(o.out,'chart.json');
+function compute(o,suppliedInput,internal={}){
+ const fingerprint=internal.fingerprint??core.fingerprint();let data,validation,receipt,cacheHit=false,calculated=false,chartFile=o.reuse??path.join(o.out,'chart.json');
  const validationFile=path.join(path.dirname(chartFile),'validation.json');
  if(o.reuse){const bytes=fs.readFileSync(chartFile);data=JSON.parse(bytes.toString('utf8').replace(/^\uFEFF/,''));search.integrity(data);try{receipt=readJson(validationFile);}catch{};
   if(trusted(data,bytes,receipt,fingerprint)){cacheHit=true;validation={ok:true,method:'verified_cache',recalculated:false};}
-  else{search.validateArtifact(data);validation={ok:true,method:'recalculated',recalculated:true};if(path.basename(chartFile)==='chart.json')atomicJson(validationFile,receiptFor(data,bytes,fingerprint,calculationKey(data.input)));}
+  else{if(internal.verifiedData){search.integrity(internal.verifiedData);check(hash(internal.verifiedData)===hash(data),'候选筛选与当前程序重算不一致');}else search.validateArtifact(data);validation={ok:true,method:'recalculated',recalculated:true};if(path.basename(chartFile)==='chart.json')atomicJson(validationFile,receiptFor(data,bytes,fingerprint,calculationKey(data.input)));}
  }else{
   let raw=suppliedInput===undefined?(o.stdin?readStdinJson():readJson(o.input)):suppliedInput;if(o.source_chart)raw=importSource(raw,o);const key=calculationKey(raw);
   if(fs.existsSync(chartFile)){const bytes=fs.readFileSync(chartFile),previous=JSON.parse(bytes.toString('utf8').replace(/^\uFEFF/,''));search.integrity(previous);check(calculationKey(previous.input)===key,'目录已有不同的计算输入；请使用新任务目录');
    try{receipt=readJson(validationFile);}catch{};if(!o.refresh&&trusted(previous,bytes,receipt,fingerprint)){data=previous;cacheHit=true;validation={ok:true,method:'verified_cache',recalculated:false};}
   }
-  if(!data){data=search.build(raw);search.validateArtifact(data);calculated=true;validation={ok:true,method:'recalculated',recalculated:true};const bytes=Buffer.from(JSON.stringify(data)+'\n');atomicJson(chartFile,data);atomicJson(validationFile,receiptFor(data,bytes,fingerprint,key));}
+  if(!data){data=internal.verifiedData??search.build(raw);if(internal.verifiedData){search.integrity(data);check(calculationKey(data.input)===key,'已核验扫描与输入不一致');}else search.validateArtifact(data);calculated=true;validation={ok:true,method:'recalculated',recalculated:true};const bytes=Buffer.from(JSON.stringify(data)+'\n');atomicJson(chartFile,data);atomicJson(validationFile,receiptFor(data,bytes,fingerprint,key));}
  }
  const files={chart:chartFile,context:path.join(o.out,'context.json'),validation:validationFile};if(o.report){files.report_md=path.join(o.out,'report.md');files.report_html=path.join(o.out,'report.html');}
  const r=boundedResponse({ok:true,workflow_version:VERSION,adapter_id:'partner_search',validation,cache_hit:cacheHit,calculation_performed:calculated,files,report_generated:Boolean(o.report),...(o.source_chart?{source_chart:o.source_chart}: {})},data,o);
  if(o.report){const report=require('./partner-search-report.cjs').makeReport(data);fs.writeFileSync(files.report_md,report.markdown,{encoding:'utf8',mode:0o600});fs.writeFileSync(files.report_html,report.html,{encoding:'utf8',mode:0o600});}return r;
 }
-function operation(argv,{rawInput}={}){
+function operation(argv,{rawInput,...internal}={}){
  const plans=argv.filter(a=>a==='--plan').length;
  const batches=argv.filter(a=>a==='--batch').length;
  check(!(plans&&batches),'--plan 与 --batch 是不同任务入口，不同时使用');
@@ -75,7 +75,7 @@ function operation(argv,{rawInput}={}){
  let unlock;try{
   const r=withInputLifecycle(argv,args=>{const o=parse(args);o.out=safeTarget(o.out??path.dirname(o.reuse));if(o.reuse)safeTarget(path.dirname(o.reuse));
    const writes=[path.join(o.out,'context.json'),...(o.report?['report.md','report.html'].map(n=>path.join(o.out,n)):[]),...(!o.reuse?[path.join(o.out,'chart.json'),path.join(o.out,'validation.json')]:path.basename(o.reuse)==='chart.json'?[path.join(path.dirname(o.reuse),'validation.json')]:[])];
-   assertOutputs(o.input??o.reuse,writes);if(o.source_chart)assertOutputs(o.source_chart,writes);unlock=acquireTaskLocks([o.out,...(o.reuse?[path.dirname(o.reuse)]:[])]);return compute(o,rawInput);
+   assertOutputs(o.input??o.reuse,writes);if(o.source_chart)assertOutputs(o.source_chart,writes);unlock=acquireTaskLocks([o.out,...(o.reuse?[path.dirname(o.reuse)]:[])]);return compute(o,rawInput,internal);
   });budget.assertFits(budget.stamp(r),MAX_OUTPUT_BYTES);atomicJson(r.files.context,r);return r;
  }finally{unlock?.();}
 }

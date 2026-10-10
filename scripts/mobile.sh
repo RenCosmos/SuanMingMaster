@@ -19,7 +19,7 @@ if [ "$temp_requested" -eq 1 ]; then
   temp_input=$temp_parent/$temp_name
   case "$temp_input" in "$skill_dir"/*) printf '%s\n' '{"ok":false,"error":"技能包资源不能标记为临时输入"}' >&2; exit 2 ;; esac
   temp_lower=$(printf '%s' "$temp_name" | tr '[:upper:]' '[:lower:]')
-  case "$temp_lower" in chart.json|batch.json|context.json|brief.json|validation.json|comparison.json|report.md|report.html|reading.md|shuwen.txt|shuwen.html)
+  case "$temp_lower" in chart.json|batch.json|scan-checkpoint.json|context.json|brief.json|validation.json|comparison.json|report.md|report.html|reading.md|shuwen.txt|shuwen.html)
     printf '%s\n' '{"ok":false,"error":"结果文件不能标记为临时输入"}' >&2; exit 2 ;;
   esac
   if [ -L "$temp_input" ] || { [ -e "$temp_input" ] && [ ! -f "$temp_input" ]; }; then
@@ -45,18 +45,32 @@ if [ "$temp_requested" -eq 1 ]; then
   trap 'exit 130' INT
   trap 'exit 143' TERM
 fi
-cached_node=/workspace/.bazi-ziwei-runtime/node22/bin/node
 node_cmd=
-if command -v node >/dev/null 2>&1; then
-  if node -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 20 ? 0 : 1)' >/dev/null 2>&1; then
+node_source=
+cached_node=${SUANMING_RUNTIME_DIR:-/workspace/.bazi-ziwei-runtime}/node22/bin/node
+node_ready() { "$1" -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 20 && process.versions.icu ? 0 : 1)' >/dev/null 2>&1; }
+if [ -n "${SUANMING_NODE:-}" ]; then
+  if [ -x "$SUANMING_NODE" ] && node_ready "$SUANMING_NODE"; then node_cmd=$SUANMING_NODE; node_source=explicit; fi
+elif command -v node >/dev/null 2>&1; then
+  if node_ready "$(command -v node)"; then
     node_cmd=$(command -v node)
+    node_source=system
   fi
 fi
-if [ -z "$node_cmd" ] && [ -x "$cached_node" ]; then node_cmd=$cached_node; fi
+if [ -z "$node_cmd" ] && [ -x "$cached_node" ] && node_ready "$cached_node"; then node_cmd=$cached_node; node_source=workspace_private; fi
 if [ -z "$node_cmd" ]; then
-  printf '%s\n' '{"ok":false,"error":"工作区缺少 Node.js 20+","action":"阅读手机安装说明，然后运行 sh /skills/bazi-ziwei/scripts/install-node.sh"}' >&2
+  printf '%s\n' '{"ok":false,"type":"runtime_missing","error":"工作区缺少Node.js 20+及ICU","action":"单独运行sh /skills/bazi-ziwei/scripts/install-node.sh联网准备Node，再检查一次并继续原任务；不要把安装与候选扫描串成一条命令"}' >&2
   exit 2
 fi
+case "${1:-}" in --knowledge|--knowledge-full) ;; *)
+  for dep in iztro lunar-typescript @js-temporal/polyfill jsbi; do
+    if [ ! -f "$skill_dir/node_modules/$dep/package.json" ]; then
+      printf '%s\n' '{"ok":false,"type":"bundled_dependencies_missing","network_allowed":false,"error":"完整安装包的node_modules资源不完整；不是工作区需要npm安装","action":"重新导入完整安装ZIP，不复制脚本到工作区、不运行npm/pnpm/apt"}' >&2
+      exit 2
+    fi
+  done ;;
+esac
+export SUANMING_NODE_SOURCE=$node_source
 run_node() {
   if [ -n "$temp_input" ]; then "$node_cmd" "$@"; else exec "$node_cmd" "$@"; fi
 }

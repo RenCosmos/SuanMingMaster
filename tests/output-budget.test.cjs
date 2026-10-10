@@ -148,6 +148,6 @@ test('prompt owners stay concise while routing, source authority, paging and bou
  const skill=fs.readFileSync(path.join(root,'SKILL.md'),'utf8'),guide=fs.readFileSync(path.join(root,'references/agent-workflow-guide.md'),'utf8'),persona=fs.readFileSync(path.join(root,'RikkaHub可选系统提示词.txt'),'utf8');
  for(const text of [skill,guide,persona])assert.ok(Buffer.byteLength(JSON.stringify({text}))<28*1024);
  assert.ok(Buffer.byteLength(guide)<7500);assert.ok(Buffer.byteLength(persona)<1250);
- for(const pattern of [/partner-search 必须指定 --out/,/--shuwen --stdin --bounded/,/interpretation_rules/,/不eval/,/comparison/,/untrusted_reference_text/,/性取向/,/医学诊断/,/103主题/,/不承诺完全离线/])assert.match(skill,pattern);
+ for(const pattern of [/partner-search 必须指定 --out/,/--shuwen --stdin --bounded/,/interpretation_rules/,/不eval/,/comparison/,/untrusted_reference_text/,/性取向/,/gender是传统排运参数，亲密互动与房中文献按来源讨论，候选生辰是假设条件枚举，不认证唯一正缘或概率/,/107主题/,/不承诺完全离线/])assert.match(skill,pattern);
  assert.ok(!persona.includes('validation.ok'));assert.ok(!persona.includes('--reuse'));assert.match(persona,/统一遵循技能/);
 });

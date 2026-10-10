@@ -6,6 +6,7 @@ const engine=require('./engine.cjs'),relationship=require('./relationship.cjs');
 const {relations,tenGod,calculate}=require('./bazi-rules.cjs');
 const {periodRelations}=require('./bazi-period-relations.cjs');
 const gridEngine=require('./time-compare.cjs');
+const {makePillars}=require('./bazi-chart.cjs');
 const RULES=require('../references/partner-search-rules.json');
 const IMAGE=require('../references/partner-image-rules.json');
 const WEIGHTS=require('../references/bazi-rules.json');
@@ -99,12 +100,18 @@ function ageAlignment(self,start,end){
  const direction=compareDate(b,birth)<0?'older':compareDate(a,birth)>0?'younger':'overlapping_birth_date';
  return {cue,direction,alignment:direction==='overlapping_birth_date'?'uncertain':cue==='peer'?'not_quantified':direction===cue?'aligns':'differs',use:'auxiliary_display_only_not_filter_or_probability'};
 }
-function build(raw){
- const input=normalizeInput(raw),self=selfFacts(input),results=[],unavailable=[];
- let examined=0,underage=0,outsideGap=0,failedConditions=0,excludedRelations=0;
+function createScan(raw,resume){
+ engine.dependencyVersions();
+ const input=normalizeInput(raw),self=resume?.self??selfFacts(input),results=resume?.results??[],unavailable=resume?.unavailable??[];
+ if(resume)check(digest(resume.input)===digest(input),'扫描检查点输入不一致');
+ let examined=resume?.examined??0,underage=0,outsideGap=resume?.outsideGap??0,failedConditions=resume?.failedConditions??0,excludedRelations=resume?.excludedRelations??0;
+ let nextDate=resume?.nextDate??input.search.start;
+ const evaluations=new Map();
  function consider(item,pillars,partial,start,end=start){
   examined++;const gap=item.birth_year_label-self.birth_year;if(gap<input.filters.year_gap[0]||gap>input.filters.year_gap[1]){outsideGap++;return;}
-  const evaluation=assessment(self,pillars,input,partial);if(!evaluation.passes_conditions){failedConditions++;return;}if(evaluation.excluded_by_relations.length){excludedRelations++;return;}
+  const key=pillars.map(p=>p.ganzhi).join('|')+(partial?'|year':'|full');
+  let evaluation=evaluations.get(key);if(!evaluation){evaluation=assessment(self,pillars,input,partial);evaluations.set(key,evaluation);}
+  if(!evaluation.passes_conditions){failedConditions++;return;}if(evaluation.excluded_by_relations.length){excludedRelations++;return;}
   results.push({...item,year_label_gap:gap,pillars:pillars.map(compactPillar),full_bazi:partial?null:pillars.map(p=>p.ganzhi),animal:IMAGE.animals[pillars[0].branch],age_cue_alignment:ageAlignment(self,start,end),evaluation});
  }
  if(input.search.type==='years'){
@@ -118,23 +125,32 @@ function build(raw){
   for(const person of input.search.people){const c=engine.build({mode:'bazi',birth:person.birth,options:person.options});
    consider({id:'PSP-'+person.id,kind:'provided_person',person_id:person.id,birth_year_label:Number(c.normalized.solar_date.slice(0,4)),birth:person.birth,normalized:c.normalized,warnings:c.warnings,identity_status:'user_provided_not_destiny_confirmed'},c.bazi.chart.pillars,false,c.normalized.solar_date);
   }
- }else{
-  for(let d=date(input.search.start,'start'),last=date(input.search.end,'end');compareDate(d,last)<=0;d=d.add({days:1})){
+ }
+ function step(){
+  check(input.search.type==='dates','分段扫描仅用于日期');
+  if(compareDate(date(nextDate,'cursor'),date(input.search.end,'end'))>0)return false;
+  const d=date(nextDate,'cursor');
    const location=Object.fromEntries(['longitude','longitude_source'].filter(k=>input.search[k]!==undefined).map(k=>[k,input.search[k]]));
    const prepared=gridEngine.prepare({mode:'time_compare',chart_mode:'bazi',birth:{calendar:'solar',date:d.toString(),gender:'male',timezone:input.search.timezone,...location},birth_options:input.search.options,time_uncertainty:input.search.time_uncertainty}),grid=gridEngine.generate(prepared);
    for(const point of grid.points){try{
     const dt=Temporal.PlainDateTime.from(point.local_datetime),birth={calendar:'solar',date:dt.toPlainDate().toString(),time:dt.toPlainTime().toString({smallestUnit:'second'}),gender:'male',timezone:input.search.timezone,...location};
-    const c=engine.build({mode:'bazi',birth,options:input.search.options}),interval=grid.intervals.find(i=>i.id===point.interval_id);
-    consider({id:'PSD-'+d.toString()+'-'+point.id,kind:'hypothetical_datetime',birth_year_label:d.year,local_datetime:point.local_datetime,timezone:input.search.timezone,sampling_role:point.sampling_role,interval:interval?{start:interval.start,end:interval.end}:null,warnings:c.warnings,identity_status:'generated_condition_candidate',gender_is_known:false},c.bazi.chart.pillars,false,d.toString());
+    const c=normalize({mode:'bazi',birth,options:input.search.options}),pillars=makePillars(c).pillars,interval=grid.intervals.find(i=>i.id===point.interval_id);
+    consider({id:'PSD-'+d.toString()+'-'+point.id,kind:'hypothetical_datetime',birth_year_label:d.year,local_datetime:point.local_datetime,timezone:input.search.timezone,sampling_role:point.sampling_role,interval:interval?{start:interval.start,end:interval.end}:null,warnings:c.warnings,identity_status:'generated_condition_candidate',gender_is_known:false},pillars,false,d.toString());
    }catch(e){if(!(e instanceof InputError))throw e;unavailable.push({local_datetime:point.local_datetime,error:e.message});}}
-  }
+  nextDate=d.add({days:1}).toString();return true;
  }
+ function snapshot(){return {input,self,results,unavailable,nextDate,examined,outsideGap,failedConditions,excludedRelations};}
+ function finish(){
+ if(input.search.type==='dates')check(compareDate(date(nextDate,'cursor'),date(input.search.end,'end'))>0,'扫描尚未完成');
  results.sort((a,b)=>b.evaluation.matched_condition_count-a.evaluation.matched_condition_count||Math.abs(a.year_label_gap)-Math.abs(b.year_label_gap)||a.id.localeCompare(b.id,'en'));
  const result={schema_version:SCHEMA,engine_version:VERSION,rule_version:RULES.version,input,self:{...self,pillars:self.pillars.map(compactPillar),calculations:undefined,spouse_star_occurrences:self.calculations.score_ledger.filter(x=>['正财','偏财','正官','七杀'].includes(x.ten_god)),spouse_palace:{...compactPillar(self.pillars[2]),hidden_stems:self.pillars[2].hidden_stems}},
   coverage:{type:input.search.type,examined,accepted:results.length,underage_excluded:underage,outside_year_gap:outsideGap,failed_conditions:failedConditions,excluded_relations:excludedRelations,unavailable:unavailable.length,scope:input.search.type==='dates'?'明确时间或结构边界首中末采样；结果只代表已计算点，不是连续分钟概率。':'所列年柱周期或用户提供人物；未知月日时不补造。',full_bazi_gender_placeholder:input.search.type==='dates'?'内部male参数仅满足旧引擎契约；四柱不依赖它，未输出候选者性别、紫微、排运或生理结论。':null},
   candidates:results,unavailable,ordering:RULES.ordering,interpretation_scope:RULES.interpretation_scope,sources:RULES.sources,selected_partner:null,probability:null};
  delete result.self.calculations;result.checksum={algorithm:'sha256-canonical-json',value:digest(result)};return result;
+ }
+ return {step,snapshot,finish};
 }
+function build(raw){const scan=createScan(raw);if(raw.search.type==='dates')while(scan.step()){}return scan.finish();}
 function integrity(data){check(data?.schema_version===SCHEMA&&data.engine_version===VERSION&&data.rule_version===RULES.version,'不支持的候选筛选版本');const {checksum,...payload}=data;check(checksum?.algorithm==='sha256-canonical-json'&&checksum.value===digest(payload),'候选结果校验和不匹配');return checksum.value;}
 function validateArtifact(data){integrity(data);const fresh=build(data.input);check(digest(fresh)===digest(data),'候选筛选与当前程序重算不一致');return data.checksum.value;}
-module.exports={build,normalizeInput,integrity,validateArtifact,assessment,manualPillars,lichun,SCHEMA,VERSION,RULES};
+module.exports={build,createScan,normalizeInput,integrity,validateArtifact,assessment,manualPillars,lichun,SCHEMA,VERSION,RULES};

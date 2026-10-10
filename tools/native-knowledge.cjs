@@ -26,7 +26,7 @@ function pages(){
    body+=`原正文路径：${text(t.path)}（相对技能根；非本页全文）。\n`;
    return body;
   }).join('');
-  const content=header+entries;
+  const content=require('./style-review.cjs').rewriteText(header+entries);
   if(Buffer.byteLength(JSON.stringify({text:content}))>=28*1024)throw Error('原生读取页超出预算：'+slug);
   return {path:`references/rikkahub-native/${slug}.md`,topics:count,content};
  });

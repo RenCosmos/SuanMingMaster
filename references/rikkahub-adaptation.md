@@ -1,62 +1,48 @@
-# RikkaHub 2.5.6：调用、恢复与手机验收
+# RikkaHub 2.5.6：安装与恢复
 
-仅在安装、升级或排障时读；普通任务按 SKILL.md 直接执行。V1.2.5保留全部计算模式、原93主题全文、旧CLI、按需报告和20KiB/12KiB预算，不新增自动重试、后台进程、远端服务或人物档案。
+仅安装、升级或排障时读；日常执行与状态统一遵循[SKILL.md](../SKILL.md)，证据续页见[分页契约](pagination-guide.md)。本页不另设角色，也不要求日常自检。
 
-## 宿主调用契约
+## 宿主契约
 
-`use_skill` 可在没有 Linux Workspace 时读取本页链接的技能文件。`workspace_shell` 必须有绑定且就绪的 Rootfs；它不是客户端 JavaScript/QuickJS 引擎。技能资源在 `/skills/bazi-ziwei`，任务文件在 `/workspace/bazi-ziwei-reports/TASK`。只在明确需要保存解读或导出时使用工作区写文件工具。
+use_skill可读取技能文件；计算用workspace_shell，须绑定就绪的Linux Rootfs，不是QuickJS。技能在/skills/bazi-ziwei，任务在/workspace/bazi-ziwei-reports/TASK。参数为command、可选cwd及timeout（秒）；cwd是工作区相对目录，可省略。
 
-workspace_shell 参数是 `command`、可选 `cwd` 和 `timeout`。timeout 单位是秒，2.5.6默认30、最大600；正常计算显式120，整天对照/初次自检按需提高，Node安装用600。cwd是相对工作区文件根的目录，例如 `bazi-ziwei-reports/TASK`；使用绝对技能脚本路径时可以省略。
+普通／规划timeout=120，批量60且程序默认20秒软预算，Node安装单独120。外层有exitCode、stdout字符串、stderr、timedOut及可选truncated；先查状态再解析stdout。排盘内层ok／validation.ok须true；批量yielded是正常进度，知识／制文不要求不存在的validation。错误可能是stderr JSON或环境文本；授权拒绝直接停止。
 
-工具外层返回 `exitCode`、`stdout`字符串、`stderr`字符串、`timedOut`及可能出现的`truncated`。先检查外层，再解析 stdout 为内部JSON；不能把 stdout 当已解析的对象。正常排盘要求内层`ok`与`validation.ok`均为true；知识/制文只检查其相应输出，不要求不存在的validation。失败详情通常在stderr的JSON中；缺运行时、无法启动shell等也可能是普通文本。拒绝授权可能返回错误而没有这些shell字段，直接停止，不伪造执行成功。
+## 安装与升级
 
-官方[工具实现](https://github.com/rikkahub/rikkahub/blob/2.5.6/app/src/main/java/me/rerere/rikkahub/data/ai/tools/WorkspaceTools.kt)、[技能读取](https://github.com/rikkahub/rikkahub/blob/2.5.6/app/src/main/java/me/rerere/rikkahub/data/ai/tools/SkillsTools.kt)和[技能导入](https://github.com/rikkahub/rikkahub/blob/2.5.6/app/src/main/java/me/rerere/rikkahub/ui/pages/extensions/skills/SkillsVM.kt)于2026-10-06核对，标签提交为447bb7e89710d31f1204d7a2973baa19fdbd5b28。V1.3.0手机实测由用户于2026-10-07确认，接口源码核对与设备实测分别记录。
+导入当前标准ZIP，根为bazi-ziwei/SKILL.md，计算依赖已包含；源码ZIP、单独SKILL.md或直接仓库导入不能代替完整安装。升级重读主Skill，保留已有运行时和用户任务。
 
-## 安装路径区别
+mobile.sh复用系统或工作区私有Node；仅runtime_missing时按[手机安装说明](../手机安装说明.md)单独运行install-node.sh，缺基础工具才根据实际错误引导apt。bundled_dependencies_missing应重新导入完整包，不在/workspace复制脚本或重复npm安装。安装与计算分开，安装／升级自检一次；--check显示实际Node及依赖来源。
 
-安装完整 `bazi-ziwei-rikkahub-v1.3.5.zip`，其根是 `bazi-ziwei/SKILL.md`，包含固定计算依赖。源码ZIP、单独SKILL.md和RikkaHub直接GitHub仓库导入不会自动解压仓库里的安装ZIP；源码仓库不提交node_modules，因此不是完整手机安装方式。升级保留旧安装ZIP及任务文件，重新导入完整新包并运行一次自检。不要删除旧运行时、任务或生辰来“重装”。
+## 状态恢复
 
-## 任务与恢复
-
-`task_id` 是命盘所在路径的短摘要，用于核对同一任务；不是唯一性/安全凭证或全局人物ID。以`files.chart`的明确路径复用，不根据task_id反查人物。没有新增自动持久化索引。
-
-`next_actions`至多给3条建议，省略的分页仍在原`next_offset`、`next_variant_offset`、`people_page`及选择范围中。`reuse`用原files.chart，按建议设置focus、person、offset、years、field、variant_offset；years数组转为`YYYY:YYYY`。`new_calculation/annual_range_uncomputed`指已有盘未算所问流年：核对原输入，调整target_date/annual_count，在新任务目录计算，不擅造年份或把空页说成无事。建议只描述下一步，不执行、不修改输入或决定最佳人物/时辰。
-
-| 状态 | 可采取的下一步 | 不可采取 |
+| 状态 | 下一步 | 不要做 |
 | --- | --- | --- |
-| 工具授权拒绝 | 停止，说明哪项权限未获批准 | 改换工具绕过授权 |
-| timedOut=true | 只检查本次明确任务目录里的chart.json是否存在；存在则尝试--reuse让程序校验。不成功才询问或以同一原输入在新目录重试一次，必要时提高timeout | 默认认为旧context有效、循环重跑、随意删除结果 |
-| task_busy | 稍后最多重试一次，仍忙则请用户选择等待或新任务 | 删锁、杀进程、无限重试 |
-| 路径忘记 | 仅列已知任务根下的chart.json路径，让用户选择；不读取全文 | 自动选择“最新”或他人的命盘 |
-| 校验和/重算不一致 | 保留文件，恢复原盘或按原输入重算 | 去掉校验、修改数据迎合解读 |
-| context_budget_exceeded / truncated=true | 用原chart缩小主题、人物或字段并分页；保留全部原数据 | 解释截断半个JSON、丢掉重要证据 |
-| cleanup_error | 说明临时输入被保留及原因，检查该文件 | 扫描/清空工作区 |
-| 未算年份 | 在新目录补算明确范围；annual_count仍支持1–20 | 把--years当计算参数、用空页作断语 |
+| 授权拒绝 | 停止并指出未获权限 | 换工具绕过 |
+| batch yielded | 执行返回的--resume argv，原目录续跑 | 重建输入、多年份并发、提前断全年最高 |
+| 普通任务timedOut | 只检查本次明确chart路径；存在则--reuse校验，失败才按原输入在新目录最多重试一次 | 信任旧context、循环重跑、删结果 |
+| 批量timedOut | 定位本次batch.json，--reuse --resume；保留月份与日断点 | 找普通chart或重建全年任务 |
+| task_busy | 稍后最多重试一次，仍忙请用户选择等待或新任务 | 删锁、杀进程、无限重试 |
+| 路径忘记 | 只列已知任务根下chart路径，请用户选择 | 自动取最新或他人的命盘 |
+| 校验／重算不一致 | 保留文件，恢复原盘或按原输入补算 | 去校验、改结果迎合解读 |
+| context_budget_exceeded／truncated | 用原盘缩小主题／人物／字段并续页 | 解释半个JSON、丢重要证据 |
+| cleanup_error | 检查明确保留的临时输入 | 清空工作区 |
+| 未算年份 | 新目录补算明确范围，annual_count支持1–20 | 将--years当计算、以空页断无事 |
 
-next_actions中的reuse同时保留当前years、person/field等适用筛选和实际limit，执行时不要丢掉这些字段；不要把过滤范围扩大到整盘。offset、variant_offset按具体建议设置，years数组转成YYYY:YYYY。旧选择与分页元数据仍是完整依据。
+重试是上限，不是必做步骤；输入错误、拒绝授权、校验失败不自动重试。保留JSON和stderr，不接tr/grep/head或2>/dev/null。没有有效结果不作据盘结论。
 
-以上重试是上限，不是必做步骤；输入错误、权限拒绝、校验失败不自动重试。没有结果时不给据盘结论。
+task_id仅是路径短摘要，不是身份或安全凭证；复用files.chart。next_actions.argv已含路径、选择和游标，逐项安全引用，不手动转换years或重拼。普通new_calculation没有可执行argv；[规划动作](partner-search-plan-method.md)另附argv及input，将input送stdin。建议不代用户选择人物或最佳时辰。
 
-## 警告、解释和资料生命周期
+## 官方等待与截断机制
 
-双人精简context增加`reading.warnings`，相同消息按`person_ids`去重；单人原warnings、四柱、星曜、交叉关系及所有旧字段仍保留。context增加interpretation_scope，不修改命盘事实、原解释规则或计算口径。亲密专题照常保留十神/宫位/星曜和象征取向；physiological_ability、ability_score继续为null，不推断性取向、性功能、生育能力或疾病。宗教资料只按其传统/来源范围解释，不认证个人鬼神身份或前世配偶。
+2026-10-09核对官方2.5.6：[工具实现](https://github.com/rikkahub/rikkahub/blob/2.5.6/app/src/main/java/me/rerere/rikkahub/data/ai/tools/WorkspaceTools.kt)定义timeout默认30秒、上限600秒；[进程等待](https://github.com/rikkahub/rikkahub/blob/2.5.6/workspace/src/main/java/me/rerere/workspace/WorkspaceShellRunner.kt)在waitFor结束后集中返回输出，超时强制结束并等待采集线程最多1秒，不是实时终端。600允许十分钟，不会加速。
 
-引擎本身不主动上传生辰；但用户消息及工具输出可能被RikkaHub发送给所选模型供应商。stdin不落中间输入不意味着chart.json不含规范输入，也不意味着聊天完全离线；不自动建立人物记忆或档案。报告与reading.md仍仅明确要求时保存。
+[PRoot执行器](https://github.com/rikkahub/rikkahub/blob/2.5.6/workspace/src/main/java/me/rerere/workspace/ProotShellRunner.kt)使用bash与--kill-on-exit，环境准备在进程计时前。120秒调用若总等待超过五分钟，需完整日志区分审批、启动及连续工具调用，不能只凭截图认定原因。手机重复文件操作成本可能更高，属推断而非设备测量。
 
-## 手机验收与排障复核清单
+[官方生成管线](https://github.com/rikkahub/rikkahub/blob/2.5.6/docs/references/chat-generation-pipeline.md)另有超过32KiB后的消息截断；本项目20KiB响应和28KiB包装余量用于避开该路径，与计算时长是两回事。接口标签提交为447bb7e89710d31f1204d7a2973baa19fdbd5b28。
 
-V1.3.0安装包已由用户于2026-10-07确认完成手机实测。以下清单供后续升级及排障复核，不作为逐项实测日志。
+## 数据与手机排障记录
 
-1. 导入完整ZIP、启用技能、绑定默认Ubuntu/Debian Workspace；运行一次--check --self-test，12/12成功。
-2. 普通八字/紫微、单人关系、双人关系：一次shell返回完整JSON；双人默认仍含双方与交叉关系，警告未丢。
-3. 连续换主题追问：task_id相同、cache_hit=true、calculation_performed=false；不反复自检/生成报告。
-4. 整天未知时辰、候选与字段分页、20年年度分页：范围不缺失，不把页内或候选点数当总体概率。
-5. 护法/前世姻缘等纯知识：不收生辰；有Node时检索全文，无Node时use_skill读取概览，不声称看过未加载原文。
-6. 模拟缺Node、未就绪Workspace、授权拒绝、超时、任务忙、旧盘校验失败：按状态停止/恢复，不绕过权限、不删除文件。
-7. 明确要求报告和疏文横排/竖排导出：旧接口仍可用；未要求时聊天回答，不自动创建报告。
+warnings按人物来源读取；interpretation_scope定义当前证据范围，不改命盘事实。引擎不主动上传生辰，但聊天和context可能发送给所选模型供应商；规范输入仍在chart中，stdin无中间文件不等于无资料留存。报告只在明确要求时保存。
 
-后续复核可记录手机型号、Rootfs、Node/ICU/时区数据库版本、所用模型、外层工具状态及失败编号；不要上传真实生辰、完整命盘或私密关系叙述作测试日志。手机实测的来源是用户确认，不编造设备型号或逐项执行日志。
-
-## V1.3.1调用修复
-
-新建候选筛选：--agent --stdin --partner-search --out TASK。reuse动作增加entrypoint和argv，argv为mobile.sh完整参数数组（包含明确chart路径与全部筛选）；不要重新组装或eval。普通new_calculation无argv，不自动选输入/目录；V1.3.8[规划入口](partner-search-plan-method.md)返回完整argv及明确input，把input作为stdin执行本次已选范围的候选查询。原12组自检和输出预算保留，npm test在手机包明确失败提示缺开发测试；npm run check是关键自检而非完整回归。V1.3.1原97主题保留；V1.3.5加入六张六爻概念卡，共103主题。历史V1.3.0手机确认不继承为当前版本手机实测。
+手机复核记录当前包名、设备／Rootfs、Node／ICU／时区版本、所用模型和实际工具状态；不上传真实生辰或私密关系作日志。桌面回归、解包验收、历史用户确认与当前手机实测分开，以当前验收记录为准，不编造设备日志。

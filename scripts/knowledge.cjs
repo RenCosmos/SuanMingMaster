@@ -3,9 +3,10 @@ const fs=require('node:fs');const path=require('node:path');
 const {withInputLifecycle}=require('./input-lifecycle.cjs');
 function library(){
  const MANIFEST=require('../references/knowledge/supe888-bazi-skills/manifest.json'),FOLK=require('../references/folklore/catalog.json'),CURATED=require('../references/knowledge/curated/catalog.json'),PRACTICE=require('../references/knowledge/practice/catalog.json'),SPIRIT=require('../references/knowledge/spirit/catalog.json');
- const CONCEPTS=require('../references/knowledge/bazi-concepts/catalog.json'),LIUYAO_CONCEPTS=require('../references/knowledge/liuyao-concepts/catalog.json');
+ const CONCEPTS=require('../references/knowledge/bazi-concepts/catalog.json'),LIUYAO_CONCEPTS=require('../references/knowledge/liuyao-concepts/catalog.json'),ROMANCE=require('../references/knowledge/romance/catalog.json');
  const topics=[...MANIFEST.topics.map(t=>({...t,source_kind:'open_source_prompt_template',repository:MANIFEST.repository,commit:MANIFEST.commit,license:MANIFEST.license})),...FOLK.topics.map(t=>({...t,source_kind:t.kind})),...CURATED.topics.map(t=>({...t,source_kind:t.kind})),...PRACTICE.topics.map(t=>({...t,source_kind:t.kind})),...SPIRIT.topics.map(t=>({...t,source_kind:t.kind})),...CONCEPTS.topics.map(t=>({...t,source_kind:t.kind})),...LIUYAO_CONCEPTS.topics.map(t=>({...t,source_kind:t.kind}))];
- return {MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,CONCEPTS,LIUYAO_CONCEPTS,topics};
+ topics.push(...ROMANCE.topics.map(t=>({...t,source_kind:t.kind})));
+ return {MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,CONCEPTS,LIUYAO_CONCEPTS,ROMANCE,topics};
 }
 function lookup(input){
  const {ROOT,check}=require('./common.cjs'),{topics}=library();
@@ -22,11 +23,14 @@ function lookup(input){
  return {...base,query:input.query,...found};
 }
 function verifyKnowledge(){
- const {ROOT,readJson,digest,check}=require('./common.cjs'),{MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,CONCEPTS,LIUYAO_CONCEPTS,topics}=library();
+ const {ROOT,readJson,digest,check}=require('./common.cjs'),{MANIFEST,FOLK,CURATED,PRACTICE,SPIRIT,CONCEPTS,LIUYAO_CONCEPTS,ROMANCE,topics}=library();
  const dir=path.join(ROOT,'references/knowledge/supe888-bazi-skills');check(MANIFEST.topics.length===35,'知识主题数量不完整');
  const crypto=require('node:crypto');const sha=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
  for(const [file,expected] of Object.entries(MANIFEST.bundled_file_sha256))check(sha(path.join(dir,file))===expected,`知识库文件摘要不匹配：${file}`);
  check(new Set(topics.map(t=>t.slug)).size===topics.length,'知识主题 slug 重复');
+ check(ROMANCE.version==='romance-knowledge/v1'&&ROMANCE.topics.length===ROMANCE.expected_topics&&ROMANCE.topics.length===4,'情感知识目录不完整');
+ const romanceSources=require('../references/romance-rules.json').sources;
+ for(const t of ROMANCE.topics){check(romanceSources.some(s=>s.id===t.source_id&&s.url===t.url),'情感卡来源不匹配');if(t.original_excerpt)check(fs.readFileSync(path.join(ROOT,t.path),'utf8').includes(t.original_excerpt),'情感古籍短引缺失');}
  check(new Set(FOLK.topics.map(t=>t.id)).size===FOLK.topics.length,'来源卡编号重复');
  for(const t of topics){const file=path.resolve(ROOT,t.path);check(file.startsWith(ROOT+path.sep),'知识文件路径错误');check(sha(file)===t.sha256,`知识主题摘要不匹配：${t.slug}`);}
  check(FOLK.version==='folklore-source-cards/v2'&&FOLK.topics.length===21&&FOLK.topics.filter(t=>t.kind==='official_heritage_registry').length===4&&FOLK.topics.filter(t=>t.kind==='classical_primary_text').length===17,'民俗来源目录不完整');
@@ -83,7 +87,7 @@ function verifyKnowledge(){
   for(const s of t.source_references)check(s.book===t.book&&s.chapter&&s.locator&&s.checked_claim&&s.access_method===t.access_method&&s.accessed_on===t.accessed_on&&/^\d{4}-\d{2}-\d{2}$/.test(s.accessed_on)&&/^https:\/\/zh\.wikisource\.org\/zh-hans\//.test(s.url)&&content.includes(s.url),'六爻概念卡查核记录不一致');
   const primary=t.source_references[0];check(primary.url===t.url&&primary.chapter===t.chapter&&primary.locator===t.locator,'六爻概念卡主来源不一致');
  }
- return {ok:true,topics:MANIFEST.topics.length,folklore_topics:FOLK.topics.length,curated_topics:CURATED.topics.length,curated_classical_topics:CURATED.classical_verification.length,practice_topics:PRACTICE.topics.length,practice_sources:PRACTICE.sources.length,spirit_topics:SPIRIT.topics.length,spirit_sources:SPIRIT.sources.length,bazi_concept_topics:CONCEPTS.topics.length,liuyao_concept_topics:LIUYAO_CONCEPTS.topics.length,total_topics:topics.length,new_classical_verified:evidence.records.length,commit:MANIFEST.commit,manifest_checksum:digest(MANIFEST),folklore_catalog_checksum:digest(FOLK),classical_verification_checksum:digest(evidence),curated_catalog_checksum:digest(CURATED),practice_catalog_checksum:digest(PRACTICE),spirit_catalog_checksum:digest(SPIRIT),bazi_concept_catalog_checksum:digest(CONCEPTS),liuyao_concept_catalog_checksum:digest(LIUYAO_CONCEPTS)};
+ return {ok:true,topics:MANIFEST.topics.length,folklore_topics:FOLK.topics.length,curated_topics:CURATED.topics.length,curated_classical_topics:CURATED.classical_verification.length,practice_topics:PRACTICE.topics.length,practice_sources:PRACTICE.sources.length,spirit_topics:SPIRIT.topics.length,spirit_sources:SPIRIT.sources.length,bazi_concept_topics:CONCEPTS.topics.length,liuyao_concept_topics:LIUYAO_CONCEPTS.topics.length,romance_topics:ROMANCE.topics.length,total_topics:topics.length,new_classical_verified:evidence.records.length,commit:MANIFEST.commit,manifest_checksum:digest(MANIFEST),folklore_catalog_checksum:digest(FOLK),classical_verification_checksum:digest(evidence),curated_catalog_checksum:digest(CURATED),practice_catalog_checksum:digest(PRACTICE),spirit_catalog_checksum:digest(SPIRIT),bazi_concept_catalog_checksum:digest(CONCEPTS),liuyao_concept_catalog_checksum:digest(LIUYAO_CONCEPTS),romance_catalog_checksum:digest(ROMANCE)};
 }
 function operation(argv){
  if(argv.length===1&&['--help','-h'].includes(argv[0]))return 'knowledge.cjs --query "关键词" [--limit 1–10] [--domain '+require('./knowledge-search.cjs').DOMAINS.join('|')+']\n--domain 仅用于 --query；显式指定时严格过滤；省略时自动领域仅影响排序。\nknowledge.cjs --topic SLUG\nknowledge.cjs --temp-input QUERY.json（结束后清理）\nknowledge.cjs --input QUERY.json（保留输入）；或 --verify';

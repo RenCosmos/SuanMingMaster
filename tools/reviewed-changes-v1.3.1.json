@@ -1,6 +1,6 @@
 {
   "version": "compatibility-reviewed-changes/v1",
-  "release": "1.4.0",
+  "release": "1.4.4",
   "baseline_commit": "a1ce5c916cd5af733a789f41e1a21e754d39fc79",
   "frozen_baseline_rewritten": false,
   "package_scripts": {
@@ -10,18 +10,18 @@
   "files": {
     "scripts/partner-search.cjs": {
       "old_sha256": "05755f6fed986ed214eb264c8b551ab4cfa35dcb93ce21ce5c81dcac178bbb33",
-      "new_sha256": "721a7caf22bb5caafd4e321928ccd6269ee2a1fafd22ff96acdf4ad13a774e74",
-      "reason": "V1.3.6 removes all self and candidate adult gates only; preserves fields, conditions, scoring, sorting and other runtime scripts; engine 1.0.1 distinguishes age semantics"
+      "new_sha256": "b72809f60bc38afe4a7ac7812abcf7211d61c1e611c60bad6a75f56b6a2c5707",
+      "reason": "V1.3.6 removes all self and candidate adult gates only; preserves fields, conditions, scoring, sorting and other runtime scripts; engine 1.0.1 distinguishes age semantics; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
     },
     "references/input-schema.md": {
       "old_sha256": "124b26fc5c667ec75979d592d7970346b7bafa2d134c1f8891e46b5499929cc3",
-      "new_sha256": "8e3e804c2520daf5777b56266fe5e874a4e850729be64a0a2c72371149f3b4a0",
-      "reason": "clarify natal-only option and separate horoscope year/month boundaries"
+      "new_sha256": "89ddde8b43a0d142c1229999086f9f30818ea18b4819f1eede17f5a6155a6e34",
+      "reason": "clarify natal-only option and separate horoscope year/month boundaries; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
     },
     "references/ziwei-method.md": {
       "old_sha256": "8498675b32a9fd4fe2973d6f0eff918c98f3442ed09614c495c0e4f48d0eb86e",
-      "new_sha256": "282899f6fc5b6ffbf5cce8c07a7cb0e86a256602437bd72d1fd68eb63e109354",
-      "reason": "clarify unchanged natal and horoscope calendar conventions"
+      "new_sha256": "fd512c19728ffa853c2193c1c2fc7d2dfd4c924d7a48b11a3239b09d291e88a2",
+      "reason": "clarify unchanged natal and horoscope calendar conventions; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
     },
     "scripts/ziwei-chart.cjs": {
       "old_sha256": "624f5cf59a2d26a7665fc184f154b93686e04eeadb4eae9023ae2eabf6a3d8f4",
@@ -30,13 +30,13 @@
     },
     "scripts/engine.cjs": {
       "old_sha256": "3e6e1b33344dc52330de5fa0c251c84ab7189b2b457cd9be6ad3255e29c7d1bc",
-      "new_sha256": "3080b78dfad789b50087d748dfb0415c3dd011fdc3de04e85bdf3797cdc0ac45",
-      "reason": "validate legacy artifacts lacking only new metadata labels"
+      "new_sha256": "e4aea7093890281fc3e9a52318c6c280dbe7c53923518b06699f87e610a6802c",
+      "reason": "validate legacy artifacts lacking only new metadata labels; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
     },
     "scripts/relationship.cjs": {
       "old_sha256": "2b42e791922b71e3b3abb78f4ff2bec2f186f1a5496a5b64317f7d91cea675e1",
-      "new_sha256": "8fd998ab122fe811706e79d46105fd6b3a14af35670cdbfe4e562d9219dca0e4",
-      "reason": "preserve nested legacy chart validation"
+      "new_sha256": "754961aca6a05643e3ed48b1b736651bbea5bf36b8aa8aa0e6b2d0ff89e88c10",
+      "reason": "preserve nested legacy chart validation; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.1 feedback hotfix: strict options object validation, date-anchored read-only DaYun selection, brief comparison routing and traditional-term retrieval; valid calculation artifacts preserved"
     },
     "scripts/time-compare.cjs": {
       "old_sha256": "3de9e57f15adcd45f974a10da2f2422a6cf2ed42e26f012deaea729e2eba888d",
@@ -45,43 +45,43 @@
     },
     "scripts/report.cjs": {
       "old_sha256": "e745b505fd715315343d8f3f9c762f14d6e89fc48957b11aaa2721e2f5506356",
-      "new_sha256": "2a3de2b5273e8dab4f572da858a4095f389ad798f4fed06f5296190087f98891",
-      "reason": "replace ambiguous boundary label with explicit natal/transit rows"
+      "new_sha256": "6c5ee0a02856466a22259a779ead50647a178270e37b771cc64366f880360e2c",
+      "reason": "replace ambiguous boundary label with explicit natal/transit rows; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved"
     },
     "scripts/context.cjs": {
       "old_sha256": "804c4203c2b3e783dd09d6859189cd9596d1f022421a75fad75149b084675103",
-      "new_sha256": "907f350db32c5dd518fdb119c972223ee3df2758f3b47006afd082c6ae5baa55",
-      "reason": "expose explicit boundaries including legacy cached charts; add paged comparison evidence and explicit missing-scope metadata"
+      "new_sha256": "14f2f3b56473fe556091752472c4af79279555e35e97e818f350869062981a60",
+      "reason": "expose explicit boundaries including legacy cached charts; add paged comparison evidence and explicit missing-scope metadata; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.1 feedback hotfix: strict options object validation, date-anchored read-only DaYun selection, brief comparison routing and traditional-term retrieval; valid calculation artifacts preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
     },
     "scripts/knowledge.cjs": {
       "old_sha256": "edc427b8813dbb30e741c887ee8e09078ce5589dc55a66b0466de55a52a028b7",
-      "new_sha256": "5c19b78fba0be02eded4c6eca973e26bcdcb8e477ea98aabaad4459c81f61f27",
-      "reason": "add concepts, domain-aware search and untrusted reference metadata; document existing domain CLI selection; add six sourced Liuyao concepts and evidence validation"
+      "new_sha256": "20a57c5db9d3526f751d832a6d33884ae719524e02ef8dcce7fb49877071aced",
+      "reason": "add concepts, domain-aware search and untrusted reference metadata; document existing domain CLI selection; add six sourced Liuyao concepts and evidence validation; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
     },
     "scripts/knowledge-context.cjs": {
       "old_sha256": "3d4c60fac8cc06f93c93bbb7b912953dda9a4c05025746086a2d1c99fa04c11c",
-      "new_sha256": "d8ab04bb6667cba49811e2dc61482728228d36dc0d5ce9f4a3dc46135f6c801e",
-      "reason": "bounded domain-aware reference-only outputs; document existing domain CLI selection; share complete shell envelope budget and recheck final lifecycle metadata before stdout"
+      "new_sha256": "0a0b83265e2c2bb426b8f58b139d2fbc20c689a3a8eca4d17e4a6dd85a1c21b9",
+      "reason": "bounded domain-aware reference-only outputs; document existing domain CLI selection; share complete shell envelope budget and recheck final lifecycle metadata before stdout; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved"
     },
     "scripts/critical-checks.cjs": {
       "old_sha256": "3c5db03ff2cbe34a8204aaa7f8594d33a6c0e28519b0f1a6e2c782cb7389ca13",
-      "new_sha256": "b00cfe844792fb4da2f10006232e36cc62367370759edf64f617afe3790721c9",
-      "reason": "assert original93 plus four additional concepts; verify six added Liuyao topics and specific-term retrieval while retaining original93"
+      "new_sha256": "d8be04b8676387696d5057e21d4027d05af379c3af5b5b32b8b0193360974656",
+      "reason": "assert original93 plus four additional concepts; verify six added Liuyao topics and specific-term retrieval while retaining original93; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved"
     },
     "scripts/workflow-hints.cjs": {
       "old_sha256": "7e951c8584db5ddfe393416b4e8cbd54427120b674d5bf0eeaeaac4f50f05f70",
-      "new_sha256": "07c963d55e86da5dc2a0728485e6f179d1aaf0996d940bb828820f16dd03cccf",
-      "reason": "generate complete reusable argv while retaining selectors; provide executable comparison continuation after person pagination"
+      "new_sha256": "dbac9d659b41017555034a9efb4eb9583046c7a69717c5504828aabfb7ef19f5",
+      "reason": "generate complete reusable argv while retaining selectors; provide executable comparison continuation after person pagination; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
     },
     "scripts/workflow.cjs": {
       "old_sha256": "39d3c5f45fa0a0cf6e5c74bafc483c60ed7f07ef395353a1462a0244d4f7f6be",
-      "new_sha256": "ed96f6374ac7f4a8a8a04b8178975b5157382340a2c91b6354497485eb5158af",
-      "reason": "include executable argv in bounded responses; route dedicated comparison view without losing paired fallback evidence; measure full shell envelope with lifecycle margin and recheck final response before context publication"
+      "new_sha256": "676192ec9e296d913c5aa9cde7c54b24ce66df5e619dbb4e080490ce6458f87b",
+      "reason": "include executable argv in bounded responses; route dedicated comparison view without losing paired fallback evidence; measure full shell envelope with lifecycle margin and recheck final response before context publication; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
     },
     "scripts/partner-search-workflow.cjs": {
       "old_sha256": "08746c2bfdebb1ee8ba4a24dd95cbaee34c45021b660a14dbcb2602a5fe823b0",
-      "new_sha256": "3b7674f67130940df68a41eb3fb8824d711542795d251b950f2f2c41787ca09e",
-      "reason": "retain existing argv and bounded regular calculation; V1.3.7 opt-in batch route and internal supplied input; V1.3.8 adds mutually exclusive plan route and synchronizes help"
+      "new_sha256": "40cf1937595f17a0151a48b923becfe8949f59f9f9494dc0a355de49d1aba55d",
+      "reason": "retain existing argv and bounded regular calculation; V1.3.7 opt-in batch route and internal supplied input; V1.3.8 adds mutually exclusive plan route and synchronizes help; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
     },
     "scripts/shuwen.cjs": {
       "old_sha256": "12e917351bd6f52ff2df00270dd86ffa4c758cb8a15abba7b116bf13612bbdd9",
@@ -95,18 +95,18 @@
     },
     "scripts/input-lifecycle.cjs": {
       "old_sha256": "d7b9ab8843cca9b0b0f72bfcf7a52469f5c66b67ac394ec8f71a569c5288bba4",
-      "new_sha256": "7b29a351d4cc46db8546949d86a28234073e84fc6c473227e2f3d49d2deada0f",
-      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed"
+      "new_sha256": "04b5249600d6c8440aef172c8edb20e3d761e37de338aef18d3645a031914f6a",
+      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
     },
     "scripts/partner-search-report.cjs": {
       "old_sha256": "36dc98fb711d5c918f3b99fb26b2d5360763d497b795794eb32e618ce732e263",
-      "new_sha256": "9fae29012e15711f24f0a4685164eae06f4ae79b1a4046238d4c0fb568f8b643",
-      "reason": "V1.3.8 removes only the obsolete age exclusion sentence from Markdown and HTML reports; all computed fields, evidence and unavailable-point notice retained"
+      "new_sha256": "490806625a7eb4e0cfc7eeb10321ee7af12eae1a3b08d51f489a42f88571bbcd",
+      "reason": "V1.3.8 removes only the obsolete age exclusion sentence from Markdown and HTML reports; all computed fields, evidence and unavailable-point notice retained; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
     },
     "references/partner-image-method.md": {
       "old_sha256": "89bf12211153f54f5894da3bb1cdf8db6daf5d5210c61035f570df9811509fa4",
-      "new_sha256": "1df65b7ff3f79c30827c65e0a122210c0c8ff8adde516b3889f73a7279f6ee33",
-      "reason": "V1.3.8 clarifies candidate year mapping is supported and links the planner without claiming a unique real partner"
+      "new_sha256": "eb2d64f8ecf3a83e51b5c7e69ba4eb4bba62d5a484e75680d7763a57290a479f",
+      "reason": "V1.3.8 clarifies candidate year mapping is supported and links the planner without claiming a unique real partner; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
     },
     "scripts/task-files.cjs": {
       "old_sha256": "84e606583cfeef05bd0af456f0a3fcc9a34521c24c6024a538fa000199ef5201",
@@ -120,8 +120,8 @@
     },
     "references/spirit-library-index.md": {
       "old_sha256": "085dea2e7fb1a397a3be17464f5b5bb91ac0cf1b803188bc30ca9804d06f42f3",
-      "new_sha256": "1495ab73d0ab50fe95ba739f805f9254ffad295533fbedc6560bdaade76742aa",
-      "reason": "V1.3.9 respects religious framing without unsolicited existence debates; retains sourced teaching, personal-identity and concrete harm boundaries"
+      "new_sha256": "bba8196d6376fb23d52bfe62235f831cee255d328b8c84173bae0a51ae0af8ec",
+      "reason": "V1.3.9 respects religious framing without unsolicited existence debates; retains sourced teaching, personal-identity and concrete harm boundaries; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
     },
     "references/knowledge/spirit/catalog.json": {
       "old_sha256": "8d757eb0eb5be82fcbf83c1ac05143c15df8b01eb08bfcab86e1d0c326b0d6b4",
@@ -145,8 +145,288 @@
     },
     "scripts/mobile.sh": {
       "old_sha256": "e9c2dc6325896a2b7daabf4ac7de3e77647a0f13883a25674c9ca2e071da2596",
-      "new_sha256": "1cb7bdf237e2898fc3e04066f7d94dae8d2007b8ad6ffda5337df39c3b9729c6",
-      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed"
+      "new_sha256": "7ef0813cd1c2eb4e296ee522d58266893657069fc5fbf17432adcc9703c98a33",
+      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.1 offline feedback: default offline installer, official gzip runtime, exact failure instead of apt guidance, private Node and bundled module origin; no calculation/dependency changes; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
+    },
+    "scripts/install-node.sh": {
+      "old_sha256": "340a690502a9afc321216ad03e7b20be7a72425da790573eb8b218c8707621bd",
+      "new_sha256": "1a6c4ba7bc3fc55bb7bcca7a323f5f90c2462f8b7a56e8a6b10c2fbe1d1c2d91",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.1 offline feedback: default offline installer, official gzip runtime, exact failure instead of apt guidance, private Node and bundled module origin; no calculation/dependency changes; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
+    },
+    "references/conversation-style.md": {
+      "old_sha256": "5b3b04ab34e56e55855b9649f3a6c9caacb2e6f6ddec10cb51d92f7d92f962c3",
+      "new_sha256": "4efda1a85062174db2914d063c925fe3366e15068becd9c92adbe28f09372c8e",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/knowledge/supe888-bazi-skills/manifest.json": {
+      "old_sha256": "17ce3af081760d8663898623d974c7b2d6176f2d87e253ead0daf1f9f8f764d2",
+      "new_sha256": "b3d27dd04b1b43813dc0f3dd9bca5a30c9bb66296e4190d5d22d1f92d3caee20",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/ziping-bazi.md": {
+      "old_sha256": "5bed02a9c37d37a80a9628942c04977ac18f5bce29949a4ac20662cd7921191c",
+      "new_sha256": "391f433da84d86ad85cc234052abcf32fe18b14b875b51e983ad6ca13b433769",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/ziwei-doushu.md": {
+      "old_sha256": "2bca01221827d4894f27793f2e8056167ae5e02041c6d5c2aa9463680fd0eea1",
+      "new_sha256": "7d68d696de001d8b782a18ef28b36e2ab6585a4aac6d28acb6aa2ae348589c2a",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/heluo-lishu.md": {
+      "old_sha256": "9b03e587ba7fccdd6c425438c8baa6bb5c58615852bc43adc314651f51e80244",
+      "new_sha256": "1bad072720d24ab14f22b0d9147b9451bfd5d5add0e863e40711184a9e3bfe1b",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/taiyi-shenshu.md": {
+      "old_sha256": "df3d5993ee11c4ddfc11d972dbffe0349d0d9819966ecdd2c601364e678f934f",
+      "new_sha256": "08f3b1b6179a7d7a14adf8fd4af26e29895ffcf2a91f406843406ea30c4954f5",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/meihua-yishu.md": {
+      "old_sha256": "576afa022344be3dc831996418e77253cd6f053b8e12734bf7251e6a1f33a899",
+      "new_sha256": "44570e719909ce8e96c8826d002a274e1179fc442a1cfdaf2ec9e1a960f00568",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/liuren-shenke.md": {
+      "old_sha256": "8e1576af450fc3f58bc25d6637db61bf579fa244797e109c1e7ec1c7f93263ff",
+      "new_sha256": "77de00ff1a86d4fdef0fa71aafc227051154f88608dfe885f0869fef848b97e0",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/qimen-dunjia.md": {
+      "old_sha256": "1b8f1a9493185fa99fbfdb6a540f5914a03540b49ab20a6b044199f353a5f878",
+      "new_sha256": "0ab532d9432eccb0ab46b1e0b844fdacd8070a078c183adcf2723f252b92d094",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/wenwang-liuyao.md": {
+      "old_sha256": "833858b128431f33c94285b0c9e13f9ca53f957a69d5b7696f14603be30afcc0",
+      "new_sha256": "4d6bee48b4c4fd0b2a09642b54faada83b3162f110dccff3b1b5fb16aca5b8a4",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/xiangshu.md": {
+      "old_sha256": "2ca989d363173d72436e6af583338809a59c0782af0bd00edf21b2821e1d29bc",
+      "new_sha256": "b85951ca3163853402da65b28f606ffe4e0869e0fe767d1f91ad7622ddc28d7d",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/qizheng-siyu.md": {
+      "old_sha256": "a28bdcb8004cfd6c29b845eeb1649182d68ae81fbcf89ce65f9e8f964ef6b6d5",
+      "new_sha256": "38e1d35cbbaf4057401d6571d79d4c8511fb249b6b628549ee8ca83a7e99a479",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/cezi.md": {
+      "old_sha256": "009a2c3ef6da4ed4a9c9cc34b29c4fdc01c5713c76b5e39778563b4c07b1f5d8",
+      "new_sha256": "26e78ebd348f301bb07217ba34ac2912db2ef8f98ffdada35c1e5070189ab045",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/guijia-zhanbu.md": {
+      "old_sha256": "9ebebe90c54ffe172486f4c150799ae9fc16a1988d1c9405110d52bd13547dc9",
+      "new_sha256": "e42ea3af49fa5c799138e391a8656a6d5a18eb532126cfd26c4b6602129d3d5b",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/xiaoliuren.md": {
+      "old_sha256": "1a0321ba47ba30ebd6e4d62492590563ca1eb44a2455117684900339ab7de718",
+      "new_sha256": "961cf996e91e83cfad65ea916c228b0a586db1f277beb95b7ab08c54f140157f",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/fojiao-zhancha.md": {
+      "old_sha256": "e5fc0a5b84142020567c2d105e1bd6321d533a62164ee57a7bdd8d3f34810773",
+      "new_sha256": "a47daea799af518ec9ff94747c97f6895bf6e0322007bc60c9e11c0d4fb65959",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/tieban-shenshu.md": {
+      "old_sha256": "70c2f5424e5bdd302d65afe0cc8fcdd11b01b0f8c67d72fd5176f86adb20e342",
+      "new_sha256": "39e0ef2863095886f8c205bb871e5225c2f2c373131d573b6d8a12ef0fa0e224",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/chenggu.md": {
+      "old_sha256": "7119e5233246f4b79cfa0a2576a3f58cd7a3d76bc99e67f72f8121d2898f2f6d",
+      "new_sha256": "7dc5b061604b0294e0a671ac6f1a794f14f0dc161a3df81e243502a6015951f3",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/xingming-sancai.md": {
+      "old_sha256": "3eb94ef39286a7a508c44785ca760a46350683ca0375b9af06580c90fbe8d3d5",
+      "new_sha256": "038697a89ec21441606844fab1cfe13ced7ef9364465608d84b8ce141fccf49e",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/lingqian.md": {
+      "old_sha256": "5cf81cdbf25959bdc6e1487f83822d734ac12135a0b55efa99b9635fb474020e",
+      "new_sha256": "ce577a278f387be9f539e9cf04a7a3c992a585b33bafa32503ec39acdb549cdc",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/bobei.md": {
+      "old_sha256": "cc7112d8299e188cf7b673124e2d96f27e106b52dc528f4e3df0463076ced858",
+      "new_sha256": "93384afac5f5264f752b92859fb139973972ddc4e9e00f200c9119debd890584",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/zhougong-jiemeng.md": {
+      "old_sha256": "1559760218dee52ddefa54893a27f55e314e6a0c57b6686beee1f22de45b7630",
+      "new_sha256": "c2cbcb9821a834614457d7beb32260318dbb9e8bb3718c3ee40c89a4ae773852",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/zeri-tongsheng.md": {
+      "old_sha256": "b2ed69004500741b2ebbc37c1ba540829116c3c53978f22d66986a93342433c9",
+      "new_sha256": "95b103c811d92ad82d08eb4ed917ed3458fb1430e9402a06186f7116a1f9af83",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/western-astrology.md": {
+      "old_sha256": "e3cab58c97c66be6f8fa866f82befe2eb9533bf3823b600e7918b3d3072e49c9",
+      "new_sha256": "7d028ec3bde1e6b9c237d7a06e86fcce8056785802821714a85bc1e60864694d",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/vedic-astrology.md": {
+      "old_sha256": "f60bf9354a524d6b96d309d19b6c08d0c2cca29b5c97b81e0dfc3b5a29da9636",
+      "new_sha256": "fe1c491f2058260ac53f0d9899fc9a1a9e55ae83bd5929ff8b728ad3f78a466d",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/tarot.md": {
+      "old_sha256": "8f673899d9ecf706a7b195a6ae22ea42f60fde9ed7a2063b646a49bd6811a121",
+      "new_sha256": "fd7d15adca85aec360ad4daa7f604a76050bd28003d1454a5c694cf546c862c7",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/lenormand.md": {
+      "old_sha256": "495bc32300b5f10961ed6a109b5542f2507deac93cc251aae4eb873faaa8ca38",
+      "new_sha256": "0a1953f961707bd7779c31a0e84b90a49e3e58bda375a829f90184839b88e3d3",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/geomancy.md": {
+      "old_sha256": "048330056fed8b1ae54af5817bdf52dad1c29029cdd75e027cebf7a725d87d5e",
+      "new_sha256": "93d15912079e47fcfcf61d0a22953bfca8ec44bf4865cfcff1d17e445f7dd5da",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/runes.md": {
+      "old_sha256": "f90430ff05568e1038757734c1fe9c2c1759a9e0f2cff59f8088f8ddd06267ca",
+      "new_sha256": "9c97741196f02923f2ae89d506ff66eb6fa5d8e4db21a52848f4bd36ca92da82",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/numerology.md": {
+      "old_sha256": "ed9ba50fccebc11a0beabba3e53818e82eb3c1bf2958660f2330a9db551d299f",
+      "new_sha256": "590f409aec51a0bd2bf123f400749bc37aaf04abe4fe9275c37b2c3de1341c57",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/dowsing.md": {
+      "old_sha256": "0002df0d84bed5b4df50603e49964b05cd4662180a6ace60444df8ba2a0a6f34",
+      "new_sha256": "d14c8ab11d241bc950d4bdc5d4bba4b51aad6399af8dfe6b4785e8b9e7dfad0e",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/tasseography.md": {
+      "old_sha256": "6ada2d9ea3a61e61cd64fe01e4006a910df796697647d61d1001492d41a412ac",
+      "new_sha256": "f0acc0db1c36832b22953a57fdad7a229e408107570d5e96692997c787caa121",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/crystallomancy.md": {
+      "old_sha256": "11f728ba830b48a88a0511d1e9e90fb487d9f8e7233048d392cc4b33863d680a",
+      "new_sha256": "865e2f5026427a41118413dddf80aca35b51577061982d6ecb61f7429aecc88d",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/western-palmistry.md": {
+      "old_sha256": "ca819ac41e557b6382509db65a007c132758ff2eba0988686d8d06d8a62f7699",
+      "new_sha256": "cbef2d34381cb0950bd8c1e31608c135baab3398b33832a8a915a59218a852af",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/playing-cards-divination.md": {
+      "old_sha256": "8ed8ac5dda2d29897f4818957b08d56178e854982f81f55a572b5d88c6ca2b2b",
+      "new_sha256": "1d9b3bc07e81a12f27d7bd104c0aa3ffdc69850802470dbde193796c98e52cc6",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/augury.md": {
+      "old_sha256": "0a3d907c7f596e61318b22c63ca02be497b281d4b4d93db3f3993befca1a243b",
+      "new_sha256": "436f5cbf84764b125b989a0f1a997f40b80bfd4246a73f49b3e471ca50502e5d",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/knowledge/supe888-bazi-skills/topics/bibliomancy.md": {
+      "old_sha256": "88215c31c3a3ea526aa803b4c07139b181698b226c0ef61ab1509f9330b8db85",
+      "new_sha256": "3d0c79bab69ecd8b4a8990e15ea87e1ab18aac38854ce08865308117bfac3bbd",
+      "reason": "V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+    },
+    "references/annual-relations.md": {
+      "old_sha256": "cff4f1e8c1f986324b8aade64c839f12638d57169fc2292d92f3a4d02a64f2f0",
+      "new_sha256": "38ed9336047017664392a1feb5122fe5902e0155bc485a4f3fa4e3b755d260fc",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/dayun-flying-method.md": {
+      "old_sha256": "07bf278ff5f03edd30939f93ca4ed272e70951de54f356d332b071f01975896a",
+      "new_sha256": "a898c6ba894542936625a21b11b893edab640d23c7713967ebb78acfdf8dd208",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/input-lifecycle.md": {
+      "old_sha256": "d4f077bca95763600ac19b328227288a19880d48f2bd7d9bb6c39ebe86ebcfe6",
+      "new_sha256": "5d93cca34178ed1f9740033bb778d73f0cdbfc1c927b2bbb0a1c2d5f5667d15d",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/project-adoption.md": {
+      "old_sha256": "55d79e8f51c6f492413b2f2a6892e7f55e6b51cb2506bdfc8fdc7ccac914fb11",
+      "new_sha256": "f110699f701950324c572ea6512c8bc1dac6d226df3dc3e263962760afda354a",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/partner-age-method.md": {
+      "old_sha256": "4e610ad2689e7faa3e3e9d469efb7abf43f633c5cc5c41e484527c06e0db0a37",
+      "new_sha256": "c6e80cf3782dfd957c1f5fe9970d982c14694e67143e58cfa0ff6dbfa1bfdb62",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/knowledge-index.md": {
+      "old_sha256": "b171cee110e630e719fe969af66653d741a820bd7af57bbb5362a96bdc8635cc",
+      "new_sha256": "79ff98f385e95293f0cd39167bd1dd5fac406e1bb0dfddcd95553a17291ff636",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/bazi-theory-audit.md": {
+      "old_sha256": "7c5d69ed68ba1c6cf1476b0d8c7e12c47c6e1064f33dd9b6fa16a60ac200a2bb",
+      "new_sha256": "5f02b188cb1cfcad626b93271624ed2cba1f75924def83bf76084b61fd182e55",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/true-solar-time.md": {
+      "old_sha256": "cb32f228c97ee3226e5d2c89611d6f82136003267603240b0002e444cffe8f0b",
+      "new_sha256": "866f7ce1b961ba0a593437df1f9308bdbb095bd69e0efbd26828d4e5366d7386",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "scripts/common.cjs": {
+      "old_sha256": "7d29778f493fca01840956c482555aa2660e92b740edaf4da321b0f6f965db93",
+      "new_sha256": "faf9e20768b8ef548d415d8888b42bec02755352727b65baeb735587886371b7",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.1 feedback hotfix: strict options object validation, date-anchored read-only DaYun selection, brief comparison routing and traditional-term retrieval; valid calculation artifacts preserved"
+    },
+    "scripts/preflight.cjs": {
+      "old_sha256": "6fca99bd36b3a938df52d201b1c08dffbb36e51dd3c4c905eddeac269fb72752",
+      "new_sha256": "8dc60b535331735a76bfc0693340efe1473394092bcfd6e71b9fab0fdc5b8506",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.1 offline feedback: default offline installer, official gzip runtime, exact failure instead of apt guidance, private Node and bundled module origin; no calculation/dependency changes"
+    },
+    "scripts/bazi-chart.cjs": {
+      "old_sha256": "a4715af5adad8ffc193538d453729cf6ecc83465973f2efb6d81207a4f85b5d7",
+      "new_sha256": "c63b64ad98f75493a5ddb28614b1065bb6de35b7356dfe586355a3662cc4cb4e",
+      "reason": "V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
+    },
+    "references/age-intimacy-output.md": {
+      "old_sha256": "0ee91380e77d54260f4b1b9ca10013793cb95a29c4057788d1c4228e58baac5e",
+      "new_sha256": "22e6cb3c1509af4c2e808abda6433907791c3921f21744c7f9d0b1821346c56f",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/bazi-method.md": {
+      "old_sha256": "8374dc5af0011d87419533b2dd0cf4e435ec41ad73c069986d6376fcd37a776b",
+      "new_sha256": "914c16626877d05583406b7416cdeb52dac9d643884a060aa45377afe2a63a0c",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/folklore-index.md": {
+      "old_sha256": "032a7f97711a1a1ec12e6e635d6625ac75f5c863705ea3c4dd971169bff0bc31",
+      "new_sha256": "db4b0807b6ac653a87f6b3a731da5b99389ea53eda154f27d51265344e3fd820",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/liuyao-method.md": {
+      "old_sha256": "9a38334586faf064a528044c38f61afc3a1155e766e44b93803c94015cfa0e57",
+      "new_sha256": "09e4a25b47316f1fd533711360b83584a7c2af9c71ec68635ddc15ff8bb84870",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/practice-library-index.md": {
+      "old_sha256": "cdb08aeb138617297db48b23ec2e7fe7be97ba41c603bf3f35da79274cd342fb",
+      "new_sha256": "3920d7ca09bfdc1ae70f2abf88306f87ffebd4c8c84abf5424ceeb3e0759d17f",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/relationship-method.md": {
+      "old_sha256": "722253784e59f889479b013796aad6c41855c0c3543c4c8dbe5d130f1e16e038",
+      "new_sha256": "f1c1dd6aa164e2e9f53882bb6069fc032aeaa6570a7d3737f5b60e8f1dad44d3",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+    },
+    "references/time-compare-method.md": {
+      "old_sha256": "289451a07e46a7afb9552163f6b4e546c4c011d4730b8ee2e642da73e1919ba3",
+      "new_sha256": "c75e832649ef84111df30611df9a7ee47fcf83955d2f7a6788cbe885e23bfcc5",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
     }
   }
 }

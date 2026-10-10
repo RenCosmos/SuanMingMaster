@@ -35,6 +35,15 @@ function retrieve(input){
    matches:r.matches.map(t=>({id:t.id,slug:t.slug,name:t.name,source_kind:t.source_kind,...REFERENCE,domains:t.domains,...sourceScope(t),source_url:t.url??t.repository,commit:t.commit??null,score:t.score,snippet:t.snippet,
     read:{topic:t.slug,offset:0,chars:1800}}))};
  }
+ // A larger additive library may make ten match snippets exceed the budget.
+ // Keep every hit, source and full-text route; only shorten preview excerpts.
+ if(result.matches&&!budget.fits(result,MAX_BYTES-256)){
+  const original=result.matches.map(t=>t.snippet);result.snippets_shortened_for_budget=true;
+  for(const width of [240,180,120,60,0]){
+   result.matches.forEach((t,i)=>{let end=Math.min(width,original[i].length);if(end<original[i].length&&/[\uD800-\uDBFF]/.test(original[i][end-1]))end--;t.snippet=original[i].slice(0,end);t.snippet_truncated=end<original[i].length;});
+   if(budget.fits(result,MAX_BYTES-256))break;
+  }
+ }
  budget.assertFits(result,MAX_BYTES-256,'检索上下文超出预算，请减小 limit 或 chars');
  return {...result,output_limit_bytes:MAX_BYTES};
 }

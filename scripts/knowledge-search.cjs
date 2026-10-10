@@ -1,9 +1,10 @@
 'use strict';
 const DICTIONARY=require('../references/knowledge/search-terms.json');
 const DOMAINS=['bazi','ziwei','liuyao','spirit','practice','folklore','other'];
-const from='財殺雜傷見幹氣綱祿緣護學該麼為強無禮記經傳書說問訣陰陽觀論語統應動變剋納實';
-const to='财杀杂伤见干气纲禄缘护学该么为强无礼记经传书说问诀阴阳观论语统应动变克纳实';
-function normalize(text){return String(text??'').normalize('NFKC').toLowerCase().replace(/[財殺雜傷見幹氣綱祿緣護學該麼為強無禮記經傳書說問訣陰陽觀論語統應動變剋納實]/g,c=>to[from.indexOf(c)]).replace(/[\s\p{P}]/gu,'');}
+const from='財殺雜傷見幹氣綱祿緣護學該麼為強無禮記經傳書說問訣陰陽觀論語統應動變剋納實紅鸞戀愛歲運時齡對擇曖昧親侶會沖貴劫宮雙貞後頭義解釋請怎樣臺灣鬥數與斷';
+const to='财杀杂伤见干气纲禄缘护学该么为强无礼记经传书说问诀阴阳观论语统应动变克纳实红鸾恋爱岁运时龄对择暧昧亲侣会冲贵劫宫双贞后头义解释请怎样台湾斗数与断';
+const traditional=new RegExp('['+from+']','g');
+function normalize(text){return String(text??'').normalize('NFKC').toLowerCase().replace(traditional,c=>to[from.indexOf(c)]).replace(/[\s\p{P}]/gu,'');}
 const GENERIC_TERMS=new Set(['八字','子平','四柱','紫微','六爻','卜卦','纳甲']);
 const AMBIGUOUS_ALIASES=new Set(DICTIONARY.terms.flatMap(t=>t.ambiguous_aliases??[]).map(normalize));
 function positiveMention(text,term){

@@ -13,6 +13,6 @@
 
 Windows保留原文件CRLF而旧Git基线为LF时，差异格式检查可用 git -c core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol diff --check；只允许行末CR，不忽略其他空白错误，不为通过检查改写冻结文件。
 
-测试分工和命令见 DEVELOPMENT.md。tools/baselines 中的三个旧安装ZIP是兼容测试夹具，不是旧开发源码；不要当作重复发布包删除。archive 只用于恢复，不加载其中的旧代码或脚本，也不默认重新解包。
+测试分工和命令见 DEVELOPMENT.md。tools/baselines 中的V1.2.4和V1.3.0两个ZIP是兼容测试夹具，不是旧开发源码；不要当重复发布包删除。V1.2.5已按用户明确要求清理，其对照应记录未执行，不自动下载恢复。archive仅用于恢复，不加载旧代码或默认重新解包。
 
 知识库、运行依赖、实际用户任务结果和本项目外的同步资料，不因整理开发文件而裁剪或删除。

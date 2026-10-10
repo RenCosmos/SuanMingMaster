@@ -58,7 +58,7 @@ function normalize(input) {
   try {
     zoned = Temporal.ZonedDateTime.from({year,month,day,hour,minute,second,timeZone:b.timezone}, {disambiguation:'reject',overflow:'reject'});
   } catch { throw new InputError('出生日期、时区无效，或该钟表时间处于夏令时跳时/重复区间；请提供核实后的 UTC 偏移量'); }
-  const options = input.options || {};
+  const options = input.options === undefined ? {} : input.options;
   fields(options, ['time_basis','bazi_day_boundary','bazi_hour_stem_rule','ziwei_day_boundary','ziwei_year_boundary','ziwei_leap_adjust','ziwei_algorithm','dayun_count','annual_count'], 'options');
   const opt = {
     time_basis: enumValue(options, 'time_basis', ['clock','true_solar'], 'clock'),

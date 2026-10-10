@@ -79,7 +79,7 @@ test('time-comparison next-actions preserve explicit field and variant paging',(
 });
 test('person continuation uses explicitly returned next_person, never auto-selects another person',()=>{
  const context=project(pair,{focus:'relationship',person:'a'}),actions=nextActions(context,{next_person:'b'});
- assert.deepEqual(actions[0],{focus:'relationship',limit:3,action:'reuse',person:'b'});
+ assert.deepEqual(actions[0],{focus:'relationship',limit:3,action:'reuse',person:'b',required:true,required_for:'本次合盘的双方证据'});
  assert.equal(nextActions(project(pair,{focus:'relationship'})).some(a=>a.person),false);
 });
 test('next-actions preserve requested years and effective page size for annual and uncertain-time follow-ups',()=>{
@@ -115,5 +115,13 @@ test('host JSON wrapper stays below original budgets with additive hints and rea
  const r=flow.boundedResponse(base,pair,{focus:'relationship'}),stdout=JSON.stringify(r)+'\n';
  const outer={exitCode:0,stdout,stderr:'',timedOut:false};assert.equal(typeof outer.stdout,'string');assert.equal(JSON.parse(outer.stdout).validation.ok,true);
  assert.ok(Buffer.byteLength(stdout)<=20*1024);assert.ok(Buffer.byteLength(JSON.stringify(outer))<28*1024);
- assert.deepEqual(r.context.reading.people.map(p=>p.person_id),['a','b']);
+ // Capacity fallback is part of the documented API: recover both people and
+ // all cross evidence, rather than demand an oversized first screen.
+ const people=[...r.context.reading.people];
+ if(r.people_page?.next_person){const other=flow.boundedResponse(base,pair,{focus:'relationship',person:r.people_page.next_person});people.push(...other.context.reading.people);assert.ok(Buffer.byteLength(JSON.stringify({exitCode:0,stdout:JSON.stringify(other)+'\n',stderr:'',timedOut:false}))<28*1024);}
+ assert.deepEqual(people.map(p=>p.person_id),['a','b']);
+ for(const person of people)assert.deepEqual(person.chart.bazi.pillars.map(p=>p.ganzhi),pair.people.find(p=>p.id===person.person_id).chart.bazi.chart.pillars.map(p=>p.ganzhi));
+ let offset=0,relations=[],matrix=[];
+ while(true){const page=flow.boundedResponse(base,pair,{focus:'relationship',comparison:true,offset,limit:3}),c=page.context.reading.comparison.bazi;relations.push(...c.cross_relations.items);matrix.push(...c.pillar_matrix.items);assert.ok(Buffer.byteLength(JSON.stringify({exitCode:0,stdout:JSON.stringify(page)+'\n',stderr:'',timedOut:false}))<28*1024);const next=page.context.reading.comparison_page.next_offset;if(next===null)break;assert.ok(next>offset);offset=next;}
+ assert.deepEqual(relations,pair.comparison.bazi.cross_relations);assert.deepEqual(matrix,pair.comparison.bazi.pillar_matrix);
 });

@@ -16,7 +16,8 @@ function pillar(id,label,gz,day) {
   const stem=gz[0],branch=gz[1],hidden_stems=[...LunarUtil.ZHI_HIDE_GAN[branch]];
   return {id,label,ganzhi:gz,stem,branch,stem_element:LunarUtil.WU_XING_GAN[stem],branch_element:LunarUtil.WU_XING_ZHI[branch],hidden_stems,nayin:LunarUtil.NAYIN[gz],stem_ten_god:id==='BZ-DAY'?'日主':tenGod(day,stem),hidden_ten_gods:hidden_stems.map(g=>tenGod(day,g))};
 }
-function makeBazi(ctx) {
+// Shared exact calendar path; search callers need pillars, not Yun/transit reports.
+function makePillars(ctx) {
   const ref=asSolar(ctx.beijing).getLunar().getEightChar();
   const dayLocal=ctx.options.time_basis==='true_solar'?ctx.solar.local:ctx.local;
   const local=asSolar(dayLocal).getLunar().getEightChar();
@@ -25,6 +26,10 @@ function makeBazi(ctx) {
   const hour=ctx.options.bazi_hour_stem_rule==='day_stem'?fiveRats(day,local.getTimeZhi()):local.getTime();
   const hourReference=ctx.options.bazi_hour_stem_rule==='library'&&dayLocal.hour===23?asSolar(dayLocal.add({days:1})).getLunar().getEightChar().getDayGan():day;
   const pillars=[pillar('BZ-YEAR','年柱',ref.getYear(),day),pillar('BZ-MONTH','月柱',ref.getMonth(),day),pillar('BZ-DAY','日柱',local.getDay(),day),pillar('BZ-HOUR','时柱',hour,day)];
+  return {ref,dayLocal,day,hourReference,pillars};
+}
+function makeBazi(ctx) {
+  const {ref,dayLocal,day,hourReference,pillars}=makePillars(ctx);
   const natalRelations=relations(pillars);
   const dayHour=dt=>{const e=asSolar(dt).getLunar().getEightChar();e.setSect(ctx.options.bazi_day_boundary==='late_zi'?1:2);return {day:e.getDay(),hour:ctx.options.bazi_hour_stem_rule==='day_stem'?fiveRats(e.getDayGan(),e.getTimeZhi()):e.getTime()};};
   const civil=ctx.solar?dayHour(ctx.local):null,solar=ctx.solar?dayHour(ctx.solar.local):null;
@@ -59,4 +64,4 @@ function makeBazi(ctx) {
   const cfg=readJson(path.join(ROOT,'references','bazi-rules.json'));
   return {chart:{day_master:day,pillars,jieqi_boundary_review:jieqiReview(ctx),time_basis:ctx.normalized,day_hour_calculation_datetime:dayLocal.toString({smallestUnit:'millisecond',roundingMode:'floor'}),...(timeValidation?{time_validation:timeValidation}:{}),conventions:{year_month:'北京时间对应的真实出生瞬间；立春换年、十二节换月',day_hour:ctx.options.time_basis==='true_solar'?'出生地真太阳钟面日期时间':'出生地钟表日期时间',day_boundary:ctx.options.bazi_day_boundary,hour_stem_rule:ctx.options.bazi_hour_stem_rule},qiyun:{method:'lunar-typescript Yun sect=2（分钟差换算起运）',direction:yun.isForward()?'forward':'backward',offset:{years:yun.getStartYear(),months:yun.getStartMonth(),days:yun.getStartDay(),hours:yun.getStartHour()},start_datetime_beijing:startBJ.toString(),start_datetime_birth_timezone:startBJ.withTimeZone(ctx.input.birth.timezone).toString(),note:'起运以实际出生瞬间与北京时间十二节比较；年龄区间采用库的名义年龄，不等于周岁。'},dayun,target,annual},calculations:{...calculate(pillars,day,cfg),theory_evidence:evidence(pillars,hourReference)}};
 }
-module.exports={makeBazi,pillar};
+module.exports={makeBazi,makePillars,pillar};

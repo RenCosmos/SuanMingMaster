@@ -7,7 +7,9 @@ function verify(){
  try{
   const input={mode:'partner_search_batch',self:{birth:{calendar:'solar',date:'1996-06-15',time:'12:00',gender:'male',timezone:'Asia/Shanghai'}},as_of:'2026-10-08',search:{type:'dates',start:'1997-01-01',end:'1997-12-31',time_uncertainty:{type:'unknown'}},candidate_year_branch:'丑',ranking:'monthly_top'};
   const file=path.join(temp,'synthetic-input.json'),out=path.join(temp,'task');fs.writeFileSync(file,JSON.stringify(input));
-  const first=workflow.operation(['--partner-search','--batch','--input',file,'--out',out]);assert.ok(first.ok&&first.validation.ok&&first.context.computed_complete);
+  let first=workflow.operation(['--partner-search','--batch','--input',file,'--out',out]),resumeCalls=0;
+  while(first.execution.state==='yielded'){first=workflow.operation(first.next_actions.find(a=>a.argv.includes('--resume')).argv);assert.ok(++resumeCalls<100);}
+  assert.ok(first.ok&&first.validation.ok&&first.context.computed_complete);
   const manifest=batch.integrity(core.readJson(first.files.chart));assert.equal(manifest.jobs.length,12);
   let points=0,flatBytes=0;const expected=new Map(),snapshots=new Map();
   for(const job of manifest.jobs){
@@ -28,8 +30,7 @@ function verify(){
   }
   assert.equal(seen.size,12);for(const [month,dates] of expected){assert.deepEqual(seen.get(month),dates);assert.equal(new Set(seen.get(month)).size,dates.length);}
   for(const [f,digest] of snapshots)assert.equal(core.sha(fs.readFileSync(f)),digest,'pagination modified monthly chart');
-  const engineHash=core.sha(fs.readFileSync(path.join(root,'scripts/partner-search.cjs')));assert.equal(engineHash,'721a7caf22bb5caafd4e321928ccd6269ee2a1fafd22ff96acdf4ad13a774e74');
-  return {ok:true,input:'synthetic 1996 birth / 1997 full year; four default conditions ANY; cow year-branch scope',months:12,original_sample_points:points,all_original_month_artifacts_recomputed_equal:true,original_partner_engine_byte_identical_to_v136:true,complete_top_date_summary_recovered:true,summary_tool_responses:pages,
+  return {ok:true,input:'synthetic 1996 birth / 1997 full year; four default conditions ANY; cow year-branch scope',months:12,original_sample_points:points,all_original_month_artifacts_recomputed_equal:true,calendar_sampling_preserved:true,execution_resume_calls:resumeCalls,complete_top_date_summary_recovered:true,summary_tool_responses:pages,
    flat_12_month_first_page_stdout_bytes:flatBytes,complete_batch_summary_stdout_bytes:summaryBytes,max_stdout_bytes:maxStdout,max_shell_envelope_bytes:maxShell,response_byte_reduction_percent:Math.round((1-summaryBytes/flatBytes)*1000)/10,
    byte_comparison_is_not_billed_token_measurement:true,elapsed_seconds:(Date.now()-started)/1000};
  }finally{assert.ok(temp.startsWith(path.resolve(os.tmpdir())+path.sep+'suanming-batch-scale-'));fs.rmSync(temp,{recursive:true,force:true});}

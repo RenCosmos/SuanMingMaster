@@ -1,9 +1,6 @@
 # 年龄取象、亲密专题与按需报告
 
-> V1.2.1 日常执行以 SKILL.md 的 workflow 为准：同次计算校验，直接读主题 context，追问用 --reuse。本页保留的 run.cjs / --verify / 完整 JSON 示例用于维护核对，无需逐次执行；计算口径与规则仍适用。
-
-
-V1.1.4 年上/年下使用本人八字/紫微，详见 [年龄原典与计算方法](partner-age-method.md)。紫微夫妻宫的明确婚配文字为主，八字柱位仅作辅助；只需本人生辰，不比较双方生日。年龄与生肖、外形画像分别有账本。
+年上/年下只需本人八字/紫微，优先age_reading；古籍主证、现代八字及柱位旁证分层，详见[情感方法](romance-method.md)及[兼容年龄接口](partner-age-method.md)。年龄、生肖与外形画像分别有账本，不要求未来对象生辰。
 
 性能力专题使用 context.topics 的 sexual_ability，读取 intimacy_features 中实际十神透藏、五行、夫妻/福德/命宫与星曜。用户问到时先给有实际十神、星曜和宫位依据的亲密取象，说明主动与回应、表达与节奏的主要指向；已有经历用于核对。具体沟通方式仅在用户要求时补充，不转成心理诊断或咨询流程。
 
@@ -18,4 +15,4 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --render /workspace/bazi-ziwei-reports/T
 sh /skills/bazi-ziwei/scripts/mobile.sh --temp-input /workspace/bazi-ziwei-reports/TASK/input.json --out /workspace/bazi-ziwei-reports/TASK/result --report
 ```
 
-V1.1.2 默认用 --stdin 的带引号 here-document，不创建输入文件；上面的 --temp-input 仅在必须传文件时使用，结束后自动清理，详见 [输入生命周期](input-lifecycle.md)。AI 解读报告 reading.md 也只在用户要求保存时写；只要计算表则不另写。检查本次返回的 files，不读取旧报告当作本次结果，不修改计算数据迎合解释。
+默认用--stdin的带引号here-document，不创建输入文件；上面的--temp-input仅在必须传文件时使用，用完清理，见[输入生命周期](input-lifecycle.md)。reading.md也只在明确要求保存时写；核对本次files，不读取旧报告当本次结果，不修改计算数据迎合解释。

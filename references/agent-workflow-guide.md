@@ -1,6 +1,10 @@
-# 工作流细则 · V1.4.0
+# 工作流细则
 
 按需查阅的输入与续读细则。通用调用、状态核对、输出预算、来源边界和隐私统一以 [主流程](../SKILL.md) 为准；本页不另设角色或重复系统提示词。
+
+日常普通排盘／关系／年度调用加--brief，省略该标志可取得原明细；候选搜索、批量、规划无需加此参数。relationship精简视图已有情感双线，不为同一问题再调romance。年龄优先age_reading，兼容age_relation在完整视图保留。见[情感方法](romance-method.md)。
+
+基础单人异性缘优先[快速入口](romance-quickstart.md)及--overview，不需读完本页；仅将逐年窗口按需展开，本命证据不删。brief的年度／飞化next_actions采用增量页，required／required_for区分用户问题所需证据与可选展开；不把列表当全执行任务。见[分页契约](pagination-guide.md)。
 
 ## 输入模板
 
@@ -18,6 +22,8 @@
 
 默认钟表时间；真太阳时的经度、年月和起运口径见[太阳时方法](true-solar-time.md)，birth.time仍填原钟表时间，紫微沿用钟表。不擅定未知时辰、经度或铜钱结果。农历另填is_leap_month；“今年/现在”用客户端实际日期填target_date。紫微本命与运限口径按各自标签核对，不用一个year_boundary代替全部。
 
+options省略或填对象（默认可用{}），不要填false、0、空字符串或null；程序会明确拒绝，修正输入后再调用。当前大运按dayun_at_target及交运日期读取，不能把start_year当作当年1月1日生效；target_date沿用目标日期在输入时区的正午口径，交运日附近见[岁运说明](romance-method.md)。
+
 ## 年度与主题续读
 
 不指定focus时普通排盘为core，关系为relationship，时辰对照/六爻为各自专项。感情本命用relationship；恋爱或婚姻引动年份用annual；年龄、画像用专项。
@@ -28,9 +34,9 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --reuse /workspace/bazi-ziwei-reports/TA
 
 --years只筛选已有流年。年度标签是立春周期，不等于单次target_date；requested_range_computed=false时，核对原输入、调整target_date/annual_count并在新目录补算。annual_count初次输入支持1–20，不能用空页断为没有机会。超过页容量按返回next_offset继续，合并同一task_id/source_checksum的页面。
 
-普通排盘next_actions至多3条，不覆盖全部可选展开方式。reuse的argv是完整mobile.sh参数；普通new_calculation没有可执行argv，不能自动选择人物或输入。V1.3.8规划入口明确返回new_calculation的argv及input，按本次已选人物/范围把input作为stdin执行，详见[规划方法](partner-search-plan-method.md)。时辰用field_index/status判断一致与分歧，--field TC-…与--variant-offset N展开变体，--candidate TC-001展开候选；一致项只在coverage范围成立，不认定最佳时辰。
+普通排盘next_actions至多3条，不覆盖全部可选展开方式。reuse的argv是完整mobile.sh参数；普通new_calculation没有可执行argv，不能自动选择人物或输入。规划入口返回new_calculation的argv及input，按本次已选人物/范围把input作为stdin执行，详见[规划方法](partner-search-plan-method.md)。时辰用field_index/status判断一致与分歧，--field TC-…与--variant-offset N展开变体，--candidate TC-001展开候选；一致项只在coverage范围成立，不认定最佳时辰。
 
-双人看reading.warnings的person_ids区分来源。people_page先补另一人，随后补comparison及其分页；专门入口和完成标记见[分页契约](workflow-architecture.md)。不能将两个人的单盘页当作跨盘证据。
+双人看reading.warnings的person_ids区分来源。people_page先补另一人，随后补comparison及其分页；入口和完成标记见[分页契约](pagination-guide.md)。不能将两个人的单盘页当作跨盘证据。
 
 ## 缓存与恢复细节
 
@@ -47,7 +53,7 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --knowledge --query '具体问题' --lim
 sh /skills/bazi-ziwei/scripts/mobile.sh --knowledge --topic TOPIC-SLUG --chars 1800
 ```
 
-正文next_offset非空时按原topic和返回offset继续；snippet足够就无需全文。书篇身份优先，自动领域只排序，--domain才严格过滤；裸“用神”先分八字/六爻。当前103主题包括原93、4张[八字概念卡](bazi-concepts-index.md)及6张[六爻基础卡](liuyao-concepts-index.md)，原文未删。
+正文next_offset非空时按原topic和返回offset继续；snippet足够就无需全文。书篇身份优先，自动领域只排序，--domain才严格过滤；裸“用神”先分八字/六爻。当前107主题包括原93、4张[八字概念卡](bazi-concepts-index.md)、6张[六爻基础卡](liuyao-concepts-index.md)和4张[情感卡](romance-index.md)，原文未删；繁简术语统一检索，不改正文。
 
 缺Workspace/Node时纯知识可用use_skill读取[35模板](rikkahub-native/templates.md)、[21民俗古籍](rikkahub-native/folklore.md)、[11精选方法](rikkahub-native/curated.md)、[18修行](rikkahub-native/practice.md)、[8宗教](rikkahub-native/spirit.md)及概念索引，回答限于实际已读内容；概览不是全文。制文可按[方法](shuwen-method.md)起草，但不能冒称程序日期校验；排盘不回退到模型猜算。纯宗教来源传统与限制见[宗教索引](spirit-library-index.md)。
 

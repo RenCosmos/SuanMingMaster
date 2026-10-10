@@ -1,4 +1,4 @@
-# V1.3.8 条件规划与年份映射
+# 条件规划与年份映射
 
 用户要求“根据我的八字推适配对象八字，再对应出生年份”时使用。支持这种假设性条件检索：先提炼多个候选结构，再查实际年柱周期，必要时核对完整理论四柱。不能确认唯一现实正缘是证据边界，不是拒绝整项任务的理由；简短说明候选性质后执行工具。
 
@@ -10,7 +10,7 @@
 
 这是合成示例，替换本人资料、客户端参考日期及用户指定范围。self、条件和配偶星模型沿用原[候选方法](partner-search-method.md)。仅四柱输入仍须本人公历出生年，不需要补造生日。新任务必须--out；已有普通chart可--source-chart导入，双人明确--source-person。--plan与--batch是两种入口，不同时加。
 
-使用workspace_shell timeout=120秒，实际日期枚举可600；先检查外层exitCode/timedOut/truncated和内层ok/validation.ok。输入临时文件仍用--agent --temp-input FILE --partner-search --plan --out TASK；stdin不落输入文件。程序输出和完整shell包装仍受20KiB／28KiB限制。
+使用workspace_shell timeout=120秒；后续日期批量枚举用60秒和返回的--resume argv，不提高至600。先检查外层exitCode/timedOut/truncated和内层ok/validation.ok；批量yielded是正常进度，未完成不作全年最高结论。输入临时文件仍用--agent --temp-input FILE --partner-search --plan --out TASK；stdin不落输入文件。程序输出和完整shell包装仍受20KiB／28KiB限制。
 
 ## 看懂条件，避免模型自行换柱位
 

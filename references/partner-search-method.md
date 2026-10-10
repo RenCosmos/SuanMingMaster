@@ -1,6 +1,6 @@
-# V1.3.8 正缘候选筛选
+# 正缘候选筛选
 
-V1.3.7：全年／跨月或“逐月查哪些日期”优先使用[批量日期查询](partner-search-batch-method.md)，一次调用、按日期汇总。以下原单任务输入、计算、31天上限、分页与报告保持不变；不要为缩短输出把any擅自改成all，也不要用第一页几个时刻代表整天。
+全年／跨月优先[批量日期查询](partner-search-batch-method.md)，按预算续跑、按日期汇总。以下为单任务契约，日期上限31天；不能为缩短输出将any改all，也不以首页几个时刻代表整天。
 
 只在用户问“可能哪年生、什么属相/八字、按本人八字筛选候选”时读取。本模块支持从本人八字提炼适配假设、对应候选年份并实际枚举日期，不把结果表述为唯一现实配偶生日。用户说“推正缘八字再对应年份”时按[条件规划与年份映射](partner-search-plan-method.md)执行，不因无法认证身份而整体拒绝。同一条件可命中多人、多日期；空结果只表示本次范围/条件无命中，不意味着没有正缘。
 
@@ -8,7 +8,7 @@ V1.3.7：全年／跨月或“逐月查哪些日期”优先使用[批量日期�
 
 本人完整生辰沿用[原输入口径](input-schema.md)，农历核对闰月，时间未知先走原时辰对照，不能选“最优”时辰当事实。也可提供按年月日时排列的四柱及公历出生年：程序检查干支阴阳、五虎遁、五鼠遁、年柱周期，但不声称验证了真实生日，不由四柱补造紫微盘。
 
-as_of 必填客户端本次参考日期，不取服务器当前年。V1.3.6仅取消所有成年校验：本人生日、本人四柱＋出生年、年份／日期／人物候选均不按年龄拒绝、排除或截短。其他范围、结构条件与排序不变。保留原字段名：underage_excluded为未执行年龄排除的0，eligible_birth_interval为完整立春周期；引擎标识改为partner-search/1.0.1以区分旧语义，旧候选产物需用原输入在新目录重算。
+as_of必填客户端参考日期，不取服务器当前年。本人及候选不按年龄拒绝、排除或截短；underage_excluded兼容字段恒为0，eligible_birth_interval是完整立春周期。引擎partner-search/1.0.1区分旧语义，不兼容产物按原输入在新目录重建，范围、结构条件和排序不变。
 
 | 搜索 | 实际计算 | 未知或不能推出 |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ exclude_relations 默认空，仅明确要求才硬排除，空结果不自动�
 
 ## RikkaHub 调用与复用
 
-由 SKILL.md 链接加载本页，再按本页直接链接读取所需schema/示例。workspace_shell timeout=120，未知时辰或较大日期范围按需提高至600。检查外层 exitCode/timedOut/truncated，再解析 stdout 检查内层 ok / validation.ok。
+由 SKILL.md 链接加载本页，再按本页直接链接读取所需schema/示例。workspace_shell timeout=120；跨月或较大未知时辰日期范围用--batch、timeout=60与返回的续跑参数，不提高至600。检查外层 exitCode/timedOut/truncated，再解析 stdout 检查内层 ok / validation.ok。保留JSON与stderr，不接tr/grep/head管道。
 
 ```sh
 sh /skills/bazi-ziwei/scripts/mobile.sh --agent --stdin --partner-search --out /workspace/bazi-ziwei-reports/partner-001 <<'SM_INPUT'
@@ -73,6 +73,6 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --agent --reuse /workspace/bazi-ziwei-re
 
 ## 验收
 
-原计算、旧CLI、知识/来源/依赖按冻结基线逐字节校验；旧计算14组、投影85个、报告/导出13种和93主题全文实际跨版本对照。专项测试覆盖十二生肖、立春秒级/海外时区、取消全部成年校验、ALL/ANY、同时合破/三字齐全、明确时间/未知采样/真太阳时/DST、四柱/模型/边界、伪造checksum、缓存/分页/原盘导入/锁/临时清理/报告。发布解包再用手机入口跑三种搜索并复用。V1.3.0安装包的手机实测由用户于2026-10-07确认；后续升级保留旧包及任务再复核。
+专项覆盖生肖、历法边界、ALL/ANY、完整关系、全部采样、模型、校验、缓存分页、原盘只读导入、锁、临时清理和报告；发布从ZIP解包实跑三种搜索。完整开发回归与当前手机实测分开，结果以本版验收记录为准。
 
-V1.3.1入口约定：新建partner-search必须指定--out独立任务目录。next_actions中reuse的argv可直接传给scripts/mobile.sh，内含--reuse、--partner-search、offset、limit及适用candidate；逐参数安全引用，不将数组内容作为shell代码。
+新建partner-search必须指定--out独立任务目录。next_actions.reuse.argv可直接传给mobile.sh，内含路径、选择及游标；逐参数安全引用，不将数组当shell代码。

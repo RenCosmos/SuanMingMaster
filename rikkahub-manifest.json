@@ -1,8 +1,8 @@
 {
-  "adapter_version": "rikkahub-workspace/v1.4.0",
+  "adapter_version": "rikkahub-workspace/v1.4.4",
   "target_client": "RikkaHub 2.5.6",
   "engine_version": "0.4.0",
-  "package_version": "1.4.0",
+  "package_version": "1.4.4",
   "package_revision": "1",
   "bundled_annual_fixture": "synthetic; not user feedback birth data",
   "divination_engine": "liuyao/0.1.0",
@@ -52,7 +52,12 @@
     "distributions": [
       "ubuntu",
       "debian"
-    ]
+    ],
+    "entry": "scripts/install-node.sh",
+    "mode": "online, separate from calculation",
+    "download_timeout_seconds": 90,
+    "checksum_verified": true,
+    "workspace_private": true
   },
   "quickjs_compatible": false,
   "android_device_tested": true,
@@ -65,7 +70,7 @@
     "scope": "source cards with chapter locators and checked short excerpts; folklore, taboos, cultivation and sexual-cultivation history",
     "new_classical_cards": 14,
     "verification_record": "references/folklore/classical-verification.json",
-    "total_searchable_topics": 103,
+    "total_searchable_topics": 107,
     "automatic_chart_for_knowledge_questions": false
   },
   "spirit_library": {
@@ -130,7 +135,7 @@
     "review_band_seconds": 60
   },
   "bazi_hour_stem_rule": "day_stem default; library explicit legacy compatibility",
-  "knowledge_revision": "1.1.6-knowledge.1",
+  "knowledge_revision": "1.4.1-romance.1",
   "annual_relations": {
     "input": "target_date and annual_count 1–20; no target keeps annual empty",
     "fields": [
@@ -164,7 +169,7 @@
     "source_adoption": "references/project-adoption.md",
     "ritual_document_method_cards": 1
   },
-  "previous_release": "1.3.1; original 97 knowledge topics, calculations and legacy interfaces retained",
+  "previous_release": "1.4.3; additive romance overview and checksum-bound incremental evidence pages; calculation, artifact schema, sampling, source-card and dependency bytes retained",
   "input_lifecycle": {
     "default_chart_input": "stdin JSON; no intermediate input file",
     "knowledge_input": "direct --query / --topic / --limit / --offset / --chars; bounded output",
@@ -246,7 +251,7 @@
     "knowledge_query_files": false
   },
   "workflow": {
-    "version": "1.4.0",
+    "version": "1.4.4",
     "entry": "scripts/workflow.cjs",
     "engine_facade": "scripts/runtime-core.cjs",
     "context_projector": "scripts/context.cjs",
@@ -261,7 +266,7 @@
     "final_budget_includes_input_cleanup": true,
     "legacy_entry": "scripts/run.cjs",
     "cache_receipt": "validation.json",
-    "knowledge_unchanged_from": "1.1.6",
+    "knowledge_unchanged_from": null,
     "frozen_baseline": "1.1.6",
     "self_test_policy": "installation / upgrade acceptance and troubleshooting only; never routine follow-ups",
     "algorithm_changes": false,
@@ -283,15 +288,35 @@
     "task_id_is_person_identity": false,
     "automatic_retry": false,
     "cache_fingerprint_policy_changed": false,
-    "full_text_retrieval_policy_changed": false
+    "full_text_retrieval_policy_changed": false,
+    "brief_view": {
+      "flag": "--brief",
+      "saved_artifact_unchanged": true,
+      "full_view": "omit --brief on reuse; romance uses relationship for original full theme",
+      "calendar_algorithms_changed": false
+    },
+    "knowledge_retention": "all original 103 topics retained; four romance cards added; exact shared template wording migrated",
+    "correctness_priority": "chart and theme evidence completeness before token reduction",
+    "batch_execution": {
+      "default_time_budget_seconds": 20,
+      "day_checkpoint": true,
+      "independent_recalculation_preserved": true,
+      "soft_deadline": true,
+      "reuse_does_not_rewrite_charts": true
+    },
+    "context_views": {
+      "overview": "single-person romance; yearly windows deferred",
+      "evidence_page": "suanming-evidence-page/v1; annual or flying; requires same base checksum",
+      "navigation": "required and required_for distinguish requested evidence from optional expansion"
+    }
   },
   "system_prompt_required": false,
   "mobile_validation": {
     "status": "pending",
     "source": "release_validation",
-    "tested_package_version": "1.4.0",
+    "tested_package_version": "1.4.4",
     "scope": "desktop regression and extracted installation checks; not device confirmation",
-    "current_package_status": "device_confirmation_pending",
+    "current_package_status": "pending",
     "historical_confirmations": [
       {
         "status": "tested",
@@ -312,17 +337,18 @@
       }
     ]
   },
-  "android_device_tested_scope": "historical installation package 1.3.0; user confirmation on 2026-10-07; not inherited by 1.4.0",
+  "android_device_tested_scope": "historical 1.3.0 confirmation only; 1.4.4 confirmation pending",
   "rikkahub_tools": {
     "interface_checked_version": "2.5.6",
     "interface_commit": "447bb7e89710d31f1204d7a2973baa19fdbd5b28",
-    "interface_checked_on": "2026-10-06",
+    "interface_checked_on": "2026-10-09",
     "stdout_encoding": "JSON string inside workspace_shell outer JSON",
     "shell_timeout_seconds": {
       "default_host": 30,
       "normal_explicit": 120,
-      "installer": 600,
-      "maximum_host": 600
+      "installer": 120,
+      "maximum_host": 600,
+      "batch": 60
     },
     "minimal_chart_requirements": [
       "use_skill",
@@ -459,5 +485,30 @@
     "ziwei_year_boundary_scope": "natal_only",
     "horoscope_year_boundary": "lunar_new_year",
     "horoscope_month_boundary": "lunar_month"
+  },
+  "romance": {
+    "method": "romance-evidence/1.0.0",
+    "focus": "romance",
+    "brief_relationship_includes_both_tracks": true,
+    "knowledge_topics": 4,
+    "sources": [
+      {
+        "id": "REL-ZP-WIFE",
+        "kind": "classical_primary_text",
+        "url": "https://donglishuzhai.net/chapter/3737.html"
+      },
+      {
+        "id": "REL-LKM-ROMANCE",
+        "kind": "modern_author_interpretation",
+        "url": "https://www.likuiming.com/Article/view/CJUr6IXKA8"
+      },
+      {
+        "id": "REL-ZXL-AGE",
+        "kind": "modern_author_interpretation",
+        "url": "https://www.sohu.com/a/229487199_103311"
+      }
+    ],
+    "modern_age_reading": "separate derived view; legacy age_relation unchanged",
+    "probability": null
   }
 }

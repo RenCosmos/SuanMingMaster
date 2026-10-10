@@ -1,8 +1,5 @@
 # 出生时辰不确定：候选盘对照
 
-> V1.2.0 日常执行以 SKILL.md 的 workflow 为准：同次计算校验，直接读主题 context，追问用 --reuse。本页保留的 run.cjs / --verify / 完整 JSON 示例用于维护核对，无需逐次执行；计算口径与规则仍适用。
-
-
 用户记不清几点出生、只记得一个时间范围，或有几个不同说法时使用 `mode: time_compare`。先核对日期、公/农历、gender、出生地时区及农历闰月；保留时间的不确定程度。完全不知道时间也能开始对照。
 
 ## 输入
@@ -51,13 +48,12 @@ true_solar 时仍输入原始钟表范围，经度放 birth，time_basis 放 bir
 手机命令沿用 SKILL.md 的独立任务目录与输入写入流程：
 
 ```sh
-sh /skills/bazi-ziwei/scripts/mobile.sh --temp-input /workspace/bazi-ziwei-reports/TASK/input.json --out /workspace/bazi-ziwei-reports/TASK/result
-sh /skills/bazi-ziwei/scripts/mobile.sh --verify /workspace/bazi-ziwei-reports/TASK/result/chart.json
+sh /skills/bazi-ziwei/scripts/mobile.sh --stdin --out /workspace/bazi-ziwei-reports/TASK --brief --focus time_compare
 ```
 
-默认生成两个计算文件：chart.json 为完整候选及对照；comparison.json 为去掉嵌入命盘的摘要。校验须 ok=true、recalculated=true、summary_verified=true。摘要必须与本次完整数据对应；CLI 会重算每个候选、比较汇总及摘要。也可直接 `--verify .../comparison.json`，同目录需保留 chart.json。
+将本页合法JSON送入stdin。workflow一次计算并重算核验，检查外层工具状态与内层ok／validation.ok；不另跑verify。任务保存chart.json、context.json、validation.json，完整候选与对照在chart中；日常只读返回context。comparison.json是完整维护CLI的兼容输出，不是日常必读文件。
 
-校验后优先读取 comparison.json：
+返回的字段索引和按需候选视图对应以下完整数据：
 
 - input、coverage、intervals、candidates：本次范围、分段与可计算状态；候选的 time_boundary_review 保存太阳钟面及节气临界复核信息，命中时回查具体候选。
 - comparison.fields：四柱、日主、五行本字计数、大运顺逆和干支顺序、对象年龄主线；紫微命身宫、五行局及命/夫妻/福德/迁移/官禄宫主星；生肖口径与辅助缘分。
@@ -65,17 +61,17 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --verify /workspace/bazi-ziwei-reports/T
 - comparison.image_tags：外形、气质、风格的 common 与 varying 标签。
 - qiyun_sampled_start_times：候选点的精确起运值。
 
-同一项目的一致不自动代表所有婚恋判断一致。涉及画像标签、辅助星曜、四化、岁运或未列入摘要的细节时，回查相关完整候选。为减少手机端读取体积，可提取某个真实候选后用原关系方法读取：
+同一项目的一致不代表所有婚恋判断一致；涉及其他细节时，按context的field_index、next_variant_offset或返回argv续读。指定候选使用workflow的有界视图：
 
 ```sh
-sh /skills/bazi-ziwei/scripts/mobile.sh --extract /workspace/bazi-ziwei-reports/TASK/result/chart.json --candidate TC-001 --out /workspace/bazi-ziwei-reports/TASK/candidate-TC-001
+sh /skills/bazi-ziwei/scripts/mobile.sh --reuse /workspace/bazi-ziwei-reports/TASK/chart.json --candidate TC-001 --brief --focus relationship
 ```
 
-提取只保存该候选原有 chart.json，保留原始输入和校验和。它仍是对照用的候选，不能作为已确定时辰继续谈全部未来。几个分支需要深入时分别提取，不把整包几十张盘贴到对话里。
+它仍是对照用候选，不是已确定时辰。多个分支按所问分别展开，不把几十张盘贴进对话；详细游标见[分页契约](pagination-guide.md)。维护用--extract和完整摘要校验继续保留，仅明确需要导出候选原盘时使用。
 
 完整数据 schema 为 bazi-ziwei-time-compare/v1，摘要为 bazi-ziwei-time-summary/v1，引擎 time-compare/0.5.0。默认不会生成报告；用户需要文件时对完整 chart.json 执行 --render，或首次显式加 --report。reading.md 同样只在要求保存解读时写。
 
-各候选关系盘保留逐年四柱/夫妻宫关系，见 [年度关系方法](annual-relations.md)。V1.1.1 的 comparison.json 新增 TC-BZ-ANNUAL-YYYY 与 TC-ZW-SPOUSE-FLY，比较逐年日支关系及夫妻宫参与的宫干四化。完整四柱和大运关系可按需提取候选读取，详见 [大运与飞化方法](dayun-flying-method.md)。
+各候选关系盘保留逐年四柱/夫妻宫关系，见[年度关系方法](annual-relations.md)。TC-BZ-ANNUAL-YYYY及TC-ZW-SPOUSE-FLY比较年度日支关系和夫妻宫飞化；完整四柱、大运和飞化按需展开，见[大运与飞化](dayun-flying-method.md)。
 
 ## 自然解读
 
@@ -87,6 +83,6 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --extract /workspace/bazi-ziwei-reports/
 
 后续得到出生证明、家人记忆等新记录时，缩小输入范围再算。经历可以帮助提问与理解分歧，不能据此把程序未确定的出生时辰认定为事实。
 
-V1.1.2 默认改用 --stdin 的带引号 here-document，不创建 input.json。上面的文件入口仅在需要文件传递时使用，并在结束后自动清理；详见 [输入生命周期](input-lifecycle.md)。
+默认用--stdin；必须传文件时使用--temp-input，用完清理，见[输入生命周期](input-lifecycle.md)。
 
-V1.1.4 的 TC-AGE 比较主方向、依据类型与状态；TC-AGE-ZW-RULES 比较实际主星/辅星规则；TC-AGE-MODELS 只比较八字柱位辅助取象。仅紫微模式也包含年龄字段。候选均为 none 表示均无明确主方向，不能写成同龄结论。
+TC-AGE比较兼容age_relation的主方向、依据类型及状态；TC-AGE-ZW-RULES比较主星/辅星规则，TC-AGE-MODELS比较八字柱位旁证。现代年龄线索在相关候选age_reading中按需查核；仅紫微也有年龄字段。候选均为none表示均无该接口的主方向，不表示同龄。

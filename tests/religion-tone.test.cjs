@@ -31,7 +31,7 @@ test('有限宗教检索保留教义、短引与来源，全文分页无否定�
   assert.equal(body,full.content);if(full.topic.original_excerpt)assert.ok(body.includes(full.topic.original_excerpt));
   assert.ok(!body.includes('不是对超自然存在的检测')&&!body.includes('不是对鬼魂存在、数量'));
  }
- const checked=verifyKnowledge();assert.equal(checked.total_topics,103);assert.equal(checked.spirit_topics,8);assert.equal(checked.spirit_sources,7);
+ const checked=verifyKnowledge();assert.equal(checked.total_topics-checked.romance_topics,103);assert.equal(checked.spirit_topics,8);assert.equal(checked.spirit_sources,7);
  assert.equal(catalog.personal_supernatural_identification_supported,false);assert.equal(catalog.automatic_chart_for_knowledge_questions,false);
 });
 test('精确文案兼容转换保留其他字段，宗教提问不改变计算或认证能力',()=>{

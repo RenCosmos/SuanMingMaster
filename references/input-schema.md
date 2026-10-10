@@ -1,7 +1,4 @@
-# 输入契约 · 引擎 0.4.0 / V1.1.1
-
-> V1.2.0 日常执行以 SKILL.md 的 workflow 为准：同次计算校验，直接读主题 context，追问用 --reuse。本页保留的 run.cjs / --verify / 完整 JSON 示例用于维护核对，无需逐次执行；计算口径与规则仍适用。
-
+# 输入契约 · 引擎 0.4.0
 
 `examples/input.json` 是明确出生时间的匿名合成例子。以下字段用于 bazi / ziwei / both；出生时间不确定时改用 [时辰对照输入](time-compare-method.md)，不在本契约中猜填 birth.time。输入为 UTF-8 JSON（允许 BOM），未知字段会报错。
 
@@ -18,7 +15,7 @@
 | birth.longitude | 可选数字，−180 至 180，东经正、西经负；true_solar 必填 |
 | birth.longitude_source | 可选经度来源文字，最长 400 字，须随经度提供 |
 | target_date | 可选分析日期，`YYYY-MM-DD`；不指定就不输出目标岁运，不能早于出生日期 |
-| options | 可选，见下表 |
+| options | 可省略或填对象（包括{}）；false、0、空字符串、null均拒绝，见下表 |
 
 | options 字段 | 值与默认值 |
 | --- | --- |
@@ -42,13 +39,13 @@ Temporal 按所填时区解析真实出生瞬间并保留实际 UTC 偏移。夏
 
 紫微引擎接收出生地钟表公历日期和时辰序号，闰月、换年、换日均在 JSON 留痕。`chinese_date` 是 iztro 提供的辅助干支信息，不能代替八字引擎的四柱，尤其当口径不同或出生地不在 UTC+8 时。
 
-紫微 `conventions.year_boundary` 保留兼容，含义为本命年界；新增 `natal_year_boundary` 明确该含义，`year_boundary_scope=natal_only`。`horoscope_year_boundary=lunar_new_year`、`horoscope_month_boundary=lunar_month` 分别标明运限年/月界。V1.3.1不更改旧 `yearDivide` / `horoscopeDivide` 算法：2024-02-05在立春后、春节前，八字目标年为甲辰，紫微流年仍为癸卯；不是将本命立春参数套在流年。配置含义见[iztro官方说明](https://docs.iztro.com/posts/config-n-plugin)。目标日仍按原正午规则，不声称支持目标节气秒级瞬间。
+紫微 `conventions.year_boundary` 是本命年界的兼容字段，`natal_year_boundary`与`year_boundary_scope=natal_only`明确其含义；`horoscope_year_boundary=lunar_new_year`、`horoscope_month_boundary=lunar_month`分别标明运限年/月界。2024-02-05在立春后、春节前，八字目标年为甲辰，紫微流年仍为癸卯；不能将本命立春参数套在流年。配置含义见[iztro官方说明](https://docs.iztro.com/posts/config-n-plugin)。目标日按正午规则，不声称支持目标节气秒级瞬间。
 
 目标分析日期统一取**出生地正午**作为展示用参考时刻：这不代表该日期所有时刻都处于同一节气。出生时间范围比较使用独立的时辰对照模式；目标分析日期的参考时刻沿用本页规则。
 
 ## 输出契约
 
-本版计算引擎为 0.4.0：旧版本 JSON 使用对应原包校验，或用原始输入在 V1.1.1 重算。关系 schema/v3 与时辰对照 schema/v1 保留，嵌入盘版本和对照引擎已更新。
+产品版本以package.json为准，基础计算引擎为0.4.0。关系schema/v4、时辰对照schema/v1各自保留独立版本，不是产品发布号。旧JSON由workflow核验；不兼容产物用原输入在新目录重建，不覆盖旧盘。
 
 顶层：`schema_version`、`skill_version`、`input`（含默认值的规范输入）、`normalized`、`warnings`、`provenance`、按 mode 选择的 `bazi` / `ziwei` 和 `checksum`。
 
@@ -56,22 +53,22 @@ Temporal 按所填时区解析真实出生瞬间并保留实际 UTC 偏移。夏
 
 校验和按排序后的 JSON 内容计算。`--verify` 还按输入重新运行引擎，比较命盘、计算、警告、归一化时间及引擎/规则版本。不同 Node/ICU 时区数据库版本可能在历史时间上产生差异，因此记录版本并允许校验失败后要求重算。
 
-## v3 关系输入
+## 关系输入
 
 `mode: relationship` 使用独立的 people/context 契约，见 [关系方法与示例](relationship-method.md)。不能把 relationship 的 people 字段混入原有 bazi / ziwei / both 输入。卜卦仍使用 divination。
 
-## 按需输出与 v5 单人画像
+## 日常输出与单人画像
 
-普通模式 CLI 默认只保存 chart.json；time_compare 默认另保存 comparison.json 计算摘要。文件报告使用显式 --report / --render，AI 解读默认在聊天中回复。年龄与性能力专题见 [相应方法](age-intimacy-output.md)。对象形象、生肖及单人八字/紫微年龄取象见 [对象画像方法](partner-image-method.md)。
+日常workflow保存chart.json、context.json、validation.json，time_compare完整候选也在chart中，不另读comparison.json。文件报告使用显式--report，AI解读默认在聊天中回复。年龄与亲密专题见[相应方法](age-intimacy-output.md)，形象与生肖见[对象画像](partner-image-method.md)。维护用完整CLI仍保留--verify／--render／--extract及其原输出，与日常入口分开。
 
-## V6.2.0 年度输出增补
+## 年度证据
 
-输入字段及 annual_count 范围不变。年度项新增 stem、branch、hidden_stems、hidden_ten_gods、pillar_relations、day_branch_relations；关系标明 relation_field、touches_day_branch，组合另标原局已有状态及原局来源。完整定义见 [年度关系方法](annual-relations.md)。基础计算版本升为 0.3.0，旧产物以原包验证或以原输入重算。
+年度项含stem、branch、hidden_stems、hidden_ten_gods、pillar_relations、day_branch_relations；关系标明relation_field、touches_day_branch及原局已有状态、来源。完整定义见[年度关系方法](annual-relations.md)。
 
-## V1.1.1 输出增补
+## 大运与飞化证据
 
-大运项补齐显干、地支、藏干十神、四柱关系和日支关系；紫微新增 calculations.palace_stem_flying，含 48 条宫干四化、实际落点、自化及每宫收发索引。关系画像与时辰对照保留本人的实际来源，详见 [大运与飞化方法](dayun-flying-method.md)。基础引擎 0.4.0、关系 0.6.0、时辰对照 0.5.0；基础输入与 schema 名称保留；V1.1.4 关系派生 schema 升为 v4，时辰对照引擎升为 0.5.0。
+大运项含显干、地支、藏干十神、四柱及日支关系；当前运读取dayun_at_target和精确交运区间，不按年份标签提前套运。紫微calculations.palace_stem_flying含48条宫干四化、实际落点、自化及每宫收发索引；关系与时辰候选保留实际来源，见[大运与飞化](dayun-flying-method.md)。
 
-## V1.1.2 CLI 输入生命周期
+## 输入生命周期
 
-计算引擎与 JSON schema 未变，原 0.4.0 产物可直接校验。默认 --stdin 不生成输入文件；--temp-input PATH 用完清理，--input PATH 保留可复用资料。知识直接传参；详见 [输入生命周期](input-lifecycle.md)。
+--stdin不生成输入文件；--temp-input PATH用完清理，--input PATH明确保留资料。知识直接传参，详见[输入生命周期](input-lifecycle.md)。

@@ -9,6 +9,7 @@
     "adapter_id":{"const":"partner_search_batch"},
     "validation":{"type":"object","required":["ok","completed_jobs_validated","recalculated"],"properties":{"ok":{"type":"boolean"},"completed_jobs_validated":{"const":true},"recalculated":{"type":"boolean"}}},
     "cache_hit":{"type":"boolean"},"calculation_performed":{"type":"boolean"},
+    "execution":{"type":"object","required":["state","time_budget_seconds","elapsed_ms","completed_days_this_call"],"properties":{"state":{"enum":["complete","yielded","failed","incomplete"]},"time_budget_seconds":{"type":"integer","minimum":1,"maximum":60},"elapsed_ms":{"type":"integer","minimum":0},"completed_days_this_call":{"type":"integer","minimum":0,"maximum":366},"active_month":{"type":["string","null"]},"next_date":{"type":["string","null"]},"stop_reason":{"type":["string","null"]}}},
     "files":{"type":"object","required":["chart","context"],"additionalProperties":false,"properties":{"chart":{"type":"string"},"context":{"type":"string"}}},
     "task_id":{"type":"string","pattern":"^SMB-[a-f0-9]{12}$"},
     "error":{"type":"object","required":["month","error"],"properties":{"month":{"type":"string"},"error":{"type":"string","maxLength":240}}},

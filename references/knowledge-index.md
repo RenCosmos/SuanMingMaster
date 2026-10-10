@@ -1,8 +1,10 @@
 # 外部知识库索引
 
-V1.2.4合计93个可检索主题：原有85主题（本页35主题、[民俗古籍索引](folklore-index.md)21卡、[精选方法与原典](project-adoption.md)11卡及[修行、桃花与转运](practice-library-index.md)18卡）完整保留；2026-10-06另增[鬼神、护法与宿缘](spirit-library-index.md)8卡。项目来源和古籍记录见[精选目录](knowledge/curated/catalog.json)；修行资料见[修行与行动目录](knowledge/practice/catalog.json)，宗教来源、查核限制与摘要见[宗教目录](knowledge/spirit/catalog.json)。
+当前107主题：本页35模板、21民俗古籍、11精选方法、18修行、8宗教、4张[八字概念](bazi-concepts-index.md)、6张[六爻概念](liuyao-concepts-index.md)及4张[情感资料](romance-index.md)。
 
-来源：[supe888/bazi_skills](https://github.com/supe888/bazi_skills)；固定提交 `f14a60b6192192d9472a6eb430cbae54a7cc50af`，Apache-2.0。许可证、原始来源摘要与本包改编文本的字节摘要随包保存；0.5.1 已清理模板中的固定免责要求和重复格式限制。
+按需读[民俗古籍](folklore-index.md)、[精选方法](project-adoption.md)、[修行与行动](practice-library-index.md)或[鬼神护法宿缘](spirit-library-index.md)。来源和摘要分别见[精选目录](knowledge/curated/catalog.json)、[修行目录](knowledge/practice/catalog.json)和[宗教目录](knowledge/spirit/catalog.json)，不按历史版本另加载一套库。
+
+来源：[supe888/bazi_skills](https://github.com/supe888/bazi_skills)；固定提交 `f14a60b6192192d9472a6eb430cbae54a7cc50af`，Apache-2.0。许可证、原始来源与改编文本摘要随包保存；模板是参考资料，不要求照搬原角色、固定免责或格式指令。
 
 实际可用内容为 35 条中文提示词和报告模板。README 引用的 `.cursor/skills/suanming` 与古籍查表未在这个公开提交中出现，不能声称已导入。
 
@@ -56,12 +58,12 @@ V1.2.4合计93个可检索主题：原有85主题（本页35主题、[民俗古�
 
 表中链接相对于本索引所在 references 目录；工作区读取时加前缀 `/skills/bazi-ziwei/references/`。此知识库不提供缺失的卦辞、爻辞全文，不能让模型补造古籍引文。
 
-## v3 来源补充
+## 其他来源分组
 
-另有 21 张 [民俗古籍来源卡](folklore-index.md)及 11 张 [精选方法与原典卡](project-adoption.md)，与本页 35 条开源提示词共同构成 67 个检索主题。官方名录、古籍、开源模板逐条标来源类型与引用信息，不混淆权威性。
+另有[21民俗卡](folklore-index.md)和[11精选卡](project-adoption.md)；官方名录、古籍和开源模板逐条标明身份与引文，不混淆权威性。
 
-V6.1 知识增补另加入 14 张古籍卡，覆盖民俗禁忌、岁时节令、积善修行、房中术与双修；取用见 [文献解读方法](folk-cultivation-method.md)。每卡保留具体篇章与已核短原文，按文献身份解释。
+民俗分组包含禁忌、岁时、积善修行、房中与双修古籍；每卡保留篇章与已核短引，取用见[文献方法](folk-cultivation-method.md)。
 
-V1.1.4 新增 [年上、年下原典依据](knowledge/curated/cards/kb-partner-age-classics.md)，可直接检索 `--query "年上 年下"` 或 `--topic kb-partner-age-classics`。原有 65 个主题文件保持不变。
+[年上、年下原典依据](knowledge/curated/cards/kb-partner-age-classics.md)可查`--query "年上 年下"`或`--topic kb-partner-age-classics`。
 
-V1.1.5 新增 [疏文、表文制作来源](knowledge/curated/cards/kb-shuwen-writing.md)，检索 `--query "疏文"` 或 `--topic kb-shuwen-writing`。原有 66 个主题文件完整保留。
+[疏文、表文来源](knowledge/curated/cards/kb-shuwen-writing.md)可查`--query "疏文"`或`--topic kb-shuwen-writing`。

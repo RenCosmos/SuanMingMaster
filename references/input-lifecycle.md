@@ -1,4 +1,4 @@
-# 输入与结果生命周期 · V1.2.0
+# 输入与结果生命周期
 
 优先使用带引号 here-document 将合法 JSON 送入 mobile.sh --stdin --out TASK --focus 主题。同次计算校验后只读 stdout.context，无需 input.json、独立 verify 或 cat 完整 JSON。
 

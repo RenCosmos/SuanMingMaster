@@ -1,7 +1,7 @@
 'use strict';
 // Deterministic, evidence-preserving projections; no predictive rules live here.
 const {check}=require('./runtime-core.cjs');
-const FOCUSES=['core','career','relationship','annual','wealth','age_relation','partner_image','intimacy','time_compare','divination'];
+const FOCUSES=['core','career','relationship','romance','annual','wealth','age_relation','partner_image','intimacy','time_compare','divination'];
 const defaultFocus=data=>['relationship','time_compare','divination'].includes(data.input.mode)?data.input.mode:'core';
 const pick=(o,keys)=>o?Object.fromEntries(keys.filter(k=>o[k]!==undefined).map(k=>[k,o[k]])):null;
 const relation=r=>pick(r,['id','type','symbols','pillars','relation_field','touches_day_branch','natal_group_present','natal_relation_ids','group_state']);
@@ -42,13 +42,12 @@ function ziwei(z,focus,compactPair=false){
   ...(anchor&&!compactPair?{flying_scope:{anchor_palace_id:anchor.id,coverage:'发出或落入本主题主宫'},palace_stem_flying:z.calculations.palace_stem_flying.entries.filter(m=>anchor.id===m.origin_palace_id||anchor.id===m.target_palace_id).map(m=>pick(m,['id','mutagen','star','origin_palace_id','origin_palace','target_palace_id','target_palace','is_self_transform','source_ids']))}:{} )};
 }
 function bazi(b,options){
- const focus=options.focus,year=Number((b.chart.target?.local_date??'').slice(0,4));
- const active=b.chart.dayun.find(d=>d.start_year<=year&&year<=d.end_year);
- const selected=focus==='annual'?b.chart.dayun.filter(d=>annualItems(b.chart,options).some(y=>d.start_year<=y.lichun_cycle_year&&y.lichun_cycle_year<=d.end_year)):active?[active]:[];
+ const focus=options.focus,timing=require('./dayun-timing.cjs'),current=timing.active(b.chart);
+ const selected=focus==='annual'?timing.annualWindows(b.chart,annualItems(b.chart,options).map(y=>y.lichun_cycle_year)):current.window?[current.window]:[];
  const out={day_master:b.chart.day_master,pillars:b.chart.pillars,theory_evidence:b.calculations.theory_evidence,
   natal_relations:b.calculations.relations.map(relation),conventions:b.chart.conventions,
   qiyun:pick(b.chart.qiyun,['method','direction','offset','start_datetime_birth_timezone']),
-  dayun:selected.map(period),dayun_sequence:b.chart.dayun.map(d=>pick(d,['id','ganzhi','start_year','end_year'])),
+  dayun:selected.map(w=>({...period(w.period),...(!options.compact_pair?timing.boundaries(w):{})})),dayun_at_target:options.compact_pair?pick(timing.summary(current),['status','period_id']):timing.summary(current),dayun_sequence:b.chart.dayun.map(d=>pick(d,['id','ganzhi','start_year','end_year'])),
   boundary_review:b.chart.jieqi_boundary_review,day_hour_calculation_datetime:b.chart.day_hour_calculation_datetime};
  if(b.chart.target)out.target={...pick(b.chart.target,['id','local_date','evaluation_local_time','year_ganzhi','month_ganzhi','year_ten_god','month_ten_god']),year_relations:b.chart.target.year_relations.map(relation)};
  if(focus==='annual'||!options.compact_pair&&['career','wealth','relationship'].includes(focus))out.annual=annual(b.chart,options);
@@ -168,12 +167,16 @@ function project(data,options={}){
   check(!options.years&&!(options.variant_offset??0),'--comparison 不与年度或变体筛选混用');
   check(options.focus==='relationship','--comparison 使用 --focus relationship');}
  const mode=data.input.mode;
+ if(options.page)return require('./evidence-context.cjs').projectPage(data,options);
+ if(options.overview){check(['relationship','romance'].includes(options.focus)&&!options.comparison&&!options.candidate&&!options.field,'概览只用于单人情感');check(!['time_compare','divination'].includes(mode)&&(mode!=='relationship'||data.people.length===1),'--overview 不用于双人、时辰对照或六爻');}
  check(!['time_compare','divination'].includes(options.focus)||mode===options.focus,'focus 与计算模式不匹配');
- const reading=options.comparison?comparison(data,options):mode==='time_compare'?timeCompare(data,options):mode==='relationship'?relationship(data,options):mode==='divination'?divination(data):chartContext(data,options);
- return {schema_version:'suanming-context/v1',focus:options.focus,source_schema:data.schema_version,source_checksum:data.checksum.value,
-  selection:{offset:options.offset,limit:options.limit,years:options.years??null,person:options.person??null,candidate:options.candidate??null,field:options.field??null,variant_offset:options.variant_offset??0,...(options.comparison?{comparison:true}:{})},
+ const readingOptions=options.focus==='romance'?{...options,focus:'relationship'}:options;
+ const reading=options.comparison?comparison(data,options):mode==='time_compare'?timeCompare(data,readingOptions):mode==='relationship'?relationship(data,readingOptions):mode==='divination'?divination(data):chartContext(data,readingOptions);
+ const result={schema_version:'suanming-context/v1',focus:options.focus,source_schema:data.schema_version,source_checksum:data.checksum.value,
+  selection:{offset:options.offset,limit:options.limit,years:options.years??null,person:options.person??null,candidate:options.candidate??null,field:options.field??null,variant_offset:options.variant_offset??0,...(options.comparison?{comparison:true}:{}),...(options.flying_offset!==undefined?{flying_offset:options.flying_offset}:{})},
   reading,interpretation_scope:'命理取象非事实保证；不推断性取向、生理能力或医学结论。',interpretation_rules:['先给当前问题的命理判断和盘面依据；问时机就分析岁运或卦象，沟通建议仅按需补充，不用心理安慰替代断事。','月令、通根与透干合看；五行数量不直接定旺衰、格局或喜用。','合冲与合局表示结构引动，须结合原局和大运；不直接判成化或事件。','逐年显干、藏干十神与日支关系同时看；三合原局已有与岁运补齐分开。','紫微本命、宫干与岁运四化分开；宫位编号以本次盘为准。','时辰对照的候选点数不是概率；分页中的一致项只在 coverage 范围内成立。'],
   available:{focuses:mode==='divination'?['divination']:FOCUSES.filter(f=>!['divination','time_compare'].includes(f)||mode===f),person_ids:data.people?.map(p=>p.id)??null,
    expansion:'使用 --reuse 原chart.json --focus 主题；列表按 next_offset 翻页，时辰字段按 --field / --variant-offset 或 --candidate 展开。完整结果保留在磁盘，无需 cat。'}};
+ return options.brief||options.overview||options.focus==='romance'?require('./brief-context.cjs').projectBrief(result,data,options):result;
 }
 module.exports={FOCUSES,defaultFocus,project,period,relation,page};

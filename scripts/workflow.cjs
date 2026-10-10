@@ -10,8 +10,8 @@ const budget=require('./output-budget.cjs');
 const MAX_OUTPUT_BYTES=budget.WORKFLOW_BYTES;
 const RECEIPT='validation.json';
 function parse(argv){
- const o={};const flags={'--stdin':'stdin','--report':'report','--refresh':'refresh','--comparison':'comparison'};
- const pairs={'--input':'input','--reuse':'reuse','--out':'out','--focus':'focus','--limit':'limit','--offset':'offset','--years':'years','--person':'person','--candidate':'candidate','--field':'field','--variant-offset':'variant_offset'};
+ const o={};const flags={'--stdin':'stdin','--report':'report','--refresh':'refresh','--comparison':'comparison','--brief':'brief','--overview':'overview'};
+ const pairs={'--input':'input','--reuse':'reuse','--out':'out','--focus':'focus','--limit':'limit','--offset':'offset','--years':'years','--person':'person','--candidate':'candidate','--field':'field','--variant-offset':'variant_offset','--flying-offset':'flying_offset','--page':'page','--base-checksum':'base_checksum'};
  for(let i=0;i<argv.length;i++){
   const arg=argv[i],key=flags[arg]??pairs[arg];check(key&&!(key in o),'不支持或重复的参数 '+arg);
   if(flags[arg])o[key]=true;
@@ -20,7 +20,11 @@ function parse(argv){
  check(['stdin','input','reuse'].filter(k=>o[k]).length===1,'只选择 --stdin、--temp-input/--input 或 --reuse 之一');
  check(o.reuse||o.out,'新计算需要 --out 独立任务目录');
  check(!o.refresh||!o.reuse,'--refresh 必须同时提供原始输入');
- for(const k of ['limit','offset','variant_offset'])if(k in o){check(/^\d+$/.test(o[k]),k+' 须为整数');o[k]=Number(o[k]);check(Number.isSafeInteger(o[k])&&o[k]>=(k==='limit'?1:0)&&(k!=='limit'||o[k]<=10),k+' 超出范围');}
+ if(o.overview){o.focus=o.focus??'relationship';o.brief=true;check(['relationship','romance'].includes(o.focus),'--overview 只用于单人情感概览');check(!o.page&&!o.comparison&&!o.candidate&&!o.field&&!o.years&&!o.offset&&!o.variant_offset&&!o.flying_offset,'--overview 不与分页或其他选择混用');}
+ if(o.page){check(['annual','flying'].includes(o.page),'--page 只能是 annual / flying');check(o.reuse&&o.base_checksum,'证据续页需要 --reuse 与 --base-checksum');check(!o.comparison&&!o.candidate&&!o.field&&!o.variant_offset&&!o.report,'证据续页不与合盘交叉、时辰或报告混用');o.brief=true;}
+ check(o.base_checksum===undefined||o.page&&/^[a-f0-9]{64}$/.test(o.base_checksum),'--base-checksum 只用于证据续页，须为原context.source_checksum');
+ for(const k of ['limit','offset','variant_offset','flying_offset'])if(k in o){check(/^\d+$/.test(o[k]),k+' 须为整数');o[k]=Number(o[k]);check(Number.isSafeInteger(o[k])&&o[k]>=(k==='limit'?1:0)&&(k!=='limit'||o[k]<=10),k+' 超出范围');}
+ check(o.flying_offset===undefined||o.brief||o.focus==='romance','--flying-offset 仅用于 --brief 或 romance 视图');
  if(o.years){check(/^\d{4}:\d{4}$/.test(o.years),'--years 格式为 YYYY:YYYY');o.years=o.years.split(':').map(Number);check(o.years[0]<=o.years[1],'年份起止顺序错误');}
  if(o.person)check(['a','b'].includes(o.person),'--person 只能是 a / b');
  check(!o.comparison||!o.person,'--comparison 不与 --person 混用');
@@ -50,13 +54,22 @@ function receiptFor(data,bytes,fingerprint,keys){
 }
 function boundedResponse(base,data,options){
  const {project}=require('./context.cjs');
- let limit=options.limit??(data.input.mode==='time_compare'?5:3);
+ const requested=options.limit??(options.overview?10:data.input.mode==='time_compare'?5:3);
+ let limit=requested;
  while(limit>=1){
   const context=project(data,{...options,limit});
-  const result={...base,context,...(base.files?.chart?{task_id:taskId(base.files)}:{}),next_actions:executableActions(nextActions(context,base.people_page),base.files),output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:options.limit??null,effective_limit:limit,budget_adjusted:limit!==(options.limit??(data.input.mode==='time_compare'?5:3))}};
+  const actions=nextActions(context,base.people_page).map(a=>options.brief&&a.action==='reuse'?{...a,brief:true}:a);
+  if(context.base_context&&base.files?.chart)context.base_context.restore_argv=executableActions([{action:'reuse',focus:context.base_context.focus,brief:true,...(options.person?{person:options.person}:{})}],base.files)[0].argv;
+  const result={...base,context,...(base.files?.chart?{task_id:taskId(base.files)}:{}),next_actions:executableActions(actions,base.files),output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:options.limit??null,effective_limit:limit,budget_adjusted:limit!==requested}};
   // Reserve room for lifecycle metadata in both the raw JSON and full shell envelope.
   budget.stamp(result);
   if(budget.fits(result,MAX_OUTPUT_BYTES,128))return result;
+  // Long paths can make repeated executable argv dominate the budget. Defer
+  // lower-priority suggestions, not chart evidence; all page cursors remain.
+  if(limit===1&&(options.brief||options.focus==='romance'))while(result.next_actions.length>1){
+   result.next_actions.pop();result.output.next_actions_deferred=(result.output.next_actions_deferred??0)+1;
+   budget.stamp(result);if(budget.fits(result,MAX_OUTPUT_BYTES,128))return result;
+  }
   limit--;
  }
  if(data.input.mode==='relationship'&&data.people.length===2&&!options.person&&!options.comparison){
@@ -113,7 +126,20 @@ function compute(o){
 function operation(argv){
  const searches=argv.filter(a=>a==='--partner-search').length;
  if(searches){check(searches===1,'--partner-search 只能提供一次');return require('./partner-search-workflow.cjs').operation(argv.filter(a=>a!=='--partner-search'));}
- if(argv.length===1&&['--help','-h'].includes(argv[0]))return `V${VERSION} workflow\n--stdin --out TASK_DIR [--focus core|career|relationship|annual|wealth|age_relation|partner_image|intimacy] [--report]\n--temp-input INPUT.json --out TASK_DIR（结束后清理）；--input 保留原输入\n--reuse TASK_DIR/chart.json [--focus THEME] [--years YYYY:YYYY] [--offset N] [--limit 1..10]\n时辰对照：--field TC-... [--variant-offset N] 或 --candidate TC-001；关系盘：--person a|b；独立交叉证据：--comparison [--offset N] [--limit 1..10]（双人关系盘，focus=relationship）\n新盘同次重算校验；可信缓存不重算。stdout 与 context.json 是精简上下文；完整 chart.json 保留。\n--refresh 同时提供原始输入可强制重算；不同资料须使用新任务目录。`;
+ if(argv.length===1&&['--help','-h'].includes(argv[0]))return [
+  `V${VERSION} workflow`,
+  '--stdin --out TASK_DIR [--brief] [--focus core|career|relationship|romance|annual|wealth|age_relation|partner_image|intimacy] [--report]',
+  '--temp-input INPUT.json --out TASK_DIR（结束后清理）；--input 保留原输入',
+  '--reuse TASK_DIR/chart.json [--brief] [--focus THEME] [--years YYYY:YYYY] [--offset N] [--limit 1..10]',
+  '--overview：单人情感概览，默认focus=relationship及brief；本命与当前运保留，逐年窗口按需读。双人、时辰对照不用此标志。',
+  '--page annual|flying --base-checksum SHA：仅与--reuse使用的增量证据页；SHA来自基础context.source_checksum，不能当完整命盘。优先照返回argv执行。',
+  '--brief 精简工具视图；完整命盘不改。romance 分吸引／短缘与长期承接，默认精简。省略 --brief（romance改用relationship）可展开原完整主题证据。',
+  '--flying-offset N：brief/romance的飞化页游标，与年度--offset独立；优先执行next_actions中的flying_page argv。',
+  '时辰对照：--field TC-... [--variant-offset N] 或 --candidate TC-001；关系盘：--person a|b；独立交叉证据：--comparison [--offset N] [--limit 1..10]（双人关系盘，focus=relationship）',
+  'next_actions.required与required_for区分所需证据及可选展开；不是执行所有动作的任务列表。',
+  '新盘同次重算校验；可信缓存不重算。stdout 与 context.json 是有界上下文；完整 chart.json 保留。',
+  '--refresh 同时提供原始输入可强制重算；不同资料须使用新任务目录。'
+ ].join('\n');
  let unlock;
  try{
  const r=withInputLifecycle(argv,args=>{

@@ -1,8 +1,5 @@
 # 恋爱、婚姻、亲密关系与双方合盘
 
-> V1.2.1 日常执行以 SKILL.md 的 workflow 为准：同次计算校验，直接读主题 context，追问用 --reuse。本页保留的 run.cjs / --verify / 完整 JSON 示例用于维护核对，无需逐次执行；计算口径与规则仍适用。
-
-
 ## 输入契约
 
 `mode: relationship`；`chart_mode: both / bazi / ziwei`，默认 both；`people` 一人或两人，按顺序 id 为 a、b。每人提供本技能已支持的 `birth` 和可选出生 `options`，字段与 input-schema.md 相同。单人只需一份出生信息；双人必须有双方可计算信息。未知时辰或约略范围使用独立的 [时辰对照模式](time-compare-method.md) 比较本人候选盘。关系模式仍使用明确时间；每人可以在 birth 提供核实经度，并在个人 options 选择 true_solar，见 [太阳时方法](true-solar-time.md)。现有版本不支持仅凭四柱导入或任意多人合盘。
@@ -63,10 +60,10 @@
 
 单人八字/紫微年上/年下取象、性能力专题结构及默认不生成报告的流程，见 [年龄、亲密与按需报告](age-intimacy-output.md)。年龄推演不需要对方资料；性能力专题使用真实盘面作象征讨论，默认回复在聊天中。
 
-## v5 对象形象与年龄推演
+## 对象形象与年龄推演
 
-只需本人八字/紫微可推演对象画像与年上/年下倾向。读取 [单人画像与年龄方法](partner-image-method.md)。生肖是辅助缘分线索，年龄按 [原典年龄方法](partner-age-method.md)，配偶星柱位仅作辅助。聊天采用自然倾向表达，报告继续仅在需要时生成。
+只需本人八字/紫微可推演对象画像与年上/年下倾向。读取 [单人画像与年龄方法](partner-image-method.md)。生肖是辅助缘分线索；年龄优先age_reading的紫微原典、现代八字及柱位旁证分层，age_relation兼容字段按 [年龄方法](partner-age-method.md)查核。聊天采用自然倾向表达，报告继续仅在需要时生成。
 
-## V6.2.0 逐年婚恋
+## 逐年婚恋
 
 `profiles[].bazi.annual` 提供每人的年度显干/藏干十神、四柱关系与夫妻宫地支关系，来源逐项带 person_id。与各自 people[].chart 的计算一致，见 [年度关系方法](annual-relations.md)。原局已有组合与流年补齐分别标记，不能只凭流年显干判感情平淡。

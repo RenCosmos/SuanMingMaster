@@ -1,6 +1,9 @@
 {
   "version": "knowledge-query-terms/v1",
   "terms": [
+    {"term":"短缘长缘","aliases":["露水情缘","暧昧短择","短缘和长缘","短期关系","长期关系","异性缘八字"],"domain":"bazi"},
+    {"term":"桃花红鸾","aliases":["桃花和红鸾","红鸾与桃花","紅鸞與桃花","紅鸞和桃花"],"domain":"bazi"},
+    {"term":"八字对象年龄","aliases":["八字对象年上还是年下","八字配偶年龄","日坐傷官","日坐伤官","日坐印星"],"domain":"bazi"},
     {"term":"官杀混杂","aliases":["官煞混杂","官殺混雜","官煞混雜"],"domain":"bazi"},
     {"term":"财多身弱","aliases":["財多身弱","财旺身弱","财旺身衰","身弱财多"],"domain":"bazi"},
     {"term":"伤官见官","aliases":["傷官見官"],"domain":"bazi"},

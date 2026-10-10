@@ -1,34 +1,39 @@
 #!/bin/sh
-# 只安装工作区私有运行时；不写系统目录，不需要 npm，不上传生辰。
+# Online setup only; run separately from chart/search commands.
 set -eu
-runtime=/workspace/.bazi-ziwei-runtime
+runtime=${SUANMING_RUNTIME_DIR:-/workspace/.bazi-ziwei-runtime}
 target=$runtime/node22
 version=22.23.3
-if [ -x "$target/bin/node" ]; then
-  "$target/bin/node" -e 'if(Number(process.versions.node.split(".")[0])<20) process.exit(2); console.log("现有工作区 Node 可用: " + process.version)'
-  exit 0
-fi
-if [ -e "$target" ]; then printf '%s\n' '已有不完整的运行时目录；请检查 /workspace/.bazi-ziwei-runtime/node22，不自动覆盖。' >&2; exit 2; fi
-if [ ! -r /etc/os-release ]; then printf '%s\n' '安装器要求 Ubuntu / Debian 工作区。' >&2; exit 2; fi
+ready() { "$1" -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 20 && process.versions.icu ? 0 : 2)' >/dev/null; }
+if [ -x "$target/bin/node" ] && ready "$target/bin/node"; then printf '%s\n' '已有工作区Node，复用，不下载。'; exit 0; fi
+if [ -e "$target" ]; then printf '%s\n' '已有不完整的运行时目录；保留它，请检查后再安装。' >&2; exit 2; fi
+if [ ! -r /etc/os-release ]; then printf '%s\n' '安装器要求Ubuntu/Debian工作区。' >&2; exit 2; fi
 . /etc/os-release
-case "$ID" in ubuntu|debian) ;; *) printf '%s\n' '安装器仅适配 Ubuntu / Debian（glibc）；请先使用 RikkaHub 默认 Ubuntu 工作区。' >&2; exit 2 ;; esac
+case "$ID" in ubuntu|debian) ;; *) printf '%s\n' '安装器仅支持Ubuntu/Debian glibc工作区。' >&2; exit 2 ;; esac
 case "$(uname -m)" in
-  aarch64|arm64) arch=arm64; expected=a44aeb94849a299b22df10b9e622ec2f605c2183501bc40590705131de7c740f ;;
-  x86_64) arch=x64; expected=df450af89261115ef9f9e3830c3eeb2cc9213b63c720b1af623cb5dcbe2e02de ;;
-  *) printf '%s\n' '安装器支持 64 位 ARM / x86 工作区；当前架构不支持。' >&2; exit 2 ;;
+ aarch64|arm64) arch=arm64; expected=5ced2d48d1d7198739b7f86804de0171aefb6823b684b12341d3321afc3cb0b2 ;;
+ x86_64) arch=x64; expected=1084aa36196bba4c3a5e69a1ee388a6e4ff729dad09445fbcd434b28fe3c24af ;;
+ *) printf '%s\n' '仅支持64位ARM/x86工作区。' >&2; exit 2 ;;
 esac
-for tool in curl tar xz sha256sum mktemp; do
-  if ! command -v "$tool" >/dev/null 2>&1; then printf '缺少 %s。Ubuntu 工作区先执行：apt-get update && apt-get install -y ca-certificates curl xz-utils\n' "$tool" >&2; exit 2; fi
+for tool in curl tar sha256sum mktemp; do
+ if ! command -v "$tool" >/dev/null 2>&1; then printf '缺少%s。先单独准备基础工具：apt-get update && apt-get install -y ca-certificates curl tar gzip\n' "$tool" >&2; exit 2; fi
 done
+seconds=${SUANMING_DOWNLOAD_TIMEOUT:-90}
+case "$seconds" in ''|*[!0-9]*) printf '%s\n' '下载超时须为30..300秒的整数。' >&2; exit 2 ;; esac
+if [ "$seconds" -lt 30 ] || [ "$seconds" -gt 300 ]; then printf '%s\n' '下载超时须为30..300秒。' >&2; exit 2; fi
 mkdir -p "$runtime"
 stage=$(mktemp -d "$runtime/.install.XXXXXX")
-# mktemp 的固定前缀位于本技能的工作区目录，退出时只清理该临时目录。
-trap 'rm -rf -- "$stage"' EXIT HUP INT TERM
-archive=node-v$version-linux-$arch.tar.xz
-curl --fail --location --proto '=https' --proto-redir '=https' --connect-timeout 20 --max-time 300 "https://nodejs.org/dist/v$version/$archive" -o "$stage/$archive"
+case "$stage" in "$runtime"/.install.*) ;; *) printf '%s\n' '临时安装路径无效。' >&2; exit 2 ;; esac
+trap 'rm -rf -- "$stage"' 0
+trap 'exit 129' HUP
+trap 'exit 130' INT
+trap 'exit 143' TERM
+archive=node-v$version-linux-$arch.tar.gz
+printf '下载Node %s（最长%s秒），不下载命理数据。\n' "$version" "$seconds" >&2
+curl --fail --location --proto '=https' --proto-redir '=https' --connect-timeout 10 --max-time "$seconds" "https://nodejs.org/dist/v$version/$archive" -o "$stage/$archive"
 printf '%s  %s\n' "$expected" "$stage/$archive" | sha256sum -c -
 mkdir "$stage/node22"
-tar -xJf "$stage/$archive" -C "$stage/node22" --strip-components=1
-"$stage/node22/bin/node" -e 'if(Number(process.versions.node.split(".")[0])<20) process.exit(2); console.log("下载的 Node 可运行: " + process.version)'
-mv -T -- "$stage/node22" "$target"
-printf '%s\n' '安装完成。运行 sh /skills/bazi-ziwei/scripts/mobile.sh --check --self-test 检查排盘引擎。'
+tar -xzf "$stage/$archive" -C "$stage/node22" --strip-components=1
+ready "$stage/node22/bin/node"
+mv -- "$stage/node22" "$target"
+printf '%s\n' '安装完成；运行mobile.sh --check --self-test一次，然后继续原任务。'

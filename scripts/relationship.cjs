@@ -22,8 +22,8 @@ function normalizeInput(input){
  const topics=context.topics??['romance','marriage','communication','intimacy'];
  check(Array.isArray(topics)&&topics.length>0&&new Set(topics).size===topics.length&&topics.every(t=>['romance','marriage','communication','intimacy','age_relation','sexual_ability','partner_image','zodiac'].includes(t)),'context.topics 须为不重复的支持主题');
  if(context.narrative!==undefined)text(context.narrative,'context.narrative',4000);
- const options=input.options??{};fields(options,['partner_star_model'],'关系 options');
- const model=options.partner_star_model??'auto';check(['auto','all','wealth','authority'].includes(model),'partner_star_model 须为 auto / all / wealth / authority');
+ const options=input.options===undefined?{}:input.options;fields(options,['partner_star_model'],'关系 options');
+ const model=options.partner_star_model===undefined?'auto':options.partner_star_model;check(['auto','all','wealth','authority'].includes(model),'partner_star_model 须为 auto / all / wealth / authority');
  const charts=input.people.map((p,i)=>{
   fields(p,['id','label','birth','options'],`people[${i}]`);check(p.id===(i===0?'a':'b'),'人物 id 按顺序为 a、b');
   return normalizeChart({mode:chartMode,...(p.label!==undefined?{label:p.label}:{}),birth:p.birth,...(p.options!==undefined?{options:p.options}:{}),...(input.target_date!==undefined?{target_date:input.target_date}:{})});

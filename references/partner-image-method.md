@@ -1,11 +1,8 @@
 # 单人对象形象与年上／年下
 
-> V1.2.0 日常执行以 SKILL.md 的 workflow 为准：同次计算校验，直接读主题 context，追问用 --reuse。本页保留的 run.cjs / --verify / 完整 JSON 示例用于维护核对，无需逐次执行；计算口径与规则仍适用。
-
-
 ## 任务与输入
 
-用户问另一半长相、体态、气质、穿着风格、属相缘分，或未来对象偏年上还是年下时，用 relationship 模式，people 只需本人一项，id 为 a。不询问未来对象的出生资料。chart_mode 默认 both；年龄以有出处的紫微夫妻宫婚配文字取象，八字柱位作辅助。仅紫微也可运行，详见 [单人年龄方法](partner-age-method.md)。
+用户问另一半长相、体态、气质、穿着风格、属相缘分，或未来对象偏年上还是年下时，用 relationship 模式，people 只需本人一项，id 为 a。不询问未来对象的出生资料。chart_mode 默认 both；年龄优先age_reading，分别看紫微原典、现代八字作者线索和柱位旁证。仅紫微也可运行，详见 [单人年龄方法](partner-age-method.md)。
 
 context.topics 加 partner_image；只问属相可加 zodiac；年上/年下加 age_relation。模型选项为 auto / all / wealth / authority。默认 auto 按传统算法 gender 参数选择主线：male 取财星、female 取官杀。显式指定模型时优先采用用户选择；all 将财星与官杀分别计算，保留分歧。
 
@@ -24,11 +21,13 @@ context.topics 加 partner_image；只问属相可加 zodiac；年上/年下加 
 
 ## 单人年龄取象
 
-读取 age_relation.predictions 中本人 R-A-AGE 的 tendency、basis、status 与 ziwei.matches。夫妻宫规则附实际宫位、适用性别与原典；明确的组合条件覆盖通则，其他冲突保留 mixed。辅星和空宫对宫只作旁证。没有明确规则时保留 none，不拿星曜成熟感换算实际年龄。
+日常读取age_reading的分层方向、证据与冲突；紫微原典优先、现代八字线索次之、柱位为旁证。以下age_relation说明用于兼容字段核对，不替代当前主线。
+
+age_relation.predictions 中本人 R-A-AGE 保留 tendency、basis、status 与 ziwei.matches。夫妻宫规则附实际宫位、适用性别与原典；明确的组合条件覆盖通则，其他冲突保留 mixed。辅星和空宫对宫只作旁证。没有明确规则时保留 none，不拿星曜成熟感换算实际年龄。
 
 八字 models 分别保留财星与官杀的柱位辅助账本，position_tendency 和 position_weights 不决定最终年龄方向。all 的两条线索分别列出；切换财官模型只影响八字辅助，不改变紫微原文的夫、妻适用条件。八字星不显时不补造配偶星，不生成精确岁数差。
 
-原典的“宜配”按传统婚配倾向表达；正常聊天先回答实际主规则支持的方向，再说明条件。只有八字辅助时直说年龄方向还不集中，补充财官柱位的辅助取象即可。来源与规则身份见 [年龄方法](partner-age-method.md)，不拿自述偏好覆盖程序结果。
+原典的“宜配”按传统婚配倾向表达；正常聊天先回答age_reading实际主证支持的方向，再说明条件。如果只有柱位旁证、没有原典或现代作者主证，就说方向还不集中，不把柱位权重当最终年龄方向。来源与规则身份见 [年龄方法](partner-age-method.md)，不拿自述偏好覆盖程序结果。
 
 双人合盘时每人各有一项独立年龄预测，但默认重点回答现实关系问题，不主动替用户比较生日再称为年上预测。
 

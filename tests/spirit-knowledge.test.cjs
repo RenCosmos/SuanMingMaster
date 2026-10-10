@@ -10,8 +10,8 @@ const questions=[
  ['给亡者追荐','spirit-dizang-memorial'],['中元普度','spirit-zhongyuan-pudu'],['冥婚是什么意思','spirit-ghost-marriage']
 ];
 test('增补8宗教卡、7来源，与原85主题共同校验为93主题',()=>{
- const r=verifyKnowledge();assert.equal(r.spirit_topics,8);assert.equal(r.spirit_sources,7);assert.equal(r.total_topics-r.bazi_concept_topics-r.liuyao_concept_topics,93);
- assert.equal(r.total_topics-r.spirit_topics-r.bazi_concept_topics-r.liuyao_concept_topics,85);assert.equal(catalog.automatic_chart_for_knowledge_questions,false);assert.equal(catalog.personal_supernatural_identification_supported,false);
+ const r=verifyKnowledge();assert.equal(r.spirit_topics,8);assert.equal(r.spirit_sources,7);assert.equal(r.total_topics-r.romance_topics-r.bazi_concept_topics-r.liuyao_concept_topics,93);
+ assert.equal(r.total_topics-r.romance_topics-r.spirit_topics-r.bazi_concept_topics-r.liuyao_concept_topics,85);assert.equal(catalog.automatic_chart_for_knowledge_questions,false);assert.equal(catalog.personal_supernatural_identification_supported,false);
  assert.equal(catalog.topics.filter(t=>t.evidence_scope==='religious_teaching').length,5);
  assert.equal(catalog.topics.filter(t=>t.evidence_scope==='regional_custom_research').length,2);
  for(const t of catalog.topics){const full=lookup({topic:t.slug});assert.equal(full.reference_only,true);assert.equal(full.topic.program_supported,false);assert.equal(full.source_url,t.url);assert.equal(full.topic.source_kind,t.kind);}
@@ -37,7 +37,7 @@ test('典籍出处和身份固定，不把摘要标为全文或宗教发愿标�
  assert.equal(bySlug['spirit-dizang-ghost-kings'].chapter,'阎罗王众赞叹品第八');
  assert.equal(bySlug['spirit-dizang-memorial'].chapter,'利益存亡品第七');
  for(const s of catalog.sources){assert.equal(s.accessed_on,'2026-10-06');assert.ok(s.verification_limit&&s.copyright_note&&s.adoption);}
- const manifest=require('../rikkahub-manifest.json');assert.equal(manifest.folklore_library.total_searchable_topics,103);assert.equal(manifest.spirit_library.included_in_published_v1_2_3_zip,false);
+ const manifest=require('../rikkahub-manifest.json');assert.equal(manifest.folklore_library.total_searchable_topics,verifyKnowledge().total_topics);assert.equal(manifest.spirit_library.included_in_published_v1_2_3_zip,false);
 });
 test('来源、教义范围或认证能力被错误改动时，校验明确拒绝',()=>{
  for(const [obj,key,value,pattern] of [
@@ -48,7 +48,7 @@ test('来源、教义范围或认证能力被错误改动时，校验明确拒�
   [catalog.source_verification[0],'locator','未核卷次',/查核字段不一致/],
   [catalog.topics[0],'sha256','0'.repeat(64),/摘要不匹配/]
  ]){const old=obj[key];try{obj[key]=value;assert.throws(()=>verifyKnowledge(),pattern);}finally{obj[key]=old;}}
- assert.equal(verifyKnowledge().total_topics,103);
+ assert.equal(verifyKnowledge().total_topics-verifyKnowledge().romance_topics,103);
 });
 test('新卡真实CLI不要求生辰且不写临时查询、排盘或报告',()=>{
  const cwd=fs.mkdtempSync(path.join(os.tmpdir(),'spirit-query-'));

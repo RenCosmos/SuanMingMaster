@@ -36,6 +36,10 @@ def validate(node):
         r=subprocess.run([node,'-e',code,str(Path(temp)/'task')],input=json.dumps(raw),cwd=ROOT,text=True,encoding='utf-8',stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=120)
         assert r.returncode==0,r.stderr
         data=json.loads(r.stdout);vb_out.validate(data);assert data['ok']
+        partial_code='const w=require("./scripts/workflow.cjs");console.log(JSON.stringify(w.operation(["--stdin","--partner-search","--batch","--out",process.argv[1],"--max-days","1"])));'
+        partial=subprocess.run([node,'-e',partial_code,str(Path(temp)/'partial')],input=json.dumps(raw),cwd=ROOT,text=True,encoding='utf-8',stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=60)
+        assert partial.returncode==0,partial.stderr
+        paused=json.loads(partial.stdout);vb_out.validate(paused);assert paused['execution']['state']=='yielded' and paused['partial'] and not paused['context']['computed_complete']
         data['context']['probability']=0.99
         try:vb_out.validate(data)
         except ValidationError:pass

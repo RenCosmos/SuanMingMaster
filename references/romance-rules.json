@@ -1,0 +1,17 @@
+{
+  "version": "romance-evidence/1.0.0",
+  "sources": [
+    {"id":"REL-ZP-WIFE","kind":"classical_primary_text","book":"子平真诠","chapter":"二十四·论妻子","url":"https://donglishuzhai.net/chapter/3737.html","locator":"妻宫与妻星两段","original_excerpt":"既看妻宮，又看妻星。","verified_on":"2026-10-09","verification":"在线古籍录文核对，未作刻本校勘"},
+    {"id":"REL-LKM-ROMANCE","kind":"modern_author_interpretation","author":"李居明","region":"香港","title":"十二生肖红鸾星动大密码","published_on":"2023-11-25","url":"https://www.likuiming.com/Article/view/CJUr6IXKA8","locator":"红鸾与桃花的分别","adoption":"采用吸引交往与正式婚配分层思路，不采用生肖保证婚姻、职业、姓氏或财富的断法"},
+    {"id":"REL-ZXL-AGE","kind":"modern_author_interpretation","author":"张鑫龙","title":"如何从面相和八字看配偶年龄大小","published_on":"2018-04-26","url":"https://www.sohu.com/a/229487199_103311","locator":"其次，从八字判断配偶大小","adoption":"日支本气伤官／印星列为现代作者取象；旺透另看月令根气，不以数量判旺，不采用面相或验证率声明"}
+  ],
+  "modern_age_day_rules": [
+    {"id":"REL-AGE-DAY-HURTING","ten_gods":["伤官"],"direction":"younger","source_id":"REL-ZXL-AGE"},
+    {"id":"REL-AGE-DAY-RESOURCE","ten_gods":["正印","偏印"],"direction":"older","source_id":"REL-ZXL-AGE"}
+  ],
+  "modern_age_patterns": [
+    {"direction":"younger","groups":[["食神","伤官"],["正财","偏财"]],"condition":"食伤和财星旺且透干","source_id":"REL-ZXL-AGE"},
+    {"direction":"older","groups":[["正官","七杀"],["正印","偏印"]],"condition":"官杀和印星旺且透干","source_id":"REL-ZXL-AGE"}
+  ],
+  "project_method":"分开组织吸引表达、婚配承接与岁运引动；现代短择／长择分类不是古籍原句，不计算关系概率、出轨标签或性取向"
+}

@@ -1,5 +1,6 @@
 'use strict';
 const {relationText}=require('./bazi-period-relations.cjs');
+const PRODUCT_VERSION=require('../package.json').version;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const md=s=>String(s??'').replace(/\|/g,'\\|').replace(/\r?\n/g,' ');
 function makeReport(d) {
@@ -50,7 +51,7 @@ function makeReport(d) {
   const htmlSections=sections.map(s=>`<section><h2>${esc(s.title)}</h2><div class="table-wrap"><table><thead><tr>${s.headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${(s.rows.length?s.rows:[s.headers.map((_,i)=>i===0?'无':'')]).map(r=>`<tr>${r.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${s.note?`<p class="note">${esc(s.note)}</p>`:''}</section>`).join('\n');
   const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.input.label)} · 双盘计算报告</title><style>
   :root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f4f0e7;color:#273438;font:16px/1.65 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1120px;margin:auto;padding:48px 24px}header{border-top:5px solid #963f35;padding-top:24px;margin-bottom:32px}h1{font-size:32px;margin:0 0 12px}h2{font-size:21px;color:#704034;margin:0 0 18px}section{background:#fffdf8;border:1px solid #ded9cd;border-radius:12px;padding:24px;margin:20px 0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;background:#eee9dd;font-weight:600}th,td{padding:12px;vertical-align:top;border-bottom:1px solid #e5e1d7}td{overflow-wrap:anywhere}.note,header p{color:#596364}.seal{font:12px/1.5 monospace;overflow-wrap:anywhere}@media(max-width:650px){main{padding:24px 12px}section{padding:16px}h1{font-size:26px}th,td{padding:9px;min-width:90px}}@media print{body{background:white}main{padding:0}section{break-inside:avoid;border-radius:0}h2{break-after:avoid}.table-wrap{overflow:visible}table{font-size:11px}}
-  </style></head><body><main><header><h1>${esc(d.input.label)} · 双盘计算报告</h1><p>八字与紫微斗数 · 程序排盘与规则计算 · V1.1.6 · 引擎 v${esc(d.skill_version)}</p><p>排盘事实和解释分开保存；本页展示计算结果，命理解读由 Skill 另行生成。</p></header>${htmlSections}<section><h2>计算校验</h2><p>${esc(Object.entries(d.provenance.engines).map(([k,v])=>`${k} ${v}`).join('；'))}</p><p class="seal">SHA-256 ${esc(d.checksum.value)}</p></section></main></body></html>`;
+  </style></head><body><main><header><h1>${esc(d.input.label)} · 双盘计算报告</h1><p>八字与紫微斗数 · 程序排盘与规则计算 · V${esc(PRODUCT_VERSION)} · 引擎 v${esc(d.skill_version)}</p><p>排盘事实和解释分开保存；本页展示计算结果，命理解读由 Skill 另行生成。</p></header>${htmlSections}<section><h2>计算校验</h2><p>${esc(Object.entries(d.provenance.engines).map(([k,v])=>`${k} ${v}`).join('；'))}</p><p class="seal">SHA-256 ${esc(d.checksum.value)}</p></section></main></body></html>`;
   return {markdown,html};
 }
 module.exports={makeReport};

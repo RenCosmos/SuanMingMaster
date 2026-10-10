@@ -1,9 +1,6 @@
-# V1.1.1 大运与宫干四化
+# 大运与宫干四化
 
-> V1.2.0 日常执行以 SKILL.md 的 workflow 为准：同次计算校验，直接读主题 context，追问用 --reuse。本页保留的 run.cjs / --verify / 完整 JSON 示例用于维护核对，无需逐次执行；计算口径与规则仍适用。
-
-
-基础引擎 0.4.0，关系 relationship/0.6.0，时辰对照 time-compare/0.5.0。大运及飞化功能在 V1.1.1 加入，当前产品包为 1.1.4；V1.1.2 仅更新输入生命周期，原 0.4.0 JSON 仍可校验。更早计算版本的 JSON 需以原始输入重新生成。
+基础引擎0.4.0、关系relationship/0.6.0、时辰对照time-compare/0.5.0为独立计算身份；旧产物统一由workflow核验，不按文档里的历史产品号判断有效性。
 
 ## 八字大运
 
@@ -16,7 +13,7 @@
 | natal_group_present / group_state | 原局已有组合，或加入本步大运后才齐全 |
 | natal_relation_ids | 回查原局实际关系记录 |
 
-关系模式在 `profiles[].bazi.dayun` 提供同样事实，来源带 person_id，可回查 `people[].chart`。报告按显干/藏干、大运与夫妻宫和四柱关系显示。公历年标签与名义年龄是库的展示口径；准确起运时刻仍在 qiyun。本版分别计算大运对原局、流年对原局，尚无完整运岁联合矩阵或自动喜忌裁定。
+关系模式在 `profiles[].bazi.dayun` 提供同样事实，来源带person_id，可回查`people[].chart`。当前运按dayun_at_target及qiyun.start_datetime_beijing锚定的精确区间读取；start_year/end_year和名义年龄仅为展示标签，不能当作1月1日交运。target_date以输入时区正午判断，交运日附近区分前后；详见[岁运口径](romance-method.md)。大运与流年分别对原局计算，尚无完整运岁联合矩阵或自动喜忌裁定。
 
 ## 紫微宫干四化
 
@@ -45,4 +42,4 @@
 
 来源回查完整候选的实际记录。摘要一致表示本次成功候选的这些字段相同，不代表所有人生判断都已确定。大运完整关系仍在候选原盘和关系画像，深入时提取相关候选读取。
 
-V1.1.4 年龄派生规则修订使旧关系/时辰对照 JSON 需要重算；基础八字/紫微 0.4.0 JSON 的校验契约保留。年龄计算见 [单人年龄方法](partner-age-method.md)。
+旧产物按workflow实际校验状态复用或重算；年龄字段见[单人年龄方法](partner-age-method.md)。

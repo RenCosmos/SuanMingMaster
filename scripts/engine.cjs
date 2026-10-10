@@ -3,9 +3,13 @@ const {normalize,packageVersion,digest,check}=require('./common.cjs');
 const {makeBazi}=require('./bazi-chart.cjs');
 const {makeZiwei}=require('./ziwei-chart.cjs');
 const PINNED={'lunar-typescript':'1.8.6',iztro:'2.6.1','@js-temporal/polyfill':'0.5.1'};
-function build(input) {
+function dependencyVersions() {
   const engines=Object.fromEntries(Object.keys(PINNED).map(k=>[k,packageVersion(k)]));
   for(const [k,v] of Object.entries(PINNED)) check(engines[k]===v,`${k} 版本须为 ${v}，实际 ${engines[k]}；请按锁文件恢复依赖`);
+  return engines;
+}
+function build(input) {
+  const engines=dependencyVersions();
   const c=normalize(input);
   const result={schema_version:'bazi-ziwei/v1',skill_version:'0.4.0',input:c.input,normalized:c.normalized,warnings:c.warnings,
     provenance:{engines,rules:{bazi:'bazi-structural-v1',ziwei:'ziwei-structural-v1'},node:process.versions.node,icu:process.versions.icu,tz_database:process.versions.tz || 'not_reported',sources:['https://github.com/6tail/lunar-typescript','https://github.com/SylarLong/iztro'],limitations:[]}};
@@ -35,4 +39,4 @@ function validateArtifact(data,{recalculate=true}={}) {
   }
   return checksum.value;
 }
-module.exports={build,validateArtifact,normalizeInput:input=>normalize(input).input};
+module.exports={build,validateArtifact,dependencyVersions,normalizeInput:input=>normalize(input).input};

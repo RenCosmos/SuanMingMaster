@@ -101,11 +101,11 @@ test('longest term excludes the ambiguous 用神 substring and performs at most 
  const r=search.search(topics,'请问特殊格局是什么意思',3,()=> '有实质定义');assert.equal(r.matches[0].id,'x');assert.equal(r.retrieval.fallback_used,true);assert.equal(r.retrieval.attempts,2);
  const empty=search.search(topics,'请问未收录术语是什么意思',3,()=> '有实质定义');assert.deepEqual(empty.matches,[]);assert.equal(empty.retrieval.attempts,2);
 });
-test('every snippet and body is explicitly untrusted while original prompt text is preserved',()=>{
+test('every snippet and full reference body remains untrusted after the reviewed prompt-style migration',()=>{
  const r=retrieve({query:'八字',limit:10});assert.equal(r.instruction_authority,'none');for(const t of r.matches){assert.equal(t.content_type,'reference_material');assert.equal(t.trust_level,'untrusted_reference_text');assert.equal(t.instruction_authority,'none');}
- const full=knowledge.lookup({topic:'ziping-bazi'});let content='',offset=0;do{const p=retrieve({topic:'ziping-bazi',offset,chars:900});assert.equal(p.topic.instruction_authority,'none');content+=p.topic.content;offset=p.topic.next_offset;}while(offset!==null);assert.equal(content,full.content);assert.ok(content.includes('角色'));assert.equal(full.instruction_authority,'none');
+ const full=knowledge.lookup({topic:'ziping-bazi'});let content='',offset=0;do{const p=retrieve({topic:'ziping-bazi',offset,chars:900});assert.equal(p.topic.instruction_authority,'none');content+=p.topic.content;offset=p.topic.next_offset;}while(offset!==null);assert.equal(content,full.content);assert.ok(content.includes('知识范围'));assert.ok(!content.includes('# 角色'));assert.equal(full.instruction_authority,'none');
 });
 test('knowledge domain CLI and total preserve all old topics plus four concepts under output budget',()=>{
  const r=cp.spawnSync(process.execPath,[path.join(root,'scripts/knowledge-context.cjs'),'--query','如何判断喜用神','--domain','bazi','--limit','3'],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);assert.equal(JSON.parse(r.stdout).matches[0].slug,'bazi-favorable-god');assert.ok(Buffer.byteLength(r.stdout)<12*1024);
- const k=knowledge.verifyKnowledge();assert.equal(k.total_topics,103);assert.equal(k.total_topics-k.bazi_concept_topics-k.liuyao_concept_topics,93);assert.equal(k.bazi_concept_topics,4);
+ const k=knowledge.verifyKnowledge();assert.equal(k.total_topics-k.romance_topics,103);assert.equal(k.total_topics-k.romance_topics-k.bazi_concept_topics-k.liuyao_concept_topics,93);assert.equal(k.bazi_concept_topics,4);
 });
