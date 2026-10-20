@@ -1,6 +1,6 @@
 # 情感缘分资料索引
 
-107主题中的4张新增卡；只问方法不排盘，无运行时可直接读取下列正文。
+131主题中的4张新增卡；只问方法不排盘，无运行时可直接读取下列正文。
 
 - [星宫喜忌与长期婚配](knowledge/romance/cards/romance-classical-marriage.md)：《子平真诠》论妻子。
 - [桃花交往与红鸾婚配](knowledge/romance/cards/romance-hongkong-distinction.md)：香港李居明作者原文。

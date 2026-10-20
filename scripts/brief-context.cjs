@@ -13,10 +13,10 @@ function compactRomance(e,chart,profile){
   if(chart.bazi.dayun){delete e.active_dayun;e.active_dayun_source='bazi.dayun';delete e.dayun_at_target;e.dayun_at_target_source='bazi.dayun_at_target';}
   e.commitment={partner_star_model:e.commitment.partner_star_model,spouse_palace_source:'bazi.pillars[BZ-DAY]',spouse_relation_ids:e.commitment.spouse_relations.map(x=>x.id),month_frame_source:'bazi.theory_evidence'};
   e.attraction.partner_star_ids=e.attraction.partner_stars.map(x=>x.id);delete e.attraction.partner_stars;
-  if(chart.bazi.annual){e.timing.items=e.timing.items.map(x=>({year:x.year,source:x.source,attraction_markers:x.attraction_markers,partner_stars:x.partner_stars}));e.timing.detail_source='bazi.annual';}
+  if(chart.bazi.annual){e.timing.items=e.timing.items.map(x=>({year:x.year,source:x.source,attraction_markers:x.attraction_markers,partner_stars:x.partner_stars,partner_stars_visible:x.partner_stars_visible,partner_stars_hidden:x.partner_stars_hidden}));e.timing.detail_source='bazi.annual';}
  }
  if(chart.ziwei)e.commitment.ziwei_spouse_source='ziwei.primary_palaces[夫妻] / natal_mutagens / three_sides_four_correct';
- e.attraction.expression_sources=e.attraction.expression?.map(x=>({source_id:x.id,ten_god:x.ten_god}));delete e.attraction.expression;
+ e.attraction.expression_sources=e.attraction.expression?.map(x=>({source_id:x.id,ten_god:x.ten_god,stem:x.stem,kind:x.kind}));delete e.attraction.expression;
  if(profile?.traditional_markers){delete e.attraction.ziwei_markers;e.attraction.ziwei_markers_source='同人物traditional_markers';}
  if(profile?.relationship_bazi?.traditional_markers){delete e.attraction.bazi_markers;e.attraction.bazi_markers_source='同人物relationship_bazi.traditional_markers';}
  delete e.reading_order;
@@ -47,6 +47,11 @@ function projectBrief(context,data,options){
  c.available.full_view='同一命盘复用时省略 --brief；romance 改用 relationship 展开原主题；不读取整文件。';
  c.available.omitted_details=[];
  c.available.deduplication='摘要source／ids指向同页证据；飞化按next_offset续页，原数据不删；双人按现有双方／交叉分页。';
+ if(mode==='time_compare'&&options.candidate){
+  // Candidate pages already identify the source and main SKILL owns the style rules.
+  // Remove repeated instructions, not natal evidence or either continuation.
+  c.interpretation_rules=[];c.available.full_view='同一候选省略--brief展开原主题。';c.available.deduplication='同候选source/ids与游标核对；完整原盘保留。';
+ }
  if(options.overview){
   c.view='overview';
   const people=c.reading.people??[{chart:c.reading,emotional_paths:c.reading.emotional_paths}];

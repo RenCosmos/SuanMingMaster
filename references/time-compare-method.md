@@ -86,3 +86,5 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --reuse /workspace/bazi-ziwei-reports/TA
 默认用--stdin；必须传文件时使用--temp-input，用完清理，见[输入生命周期](input-lifecycle.md)。
 
 TC-AGE比较兼容age_relation的主方向、依据类型及状态；TC-AGE-ZW-RULES比较主星/辅星规则，TC-AGE-MODELS比较八字柱位旁证。现代年龄线索在相关候选age_reading中按需查核；仅紫微也有年龄字段。候选均为none表示均无该接口的主方向，不表示同龄。
+
+双方关系问题不能停在两个单盘。已有单人结果且一方时辰未知，可按[稳定柱交叉证据](pair-evidence-method.md)用--pair-with桥接，生成有来源校验的稳定柱交叉矩阵及关系；不补默认时辰。核对原局与当前大运十神归属时，同页说明--page ten-gods，避免把原局的比肩等说成本步大运携带。

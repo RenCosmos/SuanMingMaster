@@ -1,6 +1,6 @@
 # 外部知识库索引
 
-当前107主题：本页35模板、21民俗古籍、11精选方法、18修行、8宗教、4张[八字概念](bazi-concepts-index.md)、6张[六爻概念](liuyao-concepts-index.md)及4张[情感资料](romance-index.md)。
+当前131主题：本页35模板、21民俗古籍、11精选方法、18修行、8宗教、4张[八字概念](bazi-concepts-index.md)、6张[六爻概念](liuyao-concepts-index.md)、4张[情感资料](romance-index.md)及24张[细盘释义](bazi-detail-index.md)。
 
 按需读[民俗古籍](folklore-index.md)、[精选方法](project-adoption.md)、[修行与行动](practice-library-index.md)或[鬼神护法宿缘](spirit-library-index.md)。来源和摘要分别见[精选目录](knowledge/curated/catalog.json)、[修行目录](knowledge/practice/catalog.json)和[宗教目录](knowledge/spirit/catalog.json)，不按历史版本另加载一套库。
 

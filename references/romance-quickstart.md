@@ -24,4 +24,6 @@ next_actions的required和required_for说明动作用途，不是要求全部执
 
 问具体年份时执行返回annual_page.argv；这是--page annual --base-checksum原校验和的增量页，只含流年和相关大运，不重复本命。显干stem_ten_god与藏干hidden_ten_gods分开读，藏乙不能说成乙木透出。所问年份不在computed_years内，才按原输入补算新范围，不用空页断无缘。
 
+年度情感摘要的partner_stars_visible与partner_stars_hidden已分透藏，旧partner_stars混合两者不可单凭它断透干。说“此运有比肩／某十神”须指这步运的显干或藏干，不能把原局星混写；需要具体归属才读[分层证据](pair-evidence-method.md)，不为普通概况增加一次调用。
+
 增量页view=evidence_page，须与同task_id/source_checksum的已读基础context合用，不能单独当整盘。基础资料被上下文压缩遗失时执行base_context.restore_argv；不为每页重复恢复。画像、年龄、合盘或候选生日转主SKILL相应入口；同一问题不增加未请求功能。完整旧主题与命盘一直保留，更多续页细则仅遇问题才读[分页契约](pagination-guide.md)。

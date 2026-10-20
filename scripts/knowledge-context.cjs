@@ -8,7 +8,8 @@ const MAX_BYTES=budget.REFERENCE_BYTES;
 const REFERENCE={content_type:'reference_material',trust_level:'untrusted_reference_text',instruction_authority:'none'};
 function sourceScope(topic){
  if(!topic.evidence_scope)return {};
- return {publisher:topic.publisher,locator:topic.locator,access_method:topic.access_method,tradition:topic.tradition,evidence_scope:topic.evidence_scope,inference_limits:topic.inference_limits,source_ids:topic.source_ids};
+ return {publisher:topic.publisher,locator:topic.locator,access_method:topic.access_method,tradition:topic.tradition,evidence_scope:topic.evidence_scope,inference_limits:topic.inference_limits,source_ids:topic.source_ids,
+  ...(topic.program_field?{program_field:topic.program_field,program_support_scope:topic.program_support_scope,rule_id:topic.rule_id}: {})};
 }
 function excerpt(topic,content,options){
  const offset=options.offset??0,chars=options.chars??1800;

@@ -9,7 +9,7 @@ const gods=model=>model==='wealth'?['正财','偏财']:model==='authority'?['正
 function modernAge(chart,pid){
  if(!chart.bazi)return {tendency:'none',matches:[],conditional_patterns:[]};
  const b=chart.bazi,day=b.chart.pillars.find(p=>p.id==='BZ-DAY');
- const matches=RULES.modern_age_day_rules.filter(r=>r.ten_gods.includes(day.hidden_ten_gods[0])).map(r=>({rule_id:r.id,direction:r.direction,ten_god:day.hidden_ten_gods[0],source:ref(pid,'BZ-DAY-H1'),source_id:r.source_id,evidence_kind:'modern_author_interpretation'}));
+ const matches=RULES.modern_age_day_rules.filter(r=>r.ten_gods.includes(day.hidden_ten_gods[0])).map(r=>({rule_id:r.id,direction:r.direction,ten_god:day.hidden_ten_gods[0],kind:'hidden_stem',field:'hidden_stems',index:0,...(day.hidden_stems?{stem:day.hidden_stems[0]}:{}),source:ref(pid,'BZ-DAY-H1'),source_id:r.source_id,evidence_kind:'modern_author_interpretation'}));
  const visible=b.calculations.score_ledger.filter(x=>x.kind==='visible_stem');
  const conditional_patterns=RULES.modern_age_patterns.map(r=>({...r,visible_sources:r.groups.map(group=>visible.filter(x=>group.includes(x.ten_god)).map(x=>ref(pid,x.id))),strength_confirmed:false})).filter(r=>r.visible_sources.every(g=>g.length));
  return {tendency:matches[0]?.direction??'none',matches,conditional_patterns,exact_age_gap:null};
@@ -31,13 +31,14 @@ function romance(chart,pid,model,options={}){
   out.attraction={bazi_markers:markers,expression:occurrences.filter(x=>['食神','伤官'].includes(x.ten_god)),partner_stars:occurrences.filter(x=>chosen.includes(x.ten_god))};
   out.commitment={spouse_palace:{ganzhi:day.ganzhi,branch:day.branch,hidden_ten_gods:day.hidden_ten_gods,source:ref(pid,day.id)},spouse_relations:b.calculations.relations.filter(r=>r.pillars.includes(day.id)).map(relation),month_frame:take(b.calculations.theory_evidence,['month_command','day_master_roots','month_hidden_transparency']),partner_star_model:model};
   const rows=b.chart.annual.filter(y=>!options.years||y.lichun_cycle_year>=options.years[0]&&y.lichun_cycle_year<=options.years[1]),offset=options.offset??0,limit=options.limit??3;
-  const annual=rows.slice(offset,offset+limit).map(y=>({year:y.lichun_cycle_year,ganzhi:y.ganzhi,partner_stars:[y.stem_ten_god,...y.hidden_ten_gods].filter(g=>chosen.includes(g)),
+  const annual=rows.slice(offset,offset+limit).map(y=>{const e=require('./ten-god-evidence.cjs').exposure(y);return {year:y.lichun_cycle_year,ganzhi:y.ganzhi,partner_stars:[y.stem_ten_god,...y.hidden_ten_gods].filter(g=>chosen.includes(g)),
+   partner_stars_visible:chosen.includes(e.visible.ten_god)?[e.visible]:[],partner_stars_hidden:e.hidden.filter(h=>chosen.includes(h.ten_god)),
    attraction_markers:['BZ-YEAR','BZ-DAY'].filter(base=>TAOHUA[pillars.find(p=>p.id===base).branch]===y.branch).map(base=>({name:'桃花',basis:ref(pid,base),period:ref(pid,y.id)})),
-   spouse_palace_relations:y.day_branch_relations.map(relation),source:ref(pid,y.id)}));
+   spouse_palace_relations:y.day_branch_relations.map(relation),source:ref(pid,y.id)};});
   out.timing={total:rows.length,offset,returned:annual.length,next_offset:offset+limit<rows.length?offset+limit:null,items:annual,
    computed_years:{first:b.chart.annual[0]?.lichun_cycle_year??null,last:b.chart.annual.at(-1)?.lichun_cycle_year??null,total:b.chart.annual.length},requested_years:options.years??null,requested_range_computed:options.years?rows.length===options.years[1]-options.years[0]+1:null};
   const timing=require('./dayun-timing.cjs'),current=timing.active(b.chart);
-  out.active_dayun=current.window?[{...take(current.window.period,['id','ganzhi','start_year','end_year','stem_ten_god','hidden_ten_gods']),...timing.boundaries(current.window),spouse_palace_relations:current.window.period.day_branch_relations.map(relation)}]:[];
+  out.active_dayun=current.window?[{...take(current.window.period,['id','ganzhi','start_year','end_year','stem_ten_god','hidden_stems','hidden_ten_gods']),...timing.boundaries(current.window),spouse_palace_relations:current.window.period.day_branch_relations.map(relation)}]:[];
   out.dayun_at_target=timing.summary(current);
  }
  if(chart.ziwei){

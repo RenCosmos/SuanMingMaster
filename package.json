@@ -1,6 +1,6 @@
 {
   "name": "bazi-ziwei-skill",
-  "version": "1.4.4",
+  "version": "1.4.6",
   "private": true,
   "description": "Local metaphysics engine, bounded searchable knowledge and cached Agent workflows for RikkaHub",
   "license": "MIT",

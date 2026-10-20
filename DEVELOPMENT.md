@@ -42,7 +42,7 @@ Windows旧Git基线与保留的原文件可能存在CRLF差异；此时使用 gi
 
 ~~~sh
 python -m pip install -r tools/schema-validation-requirements.txt
-python tools/release.py --out releases/v1.4.4 --schema-validation
+python tools/release.py --out releases/v1.4.6 --schema-validation
 ~~~
 
 发布下个版本时先按用户要求更新版本，再替换输出目录。输出允许在源码外或专用 releases/ 内；archive、releases、Git 元数据、个人任务输出和开发缓存不进入源码/安装包，AGENTS.md 与全部 tests/tools 只进源码包。Windows 可用 --node 指定 node.exe、--sh 指定 Git sh.exe；开发测试需要 sh 时使用同一环境和可用 PATH。

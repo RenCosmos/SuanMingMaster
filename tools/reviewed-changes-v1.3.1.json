@@ -1,6 +1,6 @@
 {
   "version": "compatibility-reviewed-changes/v1",
-  "release": "1.4.4",
+  "release": "1.4.6",
   "baseline_commit": "a1ce5c916cd5af733a789f41e1a21e754d39fc79",
   "frozen_baseline_rewritten": false,
   "package_scripts": {
@@ -50,33 +50,33 @@
     },
     "scripts/context.cjs": {
       "old_sha256": "804c4203c2b3e783dd09d6859189cd9596d1f022421a75fad75149b084675103",
-      "new_sha256": "14f2f3b56473fe556091752472c4af79279555e35e97e818f350869062981a60",
-      "reason": "expose explicit boundaries including legacy cached charts; add paged comparison evidence and explicit missing-scope metadata; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.1 feedback hotfix: strict options object validation, date-anchored read-only DaYun selection, brief comparison routing and traditional-term retrieval; valid calculation artifacts preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
+      "new_sha256": "848c30cbc732fd03748fb4dd1a9314765ff99d00280b4b6773fda1727ac5680a",
+      "reason": "expose explicit boundaries including legacy cached charts; add paged comparison evidence and explicit missing-scope metadata; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.1 feedback hotfix: strict options object validation, date-anchored read-only DaYun selection, brief comparison routing and traditional-term retrieval; valid calculation artifacts preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.5 reviewed: evidence-origin audit: consistent initial/continuation visible-hidden labels, self-day-master identity, cross-group owner sidecars, single-candidate scope and checksum-bound sparse candidate pages; full legacy facts and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.5 reviewed: evidence-origin audit: consistent initial/continuation visible-hidden labels, self-day-master identity, cross-group owner sidecars, single-candidate scope and checksum-bound sparse candidate pages; full legacy facts and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
     },
     "scripts/knowledge.cjs": {
       "old_sha256": "edc427b8813dbb30e741c887ee8e09078ce5589dc55a66b0466de55a52a028b7",
-      "new_sha256": "20a57c5db9d3526f751d832a6d33884ae719524e02ef8dcce7fb49877071aced",
-      "reason": "add concepts, domain-aware search and untrusted reference metadata; document existing domain CLI selection; add six sourced Liuyao concepts and evidence validation; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved"
+      "new_sha256": "544c982a7c66c5e302b6d992f4cb3d1a5ce022e503a583e4fe8f89e733febd54",
+      "reason": "add concepts, domain-aware search and untrusted reference metadata; document existing domain CLI selection; add six sourced Liuyao concepts and evidence validation; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.6 reviewed: additive 24-card sourced interpretation library, aliases and structural count checks; all old topics and domain filtering preserved; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "scripts/knowledge-context.cjs": {
       "old_sha256": "3d4c60fac8cc06f93c93bbb7b912953dda9a4c05025746086a2d1c99fa04c11c",
-      "new_sha256": "0a0b83265e2c2bb426b8f58b139d2fbc20c689a3a8eca4d17e4a6dd85a1c21b9",
-      "reason": "bounded domain-aware reference-only outputs; document existing domain CLI selection; share complete shell envelope budget and recheck final lifecycle metadata before stdout; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved"
+      "new_sha256": "776876a956ad67730157f3a1d95af60fa4b75b7919dfa8f65b2f4012b705599e",
+      "reason": "bounded domain-aware reference-only outputs; document existing domain CLI selection; share complete shell envelope budget and recheck final lifecycle metadata before stdout; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.6 reviewed: current product labels, non-operational historical heading cleanup, sourced card routing and runtime/source packaging documentation; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "scripts/critical-checks.cjs": {
       "old_sha256": "3c5db03ff2cbe34a8204aaa7f8594d33a6c0e28519b0f1a6e2c782cb7389ca13",
-      "new_sha256": "d8be04b8676387696d5057e21d4027d05af379c3af5b5b32b8b0193360974656",
-      "reason": "assert original93 plus four additional concepts; verify six added Liuyao topics and specific-term retrieval while retaining original93; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved"
+      "new_sha256": "74db7e0242d7056da67bcebd77c709c58dbb99bb1821bcdbac1a6da2a23f721d",
+      "reason": "assert original93 plus four additional concepts; verify six added Liuyao topics and specific-term retrieval while retaining original93; V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.6 reviewed: additive 24-card sourced interpretation library, aliases and structural count checks; all old topics and domain filtering preserved; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "scripts/workflow-hints.cjs": {
       "old_sha256": "7e951c8584db5ddfe393416b4e8cbd54427120b674d5bf0eeaeaac4f50f05f70",
-      "new_sha256": "dbac9d659b41017555034a9efb4eb9583046c7a69717c5504828aabfb7ef19f5",
-      "reason": "generate complete reusable argv while retaining selectors; provide executable comparison continuation after person pagination; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
+      "new_sha256": "0125fdaa84b62b12e4c357c70a11244855c5d16524c527befdd92cfc84f18e12",
+      "reason": "generate complete reusable argv while retaining selectors; provide executable comparison continuation after person pagination; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.5 reviewed: evidence-origin audit: consistent initial/continuation visible-hidden labels, self-day-master identity, cross-group owner sidecars, single-candidate scope and checksum-bound sparse candidate pages; full legacy facts and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.5 reviewed: evidence-origin audit and opt-in professional Bazi extension: checksum/person/candidate-bound detail and period pages, deterministic stage/void/auxiliary/XiaoYun/commander/ShenSha and explicit-only detail report; full legacy facts and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
     },
     "scripts/workflow.cjs": {
       "old_sha256": "39d3c5f45fa0a0cf6e5c74bafc483c60ed7f07ef395353a1462a0244d4f7f6be",
-      "new_sha256": "676192ec9e296d913c5aa9cde7c54b24ce66df5e619dbb4e080490ce6458f87b",
-      "reason": "include executable argv in bounded responses; route dedicated comparison view without losing paired fallback evidence; measure full shell envelope with lifecycle margin and recheck final response before context publication; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
+      "new_sha256": "f6cf4fd048e3fbc6c7278f2758dbb9fd6f746009cbb98cfa477505a08a177ffd",
+      "reason": "include executable argv in bounded responses; route dedicated comparison view without losing paired fallback evidence; measure full shell envelope with lifecycle margin and recheck final response before context publication; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.4 reviewed: additive overview/incremental projections, checksum-bound complete argv and required/optional navigation; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.5 reviewed: additive ten-god origin/annual visible-hidden views and saved-source stable-pillar pair bridge; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.5 reviewed: additive ten-god origin/annual visible-hidden views and saved-source stable-pillar pair bridge; CLI exports ready before startup; new pair results protected from temporary-input cleanup; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.5 reviewed: evidence-origin audit: consistent initial/continuation visible-hidden labels, self-day-master identity, cross-group owner sidecars, single-candidate scope and checksum-bound sparse candidate pages; full legacy facts and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained; V1.4.5 reviewed: evidence-origin audit and opt-in professional Bazi extension: checksum/person/candidate-bound detail and period pages, deterministic stage/void/auxiliary/XiaoYun/commander/ShenSha and explicit-only detail report; full legacy facts and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
     },
     "scripts/partner-search-workflow.cjs": {
       "old_sha256": "08746c2bfdebb1ee8ba4a24dd95cbaee34c45021b660a14dbcb2602a5fe823b0",
@@ -95,8 +95,8 @@
     },
     "scripts/input-lifecycle.cjs": {
       "old_sha256": "d7b9ab8843cca9b0b0f72bfcf7a52469f5c66b67ac394ec8f71a569c5288bba4",
-      "new_sha256": "04b5249600d6c8440aef172c8edb20e3d761e37de338aef18d3645a031914f6a",
-      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
+      "new_sha256": "b987353624511a756899570da6dc9cbc5962e85ec0f52d0239b22649ee6ef054",
+      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.5 reviewed: additive ten-god origin/annual visible-hidden views and saved-source stable-pillar pair bridge; CLI exports ready before startup; new pair results protected from temporary-input cleanup; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
     },
     "scripts/partner-search-report.cjs": {
       "old_sha256": "36dc98fb711d5c918f3b99fb26b2d5360763d497b795794eb32e618ce732e263",
@@ -120,8 +120,8 @@
     },
     "references/spirit-library-index.md": {
       "old_sha256": "085dea2e7fb1a397a3be17464f5b5bb91ac0cf1b803188bc30ca9804d06f42f3",
-      "new_sha256": "bba8196d6376fb23d52bfe62235f831cee255d328b8c84173bae0a51ae0af8ec",
-      "reason": "V1.3.9 respects religious framing without unsolicited existence debates; retains sourced teaching, personal-identity and concrete harm boundaries; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+      "new_sha256": "e7c8f230c5b31befa0950ea2c6f719927e3a2be3139ff6978548b0f93b40a95b",
+      "reason": "V1.3.9 respects religious framing without unsolicited existence debates; retains sourced teaching, personal-identity and concrete harm boundaries; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained; V1.4.6 reviewed: current product labels, non-operational historical heading cleanup, sourced card routing and runtime/source packaging documentation; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "references/knowledge/spirit/catalog.json": {
       "old_sha256": "8d757eb0eb5be82fcbf83c1ac05143c15df8b01eb08bfcab86e1d0c326b0d6b4",
@@ -145,8 +145,8 @@
     },
     "scripts/mobile.sh": {
       "old_sha256": "e9c2dc6325896a2b7daabf4ac7de3e77647a0f13883a25674c9ca2e071da2596",
-      "new_sha256": "7ef0813cd1c2eb4e296ee522d58266893657069fc5fbf17432adcc9703c98a33",
-      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.1 offline feedback: default offline installer, official gzip runtime, exact failure instead of apt guidance, private Node and bundled module origin; no calculation/dependency changes; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained"
+      "new_sha256": "0d25d571dc4fdc40b6f79dd2a5f5963617dc67dc54de49526e6d9f5c67296fe6",
+      "reason": "V1.3.7 adds only batch.json to the existing result-file temporary-input protection; no other cleanup or runtime behavior changed; V1.4.1 reviewed: concise opt-in reading, sourced romance layer, offline bootstrap or exact template style migration; calculations preserved; V1.4.1 offline feedback: default offline installer, official gzip runtime, exact failure instead of apt guidance, private Node and bundled module origin; no calculation/dependency changes; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.5 reviewed: additive ten-god origin/annual visible-hidden views and saved-source stable-pillar pair bridge; CLI exports ready before startup; new pair results protected from temporary-input cleanup; full legacy evidence and calculation artifacts retained; calculation, artifact schema, source-card and dependency bytes retained"
     },
     "scripts/install-node.sh": {
       "old_sha256": "340a690502a9afc321216ad03e7b20be7a72425da790573eb8b218c8707621bd",
@@ -355,8 +355,8 @@
     },
     "references/project-adoption.md": {
       "old_sha256": "55d79e8f51c6f492413b2f2a6892e7f55e6b51cb2506bdfc8fdc7ccac914fb11",
-      "new_sha256": "f110699f701950324c572ea6512c8bc1dac6d226df3dc3e263962760afda354a",
-      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+      "new_sha256": "c8c6a44fbf1f25b13d8906257eb873d3bf1fc806acd1e628bdda908daf6ece33",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained; V1.4.6 reviewed: current product labels, non-operational historical heading cleanup, sourced card routing and runtime/source packaging documentation; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "references/partner-age-method.md": {
       "old_sha256": "4e610ad2689e7faa3e3e9d469efb7abf43f633c5cc5c41e484527c06e0db0a37",
@@ -365,18 +365,18 @@
     },
     "references/knowledge-index.md": {
       "old_sha256": "b171cee110e630e719fe969af66653d741a820bd7af57bbb5362a96bdc8635cc",
-      "new_sha256": "79ff98f385e95293f0cd39167bd1dd5fac406e1bb0dfddcd95553a17291ff636",
-      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+      "new_sha256": "1b6896bbcd7d31d4c54ae565b0ae58900cb80b5c6a04ffa58d466a27c4c41417",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained; V1.4.6 reviewed: current product labels, non-operational historical heading cleanup, sourced card routing and runtime/source packaging documentation; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "references/bazi-theory-audit.md": {
       "old_sha256": "7c5d69ed68ba1c6cf1476b0d8c7e12c47c6e1064f33dd9b6fa16a60ac200a2bb",
-      "new_sha256": "5f02b188cb1cfcad626b93271624ed2cba1f75924def83bf76084b61fd182e55",
-      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+      "new_sha256": "3bf00e311a31f3445db2e2f60d323415ca9a1e77acc2fe3d74eb2bec37745b6a",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained; V1.4.6 reviewed: current product labels, non-operational historical heading cleanup, sourced card routing and runtime/source packaging documentation; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "references/true-solar-time.md": {
       "old_sha256": "cb32f228c97ee3226e5d2c89611d6f82136003267603240b0002e444cffe8f0b",
-      "new_sha256": "866f7ce1b961ba0a593437df1f9308bdbb095bd69e0efbd26828d4e5366d7386",
-      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+      "new_sha256": "d29bdb97997caeb90c7151c9a1df7d25467871f15d2d02aaee3f55d4038df743",
+      "reason": "V1.4.1 reviewed: evidence-preserving pagination, sourced romance layer, offline bootstrap, version labels or exact template style migration; calculations preserved; V1.4.2 reviewed: standard online runtime guide, shared exact pillar-only search path, day-level independently verified resumable scanning or current document labels; frozen knowledge/dependency baselines retained; V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained; V1.4.6 reviewed: current product labels, non-operational historical heading cleanup, sourced card routing and runtime/source packaging documentation; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "scripts/common.cjs": {
       "old_sha256": "7d29778f493fca01840956c482555aa2660e92b740edaf4da321b0f6f965db93",
@@ -405,8 +405,8 @@
     },
     "references/folklore-index.md": {
       "old_sha256": "032a7f97711a1a1ec12e6e635d6625ac75f5c863705ea3c4dd971169bff0bc31",
-      "new_sha256": "db4b0807b6ac653a87f6b3a731da5b99389ea53eda154f27d51265344e3fd820",
-      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+      "new_sha256": "5b121111a73badbd4b36d503d19c558b7342856002e576ba9865160f5f85d79a",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained; V1.4.6 reviewed: current product labels, non-operational historical heading cleanup, sourced card routing and runtime/source packaging documentation; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "references/liuyao-method.md": {
       "old_sha256": "9a38334586faf064a528044c38f61afc3a1155e766e44b93803c94015cfa0e57",
@@ -415,8 +415,8 @@
     },
     "references/practice-library-index.md": {
       "old_sha256": "cdb08aeb138617297db48b23ec2e7fe7be97ba41c603bf3f35da79274cd342fb",
-      "new_sha256": "3920d7ca09bfdc1ae70f2abf88306f87ffebd4c8c84abf5424ceeb3e0759d17f",
-      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+      "new_sha256": "c81b79586580eef4b532a50220968693b1e114ac613d24c3e35f6357d4a97b31",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained; V1.4.6 reviewed: current product labels, non-operational historical heading cleanup, sourced card routing and runtime/source packaging documentation; calculation, artifact schema, all other source-card and dependency bytes retained"
     },
     "references/relationship-method.md": {
       "old_sha256": "722253784e59f889479b013796aad6c41855c0c3543c4c8dbe5d130f1e16e038",
@@ -425,8 +425,18 @@
     },
     "references/time-compare-method.md": {
       "old_sha256": "289451a07e46a7afb9552163f6b4e546c4c011d4730b8ee2e642da73e1919ba3",
-      "new_sha256": "c75e832649ef84111df30611df9a7ee47fcf83955d2f7a6788cbe885e23bfcc5",
-      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained"
+      "new_sha256": "2c947cfc5648f79e5e17e6acb9a0a15aac6cc2ec28f136052832f4bb00d5f7d7",
+      "reason": "V1.4.3 reviewed: current-only documentation, explicit legacy versus daily interface, complete-argv guidance or release labels; calculation, schema, source-card and dependency bytes retained; V1.4.5 reviewed: current documentation, quickstart routing, interpretation fact distinctions or release labels; calculation, artifact schema, source-card and dependency bytes retained"
+    },
+    "references/knowledge/curated/catalog.json": {
+      "old_sha256": "e6ac9435f701d603e1cf9b09237882df1cb40e0e92816198e51f47f017990871",
+      "new_sha256": "4779a58876a46c80e82ba2830476b5b6aa85f209193efd8ac70ecd5e900c5145",
+      "reason": "V1.4.6 reviewed: SHA update for the single reviewed historical-label correction; all topic metadata and other card bytes retained; calculation, artifact schema, all other source-card and dependency bytes retained"
+    },
+    "references/knowledge/curated/cards/kb-dayun-natal-relations.md": {
+      "old_sha256": "fabedfef1ec28e97001eadbd22d80663b7d0e52b3b46b9e0ecc84037f8224e9b",
+      "new_sha256": "9d1013092a73f9704387fedd749ee9aaa6744fce40d2b1c26bcbf6226bb58b8d",
+      "reason": "V1.4.6 reviewed: exact historical-label correction V1.1.1 的 dayun -> 本程序的 dayun only; all interpretation text retained; calculation, artifact schema, all other source-card and dependency bytes retained"
     }
   }
 }

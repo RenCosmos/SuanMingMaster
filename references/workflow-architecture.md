@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | 本地计算 | runtime-core 的 ADAPTERS、adapter、buildAndValidate、verify、integrity；四个惰性适配器 chart / relationship / time_compare / divination | 新引擎注册 input_modes、schemas、module、report；必须提供 build、validateArtifact 和 makeReport；计算规则放引擎与规则表 |
 | 上下文 | context.project(data, options)，suanming-context/v1 | 新 focus 注册 FOCUSES 及投影；保持真实证据 ID、来源校验和、选择范围和分页；不得在投影中改排盘规则 |
-| 可检索知识 | knowledge-context.retrieve(query)，suanming-knowledge-context/v1 | 查询和正文窗口分开，带 source_url、sha256 和 next_offset；107主题原文不删减；legacy knowledge.lookup 保留；无运行时备用概览不替代原文 |
+| 可检索知识 | knowledge-context.retrieve(query)，suanming-knowledge-context/v1 | 查询和正文窗口分开，带 source_url、sha256 和 next_offset；131主题原文不删减；legacy knowledge.lookup 保留；无运行时备用概览不替代原文 |
 | Agent 工作流 | workflow.operation(argv)、workflow.main(argv)，CLI 与函数同入口 | 编排输入、验证缓存、计算、上下文和按需报告；宿主只依赖 JSON 契约，不依赖内部文件遍历 |
 
 ## 输出与预算
@@ -51,7 +51,7 @@ scripts/run.cjs、mobile.sh --engine、--verify／--render／--extract及--knowl
 
 ## 知识与口径元数据
 
-knowledge-search完整术语优先、繁简别名、书篇识别、自动领域排序及最多一次无命中回退；107主题正文和snippet是untrusted_reference_text、instruction_authority:none。紫微本命与运限年／月界分别标注；旧无标签命盘重算全部事实，只对确实缺失的标签作兼容视图，源盘不改。
+knowledge-search完整术语优先、繁简别名、书篇识别、自动领域排序及最多一次无命中回退；131主题正文和snippet是untrusted_reference_text、instruction_authority:none。紫微本命与运限年／月界分别标注；旧无标签命盘重算全部事实，只对确实缺失的标签作兼容视图，源盘不改。
 
 ## 检索和合盘接口
 

@@ -10,6 +10,7 @@ const budget=require('./output-budget.cjs');
 const MAX_OUTPUT_BYTES=budget.WORKFLOW_BYTES;
 const RECEIPT='validation.json';
 function parse(argv){
+ if(argv.includes('--pair-with'))return require('./pair-evidence.cjs').parse(argv);
  const o={};const flags={'--stdin':'stdin','--report':'report','--refresh':'refresh','--comparison':'comparison','--brief':'brief','--overview':'overview'};
  const pairs={'--input':'input','--reuse':'reuse','--out':'out','--focus':'focus','--limit':'limit','--offset':'offset','--years':'years','--person':'person','--candidate':'candidate','--field':'field','--variant-offset':'variant_offset','--flying-offset':'flying_offset','--page':'page','--base-checksum':'base_checksum'};
  for(let i=0;i<argv.length;i++){
@@ -21,7 +22,10 @@ function parse(argv){
  check(o.reuse||o.out,'新计算需要 --out 独立任务目录');
  check(!o.refresh||!o.reuse,'--refresh 必须同时提供原始输入');
  if(o.overview){o.focus=o.focus??'relationship';o.brief=true;check(['relationship','romance'].includes(o.focus),'--overview 只用于单人情感概览');check(!o.page&&!o.comparison&&!o.candidate&&!o.field&&!o.years&&!o.offset&&!o.variant_offset&&!o.flying_offset,'--overview 不与分页或其他选择混用');}
- if(o.page){check(['annual','flying'].includes(o.page),'--page 只能是 annual / flying');check(o.reuse&&o.base_checksum,'证据续页需要 --reuse 与 --base-checksum');check(!o.comparison&&!o.candidate&&!o.field&&!o.variant_offset&&!o.report,'证据续页不与合盘交叉、时辰或报告混用');o.brief=true;}
+ if(o.page){check(['annual','flying','ten-gods','bazi-detail','bazi-periods'].includes(o.page),'--page 只能是 annual / flying / ten-gods / bazi-detail / bazi-periods');check(o.reuse&&o.base_checksum,'证据续页需要 --reuse 与 --base-checksum');check(!o.comparison&&!o.field&&!o.variant_offset&&(!o.report||o.page==='bazi-detail')&&(!o.candidate||o.page!=='ten-gods'),'证据续页不与合盘交叉、字段、十神候选或普通报告混用；bazi-detail可--report导出细盘');o.brief=true;}
+ if(o.page==='ten-gods')check(o.years===undefined&&o.offset===undefined&&o.flying_offset===undefined,'ten-gods不使用年度或飞化分页参数');
+ if(o.page==='bazi-detail')check(o.years===undefined&&o.offset===undefined&&o.flying_offset===undefined,'bazi-detail不使用年度或飞化分页参数，岁运列表用bazi-periods');
+ if(o.page==='bazi-periods')check(o.flying_offset===undefined,'bazi-periods不使用飞化分页参数');
  check(o.base_checksum===undefined||o.page&&/^[a-f0-9]{64}$/.test(o.base_checksum),'--base-checksum 只用于证据续页，须为原context.source_checksum');
  for(const k of ['limit','offset','variant_offset','flying_offset'])if(k in o){check(/^\d+$/.test(o[k]),k+' 须为整数');o[k]=Number(o[k]);check(Number.isSafeInteger(o[k])&&o[k]>=(k==='limit'?1:0)&&(k!=='limit'||o[k]<=10),k+' 超出范围');}
  check(o.flying_offset===undefined||o.brief||o.focus==='romance','--flying-offset 仅用于 --brief 或 romance 视图');
@@ -59,7 +63,7 @@ function boundedResponse(base,data,options){
  while(limit>=1){
   const context=project(data,{...options,limit});
   const actions=nextActions(context,base.people_page).map(a=>options.brief&&a.action==='reuse'?{...a,brief:true}:a);
-  if(context.base_context&&base.files?.chart)context.base_context.restore_argv=executableActions([{action:'reuse',focus:context.base_context.focus,brief:true,...(options.person?{person:options.person}:{})}],base.files)[0].argv;
+  if(context.base_context&&base.files?.chart)context.base_context.restore_argv=executableActions([{action:'reuse',focus:context.base_context.focus,brief:true,...(options.person?{person:options.person}:{}),...(options.candidate?{candidate:options.candidate}:{})}],base.files)[0].argv;
   const result={...base,context,...(base.files?.chart?{task_id:taskId(base.files)}:{}),next_actions:executableActions(actions,base.files),output:{max_bytes:MAX_OUTPUT_BYTES,bytes:0,requested_limit:options.limit??null,effective_limit:limit,budget_adjusted:limit!==requested}};
   // Reserve room for lifecycle metadata in both the raw JSON and full shell envelope.
   budget.stamp(result);
@@ -118,7 +122,7 @@ function compute(o){
  if(o.report){files.report_md=path.join(o.out,'report.md');files.report_html=path.join(o.out,'report.html');}
  const result=boundedResponse(base,data,o);
  if(o.report){
-  const report=core.adapter(data).render(data);fs.mkdirSync(o.out,{recursive:true});
+  const report=o.page==='bazi-detail'?require('./bazi-detail.cjs').render(data,o):core.adapter(data).render(data);fs.mkdirSync(o.out,{recursive:true});
   fs.writeFileSync(files.report_md,report.markdown,{encoding:'utf8',mode:0o600});fs.writeFileSync(files.report_html,report.html,{encoding:'utf8',mode:0o600});
  }
  return result;
@@ -126,13 +130,16 @@ function compute(o){
 function operation(argv){
  const searches=argv.filter(a=>a==='--partner-search').length;
  if(searches){check(searches===1,'--partner-search 只能提供一次');return require('./partner-search-workflow.cjs').operation(argv.filter(a=>a!=='--partner-search'));}
+ if(argv.includes('--pair-with'))return require('./pair-evidence.cjs').operation(argv);
  if(argv.length===1&&['--help','-h'].includes(argv[0]))return [
   `V${VERSION} workflow`,
   '--stdin --out TASK_DIR [--brief] [--focus core|career|relationship|romance|annual|wealth|age_relation|partner_image|intimacy] [--report]',
   '--temp-input INPUT.json --out TASK_DIR（结束后清理）；--input 保留原输入',
   '--reuse TASK_DIR/chart.json [--brief] [--focus THEME] [--years YYYY:YYYY] [--offset N] [--limit 1..10]',
   '--overview：单人情感概览，默认focus=relationship及brief；本命与当前运保留，逐年窗口按需读。双人、时辰对照不用此标志。',
-  '--page annual|flying --base-checksum SHA：仅与--reuse使用的增量证据页；SHA来自基础context.source_checksum，不能当完整命盘。优先照返回argv执行。',
+  '--page annual|flying|ten-gods --base-checksum SHA：仅与--reuse使用的证据页；ten-gods分开原局/当前大运及显干/藏干，支持时辰对照。SHA来自基础context.source_checksum。',
+  '--page bazi-detail --base-checksum SHA [--report]：程序专业细盘（星运/自坐/旬空/胎命身/司令/14种神煞）；--report导出专业细盘。--page bazi-periods：大运/流年/小运细盘分页，支持--offset/--limit/--years；双人须--person，未知时辰须--candidate。',
+  '--reuse SELF/chart.json --pair-with OTHER/chart.json --out PAIR_TASK [--offset N] [--limit 1..10]：从两个已校验单人/时辰对照结果提取稳定柱交叉证据，不补造时辰；不是完整双人合盘。',
   '--brief 精简工具视图；完整命盘不改。romance 分吸引／短缘与长期承接，默认精简。省略 --brief（romance改用relationship）可展开原完整主题证据。',
   '--flying-offset N：brief/romance的飞化页游标，与年度--offset独立；优先执行next_actions中的flying_page argv。',
   '时辰对照：--field TC-... [--variant-offset N] 或 --candidate TC-001；关系盘：--person a|b；独立交叉证据：--comparison [--offset N] [--limit 1..10]（双人关系盘，focus=relationship）',
@@ -162,5 +169,5 @@ function main(argv){
  const r=operation(argv);
  console.log(typeof r==='string'?r:JSON.stringify(r));return r;
 }
-if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error(JSON.stringify(failureFor(e)));process.exitCode=2;}}
 module.exports={main,operation,parse,trusted,receiptFor,boundedResponse,MAX_OUTPUT_BYTES};
+if(require.main===module){try{main(process.argv.slice(2));}catch(e){console.error(JSON.stringify(failureFor(e)));process.exitCode=2;}}

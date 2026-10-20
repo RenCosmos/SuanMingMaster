@@ -86,8 +86,8 @@ def refresh_version_documents(out,node,version):
     receipt=json.loads((out/'release-validation.json').read_text(encoding='utf-8'))
     assert receipt['ok'] and receipt['version']==version
     assert receipt['tests']['tests']==receipt['tests']['pass'] and receipt['tests']['fail']==receipt['tests']['skipped']==receipt['tests']['cancelled']==0
-    docs={'references/bazi-theory-audit.md','references/true-solar-time.md','使用说明.md'}
-    maintenance={'tools/release.py','tools/refresh-release-metadata.cjs','tools/reviewed-changes-v1.3.1.json','AGENTS.md','DEVELOPMENT.md'}
+    docs={'references/bazi-theory-audit.md','references/true-solar-time.md','使用说明.md','THIRD-PARTY-NOTICES.md','README.md',f'references/release-v{version}.md'}
+    maintenance={'tools/release.py','tools/refresh-release-metadata.cjs','tools/reviewed-changes-v1.3.1.json','tools/README.template.md','AGENTS.md','DEVELOPMENT.md'}
     plans=[];changes={};prior=dict(receipt['archives'])
     for name,digest in prior.items():
         archive_path=out/name;assert sha(archive_path.read_bytes())==digest,'Accepted archive changed: '+name
@@ -216,20 +216,43 @@ def main():
             performance={'performed':True,**json.loads(execute([a.node,str(ROOT/'tools/verify-search-performance.cjs'),str(Path(old)/'bazi-ziwei')],ROOT,env))}
     files=sorted(f for f in ROOT.rglob('*') if f.is_file() and f.relative_to(ROOT).parts[0] not in ['.git','work','dist','archive','releases','.codex','.agents'] and '__pycache__' not in f.relative_to(ROOT).parts and not (f.parent==ROOT and (f.suffix=='.zip' or f.name in ['SHA256SUMS.txt','release-validation.json','INSTALL.md','TESTING.md','RikkaHub系统提示词.txt','最新版本说明.md','工作区整理说明.md'])))
     historical_docs=[f for f in files if f.parent==ROOT/'references' and (f.name.startswith('feedback-') or f.name.startswith('release-v') and f.name!=f'release-v{version}.md')]
-    runtime=[f for f in files if f not in historical_docs and f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md','AGENTS.md','pnpm-workspace.yaml'] and (f.relative_to(ROOT).parts[0]!='node_modules' or f.relative_to(ROOT).as_posix() in dependencies)]
+    source_only_verification={'references/verification/noaa-solar-fixtures.json','references/verification/sxtwl-bazi-fixtures.json','references/verification/cross-check-results.json','验证记录.md'}
+    runtime=[f for f in files if f not in historical_docs and f.relative_to(ROOT).as_posix() not in source_only_verification and f.relative_to(ROOT).parts[0] not in ['tests','tools','.github'] and f.name not in ['.gitignore','.gitattributes','README.md','DEVELOPMENT.md','AGENTS.md','pnpm-workspace.yaml'] and (f.relative_to(ROOT).parts[0]!='node_modules' or f.relative_to(ROOT).as_posix() in dependencies)]
     source=[f for f in files if f.relative_to(ROOT).parts[0]!='node_modules']
+    runtime_set={f.resolve() for f in runtime};source_set={f.resolve() for f in source}
+    for name in source_only_verification:
+        assert (ROOT/name).resolve() in source_set and (ROOT/name).resolve() not in runtime_set,'Development fixture must remain source-only: '+name
+    assert all((ROOT/n).resolve() in runtime_set for n in dependencies),'Runtime dependency removed'
+    detail_catalog=json.loads((ROOT/'references/knowledge/bazi-detail/catalog.json').read_text(encoding='utf-8'))
+    assert detail_catalog['expected_topics']==len(detail_catalog['topics'])==24 and topics==131
+    assert all((ROOT/t['path']).resolve() in runtime_set for t in detail_catalog['topics']),'Interpretation card missing from installation'
+    previous_preservation={'performed':False}
+    previous145=ROOT/'releases/v1.4.5/bazi-ziwei-rikkahub-v1.4.5.zip'
+    if previous145.is_file():
+        assert sha(previous145.read_bytes())=='0a54a5e03ba0e5af19043dea89ecce7a4e11b8711279bab5ab84ad7a0830b751','V1.4.5 installation archive changed'
+        allowed_scripts={'scripts/knowledge.cjs','scripts/knowledge-context.cjs','scripts/knowledge-search.cjs','scripts/critical-checks.cjs'}
+        unchanged=[]
+        with zipfile.ZipFile(previous145) as z:
+            for name in z.namelist():
+                rel=name.removeprefix('bazi-ziwei/')
+                if rel.startswith('scripts/') and rel not in allowed_scripts or rel.startswith('references/') and rel.endswith('.json') and '/knowledge/' not in rel:
+                    assert (ROOT/rel).is_file() and (ROOT/rel).read_bytes()==z.read(name),'V1.4.5 calculation or schema drift: '+rel
+                    unchanged.append(rel)
+        previous_preservation={'performed':True,'byte_identical_calculation_script_rule_schema_files':len(unchanged),'reviewed_script_changes':sorted(allowed_scripts),'previous_archive_byte_identical':True}
     for f in runtime:
         rel=f.relative_to(ROOT);assert not f.is_symlink()
         assert f.name not in ['chart.json','context.json','validation.json','comparison.json','report.md','report.html','reading.md'] and not f.name.startswith('knowledge-query') and '.tmp-' not in f.name
         if f.suffix=='.sh':assert b'\r' not in f.read_bytes(),rel
     links=0
     for f in runtime:
-        if f.suffix!='.md' or any(x in ['node_modules','third-party','examples','supe888-bazi-skills'] for x in f.relative_to(ROOT).parts):continue
+        # Preserve the upstream source README as a historical knowledge snapshot,
+        # not a current installation guide. No blanket exemption for our guides.
+        if f.suffix!='.md' or 'node_modules' in f.relative_to(ROOT).parts or f.relative_to(ROOT).as_posix()=='references/knowledge/supe888-bazi-skills/upstream-README.md':continue
         for target in re.findall(r'\]\(([^)]+)\)',f.read_text(encoding='utf-8')):
             target=target.strip().strip('<>')
             if re.match(r'^[a-zA-Z]+:',target) or target.startswith('#'):continue
             from urllib.parse import unquote
-            assert (f.parent/unquote(target.split('#')[0])).is_file(),(f,target);links+=1
+            assert (f.parent/unquote(target.split('#')[0])).resolve() in runtime_set,('Link target not packaged',f,target);links+=1
     install=out/f'bazi-ziwei-rikkahub-v{version}.zip';src=out/f'SuanMingMaster-source-v{version}.zip';archive(install,runtime,'bazi-ziwei');archive(src,source,'SuanMingMaster')
     built_archives=[install,src]
     repack={'performed':False}
@@ -280,6 +303,21 @@ def main():
             assert not any(t['slug'] in ['folk-zhouyi-xian','folk-zhouyi-heng'] for t in found['matches'])
             assert len(json.dumps(found,ensure_ascii=False).encode('utf-8'))<=12*1024
         assert (skill/'references/liuyao-concepts-index.md').is_file()
+        detail_queries={t['name']:t['slug'] for t in detail_catalog['topics']}
+        detail_queries.update({'太極貴人':'bazi-taiji','驛馬':'bazi-yima','六爻旬空月破':'liuyao-empty-broken','紫微命宫':'ziwei-doushu','《礼记·月令》':'folk-liji-yueling-summer'})
+        for query,slug in detail_queries.items():
+            found=bounded(execute([a.node,str(skill/'scripts/knowledge-context.cjs'),'--query',query,'--limit','3'],temp,env),12*1024)
+            assert found['matches'][0]['slug']==slug,(query,found['matches'][0]['slug'])
+            assert found['instruction_authority']=='none'
+        for topic in detail_catalog['topics']:
+            assert sha((skill/topic['path']).read_bytes())==topic['sha256']
+            offset=0;restored=''
+            while offset is not None:
+                page=bounded(execute([a.node,str(skill/'scripts/knowledge-context.cjs'),'--topic',topic['slug'],'--offset',str(offset),'--chars','900'],temp,env),12*1024)['topic']
+                assert page['sha256']==topic['sha256'] and page['program_field']==topic['program_field']
+                restored+=page['content'];offset=page['next_offset']
+            assert restored==(skill/topic['path']).read_text(encoding='utf-8')
+        for name in source_only_verification:assert not (skill/name).exists()
         inp=json.loads((skill/'examples/input.json').read_text(encoding='utf-8'));task=Path(temp)/'task';f=Path(temp)/'temp-input.json';write(f,json.dumps(inp))
         cmd=[a.node,str(skill/'scripts/workflow.cjs')];response=json.loads(execute([*cmd,'--temp-input',str(f),'--out',str(task)],temp,env));assert response['ok'] and response['temporary_input_removed'] and not f.exists()
         task_id=response['task_id'];assert task_id.startswith('SM-') and isinstance(response['next_actions'],list)
@@ -322,6 +360,76 @@ def main():
         wanted=[x['id'] for x in original_overview['ziwei']['calculations']['palace_stem_flying']['entries'] if x['origin_palace']=='夫妻' or x['target_palace']=='夫妻']
         assert [x['id'] for x in flight_records]==wanted and overview_chart.read_bytes()==overview_bytes
         romance_navigation={'ok':True,'overview_stdout_bytes':overview['output']['bytes'],'annual_stdout_bytes':annual['output']['bytes'],'annual_pages':annual_pages,'full_annual_evidence_recovered':True,'flying_pages':flight_pages,'full_flying_evidence_recovered':True,'base_restore_executed':True,'source_chart_byte_identical':True,'full_shell_envelope_checked':True}
+        # New read-only origin and uncertain-time pair views from the actual installation.
+        ten=bounded(execute([*overview_entry,'--reuse',str(overview_chart),'--page','ten-gods','--base-checksum',overview['context']['source_checksum']],temp,env),20*1024)
+        layers=ten['context']['reading']['ten_god_evidence'];assert layers['natal']['scope']=='natal' and layers['current_dayun']['scope']=='current_dayun'
+        uncertain_raw=json.loads((skill/'examples/time-compare-input.json').read_text(encoding='utf-8'));uncertain_raw['chart_mode']='bazi';uncertain_raw['time_uncertainty']={'type':'unknown'}
+        if 'target_date' in original_overview['input']:uncertain_raw['target_date']=original_overview['input']['target_date']
+        uncertain=bounded(execute([*overview_entry,'--stdin','--out',str(Path(temp)/'uncertain'),'--brief','--focus','relationship'],temp,env,json.dumps(uncertain_raw)),20*1024)
+        source_snapshots={file:Path(file).read_bytes() for result in [ten,uncertain] for file in result['files'].values()}
+        stable=bounded(execute([*overview_entry,'--reuse',str(overview_chart),'--pair-with',uncertain['files']['chart'],'--out',str(Path(temp)/'stable-pair'),'--limit','3'],temp,env),20*1024)
+        first_stable=stable;matrix=[];cross=[];stable_pages=0
+        while True:
+            assert stable['validation']['ok'] and stable['context']['full_pair'] is False
+            matrix+=stable['context']['reading']['comparison']['pillar_matrix']['items'];cross+=stable['context']['reading']['comparison']['cross_relations']['items'];stable_pages+=1;assert stable_pages<100
+            if not stable['next_actions']:break
+            stable=bounded(execute([*overview_entry,*stable['next_actions'][0]['argv']],temp,env),20*1024);assert stable['cache_hit']
+        assert len(matrix)==first_stable['context']['reading']['comparison']['pillar_matrix']['total'] and len(cross)==first_stable['context']['reading']['comparison']['cross_relations']['total']
+        assert len(matrix)==12 and cross and any(x['source_id']=='BZ-HOUR' for x in first_stable['context']['pair_evidence']['missing'])
+        for file,before in source_snapshots.items():assert Path(file).read_bytes()==before
+        assert overview_chart.read_bytes()==overview_bytes
+        if a.schema_validation:
+            from jsonschema import Draft202012Validator
+            for schema_name,value in [('ten-god-evidence.schema.json',ten['context']),('pair-evidence-output.schema.json',first_stable),('pair-evidence-output.schema.json',stable)]:
+                schema=json.loads((skill/'references'/schema_name).read_text(encoding='utf-8'));Draft202012Validator.check_schema(schema);Draft202012Validator(schema).validate(value)
+        attribution_pair={'ok':True,'origin_layers_separate':True,'ten_god_stdout_bytes':ten['output']['bytes'],'stable_pair_stdout_bytes':first_stable['output']['bytes'],'pages':stable_pages,'matrix_cells':len(matrix),'cross_relations':len(cross),'source_files_byte_identical':True,'unknown_hour_not_invented':True,'full_pair':False,'schema_validation':a.schema_validation,'full_shell_envelope_checked':True}
+        # Same-version semantic audit: exercise candidate sparse pages through the real shell entry.
+        candidate_raw=json.loads((skill/'examples/time-compare-candidates-input.json').read_text(encoding='utf-8'));candidate_raw['chart_mode']='both';candidate_raw['time_uncertainty']={'type':'candidates','times':['08:30']};candidate_raw['birth_options']={'annual_count':4};candidate_raw['target_date']='2026-10-15'
+        candidate=bounded(execute([*overview_entry,'--stdin','--out',str(Path(temp)/'candidate-audit'),'--candidate','TC-001','--focus','romance','--limit','1'],temp,env,json.dumps(candidate_raw)),20*1024)
+        candidate_file=Path(candidate['files']['chart']);candidate_bytes=candidate_file.read_bytes();candidate_artifact=json.loads(candidate_bytes);candidate_chart=candidate_artifact['candidates'][0]['chart']['people'][0]['chart']
+        expression=candidate['context']['reading']['reading']['people'][0]['emotional_paths']['attraction']['expression_sources'];assert all('kind' in x and 'stem' in x for x in expression)
+        candidate_pages={}
+        for purpose in ['annual_page','flying_page']:
+            key='bazi' if purpose=='annual_page' else 'ziwei';field='annual' if key=='bazi' else 'palace_stem_flying'
+            items=list(candidate['context']['reading']['reading']['people'][0]['chart'][key][field]['items']);action=next(x for x in candidate['next_actions'] if x.get('purpose')==purpose);pages=0
+            while action:
+                tail=bounded(execute([*overview_entry,*action['argv']],temp,env),20*1024);pages+=1;assert pages<30
+                assert tail['context']['view']=='evidence_page' and tail['context']['source_checksum']==candidate_artifact['checksum']['value'] and tail['context']['reading']['candidate']['id']=='TC-001'
+                chart=tail['context']['reading']['reading']['people'][0]['chart'];assert 'pillars' not in chart.get('bazi',{})
+                items+=chart[key][field]['items'];action=next((x for x in tail['next_actions'] if x.get('purpose')==purpose),None)
+            expected=candidate_chart['bazi']['chart']['annual'] if key=='bazi' else [x for x in candidate_chart['ziwei']['calculations']['palace_stem_flying']['entries'] if x['origin_palace']=='夫妻' or x['target_palace']=='夫妻']
+            assert [x['id'] for x in items]==[x['id'] for x in expected];assert 'TC-001' in tail['context']['base_context']['restore_argv'];candidate_pages[purpose]=pages
+        candidate_ten=bounded(execute([*overview_entry,'--reuse',str(candidate_file),'--page','ten-gods','--base-checksum',candidate_artifact['checksum']['value']],temp,env),20*1024)
+        assert candidate_ten['context']['reading']['ten_god_evidence']['day_master']['status']=='single_candidate'
+        if a.schema_validation:Draft202012Validator(json.loads((skill/'references/ten-god-evidence.schema.json').read_text(encoding='utf-8'))).validate(candidate_ten['context'])
+        assert candidate_file.read_bytes()==candidate_bytes
+        semantic_audit={'ok':True,'candidate_entry':'mobile.sh' if a.sh else 'workflow CLI','candidate_incremental_pages':candidate_pages,'full_original_year_and_flying_ids_recovered':True,'parent_checksum_and_candidate_bound':True,'single_candidate_scope':True,'expression_visibility_retained':True,'source_chart_byte_identical':True,'full_shell_envelope_checked':True}
+        # Professional fields are deterministic, opt-in, checksum-bound, and shipped in the ZIP.
+        professional=bounded(execute([*overview_entry,'--reuse',str(overview_chart),'--page','bazi-detail','--base-checksum',overview['context']['source_checksum']],temp,env),20*1024)
+        professional_data=professional['context']['reading']['bazi_detail']
+        assert professional['cache_hit'] and professional_data['rule_version']=='bazi-professional/1.0.0' and len(professional_data['natal'])==4 and len(professional_data['supported_shensha'])==14
+        assert professional_data['month_commander']['distinct_from_month_main_qi'] and professional_data['auxiliary']['scope']=='bazi_auxiliary_not_ziwei_palaces'
+        period_rows=[];period_pages=0;period_action=next(x for x in professional['next_actions'] if x.get('purpose')=='bazi_periods_page')
+        if a.schema_validation:
+            detail_schema=json.loads((skill/'references/bazi-detail-context.schema.json').read_text(encoding='utf-8'));Draft202012Validator.check_schema(detail_schema);Draft202012Validator(detail_schema).validate(professional['context'])
+        while period_action:
+            period_response=bounded(execute([*overview_entry,*period_action['argv']],temp,env),20*1024);period_pages+=1;assert period_pages<80
+            assert period_response['cache_hit'] and period_response['context']['source_checksum']==overview['context']['source_checksum']
+            assert 'bazi_detail' not in period_response['context']['reading']
+            period_rows+=period_response['context']['reading']['bazi_periods']['items']
+            if a.schema_validation:Draft202012Validator(detail_schema).validate(period_response['context'])
+            period_action=next((x for x in period_response['next_actions'] if x.get('purpose')=='bazi_periods_page'),None)
+        assert len({x['id'] for x in period_rows})==len(period_rows) and {x['scope'] for x in period_rows}=={'dayun','annual','xiaoyun'}
+        assert len([x for x in period_rows if x['scope']=='dayun'])==len(original_overview['bazi']['chart']['dayun'])
+        assert len([x for x in period_rows if x['scope']=='annual'])==len(original_overview['bazi']['chart']['annual'])
+        candidate_detail=bounded(execute([*overview_entry,'--reuse',str(candidate_file),'--page','bazi-detail','--candidate','TC-001','--base-checksum',candidate_artifact['checksum']['value']],temp,env),20*1024)
+        assert candidate_detail['context']['reading']['bazi_detail']['coverage']['kind']=='single_time_candidate'
+        if a.schema_validation:Draft202012Validator(detail_schema).validate(candidate_detail['context'])
+        detail_export=bounded(execute([*overview_entry,'--reuse',str(overview_chart),'--page','bazi-detail','--base-checksum',overview['context']['source_checksum'],'--report','--out',str(Path(temp)/'professional-export')],temp,env),20*1024)
+        for file in [detail_export['files']['report_md'],detail_export['files']['report_html']]:
+            text=Path(file).read_text(encoding='utf-8');assert '八字专业细盘' in text and '人元分日司令' in text and '自坐' in text and '起运与交运' in text
+        assert overview_chart.read_bytes()==overview_bytes and candidate_file.read_bytes()==candidate_bytes
+        professional_acceptance={'ok':True,'deterministic_fields':True,'source_artifacts_byte_identical':True,'rule_version':professional_data['rule_version'],'supported_shensha':14,'period_pages':period_pages,'period_rows':len(period_rows),'candidate_scope_bound':True,'detail_report_exported':True,'schema_validation':a.schema_validation,'full_shell_envelope_checked':True}
         # Exercise the installation's comparison continuations, not the source tests.
         pair_input=(skill/'examples/relationship-pair-input.json').read_text(encoding='utf-8')
         pair_task=Path(temp)/('pair-long-path '+"quoted-'"+'x'*64)
@@ -456,10 +564,18 @@ def main():
     result['bazi_concept_topics']=knowledge_summary['bazi_concept_topics']
     result['liuyao_concept_topics']=knowledge_summary['liuyao_concept_topics']
     result['romance_topics']=knowledge_summary['romance_topics']
+    result['bazi_detail_topics']=knowledge_summary['bazi_detail_topics']
+    result['extracted_detail_knowledge']={'queries':len(detail_queries),'full_cards_restored':len(detail_catalog['topics']),'original_107_topics_retained':True,'field_mapping_retained':True,'bounded':True}
+    result['source_only_development_verification']=sorted(source_only_verification)
+    result['packaged_local_links_checked_against_inventory']=True
+    result['v1_4_5_calculation_preservation']=previous_preservation
     result['extracted_liuyao_concept_queries']=len(liuyao_concept_queries)
     result['extracted_classical_query']=True
     result['extracted_pair_comparison']=pair_acceptance
     result['extracted_romance_navigation']=romance_navigation
+    result['extracted_attribution_pair']=attribution_pair
+    result['extracted_semantic_audit']=semantic_audit
+    result['extracted_professional_bazi']=professional_acceptance
     result['test_evidence']=test_evidence
     result['extracted_bounded_shuwen']=document_acceptance
     result['full_shell_envelope_checked']=True

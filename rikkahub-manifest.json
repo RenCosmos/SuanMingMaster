@@ -1,8 +1,8 @@
 {
-  "adapter_version": "rikkahub-workspace/v1.4.4",
+  "adapter_version": "rikkahub-workspace/v1.4.6",
   "target_client": "RikkaHub 2.5.6",
   "engine_version": "0.4.0",
-  "package_version": "1.4.4",
+  "package_version": "1.4.6",
   "package_revision": "1",
   "bundled_annual_fixture": "synthetic; not user feedback birth data",
   "divination_engine": "liuyao/0.1.0",
@@ -70,7 +70,7 @@
     "scope": "source cards with chapter locators and checked short excerpts; folklore, taboos, cultivation and sexual-cultivation history",
     "new_classical_cards": 14,
     "verification_record": "references/folklore/classical-verification.json",
-    "total_searchable_topics": 107,
+    "total_searchable_topics": 131,
     "automatic_chart_for_knowledge_questions": false
   },
   "spirit_library": {
@@ -135,7 +135,7 @@
     "review_band_seconds": 60
   },
   "bazi_hour_stem_rule": "day_stem default; library explicit legacy compatibility",
-  "knowledge_revision": "1.4.1-romance.1",
+  "knowledge_revision": "bazi-detail-interpretation/1",
   "annual_relations": {
     "input": "target_date and annual_count 1–20; no target keeps annual empty",
     "fields": [
@@ -169,7 +169,7 @@
     "source_adoption": "references/project-adoption.md",
     "ritual_document_method_cards": 1
   },
-  "previous_release": "1.4.3; additive romance overview and checksum-bound incremental evidence pages; calculation, artifact schema, sampling, source-card and dependency bytes retained",
+  "previous_release": "1.4.5; adds 24 sourced professional-detail interpretation cards and term aliases; consistent product labels and runtime/source packaging split; all existing calculations and source material retained",
   "input_lifecycle": {
     "default_chart_input": "stdin JSON; no intermediate input file",
     "knowledge_input": "direct --query / --topic / --limit / --offset / --chars; bounded output",
@@ -251,7 +251,7 @@
     "knowledge_query_files": false
   },
   "workflow": {
-    "version": "1.4.4",
+    "version": "1.4.6",
     "entry": "scripts/workflow.cjs",
     "engine_facade": "scripts/runtime-core.cjs",
     "context_projector": "scripts/context.cjs",
@@ -306,15 +306,39 @@
     },
     "context_views": {
       "overview": "single-person romance; yearly windows deferred",
-      "evidence_page": "suanming-evidence-page/v1; annual or flying; requires same base checksum",
+      "evidence_page": "suanming-evidence-page/v1 annual/flying or suanming-ten-god-evidence/v1; requires same base checksum",
+      "pair_evidence": "suanming-pair-evidence/v1; two verified saved single-person sources, stable pillars only, pair_key-bound pages; no invented hour or source rewrite",
       "navigation": "required and required_for distinguish requested evidence from optional expansion"
+    },
+    "evidence_audit": {
+      "revision": "origin-labels/1",
+      "annual_and_initial_stem_visibility": true,
+      "expression_stem_visibility": true,
+      "day_master_self_marked": true,
+      "cross_group_natal_owners": true,
+      "single_candidate_not_stable": true,
+      "candidate_incremental_pages": "parent checksum and candidate bound; no repeated natal evidence"
+    },
+    "professional_bazi": {
+      "rule_version": "bazi-professional/1.0.0",
+      "pages": [
+        "bazi-detail",
+        "bazi-periods"
+      ],
+      "method": "references/bazi-detail-method.md",
+      "schema": "references/bazi-detail-context.schema.json",
+      "opt_in_only": true,
+      "report": "bazi-detail --report",
+      "source_artifacts_unchanged": true,
+      "shensha_rules": 14,
+      "month_commander": "SM-SILING-30; explicit original table and exact Jie intervals"
     }
   },
   "system_prompt_required": false,
   "mobile_validation": {
     "status": "pending",
     "source": "release_validation",
-    "tested_package_version": "1.4.4",
+    "tested_package_version": "1.4.6",
     "scope": "desktop regression and extracted installation checks; not device confirmation",
     "current_package_status": "pending",
     "historical_confirmations": [
@@ -337,7 +361,7 @@
       }
     ]
   },
-  "android_device_tested_scope": "historical 1.3.0 confirmation only; 1.4.4 confirmation pending",
+  "android_device_tested_scope": "historical 1.3.0 confirmation only; 1.4.6 confirmation pending",
   "rikkahub_tools": {
     "interface_checked_version": "2.5.6",
     "interface_commit": "447bb7e89710d31f1204d7a2973baa19fdbd5b28",
@@ -510,5 +534,13 @@
     ],
     "modern_age_reading": "separate derived view; legacy age_relation unchanged",
     "probability": null
+  },
+  "bazi_detail_library": {
+    "version": "bazi-detail-knowledge/v1",
+    "topics": 24,
+    "index": "references/bazi-detail-index.md",
+    "catalog": "references/knowledge/bazi-detail/catalog.json",
+    "automatic_chart_for_knowledge_questions": false,
+    "calculation_rules_unchanged": true
   }
 }

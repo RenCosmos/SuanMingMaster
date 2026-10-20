@@ -58,7 +58,7 @@ test('current product labels follow package while independent engine and schema 
  const d=core.buildAndValidate(fixture('input.json')).data;assert.equal(d.skill_version,'0.4.0');assert.equal(d.schema_version,'bazi-ziwei/v1');assert.ok(core.adapter(d).render(d).html.includes('V'+version+' · 引擎 v0.4.0'));assert.ok(flow.operation(['--help']).includes('--flying-offset'));
 });
 test('new four knowledge cards retain source identity, exact bodies and independent counts',()=>{
- const k=require('../scripts/knowledge.cjs'),{retrieve}=require('../scripts/knowledge-context.cjs'),checked=k.verifyKnowledge();assert.equal(checked.total_topics,107);assert.equal(checked.romance_topics,4);assert.equal(checked.total_topics-checked.romance_topics,103);
+ const k=require('../scripts/knowledge.cjs'),{retrieve}=require('../scripts/knowledge-context.cjs'),checked=k.verifyKnowledge();assert.equal(checked.total_topics-checked.bazi_detail_topics,107);assert.equal(checked.romance_topics,4);assert.equal(checked.total_topics-checked.bazi_detail_topics-checked.romance_topics,103);
  for(const [query,slug] of [['露水情缘怎么看','romance-two-tracks'],['桃花和红鸾有什么区别','romance-hongkong-distinction'],['八字对象年上还是年下','romance-modern-age']]){const r=retrieve({query,limit:1});assert.equal(r.matches[0].slug,slug);assert.ok(r.matches[0].source_url);}
  for(const t of require('../references/knowledge/romance/catalog.json').topics){const r=k.lookup({topic:t.slug});assert.equal(core.sha(Buffer.from(r.content)),t.sha256);assert.equal(r.instruction_authority,'none');assert.ok(r.content.includes(t.url)||t.kind==='project_method_reference');}
 });

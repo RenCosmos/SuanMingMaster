@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:suanming:pair-evidence:output:v1",
+  "title":"稳定柱交叉证据有界响应（非完整双人命盘）",
+  "type":"object","required":["ok","adapter_id","pair_key","task_id","validation","calculation_performed","files","context","next_actions","output"],
+  "properties":{
+    "ok":{"const":true},"adapter_id":{"const":"pair_evidence"},"pair_key":{"$ref":"#/$defs/sha"},"calculation_performed":{"const":false},
+    "task_id":{"type":"string","pattern":"^PE-[a-f0-9]{12}$"},
+    "validation":{"type":"object","required":["ok","method","recalculated"],"properties":{"ok":{"const":true},"method":{"enum":["verified_sources","verified_pair_cache"]},"recalculated":{"type":"boolean"}}},
+    "files":{"type":"object","required":["context","validation"],"properties":{"context":{"type":"string"},"validation":{"type":"string"}},"additionalProperties":false},
+    "context":{"type":"object","required":["schema_version","focus","kind","full_pair","pair_key","sources","reading","pair_evidence","selection"],"properties":{
+      "schema_version":{"const":"suanming-pair-evidence/v1"},"focus":{"const":"relationship"},"kind":{"const":"stable_pillars_only"},"full_pair":{"const":false},"pair_key":{"$ref":"#/$defs/sha"},
+      "sources":{"type":"array","minItems":2,"maxItems":2,"items":{"type":"object","required":["person_id","source_checksum","artifact_sha256","coverage","day_master","known_pillars","uncertain_pillars"],"properties":{"person_id":{"enum":["a","b"]},"source_checksum":{"$ref":"#/$defs/sha"},"artifact_sha256":{"$ref":"#/$defs/sha"},"known_pillars":{"type":"array","maxItems":4},"uncertain_pillars":{"type":"array","maxItems":4}}}},
+      "reading":{"type":"object","required":["comparison"],"properties":{"comparison":{"type":"object","required":["day_master_projection","pillar_matrix","cross_relations"],"properties":{"pillar_matrix":{"$ref":"#/$defs/page"},"cross_relations":{"$ref":"#/$defs/page"}}}}},
+      "pair_evidence":{"type":"object","required":["missing","not_computed","next_offset","page_is_last","previous_pages_required","complete_for_stable_pillars"],"properties":{"missing":{"type":"array"},"not_computed":{"type":"array","contains":{"const":"ziwei_comparison"}},"next_offset":{"type":["integer","null"],"minimum":0},"page_is_last":{"type":"boolean"},"previous_pages_required":{"type":"boolean"},"complete_for_stable_pillars":{"type":"boolean"}}}
+    }},
+    "next_actions":{"type":"array","maxItems":1,"items":{"type":"object","required":["argv","required"],"properties":{"required":{"const":true},"argv":{"type":"array","minItems":10,"items":{"type":"string"}}}}},
+    "output":{"type":"object","required":["max_bytes","bytes","effective_limit"],"properties":{"max_bytes":{"const":20480},"bytes":{"type":"integer","minimum":1,"maximum":20480},"effective_limit":{"type":"integer","minimum":1,"maximum":10}}}
+  },
+  "$defs":{
+    "sha":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "page":{"type":"object","required":["items","total","offset","next_offset"],"properties":{"items":{"type":"array","maxItems":10},"total":{"type":"integer","minimum":0},"offset":{"type":"integer","minimum":0},"next_offset":{"type":["integer","null"],"minimum":0}}}
+  }
+}

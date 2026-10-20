@@ -1,0 +1,41 @@
+{
+  "version": "bazi-professional/1.0.0",
+  "sources": {
+    "calendar": {"title": "lunar-typescript 1.8.6 与官方八字接口说明", "url": "https://6tail.cn/calendar/lunar.bazi.html"},
+    "sanming2": {"title": "《三命通会》卷二：人元司事、将星华盖、咸池", "url": "https://zh.wikisource.org/wiki/三命通會/卷二"},
+    "sanming3": {"title": "《三命通会》卷三：十干禄、天乙、天月德、太极、德秀、劫煞亡神", "url": "https://zh.wikisource.org/wiki/三命通會/卷三"},
+    "tanyuan": {"title": "《命理探源》卷三原文：天德、月德、天乙、文昌等", "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/"},
+    "yuanhai": {"title": "《渊海子平》卷一《论福星贵人》原文转录", "url": "https://lifeklines.com/library/bazi/yuan-hai-zi-ping/032/"}
+  },
+  "month_command": {
+    "rule_id": "SM-SILING-30",
+    "source": "sanming2",
+    "table": {
+      "寅": [["戊",5],["丙",5],["甲",20]], "卯": [["甲",7],["乙",23]],
+      "辰": [["乙",7],["壬",5],["戊",18]], "巳": [["戊",7],["庚",5],["丙",18]],
+      "午": [["丙",7],["丁",23]], "未": [["丁",7],["甲",5],["己",18]],
+      "申": [["戊",5],["壬",5],["庚",20]], "酉": [["庚",7],["辛",23]],
+      "戌": [["辛",7],["丙",5],["戊",18]], "亥": [["戊",5],["甲",5],["壬",20]],
+      "子": [["壬",7],["癸",23]], "丑": [["癸",7],["庚",5],["己",18]]
+    },
+    "implementation": "北京时间实际入节瞬间起算；一日=86400秒，前段按表定日数，末段至下一个节，起点含终点不含。不按零点或农历初一换段，不缩放为30等分。",
+    "textual_notes": "采用此卷的5/5/20等原表，不混入常见9/3/18表。艮土/坤土规范记戊，已土规范记己；辰月壬、未月甲、戌月丙、丑月庚按原文墓库五行保留，不替换为现行藏干表；司令不是月支藏干数组。"
+  },
+  "shensha": [
+    {"id":"SS-TIANYI","name":"天乙贵人","source":"tanyuan","reference":"stem","anchors":["year","day"],"table":{"甲":"丑未","乙":"子申","丙":"亥酉","丁":"亥酉","戊":"丑未","己":"子申","庚":"丑未","辛":"寅午","壬":"卯巳","癸":"卯巳"}},
+    {"id":"SS-TAIJI","name":"太极贵人","source":"sanming3","reference":"stem","anchors":["year","day"],"table":{"甲":"子午","乙":"子午","丙":"卯酉","丁":"卯酉","戊":"辰戌丑未","己":"辰戌丑未","庚":"寅亥","辛":"寅亥","壬":"巳申","癸":"巳申"}},
+    {"id":"SS-WENCHANG","name":"文昌贵人","source":"tanyuan","reference":"stem","anchors":["year","day"],"table":{"甲":"巳","乙":"午","丙":"申","丁":"酉","戊":"申","己":"酉","庚":"亥","辛":"子","壬":"寅","癸":"卯"}},
+    {"id":"SS-FUXING","name":"福星贵人","source":"yuanhai","reference":"stem","anchors":["year","day"],"table":{"甲":"寅子","乙":"丑卯","丙":"寅子戌","丁":"亥酉","戊":"申","己":"未","庚":"午","辛":"巳","壬":"辰","癸":"丑卯"}},
+    {"id":"SS-LUSHEN","name":"禄神","source":"sanming3","reference":"stem","anchors":["day"],"table":{"甲":"寅","乙":"卯","丙":"巳","丁":"午","戊":"巳","己":"午","庚":"申","辛":"酉","壬":"亥","癸":"子"}},
+    {"id":"SS-YUEDE","name":"月德贵人","source":"sanming3","reference":"branch","anchors":["month"],"target_field":"stem","table":{"寅":"丙","午":"丙","戌":"丙","申":"壬","子":"壬","辰":"壬","亥":"甲","卯":"甲","未":"甲","巳":"庚","酉":"庚","丑":"庚"}},
+    {"id":"SS-TIANDE","name":"天德贵人","source":"tanyuan","reference":"branch","anchors":["month"],"table":{"寅":"丁","卯":"申","辰":"壬","巳":"辛","午":"亥","未":"甲","申":"癸","酉":"寅","戌":"丙","亥":"乙","子":"巳","丑":"庚"},"mixed_target":true},
+    {"id":"SS-DEXIU","name":"德秀贵人","source":"sanming3","reference":"branch","anchors":["month"],"target_field":"stem","roles":{"德":{"寅午戌":"丙丁","申子辰":"壬癸戊己","巳酉丑":"庚辛","亥卯未":"甲乙"},"秀":{"寅午戌":"戊癸","申子辰":"丙辛甲己","巳酉丑":"乙庚","亥卯未":"丁壬"}}},
+    {"id":"SS-TAOHUA","name":"桃花（咸池）","source":"sanming2","reference":"branch","anchors":["year","day"],"groups":{"寅午戌":"卯","申子辰":"酉","巳酉丑":"午","亥卯未":"子"}},
+    {"id":"SS-YIMA","name":"驿马","source":"sanming3","reference":"branch","anchors":["year","day"],"groups":{"寅午戌":"申","申子辰":"寅","巳酉丑":"亥","亥卯未":"巳"}},
+    {"id":"SS-HUAGAI","name":"华盖","source":"sanming2","reference":"branch","anchors":["year","day"],"groups":{"寅午戌":"戌","申子辰":"辰","巳酉丑":"丑","亥卯未":"未"}},
+    {"id":"SS-JIANGXING","name":"将星","source":"sanming2","reference":"branch","anchors":["year","day"],"groups":{"寅午戌":"午","申子辰":"子","巳酉丑":"酉","亥卯未":"卯"}},
+    {"id":"SS-JIESHA","name":"劫煞","source":"sanming3","reference":"branch","anchors":["year","day"],"groups":{"寅午戌":"亥","申子辰":"巳","巳酉丑":"寅","亥卯未":"申"}},
+    {"id":"SS-WANGSHEN","name":"亡神","source":"sanming3","reference":"branch","anchors":["year","day"],"groups":{"寅午戌":"巳","申子辰":"亥","巳酉丑":"申","亥卯未":"寅"}}
+  ],
+  "shensha_conventions": "逐柱查表标记，不判自动成格。日干/日支为主查，年干/年支同时旁查并分别标注来源；月系只据原局月支。年查扩展是本程序显示口径，不声称所有原文均同时采用年日双查。太极、福星采用明示的单支宽查表，不冒称严格组合成格；福星保留所引歌诀丙戌、丁酉条，可能与别表不同。德秀分别标德/秀，不仅凭一字断德秀成格；未列神煞不由模型补算。"
+}

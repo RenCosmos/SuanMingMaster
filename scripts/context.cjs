@@ -58,7 +58,7 @@ function bazi(b,options){
  }
  if(['career','wealth','relationship','intimacy'].includes(focus)){
   const allowed={career:['正官','七杀','正印','偏印','食神','伤官'],wealth:['正财','偏财','食神','伤官','比肩','劫财'],relationship:['正财','偏财','正官','七杀'],intimacy:['食神','伤官','比肩','劫财','正财','偏财','正官','七杀']}[focus];
-  out.ten_god_occurrences=b.calculations.score_ledger.filter(r=>allowed.includes(r.ten_god));
+  out.ten_god_occurrences=b.calculations.score_ledger.filter(r=>allowed.includes(r.ten_god)).map(r=>r.id==='BZ-DAY-S'?{...r,is_day_master_self:true}:r);
  }
  return out;
 }
@@ -122,12 +122,17 @@ function comparison(data,options){
  const c=data.comparison,b=c.bazi,relations=page(b?.cross_relations??[],options),matrix=page(b?.pillar_matrix??[],options);
  const total=Math.max(relations.total,matrix.total),offset=options.offset??0,limit=options.limit??3;
  return {person_ids:data.people.map(p=>p.id),stage:data.context.stage,comparison:{id:c.id,kind:c.kind,
-  bazi:b?{day_master_projection:b.day_master_projection,cross_relations:relations,pillar_matrix:matrix}:null,ziwei:c.ziwei},
+  bazi:b?{day_master_projection:b.day_master_projection,cross_relations:relations,pillar_matrix:matrix,cross_relation_context:require('./cross-relation-context.cjs').groupContext(relations.items,Object.fromEntries(data.people.map(p=>[p.id,p.chart.bazi.chart.pillars])))}:null,ziwei:c.ziwei},
   comparison_page:{total,offset,next_offset:offset+limit<total?offset+limit:null},
   pair_evidence:{scope:'comparison_view',people_included:[],comparison_available:true,page_is_last:offset+limit>=total,
    comparison_complete_in_this_response:offset===0&&offset+limit>=total,
    missing:[...(offset>0?['comparison_previous_pages']:[]),...(offset+limit<total?['comparison_next_page']:[])],
    note:'仅交叉证据；与同一任务已读的 a/b 单盘页合看，各列表按其 total/offset 汇总，末页不代表单页已包含全文。'}};
+}
+function timeFieldValue(data,f,v){
+ if(!f.id.startsWith('TC-BZ-ANNUAL-'))return v.value;
+ const candidate=data.candidates.find(c=>c.id===v.candidate_ids[0]),period=candidate.chart.people[0].chart.bazi.chart.annual.find(y=>y.id===f.id.slice(3));
+ return {...v.value,hidden_stems:period.hidden_stems};
 }
 function timeCompare(data,options){
  if(options.candidate){
@@ -149,7 +154,7 @@ function timeCompare(data,options){
  return {coverage:data.coverage,normalized:data.normalized,
   counts:{stable:fields.filter(f=>f.status==='stable').length,variable:fields.filter(f=>f.status==='varies').length,single_candidate:fields.filter(f=>f.status==='single_candidate').length},
   field_index:fields.map(f=>({id:f.id,label:f.label,status:f.status,variant_count:f.variants.length})),
-  fields:{...selected,items:selected.items.map(f=>({...pick(f,['id','label','status']),variants:page(f.variants, {...options,offset:options.variant_offset??0}).items.map(v=>({value:v.value,candidate_ids:v.candidate_ids,count:v.count})),variant_count:f.variants.length,
+  fields:{...selected,items:selected.items.map(f=>({...pick(f,['id','label','status']),variants:page(f.variants, {...options,offset:options.variant_offset??0}).items.map(v=>({value:timeFieldValue(data,f,v),candidate_ids:v.candidate_ids,count:v.count})),variant_count:f.variants.length,
    next_variant_offset:(options.variant_offset??0)+(options.limit??3)<f.variants.length?(options.variant_offset??0)+(options.limit??3):null,
    evidence_sample:f.evidence.slice(0,2)}))},
   candidates:{...page(data.candidates,options),items:page(data.candidates,options).items.map(c=>pick(c,['id','interval_id','local_datetime','true_solar_datetime','status','error']))},

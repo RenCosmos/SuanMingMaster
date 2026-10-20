@@ -1,0 +1,1310 @@
+{
+  "version": "bazi-detail-knowledge/v1",
+  "introduced_in": "1.4.6",
+  "expected_topics": 24,
+  "automatic_chart_for_knowledge_questions": false,
+  "topics": [
+    {
+      "id": "BZD-01",
+      "slug": "bazi-twelve-stages",
+      "name": "十二长生",
+      "domain": "bazi",
+      "aliases": [
+        "十二长生",
+        "十二長生",
+        "长生十二宫",
+        "十二运",
+        "星运",
+        "星運"
+      ],
+      "tags": [
+        "八字",
+        "十二长生",
+        "十二長生",
+        "长生十二宫",
+        "十二运"
+      ],
+      "subtitle": "十二长生以长生、沐浴、冠带、临官、帝旺、衰、病、死、墓、绝、胎、养表示气在十二支中的阶段。传统论述重视生发、成势、收敛与重新孕育的循环。这里的“病、死、绝”是气势阶段名称，不是对应现实疾病、死亡或没有",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "star_fortune",
+      "path": "references/knowledge/bazi-detail/cards/bazi-twelve-stages.md",
+      "sha256": "67feba0377f244a64d10d276fe988f7647bf0eab24aebecd541cf0ad4c283ec0",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·论天干阴阳生死、寄生十二宫",
+      "locator": "卷二·论天干阴阳生死、寄生十二宫",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·论天干阴阳生死、寄生十二宫",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·论天干阴阳生死、寄生十二宫",
+          "locator": "卷二·论天干阴阳生死、寄生十二宫",
+          "checked_claim": "十二长生以长生、沐浴、冠带、临官、帝旺、衰、病、死、墓、绝、胎、养表示气在十二支中的阶段。传统论述重视生发、成势、收敛与重新孕育的循环。这里的“病、死、绝”是气势阶段名称，不是对应现实疾病、死亡或没有",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        },
+        {
+          "title": "lunar 官方八字说明",
+          "url": "https://6tail.cn/calendar/lunar.bazi.html",
+          "book": "lunar 官方八字说明",
+          "chapter": "lunar 官方八字说明",
+          "locator": "lunar 官方八字说明",
+          "checked_claim": "当前算法或异文对照入口；采用范围见正文",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-02",
+      "slug": "bazi-self-seat",
+      "name": "自坐",
+      "domain": "bazi",
+      "aliases": [
+        "自坐",
+        "自坐长生",
+        "自坐墓",
+        "自坐绝",
+        "自坐與星運"
+      ],
+      "tags": [
+        "八字",
+        "自坐",
+        "自坐长生",
+        "自坐墓",
+        "自坐绝",
+        "自坐與星運"
+      ],
+      "subtitle": "自坐不是另一套十神，也不等于整个命局旺衰。它把每一柱自己的天干作为参照，看该柱地支上的十二长生阶段。传统上可用来补看该柱气的承接、落脚与内在状态，但须与通根、得令、合冲一起看。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "self_seat",
+      "path": "references/knowledge/bazi-detail/cards/bazi-self-seat.md",
+      "sha256": "162f272d0d21ff06da87ce27de76479cae7fe189f319611d3cb6e71a88938c6c",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·寄生十二宫",
+      "locator": "卷二·寄生十二宫",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·天干生死与寄生十二宫",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·寄生十二宫",
+          "locator": "卷二·寄生十二宫",
+          "checked_claim": "自坐不是另一套十神，也不等于整个命局旺衰。它把每一柱自己的天干作为参照，看该柱地支上的十二长生阶段。传统上可用来补看该柱气的承接、落脚与内在状态，但须与通根、得令、合冲一起看。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        },
+        {
+          "title": "lunar 官方十二长生表",
+          "url": "https://6tail.cn/calendar/lunar.bazi.html",
+          "book": "lunar 官方十二长生表",
+          "chapter": "lunar 官方十二长生表",
+          "locator": "lunar 官方十二长生表",
+          "checked_claim": "当前算法或异文对照入口；采用范围见正文",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-03",
+      "slug": "bazi-xun-kong",
+      "name": "八字旬空",
+      "domain": "bazi",
+      "aliases": [
+        "八字旬空",
+        "八字空亡",
+        "旬空",
+        "空亡",
+        "六甲空亡"
+      ],
+      "tags": [
+        "八字",
+        "八字旬空",
+        "八字空亡",
+        "六甲空亡"
+      ],
+      "subtitle": "一旬以十个天干配十二地支，有两个地支没有轮到，因此形成旬空，也称空亡。传统解释有虚位、暂未落实、减力、留白等取象；原文同时讨论空中有实、亡中有存，并非一见空亡就作凶论。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "xun_kong / void_by_natal",
+      "path": "references/knowledge/bazi-detail/cards/bazi-xun-kong.md",
+      "sha256": "baae99cf4afba4e690f7521763646fdc1fbd37fe4ad862ca7a9f4b4b3dcb60a5",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷三·论空亡",
+      "locator": "卷三·论空亡",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷三·论空亡",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "三命通会",
+          "chapter": "卷三·论空亡",
+          "locator": "卷三·论空亡",
+          "checked_claim": "一旬以十个天干配十二地支，有两个地支没有轮到，因此形成旬空，也称空亡。传统解释有虚位、暂未落实、减力、留白等取象；原文同时讨论空中有实、亡中有存，并非一见空亡就作凶论。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-04",
+      "slug": "bazi-nayin",
+      "name": "纳音",
+      "domain": "bazi",
+      "aliases": [
+        "纳音",
+        "納音",
+        "纳音五行",
+        "纳音取象"
+      ],
+      "tags": [
+        "八字",
+        "纳音",
+        "纳音五行",
+        "纳音取象"
+      ],
+      "subtitle": "纳音把六十甲子按相邻阴阳干支配成三十组，各有金木水火土及海中金、松柏木等名称。传统纳音取象有其独立体系，不能把名称中的五行直接替换为天干五行、地支本气或日主。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "nayin",
+      "path": "references/knowledge/bazi-detail/cards/bazi-nayin.md",
+      "sha256": "dfa7f8d201f83c12aa3353753410c04cc37d52c3beeb784e66faf0e6d80ead09",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷一",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷一·总论纳音、纳音取象",
+      "locator": "卷一·总论纳音、纳音取象",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷一·总论纳音、纳音取象",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷一",
+          "book": "三命通会",
+          "chapter": "卷一·总论纳音、纳音取象",
+          "locator": "卷一·总论纳音、纳音取象",
+          "checked_claim": "纳音把六十甲子按相邻阴阳干支配成三十组，各有金木水火土及海中金、松柏木等名称。传统纳音取象有其独立体系，不能把名称中的五行直接替换为天干五行、地支本气或日主。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-05",
+      "slug": "bazi-taiyuan",
+      "name": "胎元",
+      "domain": "bazi",
+      "aliases": [
+        "胎元",
+        "胎元纳音",
+        "胎元怎么求"
+      ],
+      "tags": [
+        "八字",
+        "胎元",
+        "胎元纳音",
+        "胎元怎么求"
+      ],
+      "subtitle": "传统将胎元视作受形之始的辅助信息，用来与四柱、纳音、生旺及刑冲合参。它不是四柱之一，也不取代日主、月令与大运。不同文献对胎月的求法和重视程度不一。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "auxiliary.tai_yuan",
+      "path": "references/knowledge/bazi-detail/cards/bazi-taiyuan.md",
+      "sha256": "fc49336db5ea069d11c4f2b25b6cd5630ae63e70d061fa1d2d87d8bce3023c1a",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·论胎元",
+      "locator": "卷二·论胎元",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·论胎元",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·论胎元",
+          "locator": "卷二·论胎元",
+          "checked_claim": "传统将胎元视作受形之始的辅助信息，用来与四柱、纳音、生旺及刑冲合参。它不是四柱之一，也不取代日主、月令与大运。不同文献对胎月的求法和重视程度不一。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        },
+        {
+          "title": "lunar 八字接口",
+          "url": "https://6tail.cn/calendar/lunar.bazi.html",
+          "book": "lunar 八字接口",
+          "chapter": "lunar 八字接口",
+          "locator": "lunar 八字接口",
+          "checked_claim": "当前算法或异文对照入口；采用范围见正文",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-06",
+      "slug": "bazi-taixi",
+      "name": "八字胎息",
+      "domain": "bazi",
+      "aliases": [
+        "八字胎息",
+        "胎息",
+        "推息法",
+        "起息法"
+      ],
+      "tags": [
+        "八字",
+        "八字胎息",
+        "推息法",
+        "起息法"
+      ],
+      "subtitle": "此处的胎息或“息”是四柱术语：日干取五合之干，日支取六合之支，配成辅助干支。甲子日取己丑就是该法的例子。它不是道教修炼中的胎息呼吸法，不能由这个排盘字段指导练气、闭气或医疗处理。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "auxiliary.tai_xi",
+      "path": "references/knowledge/bazi-detail/cards/bazi-taixi.md",
+      "sha256": "8d283c37b61c627587f45075f9c32284de7c0a0156a13e013d65134b6373f8f1",
+      "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "命理探源",
+      "chapter": "卷二·推息法",
+      "locator": "卷二·推息法",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《命理探源》卷二·推息法",
+          "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+          "book": "命理探源",
+          "chapter": "卷二·推息法",
+          "locator": "卷二·推息法",
+          "checked_claim": "此处的胎息或“息”是四柱术语：日干取五合之干，日支取六合之支，配成辅助干支。甲子日取己丑就是该法的例子。它不是道教修炼中的胎息呼吸法，不能由这个排盘字段指导练气、闭气或医疗处理。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-07",
+      "slug": "bazi-minggong",
+      "name": "八字命宫",
+      "domain": "bazi",
+      "aliases": [
+        "八字命宫",
+        "命宫",
+        "命宮",
+        "八字命宮",
+        "命宫中气",
+        "中气进月"
+      ],
+      "tags": [
+        "八字",
+        "八字命宫",
+        "八字命宮",
+        "命宫中气",
+        "中气进月"
+      ],
+      "subtitle": "八字命宫是四柱之外另立的辅助宫位，传统用以补看气势的归宿、承接及与本命的呼应。它不是紫微斗数安星后的命宫，不能把八字命宫干支直接拿去套紫微主星或三方四正。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "auxiliary.ming_gong",
+      "path": "references/knowledge/bazi-detail/cards/bazi-minggong.md",
+      "sha256": "3743be7f29f33573ae9cba66abdd7c2d4063d968abd3d28ec482de7a2971576a",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·论坐命官；命理探源卷二·推命宫法",
+      "locator": "卷二·论坐命官；命理探源卷二·推命宫法",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·论坐命官",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·论坐命官；命理探源卷二·推命宫法",
+          "locator": "卷二·论坐命官；命理探源卷二·推命宫法",
+          "checked_claim": "八字命宫是四柱之外另立的辅助宫位，传统用以补看气势的归宿、承接及与本命的呼应。它不是紫微斗数安星后的命宫，不能把八字命宫干支直接拿去套紫微主星或三方四正。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        },
+        {
+          "title": "《命理探源》卷二·推命宫法",
+          "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+          "book": "《命理探源》卷二·推命宫法",
+          "chapter": "《命理探源》卷二·推命宫法",
+          "locator": "《命理探源》卷二·推命宫法",
+          "checked_claim": "当前算法或异文对照入口；采用范围见正文",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-08",
+      "slug": "bazi-shengong",
+      "name": "八字身宫",
+      "domain": "bazi",
+      "aliases": [
+        "八字身宫",
+        "身宫",
+        "身宮",
+        "八字身宮",
+        "安身命法"
+      ],
+      "tags": [
+        "八字",
+        "八字身宫",
+        "八字身宮",
+        "安身命法"
+      ],
+      "subtitle": "八字身宫是身命辅助宫位系统中的一项，不是第五柱，也不是紫微斗数的身宫落宫。传统围绕安身命有不同排法，古籍电子转录还存在识读不清的字句，不宜把简短转录扩写成统一的身宫断诀。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "auxiliary.shen_gong",
+      "path": "references/knowledge/bazi-detail/cards/bazi-shengong.md",
+      "sha256": "a0fcb86d8cfbb741689626b41033b67a939be91ba8fbb838b3a5b6c3718f0d92",
+      "url": "https://www.shidianguji.com/book/NGJ8922642210287/chapter/1lnh0qifvq0j2",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "刻京台增补渊海子平大全",
+      "chapter": "卷一·论安身命法",
+      "locator": "卷一·论安身命法",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《刻京台增补渊海子平大全》卷一·论安身命法",
+          "url": "https://www.shidianguji.com/book/NGJ8922642210287/chapter/1lnh0qifvq0j2",
+          "book": "刻京台增补渊海子平大全",
+          "chapter": "卷一·论安身命法",
+          "locator": "卷一·论安身命法",
+          "checked_claim": "八字身宫是身命辅助宫位系统中的一项，不是第五柱，也不是紫微斗数的身宫落宫。传统围绕安身命有不同排法，古籍电子转录还存在识读不清的字句，不宜把简短转录扩写成统一的身宫断诀。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        },
+        {
+          "title": "lunar 八字接口",
+          "url": "https://6tail.cn/calendar/lunar.bazi.html",
+          "book": "lunar 八字接口",
+          "chapter": "lunar 八字接口",
+          "locator": "lunar 八字接口",
+          "checked_claim": "当前算法或异文对照入口；采用范围见正文",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-09",
+      "slug": "bazi-month-commander",
+      "name": "分日司令",
+      "domain": "bazi",
+      "aliases": [
+        "分日司令",
+        "司令",
+        "人元司事",
+        "人元用事",
+        "月令本气与司令",
+        "分日用事"
+      ],
+      "tags": [
+        "八字",
+        "分日司令",
+        "人元司事",
+        "人元用事",
+        "月令本气与司令",
+        "分日用事"
+      ],
+      "subtitle": "月令本气是月支固定藏干表中的主气；分日司令则细分入节以后不同阶段由何气用事。两者相关而不等同。寅月本气为甲，不意味着入节每一天都只能以甲标司令。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "month_commander",
+      "path": "references/knowledge/bazi-detail/cards/bazi-month-commander.md",
+      "sha256": "882b383e731184e485dd5bf17216bffcda52c2882f6acfd63f095ae932dd158d",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·论人元司事",
+      "locator": "卷二·论人元司事",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·论人元司事",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·论人元司事",
+          "locator": "卷二·论人元司事",
+          "checked_claim": "月令本气是月支固定藏干表中的主气；分日司令则细分入节以后不同阶段由何气用事。两者相关而不等同。寅月本气为甲，不意味着入节每一天都只能以甲标司令。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-10",
+      "slug": "bazi-xiaoyun",
+      "name": "小运",
+      "domain": "bazi",
+      "aliases": [
+        "小运",
+        "小運",
+        "八字小运",
+        "大运和小运",
+        "小运和流年"
+      ],
+      "tags": [
+        "八字",
+        "小运",
+        "八字小运",
+        "大运和小运",
+        "小运和流年"
+      ],
+      "subtitle": "传统以大运司十年、小运辅一岁，强调先详八字旺衰喜忌，再参小运与大运、原局的关系。小运不是流年干支，也不是紫微小限，更不能只凭小运一柱压过本命与大运。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "at_target.small_yun / bazi_periods",
+      "path": "references/knowledge/bazi-detail/cards/bazi-xiaoyun.md",
+      "sha256": "8940c388c30e943ceb27286378e4ef50a9dc4a0a5b09e91683f46ac93f29b2b1",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·论小运",
+      "locator": "卷二·论小运",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·论小运",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·论小运",
+          "locator": "卷二·论小运",
+          "checked_claim": "传统以大运司十年、小运辅一岁，强调先详八字旺衰喜忌，再参小运与大运、原局的关系。小运不是流年干支，也不是紫微小限，更不能只凭小运一柱压过本命与大运。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-11",
+      "slug": "bazi-tianyi",
+      "name": "天乙贵人",
+      "domain": "bazi",
+      "aliases": [
+        "天乙贵人",
+        "天乙貴人",
+        "天乙"
+      ],
+      "tags": [
+        "八字",
+        "天乙贵人",
+        "天乙貴人"
+      ],
+      "subtitle": "传统把天乙列为贵人之神，常用于助力、提携、遇事有转圜的取象。其作用仍受命局气势、官印财食及刑冲关系影响，不能仅凭一个名字就指定现实中某人为必来相助的贵人。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-TIANYI",
+      "path": "references/knowledge/bazi-detail/cards/bazi-tianyi.md",
+      "sha256": "d07d6dd0340cb3358d8b4cfea69179ec6acdb050a6118c711d6bc107969a8907",
+      "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "命理探源",
+      "chapter": "卷三·天乙贵人",
+      "locator": "卷三·天乙贵人",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《命理探源》卷三·天乙贵人",
+          "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+          "book": "命理探源",
+          "chapter": "卷三·天乙贵人",
+          "locator": "卷三·天乙贵人",
+          "checked_claim": "传统把天乙列为贵人之神，常用于助力、提携、遇事有转圜的取象。其作用仍受命局气势、官印财食及刑冲关系影响，不能仅凭一个名字就指定现实中某人为必来相助的贵人。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        },
+        {
+          "title": "《三命通会》卷三·论天乙贵人",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "《三命通会》卷三·论天乙贵人",
+          "chapter": "《三命通会》卷三·论天乙贵人",
+          "locator": "《三命通会》卷三·论天乙贵人",
+          "checked_claim": "当前算法或异文对照入口；采用范围见正文",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-12",
+      "slug": "bazi-taiji",
+      "name": "太极贵人",
+      "domain": "bazi",
+      "aliases": [
+        "太极贵人",
+        "太極貴人",
+        "太极贵",
+        "太極貴"
+      ],
+      "tags": [
+        "八字",
+        "太极贵人",
+        "太極貴人",
+        "太极贵",
+        "太極貴"
+      ],
+      "subtitle": "原文从造化之始与物有所归解释太极，重在始终相保，并讨论相应干支、入格及其他福贵相扶。后来的玄理、研究兴趣等说法属于延伸取象，不能倒署成原文已给出的统一性格公式。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-TAIJI",
+      "path": "references/knowledge/bazi-detail/cards/bazi-taiji.md",
+      "sha256": "5f7b67d699e99921013c61a2d1b17688f7729e10c37a57d61250b295c8b563f0",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷三·论太极贵",
+      "locator": "卷三·论太极贵",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷三·论太极贵",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "三命通会",
+          "chapter": "卷三·论太极贵",
+          "locator": "卷三·论太极贵",
+          "checked_claim": "原文从造化之始与物有所归解释太极，重在始终相保，并讨论相应干支、入格及其他福贵相扶。后来的玄理、研究兴趣等说法属于延伸取象，不能倒署成原文已给出的统一性格公式。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-13",
+      "slug": "bazi-wenchang",
+      "name": "八字文昌贵人",
+      "domain": "bazi",
+      "aliases": [
+        "八字文昌贵人",
+        "文昌贵人",
+        "文昌貴人",
+        "文昌"
+      ],
+      "tags": [
+        "八字",
+        "八字文昌贵人",
+        "文昌贵人",
+        "文昌貴人"
+      ],
+      "subtitle": "八字文昌贵人的传统主题是学业、文字、名誉与理解表达。原文从食神临官或长生之处解释其查法。这是八字神煞，不是紫微斗数安出的文昌星；两个系统出现同名，不能共用落宫或四化结论。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-WENCHANG",
+      "path": "references/knowledge/bazi-detail/cards/bazi-wenchang.md",
+      "sha256": "209b38cf47b3f523f0e53e7a0c0eeca6a9325a1482d1e412e79e54a983f26a7b",
+      "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "命理探源",
+      "chapter": "卷三·文昌",
+      "locator": "卷三·文昌",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《命理探源》卷三·文昌",
+          "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+          "book": "命理探源",
+          "chapter": "卷三·文昌",
+          "locator": "卷三·文昌",
+          "checked_claim": "八字文昌贵人的传统主题是学业、文字、名誉与理解表达。原文从食神临官或长生之处解释其查法。这是八字神煞，不是紫微斗数安出的文昌星；两个系统出现同名，不能共用落宫或四化结论。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-14",
+      "slug": "bazi-fuxing",
+      "name": "福星贵人",
+      "domain": "bazi",
+      "aliases": [
+        "福星贵人",
+        "福星貴人",
+        "福星"
+      ],
+      "tags": [
+        "八字",
+        "福星贵人",
+        "福星貴人"
+      ],
+      "subtitle": "福星贵人的传统取象偏福气、衣禄与安享，不直接等于官位或现实财富。歌诀各本有异文，后世也有按食神、日时干支完整配合解释的严查法，不能把单支查表与严格组合混作一个命格。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-FUXING",
+      "path": "references/knowledge/bazi-detail/cards/bazi-fuxing.md",
+      "sha256": "74834f1233a2974c1d5e47aecb8a7618c1d47ca1141bb504360b3ad68b96c25f",
+      "url": "https://lifeklines.com/library/bazi/yuan-hai-zi-ping/032/",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "渊海子平",
+      "chapter": "卷一·论福星贵人；另本异文对照",
+      "locator": "卷一·论福星贵人；另本异文对照",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《渊海子平》卷一·论福星贵人",
+          "url": "https://lifeklines.com/library/bazi/yuan-hai-zi-ping/032/",
+          "book": "渊海子平",
+          "chapter": "卷一·论福星贵人；另本异文对照",
+          "locator": "卷一·论福星贵人；另本异文对照",
+          "checked_claim": "福星贵人的传统取象偏福气、衣禄与安享，不直接等于官位或现实财富。歌诀各本有异文，后世也有按食神、日时干支完整配合解释的严查法，不能把单支查表与严格组合混作一个命格。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        },
+        {
+          "title": "《刻京台增补渊海子平大全》卷一",
+          "url": "https://www.shidianguji.com/book/NGJ8922642210287/chapter/1lnh0qifvq0j2",
+          "book": "《刻京台增补渊海子平大全》卷一",
+          "chapter": "《刻京台增补渊海子平大全》卷一",
+          "locator": "《刻京台增补渊海子平大全》卷一",
+          "checked_claim": "当前算法或异文对照入口；采用范围见正文",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-15",
+      "slug": "bazi-lushen",
+      "name": "禄神",
+      "domain": "bazi",
+      "aliases": [
+        "禄神",
+        "祿神",
+        "十干禄",
+        "十干祿",
+        "日禄"
+      ],
+      "tags": [
+        "八字",
+        "禄神",
+        "十干禄",
+        "十干祿"
+      ],
+      "subtitle": "禄神的基础是十干在地支的禄位，如甲禄寅、乙禄卯、庚禄申、辛禄酉。传统多联系承载、资源、衣禄与立身，但原文也分禄的种类、得气及喜忌，并不是见禄即富。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-LUSHEN",
+      "path": "references/knowledge/bazi-detail/cards/bazi-lushen.md",
+      "sha256": "873c4ab6b12e10d37496ee3324c50002ff1b6c1f1115a107f0a660ebd457fb35",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷三·论十干禄",
+      "locator": "卷三·论十干禄",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷三·论十干禄",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "三命通会",
+          "chapter": "卷三·论十干禄",
+          "locator": "卷三·论十干禄",
+          "checked_claim": "禄神的基础是十干在地支的禄位，如甲禄寅、乙禄卯、庚禄申、辛禄酉。传统多联系承载、资源、衣禄与立身，但原文也分禄的种类、得气及喜忌，并不是见禄即富。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-16",
+      "slug": "bazi-yuede",
+      "name": "月德贵人",
+      "domain": "bazi",
+      "aliases": [
+        "月德贵人",
+        "月德貴人",
+        "月德"
+      ],
+      "tags": [
+        "八字",
+        "月德贵人",
+        "月德貴人"
+      ],
+      "subtitle": "月德按生月所属三合之气取相应阳干：寅午戌丙、申子辰壬、亥卯未甲、巳酉丑庚。传统取仁厚、和解、扶化与转圜之意，仍需全局得力，不能按名保证逢凶化吉。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-YUEDE",
+      "path": "references/knowledge/bazi-detail/cards/bazi-yuede.md",
+      "sha256": "85ae094de8b09679a00f77714447f3e31c9f6a425e627e5cb2b65ff282337b1d",
+      "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "命理探源",
+      "chapter": "卷三·月德",
+      "locator": "卷三·月德",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《命理探源》卷三·月德",
+          "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+          "book": "命理探源",
+          "chapter": "卷三·月德",
+          "locator": "卷三·月德",
+          "checked_claim": "月德按生月所属三合之气取相应阳干：寅午戌丙、申子辰壬、亥卯未甲、巳酉丑庚。传统取仁厚、和解、扶化与转圜之意，仍需全局得力，不能按名保证逢凶化吉。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        },
+        {
+          "title": "《三命通会》卷三·论天月德",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "《三命通会》卷三·论天月德",
+          "chapter": "《三命通会》卷三·论天月德",
+          "locator": "《三命通会》卷三·论天月德",
+          "checked_claim": "当前算法或异文对照入口；采用范围见正文",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-17",
+      "slug": "bazi-tiande",
+      "name": "天德贵人",
+      "domain": "bazi",
+      "aliases": [
+        "天德贵人",
+        "天德貴人",
+        "天德"
+      ],
+      "tags": [
+        "八字",
+        "天德贵人",
+        "天德貴人"
+      ],
+      "subtitle": "传统把天德与月德并论，取仁和、扶助、化解的辅助意象。天德口诀按月份查干或卦位，不是固定以日干对十二支的一张表。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-TIANDE",
+      "path": "references/knowledge/bazi-detail/cards/bazi-tiande.md",
+      "sha256": "65eb802157ca648008fa7be0df806048feab88252da5f2c573fa296511c2c146",
+      "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "命理探源",
+      "chapter": "卷三·天德",
+      "locator": "卷三·天德",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《命理探源》卷三·天德",
+          "url": "https://libokang.com/zh-hant/classics/bazi/命理探源/",
+          "book": "命理探源",
+          "chapter": "卷三·天德",
+          "locator": "卷三·天德",
+          "checked_claim": "传统把天德与月德并论，取仁和、扶助、化解的辅助意象。天德口诀按月份查干或卦位，不是固定以日干对十二支的一张表。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-18",
+      "slug": "bazi-dexiu",
+      "name": "德秀贵人",
+      "domain": "bazi",
+      "aliases": [
+        "德秀贵人",
+        "德秀貴人",
+        "德秀",
+        "德秀成格"
+      ],
+      "tags": [
+        "八字",
+        "德秀贵人",
+        "德秀貴人",
+        "德秀成格"
+      ],
+      "subtitle": "德秀分“本月生旺之德”与“中和清秀之气”。传统相关描述偏温厚、清秀、聪明与文雅，同时强调破冲克压、学堂财官等配合；不是一个字命中就完成全部格局条件。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-DEXIU",
+      "path": "references/knowledge/bazi-detail/cards/bazi-dexiu.md",
+      "sha256": "b78fcab67314955d08ada677b52ed9017dbd1058d7bbe2cefb84e964d07144be",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷三·论德秀",
+      "locator": "卷三·论德秀",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷三·论德秀",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "三命通会",
+          "chapter": "卷三·论德秀",
+          "locator": "卷三·论德秀",
+          "checked_claim": "德秀分“本月生旺之德”与“中和清秀之气”。传统相关描述偏温厚、清秀、聪明与文雅，同时强调破冲克压、学堂财官等配合；不是一个字命中就完成全部格局条件。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-19",
+      "slug": "bazi-taohua",
+      "name": "八字桃花与咸池",
+      "domain": "bazi",
+      "aliases": [
+        "八字桃花与咸池",
+        "咸池",
+        "八字桃花",
+        "咸池桃花",
+        "桃花神煞"
+      ],
+      "tags": [
+        "八字",
+        "八字桃花与咸池",
+        "八字桃花",
+        "咸池桃花",
+        "桃花神煞"
+      ],
+      "subtitle": "咸池又称桃花，按年支或日支所属三合组查相应桃花支。传统说法常涉及吸引、交往与情欲意象；现代交流可将其作为受关注、社交吸引和情感接触的辅助线索，不沿用古书对人格贞节的贬损。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-TAOHUA",
+      "path": "references/knowledge/bazi-detail/cards/bazi-taohua.md",
+      "sha256": "dc24de729b2c26047d2cfa9224596ce0265790135dc080ab25bbcfa7587c6348",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·论咸池",
+      "locator": "卷二·论咸池",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·论咸池",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·论咸池",
+          "locator": "卷二·论咸池",
+          "checked_claim": "咸池又称桃花，按年支或日支所属三合组查相应桃花支。传统说法常涉及吸引、交往与情欲意象；现代交流可将其作为受关注、社交吸引和情感接触的辅助线索，不沿用古书对人格贞节的贬损。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-20",
+      "slug": "bazi-yima",
+      "name": "驿马",
+      "domain": "bazi",
+      "aliases": [
+        "驿马",
+        "驛馬",
+        "驿马星",
+        "驛馬星"
+      ],
+      "tags": [
+        "八字",
+        "驿马",
+        "驿马星",
+        "驛馬星"
+      ],
+      "subtitle": "驿马按三合组查寅申巳亥的相应位置。传统有奔走、变动、禄马配合等讨论，现代取象常用出行、工作地点变化、行动节奏与跨地域联系。具体落在哪种事上，要看所问主题和原局十神。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-YIMA",
+      "path": "references/knowledge/bazi-detail/cards/bazi-yima.md",
+      "sha256": "c2a6bdd9dcd5ec4c7998db4d98a959cdf5fc928959bbaddce83d5b4216977117",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷三·论驿马",
+      "locator": "卷三·论驿马",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷三·论驿马",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "三命通会",
+          "chapter": "卷三·论驿马",
+          "locator": "卷三·论驿马",
+          "checked_claim": "驿马按三合组查寅申巳亥的相应位置。传统有奔走、变动、禄马配合等讨论，现代取象常用出行、工作地点变化、行动节奏与跨地域联系。具体落在哪种事上，要看所问主题和原局十神。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-21",
+      "slug": "bazi-huagai",
+      "name": "华盖",
+      "domain": "bazi",
+      "aliases": [
+        "华盖",
+        "華蓋",
+        "华盖星",
+        "華蓋星"
+      ],
+      "tags": [
+        "八字",
+        "华盖",
+        "华盖星",
+        "華蓋星"
+      ],
+      "subtitle": "华盖取三合之墓库支，如寅午戌见戌、申子辰见辰。古籍围绕盖覆、归藏、艺业与孤高讨论，后世常延伸到独处、审美、专门研究及宗教兴趣等意象。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-HUAGAI",
+      "path": "references/knowledge/bazi-detail/cards/bazi-huagai.md",
+      "sha256": "568f517f7e99b0805b9fc394d9a248b44193d5ed30496059a3cdb5195f851ce7",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·论将星华盖",
+      "locator": "卷二·论将星华盖",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·论将星华盖",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·论将星华盖",
+          "locator": "卷二·论将星华盖",
+          "checked_claim": "华盖取三合之墓库支，如寅午戌见戌、申子辰见辰。古籍围绕盖覆、归藏、艺业与孤高讨论，后世常延伸到独处、审美、专门研究及宗教兴趣等意象。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-22",
+      "slug": "bazi-jiangxing",
+      "name": "将星",
+      "domain": "bazi",
+      "aliases": [
+        "将星",
+        "將星",
+        "八字将星"
+      ],
+      "tags": [
+        "八字",
+        "将星",
+        "八字将星"
+      ],
+      "subtitle": "将星取三合中位的旺支，如寅午戌见午、巳酉丑见酉。传统以大将驻中军作比喻，常联系主事、权柄、承担与组织能力，同时仍看格局气势和财官配合。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-JIANGXING",
+      "path": "references/knowledge/bazi-detail/cards/bazi-jiangxing.md",
+      "sha256": "6616ea5715e9ff626f161398b2a552b547a108b828d9d7c7ff44af93fa1f8dd1",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷二·论将星华盖",
+      "locator": "卷二·论将星华盖",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷二·论将星华盖",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷二",
+          "book": "三命通会",
+          "chapter": "卷二·论将星华盖",
+          "locator": "卷二·论将星华盖",
+          "checked_claim": "将星取三合中位的旺支，如寅午戌见午、巳酉丑见酉。传统以大将驻中军作比喻，常联系主事、权柄、承担与组织能力，同时仍看格局气势和财官配合。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-23",
+      "slug": "bazi-jiesha",
+      "name": "劫煞",
+      "domain": "bazi",
+      "aliases": [
+        "劫煞",
+        "劫杀",
+        "劫殺",
+        "八字劫煞"
+      ],
+      "tags": [
+        "八字",
+        "劫煞",
+        "八字劫煞"
+      ],
+      "subtitle": "古书以“自外夺之”解释劫，按三合组在绝处取劫煞。相关断语很重，但同一章也讨论与官贵、生旺等配合后的不同结果，不能把名字直接当成灾难预告。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-JIESHA",
+      "path": "references/knowledge/bazi-detail/cards/bazi-jiesha.md",
+      "sha256": "a3eff848d71a39a90df8276e712304a59d22b46efeab6c78d7f2f8f8107f462c",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷三·论劫煞亡神",
+      "locator": "卷三·论劫煞亡神",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷三·论劫煞亡神",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "三命通会",
+          "chapter": "卷三·论劫煞亡神",
+          "locator": "卷三·论劫煞亡神",
+          "checked_claim": "古书以“自外夺之”解释劫，按三合组在绝处取劫煞。相关断语很重，但同一章也讨论与官贵、生旺等配合后的不同结果，不能把名字直接当成灾难预告。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "BZD-24",
+      "slug": "bazi-wangshen",
+      "name": "亡神",
+      "domain": "bazi",
+      "aliases": [
+        "亡神",
+        "八字亡神",
+        "亡神和劫煞"
+      ],
+      "tags": [
+        "八字",
+        "亡神",
+        "八字亡神",
+        "亡神和劫煞"
+      ],
+      "subtitle": "古书以“自内失之”解释亡，按三合组在临官处取亡神，讨论与生旺、贵人、天地合等配合的差异。它不是“死神”，也不是个人身边有鬼神的认定。",
+      "kind": "project_concept_reference",
+      "evidence_scope": "classical_concept_summary",
+      "program_supported": true,
+      "program_support_scope": "deterministic_fields_only_not_automatic_interpretation",
+      "program_field": "shensha",
+      "rule_id": "SS-WANGSHEN",
+      "path": "references/knowledge/bazi-detail/cards/bazi-wangshen.md",
+      "sha256": "cc8ac6f3fff97639729a4a00318de87c0527bdb819e7d0fc5c9768e3d1fd4900",
+      "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+      "publisher": "古籍电子转录与官方算法说明；本项目原创释义",
+      "book": "三命通会",
+      "chapter": "卷三·论劫煞亡神",
+      "locator": "卷三·论劫煞亡神",
+      "access_method": "web_primary_text_transcription",
+      "accessed_on": "2026-10-21",
+      "copyright_note": "原创摘要与字段说明；不复制现代译注、完整古籍或影像",
+      "inference_limits": [
+        "解释和取象不是自动成格判定",
+        "不同版本与实现口径按卡内说明分别采用"
+      ],
+      "source_references": [
+        {
+          "title": "《三命通会》卷三·论劫煞亡神",
+          "url": "https://zh.wikisource.org/wiki/三命通會/卷三",
+          "book": "三命通会",
+          "chapter": "卷三·论劫煞亡神",
+          "locator": "卷三·论劫煞亡神",
+          "checked_claim": "古书以“自内失之”解释亡，按三合组在临官处取亡神，讨论与生旺、贵人、天地合等配合的差异。它不是“死神”，也不是个人身边有鬼神的认定。",
+          "access_method": "web_primary_text_transcription",
+          "accessed_on": "2026-10-21"
+        }
+      ]
+    }
+  ]
+}

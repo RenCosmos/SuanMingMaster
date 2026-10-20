@@ -94,7 +94,7 @@ function compare(oldRoot,currentRoot=ROOT){
  for(const catalog of require('./native-knowledge.cjs').GROUPS){
   for(const topic of read(path.join(currentRoot,catalog[2])).topics){preserves(require('./style-review.cjs').reviewedLegacy(require('./religion-tone-review.cjs').reviewedLegacy(legacy.lookup({topic:topic.slug}))),knowledge.lookup({topic:topic.slug}));topics++;}
  }
- return {ok:true,baseline,...protection,prior_scripts_byte_identical:priorScripts,native_pages_byte_identical:0,native_pages_reviewed_wording:nativePages,calculation_cases:cases.length+2,context_projections:projections,report_variants:reports,full_knowledge_topics:topics,knowledge_comparison:"strict equality except exact reviewed religion/style wording and corresponding card SHA values",calculation_comparison:'strict equality after removing only absent new year-boundary labels and recomputing nested checksums',report_comparison:'strict equality except exact reviewed year-boundary and product-title labels',legacy_artifacts_reverified:true};
+ return {ok:true,baseline,...protection,prior_scripts_byte_identical:priorScripts,native_pages_byte_identical:0,native_pages_reviewed_wording:nativePages,calculation_cases:cases.length+2,context_projections:projections,report_variants:reports,full_knowledge_topics:topics,knowledge_comparison:"strict equality except exact reviewed religion/style/historical wording and corresponding card SHA values",calculation_comparison:'strict equality after removing only absent new year-boundary labels and recomputing nested checksums',report_comparison:'strict equality except exact reviewed year-boundary and product-title labels',legacy_artifacts_reverified:true};
 }
 function labelledReport(r){
  function update(s){

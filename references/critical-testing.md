@@ -14,7 +14,7 @@
 | AN-SPOUSE-CONTEXT | 合成命例2030比肩年仍有夫妻宫寅午戌；藏干十神和原局已齐全标记；摘要不丢失 | 合成四柱与干支关系表人工核对，未使用用户反馈的生辰 |
 | TC-CANDIDATES | 辰/巳候选盘时柱不同、日柱一致，保留共同与变化项 | 固定时辰边界和对照不变量 |
 | REL-SINGLE-AGE | 本人单盘可执行年龄取象，不输出精确年龄差 | 已核对的紫微配对规则及单盘接口约定 |
-| KB-RETRIEVAL | 107主题完整性（93基础、4八字、6六爻、4情感卡）、六爻具体术语及桃花／宗教问题路由、出处身份与小型返回 | 已存来源卡、许可、推断范围及内容摘要校验 |
+| KB-RETRIEVAL | 131主题完整性（93基础、4八字、6六爻、4情感、24细盘卡）、具体术语及跨领域问题路由、出处身份与小型返回 | 已存来源卡、许可、推断范围及内容摘要校验 |
 | SW-LUNAR-DATE | 疏文日期支持真实闰月、拒绝伪造闰月 | 固定历法日期 |
 
 预期值写成固定常量或行为不变量，不从待测程序即时生成。“生成后重算”继续用于结果完整性验证，不能代替这些预期断言。立春秒级用例验证本包采用的lunar-typescript边界；不同历法的边界差异仍按原60秒复核带处理。
@@ -37,9 +37,9 @@ Windows开发环境使用Git sh，可用SUANMING_TEST_SH指定sh.exe绝对路径
 
 - [6tail EightCharTest.py](https://github.com/6tail/lunar-python/blob/master/test/EightCharTest.py)：固定四柱及子时样例。
 - [iztro astro.test.ts](https://github.com/SylarLong/iztro/blob/main/src/__tests__/astro/astro.test.ts)：固定紫微样例，本包依赖2.6.1。
-- [NOAA原始太阳计算函数](https://gml.noaa.gov/grad/solcalc/main.js)：选用已记录的均时差向量，原文件SHA-256为3832956f24724eafacf9e18173b9299b1554d6252bed0784d9c9aca6d9f54856；完整18例和2412条月度向量仍在noaa-solar-fixtures.json，日常不读取。
+- [NOAA原始太阳计算函数](https://gml.noaa.gov/grad/solcalc/main.js)：选用已记录的均时差向量，原文件SHA-256为3832956f24724eafacf9e18173b9299b1554d6252bed0784d9c9aca6d9f54856；完整18例和2412条月度向量仍在源码包references/verification/noaa-solar-fixtures.json，日常不读取。
 - [bopo/najia](https://github.com/bopo/najia)：纳甲、八宫世应参考；混合爻值的本变卦由阴阳翻转规则手工核对。
-- 原 [真太阳时与理论说明](true-solar-time.md) 及 references/verification 的独立寿星历、NOAA和节气查核资料均保留。
+- 原[真太阳时与理论说明](true-solar-time.md)及源码包references/verification的独立寿星历、NOAA和节气查核资料均保留；手机包保留内置固定自检值，不携带三个大型开发JSON。
 
 ## 运行缺陷回归
 

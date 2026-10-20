@@ -16,6 +16,8 @@ bazi.cross_relations及pillar_matrix各有total／offset／items／next_offset�
 
 pair_evidence.page_is_last仅表示到末页；comparison_complete_in_this_response只有从0且本页覆盖全部交叉列表才为true。comparison_previous_pages提示仍需前页，末页空数组不等于关系为空。
 
+一方时辰未知、已有两个独立单人结果时，改用[稳定柱交叉入口](pair-evidence-method.md)的--pair-with，不把时辰对照当成双人合盘；新入口按pair_key合页，独立于本节原comparison。
+
 ## 年度与宫干飞化
 
 brief视图的年度／飞化动作自动带--page annual或--page flying及--base-checksum，按返回argv执行即可，不自行重组。只在--reuse上使用；校验和来自基础context.source_checksum，错盘明确报错且不覆盖现有context。view=evidence_page、view_schema=suanming-evidence-page/v1标明这不是整盘：与同task_id/source_checksum的已读基础context合用。年度页保留实际相交的大运及边界，飞化页保留完整source IDs和游标；不会重发四柱、根气或其他本命字段。基础上下文丢失才用base_context.restore_argv恢复，正常续页不用重复恢复。
@@ -24,6 +26,8 @@ next_actions.required与required_for是用途提示；本次合盘缺失的双�
 
 --years只筛已计算的立春周期；requested_range_computed=false时，按原输入和用户范围调整target_date／annual_count，在新目录补算。年度按实际next_offset和返回limit续读，不用空页断无事。
 
+核对原局与当前大运十神归属才使用[分层十神页](pair-evidence-method.md)的--page ten-gods。显干／藏干和原局／本步运分别列出；它不是年度续页，不带年份或飞化游标。
+
 宫干四化按palace_stem_flying.next_offset及purpose=flying_page的argv续读，必要时--flying-offset N；不是年度offset。只读当前判断涉及的发出／落入／自化证据，保留三方四正与关联宫。next_actions_deferred只暂缓次要导航，游标仍可用。
 
 ## 时辰字段、变体与候选
@@ -31,6 +35,8 @@ next_actions.required与required_for是用途提示；本次合盘缺失的双�
 字段一致性按field_index／status读；--field TC-…展开具体字段，--variant-offset N读该字段变体，--candidate TC-001读取对应候选的有界主题视图。游标以实际next_variant_offset或返回argv为准，不自行固定加3。
 
 stable／varies／single_candidate及coverage限定结论范围；不可算点仍需说明，一致项不覆盖未计算的连续分钟。多个候选不拼成一张不存在的盘，不按数量认定出生概率。
+
+已明确--candidate的brief年度／飞化续页也使用--page annual/flying --base-checksum：校验和绑定外层time_compare，argv保留候选编号，不发另一候选或整张本命。与同候选基础context合看，基础遗失才用包含候选的restore_argv。年度字段的hidden_stems与hidden_ten_gods按下标对应，不能仅凭十神名称猜藏干。
 
 ## 候选批量与疏文
 

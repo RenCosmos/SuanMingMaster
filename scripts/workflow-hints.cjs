@@ -13,6 +13,11 @@ function nextActions(context,peoplePage){
   }
   if(!actions.some(a=>JSON.stringify(a)===JSON.stringify(value)))actions.push(value);
  };
+ if(selection.page==='bazi-detail'||selection.page==='bazi-periods'){
+  const p=reading.bazi_periods;
+  if(selection.page==='bazi-detail'||Number.isInteger(p?.next_offset))add({action:'reuse',purpose:'bazi_periods_page',page:'bazi-periods',base_checksum:context.source_checksum,brief:true,offset:p?.next_offset??0,required:selection.page==='bazi-periods',required_for:selection.page==='bazi-periods'?'所问岁运细盘范围':'需要逐项大运／流年／小运时'});
+  return actions;
+ }
  if(peoplePage?.next_person)add({action:'reuse',person:peoplePage.next_person,focus:context.focus,required:true,required_for:'本次合盘的双方证据'});
  if(reading.comparison_page?.next_offset!==null&&reading.comparison_page?.next_offset!==undefined){
   add({action:'reuse',focus:'relationship',comparison:true,offset:reading.comparison_page.next_offset,person:null,years:null,candidate:null,field:null,required:true,required_for:'本次合盘交叉证据'});
@@ -29,7 +34,7 @@ function nextActions(context,peoplePage){
   if(page.requested_range_computed===false||page.computed_years.total===0){
    add({action:'new_calculation',reason:'annual_range_uncomputed',...who,years:page.requested_years,required,required_for:required?'所问年度未计算':'追问年度时'});
   }else if(page.next_offset!==null){
-   const incremental=(context.view==='brief'||context.view==='evidence_page')&&context.source_schema!=='bazi-ziwei-time-compare/v1';
+   const incremental=(context.view==='brief'||context.view==='evidence_page')&&(context.source_schema!=='bazi-ziwei-time-compare/v1'||selection.candidate);
    add({action:'reuse',purpose:'annual_page',focus:focus??'annual',...who,offset:page.next_offset,...(selection.years?{years:selection.years}:{}),...(incremental?{page:'annual',base_checksum:context.source_checksum,brief:true}:{}),required,required_for:required?'所问年度范围':'追问年度时'});
   }
  }
@@ -42,7 +47,7 @@ function nextActions(context,peoplePage){
  }
  const flights=reading.ziwei?.palace_stem_flying?[{page:reading.ziwei.palace_stem_flying}]:
   (reading.people??reading.reading?.people??[]).filter(p=>p.chart.ziwei?.palace_stem_flying).map(p=>({page:p.chart.ziwei.palace_stem_flying,person:p.person_id}));
- for(const {page,person} of flights)if(!Array.isArray(page)&&Number.isInteger(page.next_offset))add({action:'reuse',purpose:'flying_page',brief:true,...(person&&context.source_schema!=='bazi-ziwei-time-compare/v1'?{person}:{}),flying_offset:page.next_offset,offset:selection.offset,...(context.source_schema!=='bazi-ziwei-time-compare/v1'?{page:'flying',base_checksum:context.source_checksum}:{}),required:selection.page==='flying',required_for:'四化判断涉及缺页时'});
+ for(const {page,person} of flights)if(!Array.isArray(page)&&Number.isInteger(page.next_offset))add({action:'reuse',purpose:'flying_page',brief:true,...(person&&context.source_schema!=='bazi-ziwei-time-compare/v1'?{person}:{}),flying_offset:page.next_offset,offset:selection.offset,...(context.source_schema!=='bazi-ziwei-time-compare/v1'||selection.candidate?{page:'flying',base_checksum:context.source_checksum}:{}),required:selection.page==='flying',required_for:'四化判断涉及缺页时'});
  // At most three suggestions. Existing pagination/selection fields remain authoritative and complete.
  return actions.slice(0,3);
 }

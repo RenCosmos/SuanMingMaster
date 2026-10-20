@@ -53,7 +53,7 @@ sh /skills/bazi-ziwei/scripts/mobile.sh --knowledge --query '具体问题' --lim
 sh /skills/bazi-ziwei/scripts/mobile.sh --knowledge --topic TOPIC-SLUG --chars 1800
 ```
 
-正文next_offset非空时按原topic和返回offset继续；snippet足够就无需全文。书篇身份优先，自动领域只排序，--domain才严格过滤；裸“用神”先分八字/六爻。当前107主题包括原93、4张[八字概念卡](bazi-concepts-index.md)、6张[六爻基础卡](liuyao-concepts-index.md)和4张[情感卡](romance-index.md)，原文未删；繁简术语统一检索，不改正文。
+正文next_offset非空时按原topic和返回offset继续；snippet足够就无需全文。书篇身份优先，自动领域只排序，--domain才严格过滤；裸“用神”先分八字/六爻。当前131主题包括原93、4张[八字概念卡](bazi-concepts-index.md)、6张[六爻基础卡](liuyao-concepts-index.md)、4张[情感卡](romance-index.md)和24张[细盘释义卡](bazi-detail-index.md)。繁简统一检索，原方法保留。
 
 缺Workspace/Node时纯知识可用use_skill读取[35模板](rikkahub-native/templates.md)、[21民俗古籍](rikkahub-native/folklore.md)、[11精选方法](rikkahub-native/curated.md)、[18修行](rikkahub-native/practice.md)、[8宗教](rikkahub-native/spirit.md)及概念索引，回答限于实际已读内容；概览不是全文。制文可按[方法](shuwen-method.md)起草，但不能冒称程序日期校验；排盘不回退到模型猜算。纯宗教来源传统与限制见[宗教索引](spirit-library-index.md)。
 

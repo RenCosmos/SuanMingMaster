@@ -107,5 +107,5 @@ test('every snippet and full reference body remains untrusted after the reviewed
 });
 test('knowledge domain CLI and total preserve all old topics plus four concepts under output budget',()=>{
  const r=cp.spawnSync(process.execPath,[path.join(root,'scripts/knowledge-context.cjs'),'--query','如何判断喜用神','--domain','bazi','--limit','3'],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);assert.equal(JSON.parse(r.stdout).matches[0].slug,'bazi-favorable-god');assert.ok(Buffer.byteLength(r.stdout)<12*1024);
- const k=knowledge.verifyKnowledge();assert.equal(k.total_topics-k.romance_topics,103);assert.equal(k.total_topics-k.romance_topics-k.bazi_concept_topics-k.liuyao_concept_topics,93);assert.equal(k.bazi_concept_topics,4);
+ const k=knowledge.verifyKnowledge();assert.equal(k.total_topics-k.bazi_detail_topics-k.romance_topics,103);assert.equal(k.total_topics-k.bazi_detail_topics-k.romance_topics-k.bazi_concept_topics-k.liuyao_concept_topics,93);assert.equal(k.bazi_concept_topics,4);
 });
